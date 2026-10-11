@@ -1170,32 +1170,42 @@ The handoff says to change nothing in Orgpuls unless the owner asks. These are f
 
 ---
 
-## 9. What milestone 0b carries over (provenance plan)
+## 9. Provenance register
 
-Each copied file will name its origin in a header comment and in this table, with the Orgpuls commit.
-The table becomes a register as files are copied. Nothing is copied yet.
+Every file copied or adapted from Orgpuls names its origin in its first line, with the commit `6f5d441`.
+This register lists them. Milestone 0b copied the files marked *0b*; the others are planned.
 
-| Orgpuls path at `6f5d441` | LeaderPact path | How |
-|---|---|---|
-| `CLAUDE.md` | `CLAUDE.md` | Structure kept, content rewritten (4.1) |
-| `.mcp.json`, `scripts/playwright-mcp.sh`, `scripts/cloud-env-setup.sh` | same | As they are, viewport 1280 |
-| `scripts/cloud-session-start.sh` | same | As it is, and wired as a SessionStart hook |
-| `.github/workflows/ci.yml` | same | Adapted (4.2) |
-| `scripts/qa/{up.sh,test-db.sh,env.mjs,serve.mjs,e2e.mjs}` | same | Adapted |
-| `scripts/audit/wiring.mjs`, `.claude/skills/audit/sql/{security,wiring}.sql` | same | Adapted: LeaderPact tables, k = 4 |
-| `supabase/config.toml` | same | Adapted: no Entra hook, auth settings declared |
-| `next.config.ts` | same | Security headers kept, Norwegian redirects removed |
-| `tsconfig.json`, `vitest.config.ts`, `vercel.json` | same | As they are |
-| `playwright.config.ts`, `qa/visual/shoot.ts` | same | Adapted: en-GB, 1280, 390, 360 |
-| `lib/supabase/{env,server,anon,read,write,skew}.ts` | same | As they are |
-| `lib/supabase/middleware.ts`, `middleware.ts` | same | Adapted: deny by default |
-| `lib/i18n/{icu-rules,dates,client,keyed}.ts`, `scripts/verify/i18n.mjs` | same | Trimmed to one locale |
-| `lib/analytics/scrub.ts` | same | `/j` as the capability prefix |
-| `lib/xlsx.ts` | same | As it is |
-| `components/respond/ChoiceGroup.tsx`, `lib/respond/radiogroup.ts` | `components/lp/…`, `lib/respond/…` | Renamed, if not replaced by Radix RadioGroup |
-| `scripts/verify/{probe,crop}.mjs` | same | As they are, LeaderPact colours |
-| `scripts/verify/{shoot,region-diff,mobile}.mjs` | same | Adapted (4.13) |
-| `supabase/functions/_shared/brevo.ts` (email half) | same | As it is |
+| Orgpuls path at `6f5d441` | LeaderPact path | How | When |
+|---|---|---|---|
+| `CLAUDE.md` | `CLAUDE.md` | Structure kept, content rewritten (4.1) | 0b |
+| `.claude/settings.json` | same | As it is (A1), plus the SessionStart hook | 0b |
+| `.mcp.json`, `scripts/cloud-env-setup.sh`, `scripts/cloud-session-start.sh` | same | As they are | 0b |
+| `scripts/playwright-mcp.sh` | same | Viewport 1280 by 900 | 0b |
+| `.github/workflows/ci.yml` | same | Adapted (4.2): no `paths-ignore`, Realtime kept, service-role grep, Playwright smoke | 0b |
+| `scripts/qa/test-db.sh` | same | Adapted: no design figures, any local database | 0b |
+| `scripts/audit/wiring.mjs` | same | LeaderPact code roots | 0b |
+| `.claude/skills/audit/sql/security.sql` | same | LeaderPact answer tables, k = 4 and 8, `service_role` in S2, exact column list in S7 | 0b |
+| `.claude/skills/audit/sql/wiring.sql` | same | As it is | 0b |
+| `.claude/skills/audit/allowlist.json` | same | Structure only, no entries | 0b |
+| `supabase/config.toml` | same | Adapted: no Entra hook, auth settings declared | 0b |
+| `supabase/migrations/0001_foundation.sql`, `0150_k_floor_three.sql` (pattern) | `supabase/migrations/0001_foundation.sql` | Written fresh, citing the pattern | 0b |
+| `supabase/tests/k_floor_invariants.sql` (harness) | `supabase/tests/foundation_invariants.sql` | The `_inv` harness, new checks | 0b |
+| `next.config.ts` | same | Security headers kept; redirects, analytics origin and template tracing removed; `wss:` for Realtime | 0b |
+| `middleware.ts`, `lib/supabase/middleware.ts` | same | Deny by default, no host gate | 0b |
+| `lib/supabase/{env,server,anon,read,write,skew}.ts` | same | As they are | 0b |
+| `lib/i18n/icu-rules.ts` | same | As it is | 0b |
+| `lib/i18n/{dates,client}.ts`, `lib/i18n/request.ts` | same | English only | 0b |
+| `scripts/verify/i18n.mjs` | same | Rewritten for one locale, with the copy rules | 0b |
+| `tsconfig.json`, `vitest.config.ts`, `vercel.json`, `postcss.config.mjs` | same | As they are (Vitest also runs `.test.tsx`) | 0b |
+| `playwright.config.ts` | same | en-GB, UTC, 1280, 390 and 360 px | 0b |
+| `tests/unit/skew.test.ts`, `tests/unit/helpers.test.ts`, `tests/stubs/server-only.ts` | same | As they are; helpers without the one-organisation rule | 0b |
+| `.gitignore` | same | Trimmed | 0b |
+| `lib/analytics/scrub.ts` | same | `/j` as the capability prefix | planned |
+| `lib/xlsx.ts` | same | As it is | planned |
+| `components/respond/ChoiceGroup.tsx`, `lib/respond/radiogroup.ts` | `components/lp/…`, `lib/respond/…` | If not replaced by Radix RadioGroup | planned |
+| `scripts/verify/{probe,crop}.mjs`, `{shoot,region-diff,mobile}.mjs` | same | Adapted (4.13) | planned |
+| `supabase/functions/_shared/brevo.ts` (email half) | same | As it is | planned |
+| `.claude/skills/audit/SKILL.md`, `journeys.md` | same | The method kept, the journeys rewritten from handoff section 13 | planned |
 
 The SQL is not copied file by file. Each LeaderPact migration is written fresh and cites the Orgpuls
 migration and lines it follows, because Orgpuls's functions were redefined many times

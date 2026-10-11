@@ -1,0 +1,32 @@
+# Supabase CLI configuration: only what differs from the CLI's defaults.
+#
+# The rule from Orgpuls (config.toml @ 6f5d441, D-39, D-42, D-44): if the hosted project needs a
+# setting, this repository must say it, or CI tests a different system from the one people use.
+# Orgpuls learned it when every read in CI failed because `app` was exposed only by a dashboard tick.
+#
+# Hosted project: leaderpact, ref tgxjbshdjwoemsmrtkzw, eu-central-1 (docs/REUSE_EVALUATION.md, A2).
+# Auth settings here are applied to the hosted project by the Management API, not by hand.
+
+project_id = "leaderpact"
+
+[db]
+# the hosted project runs Postgres 17
+major_version = 17
+
+[api]
+# every table lives in `app`, read through RLS and definer functions; PostgREST must expose it
+schemas = ["public", "graphql_public", "app"]
+extra_search_path = ["public", "extensions"]
+
+[auth]
+site_url = "http://127.0.0.1:3000"
+additional_redirect_urls = ["http://127.0.0.1:3000/auth/confirm", "http://localhost:3000/auth/confirm"]
+
+[auth.email]
+# a sign-in link is valid for 15 minutes (handoff section 8)
+otp_expiry = 900
+
+[auth.sessions]
+# a session lasts 30 days on a device (handoff section 8). On hosted Supabase this is a paid-plan
+# setting; the free project relies on the cookie's lifetime until it moves to Pro (A2).
+timebox = "720h"

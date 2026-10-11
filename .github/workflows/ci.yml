@@ -1,0 +1,153 @@
+# Origin: Orgpuls .github/workflows/ci.yml @ 6f5d441 (adapted; see docs/REUSE_EVALUATION.md 4.2).
+#
+# One job (owner, A5): the quick checks first, so a type or lint error fails in a minute; then the
+# database rebuilt from migrations, every SQL suite, the catalogue audit, a build against that database,
+# and the Playwright flows with axe.
+#
+# Unlike Orgpuls there is no `paths-ignore`: a pull request that touches only documentation still gets
+# a run, so a required check can never leave it unmergeable.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: checks, security invariants and screens
+    runs-on: ubuntu-latest
+    env:
+      DB_URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: npm run lint
+      - name: Unit tests
+        run: npm test
+      # ICU syntax, plurals and the copy rules of handoff section 10 (British spelling, no emoji,
+      # sentences under 25 words, one name per thing)
+      - name: Message catalogue
+        run: npm run verify:i18n
+
+      # A pinned release, not `latest`: resolving `latest` asks the GitHub API, whose rate limit has
+      # failed Orgpuls's job before any test ran. Raise it on purpose, with the PostgREST step below.
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 2.118.0
+
+      # PostgREST v16.2 can refuse a fresh token as "JWT issued at future" after the stack has sat idle
+      # (PostgREST/postgrest#5196; Orgpuls D-45). v16.3 reads the clock on every request. When the CLI
+      # pins v16.2 or older, the fixed image is put under the tag the CLI asks for; past v16.2 this
+      # step does nothing and can be deleted.
+      - name: Run PostgREST v16.3 under the tag the CLI pins
+        run: |
+          pin=$(timeout 60 supabase services 2>/dev/null | grep -i postgrest | grep -o -m1 'v[0-9][0-9.]*' || true)
+          echo "the CLI pins PostgREST ${pin:-(unreadable; assuming v16.2)}"
+          pin=${pin:-v16.2}
+          case "$pin" in
+            v16.0|v16.1|v16.2) ;;
+            *) echo "past v16.2: nothing to do, and this step can go"; exit 0 ;;
+          esac
+          fixed=
+          for attempt in 1 2 3; do
+            for candidate in public.ecr.aws/supabase/postgrest:v16.3 postgrest/postgrest:v16.3; do
+              if docker pull -q "$candidate" >/dev/null 2>&1; then fixed=$candidate; break 2; fi
+            done
+            sleep $((attempt * 15))
+          done
+          if [ -z "$fixed" ]; then
+            echo "::warning::could not pull PostgREST v16.3; the flows run on v16.2 and may meet PGRST303"
+            exit 0
+          fi
+          for registry in ghcr.io public.ecr.aws; do
+            docker tag "$fixed" "$registry/supabase/postgrest:$pin"
+          done
+          echo "$fixed is now tagged $pin for the CLI"
+
+      # Public registries have refused pulls with "toomanyrequests"; a failed start is retried with
+      # backoff from Supabase's other registry. Realtime stays on for the live meeting (milestone 14),
+      # and Mailpit for the email-link sign-in flows.
+      - name: Start local Supabase
+        run: |
+          services=storage-api,imgproxy,studio,edge-runtime,logflare,vector,supavisor
+          for attempt in 1 2 3 4; do
+            if [ "$attempt" -gt 1 ]; then
+              export SUPABASE_INTERNAL_IMAGE_REGISTRY=public.ecr.aws
+              echo "start failed; retry $attempt of 4 from $SUPABASE_INTERNAL_IMAGE_REGISTRY"
+              supabase stop --no-backup >/dev/null 2>&1 || true
+              sleep $((attempt * 20))
+            fi
+            supabase start -x "$services" && exit 0
+          done
+          exit 1
+
+      # Every migration applies from scratch, in order, against an empty database.
+      - name: Apply migrations
+        run: supabase db reset
+
+      # Every suite runs, and the step fails at the end, so one red suite hides no other. A glob, so a
+      # suite added later runs the moment it is committed.
+      - name: Security invariants
+        run: |
+          failed=""
+          for suite in supabase/tests/*_invariants.sql; do
+            echo "== $suite"
+            psql "$DB_URL" -v ON_ERROR_STOP=1 -f "$suite" || failed="$failed $suite"
+          done
+          if [ -n "$failed" ]; then echo "failed:$failed"; exit 1; fi
+
+      - name: supabase db lint
+        run: supabase db lint --level warning
+
+      # The catalogue half of /audit: no table without RLS, no readable answer table, no definer without
+      # a search_path, the threshold's bounds, the response set's columns, and no public entry point or
+      # direct client write that allowlist.json has not reviewed.
+      - name: Security audit (catalogue)
+        run: node scripts/audit/wiring.mjs --security-only --db "$DB_URL"
+
+      # The app must hold no service-role key: not in the source, not in what ships to the browser.
+      - name: No service-role key in the app
+        run: |
+          if grep -rnE 'service_role|SERVICE_ROLE|sb_secret_' app lib components middleware.ts 2>/dev/null; then
+            echo "a service-role reference in the app (CLAUDE.md)"; exit 1
+          fi
+
+      - name: Build against the local database
+        run: |
+          eval "$(supabase status -o env)"
+          echo "NEXT_PUBLIC_SUPABASE_URL=$API_URL" >> "$GITHUB_ENV"
+          echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=$ANON_KEY" >> "$GITHUB_ENV"
+          NEXT_PUBLIC_SUPABASE_URL="$API_URL" NEXT_PUBLIC_SUPABASE_ANON_KEY="$ANON_KEY" npx next build
+          if grep -rlE 'service_role|sb_secret_' .next/static 2>/dev/null; then
+            echo "a service-role reference in the browser bundle"; exit 1
+          fi
+
+      # Chromium for the flows, kept between runs instead of downloaded each time
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - run: npx playwright install --with-deps chromium
+
+      - name: Flows, with axe, at 1280, 390 and 360 px
+        run: npx playwright test
+
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

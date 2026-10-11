@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Focus: a 2 px ink outline with 1 px offset on every interactive element (handoff section 4).
+ * The colour tokens arrive in milestone 1; #111111 is --ink.
+ */
+:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 1px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+.skip-link:focus {
+  left: 16px;
+  top: 16px;
+  z-index: 50;
+  background: #ffffff;
+  padding: 8px 12px;
+}

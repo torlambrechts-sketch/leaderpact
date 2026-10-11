@@ -1,0 +1,13 @@
+{
+  "common": {
+    "skipToContent": "Skip to content"
+  },
+  "meta": {
+    "title": "{product}",
+    "description": "{product} helps a leadership team see how it works, then improve it meeting by meeting."
+  },
+  "holding": {
+    "heading": "{product}",
+    "body": "This site is being built. Nothing here is live yet."
+  }
+}

@@ -1,0 +1,37 @@
+# Origin: Orgpuls .gitignore @ 6f5d441, trimmed to what LeaderPact has.
+
+# dependencies
+node_modules/
+
+# env / secrets
+.env
+.env.*
+!.env.example
+
+# next.js
+.next/
+/.next-*/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# vercel
+.vercel
+
+# supabase
+supabase/.temp/
+supabase/.branches/
+
+# claude code local settings: records approved commands verbatim, which can include tokens. Never commit.
+.claude/settings.local.json
+/.claude/worktrees/
+
+# misc
+.DS_Store
+*.log
+
+# test and verification output, regenerated per run
+test-results/
+playwright-report/
+artifacts/
+.playwright-mcp/
