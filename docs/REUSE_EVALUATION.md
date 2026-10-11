@@ -85,7 +85,7 @@ These are built new, with Orgpuls patterns where one fits:
 | # | Answer | Effect |
 |---|---|---|
 | A1 | **Full Orgpuls authority**, including its bypass settings | `CLAUDE.md` carries Orgpuls's build-phase authority, and `.claude/settings.json` is copied as it is. Not the recommended default. The safeguard moves into `CLAUDE.md`: LeaderPact's project ref is the only Supabase project an agent may touch. |
-| A2 | **The agent creates the Supabase project** through the connector, in the owner's **Pro** organisation, eu-central-1 | The connector in the first session reached only a free-plan organisation (`vercel_icfg_TuXKkB6YTdYbFaAe3z5nN3sv`), so no project was created. The owner reconnects the connector to the Pro organisation; a new session then creates `leaderpact`. The safeguard in `CLAUDE.md` still applies: one project ref, no other. |
+| A2 | **Created by the agent: `leaderpact`, ref `tgxjbshdjwoemsmrtkzw`, eu-central-1, on the free plan** (organisation `vercel_icfg_TuXKkB6YTdYbFaAe3z5nN3sv`, the one the connector reaches). Created 11 October 2026; Postgres 17.11, empty, with `pgcrypto` and `supabase_vault`. | Not the default (Pro, own organisation). The owner chose free for the build. Its limits: the project pauses after a week without activity, there is no point-in-time backup, and no server-side session time-box, so the 30-day session rests on the cookie's lifetime until the project moves to Pro. `CLAUDE.md` names `tgxjbshdjwoemsmrtkzw` as the only Supabase project an agent may touch. |
 | A3 | The owner links Vercel, region `fra1` | As recommended |
 | A4 | shadcn/ui hybrid on Tailwind 3.4 | As recommended (section 7) |
 | A5 | One CI job per pull request; heavy flows on `main` and nightly | As recommended |
