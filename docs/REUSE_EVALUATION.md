@@ -9,7 +9,7 @@ the owner has answered section 2.
 | Orgpuls read at | `torlambrechts-sketch/Orgpuls` commit `6f5d441` |
 | Sentral read at | `torlambrechts-sketch/Owntheagenda_Admin` commit `f6a43bd` (attached read-only for this evaluation) |
 | Method | Nine reviewers read the code read-only, one area each, and cited `file:line`. The lead verified the claims that carry a decision. No file in either repository was changed. |
-| Status | The owner answered 17 questions on 11 October (section 2.0). 21 are open. |
+| Status | **All questions answered** by the owner on 11 October 2026 (section 2.0). Milestone 0 is complete. |
 
 Every `file:line` below is at the commit above. Migration numbers are Orgpuls's unless they say otherwise.
 
@@ -85,7 +85,7 @@ These are built new, with Orgpuls patterns where one fits:
 | # | Answer | Effect |
 |---|---|---|
 | A1 | **Full Orgpuls authority**, including its bypass settings | `CLAUDE.md` carries Orgpuls's build-phase authority, and `.claude/settings.json` is copied as it is. Not the recommended default. The safeguard moves into `CLAUDE.md`: LeaderPact's project ref is the only Supabase project an agent may touch. |
-| A2 | **The agent creates the Supabase project** through the connector | Not the default. Before creating it, the organisation and plan are confirmed with the owner, because it costs money. The connector sees one organisation today. |
+| A2 | **The agent creates the Supabase project** through the connector: organisation `vercel_icfg_TuXKkB6YTdYbFaAe3z5nN3sv`, Pro plan, eu-central-1 | Not the default, which was a separate organisation. Orgpuls's own project is not visible in that organisation, but the safeguard in `CLAUDE.md` still applies: one project ref, no other. |
 | A3 | The owner links Vercel, region `fra1` | As recommended |
 | A4 | shadcn/ui hybrid on Tailwind 3.4 | As recommended (section 7) |
 | A5 | One CI job per pull request; heavy flows on `main` and nightly | As recommended |
@@ -102,7 +102,30 @@ These are built new, with Orgpuls patterns where one fits:
 | C7 | The members invited at opening are the denominator | As recommended |
 | C8 | Every diagnostic item is required | As recommended |
 
-Open: C9 to C11, D1 to D8, and E1 to E8 (with D2 asked as three: trial, downgrade and tax).
+| C9 | Answers of a round that ends below 4 are deleted at close | As recommended |
+| C10 | "Never lowered" is absolute, with warnings | As recommended |
+| C11 | Released means the snapshot exists and is shown | As recommended |
+| D1 | Hybrid: plan state and a `PaymentProvider` in LeaderPact, card payments by provider webhook later, invoice payments marked by a new Sentral command `billing.set_status` | As recommended |
+| D2a | **A 14-day Team trial.** When it ends unpaid, the group returns to Free and the Team data is kept 90 days, then deleted unless they subscribe. | Not the default (no trial). Adds a `trial` state to the plan states, `trial_started_at` and `trial_ends_at` to `billing.changed`, and a trial-ending mail. |
+| D2b | On Team to Free, history is deleted after 90 days; the latest scan stays | As recommended |
+| D2c | The payment provider computes tax | As recommended |
+| D3 | The same Brevo account as Orgpuls, with a verified LeaderPact sender domain | As recommended. `MAIL_FROM` and the reply-to address are still to be named: `TODO(owner)` before milestone 4. |
+| D4 | **Google sign-in** beside the email link; no Microsoft | Not the default (neither). Orgpuls's Google path ports: `lib/auth/google.ts` and the Google branch of `oauth.ts` and `app/auth/callback/route.ts`. |
+| D5 | Reminders link to the app; the member signs in by email link | As recommended |
+| D6 | "Download my data" arrives as an emailed one-time link, valid 24 hours | As recommended |
+| D7 | "Delete my results" covers the Leader Profile and its shares | As recommended |
+| D8 | Pilot groups are named by a Sentral command, `modules.pilot` | As recommended |
+| E1 | Sentral is attached with write access at milestone 17 | As recommended |
+| E2 | Sentral is extended with neutral names: one `product-events` receiver, `x-platform-*` headers, a `product` field, one key per product | As recommended |
+| E3 | `member.joined`, `member.left` and a new `member.invited` | As recommended |
+| E4 | `usage.daily` and `orgs.get` are trimmed | As recommended |
+| E5 | No organisation number is sent for now | As recommended |
+| E6 | One organisation per tenant; seats = paid groups; price per interval in USD; revenue per currency | As recommended |
+| E7 | LeaderPact sends its own account mail; support by email only | As recommended |
+| E8 | No erasure command for Sentral | As recommended |
+
+Three answers differ from the recommended defaults beyond A1 and A2: the trial (D2a), Google sign-in
+(D4), and the Supabase organisation (A2). The tables below keep the questions as they were asked.
 
 Each question has a recommended default. "Agree to all defaults except …" is a complete answer. The
 **Blocks** column says which milestone waits for it.
