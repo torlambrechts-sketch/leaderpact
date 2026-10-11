@@ -45,7 +45,8 @@
     --text-2: #55524a;
     --text-3: #46433c;
     --muted: #77736a; /* on white only; on cream use --text-2 */
-    --chip-off-ink: #36342f; /* (B2) */
+    --text-body: #36342f; /* body text in tinted boxes; an off chip's text (B2) */
+    --chip-off-ink: var(--text-body);
     --nav-ink: #2b2a26; /* inactive navigation (B2) */
     --link-hover: #4f33b8; /* (B2) */
     --landing-pill-ink: #4b3a8f; /* (B2) */
@@ -62,7 +63,8 @@
     --danger-border: #f0c9d2;
     --flag: #d08a12; /* border only */
     --flag-bg: #fff9ef;
-    --flag-ink: #7a4e03;
+    --flag-ink: #7a4e03; /* the warning's action */
+    --flag-icon: #a86c05; /* the warning's icon; 4.17:1, an icon beside words (spec section 1) */
     --step-current: #e07049; /* mark only */
 
     /* status and evidence pairs: background, then text */
@@ -116,9 +118,8 @@
     text-wrap: balance;
   }
 
-  a:hover {
-    color: var(--link-hover);
-  }
+  /* The design's global `a:hover` (#4f33b8) never renders there, since the design has no links; it is
+     applied only to inline text links, with the `text-link` utility below. */
 
   /* Focus: a 2 px ink outline with 1 px offset on every interactive element (handoff section 4). */
   :focus-visible {
@@ -133,6 +134,12 @@
     textarea {
       font-size: max(16px, 1em);
     }
+  }
+}
+
+@layer utilities {
+  .text-link:hover {
+    color: var(--link-hover);
   }
 }
 

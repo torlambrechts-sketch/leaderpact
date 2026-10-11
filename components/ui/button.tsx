@@ -1,31 +1,49 @@
-// Origin: shadcn/ui button (MIT), restyled to the design's tokens (handoff section 4).
+// Origin: shadcn/ui button (MIT), restyled to the measured design (docs/design/component-specs.md, button).
 import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/cn'
 
 /**
- * Primary: black, white text, 600. Secondary: white with the strong border. Small: radius 10, 12.5 px,
- * 700. Danger: white, danger text, danger border. Exact sizes: docs/design/component-specs.md, button.
- * `asChild` renders a link styled as a button, so navigation stays a real link (CLAUDE.md, Design).
+ * The design has several button sizes (spec, button), and these are its clusters:
+ *
+ * | size    | radius | padding | font                                   |
+ * |---------|--------|---------|----------------------------------------|
+ * | default | 11     | 10 / 16 | 13.5; primary 700, others 600 (most used) |
+ * | compact | 10     | 9 / 15  | 13.5 / 600                             |
+ * | small   | 10     | 8 / 13  | 12.5 / 700                             |
+ * | xsmall  | 9      | 6 / 12  | 12.5 / 700                             |
+ * | large   | 12     | 12 / 22 | 14 / 600 (secondary 12 / 18)           |
+ *
+ * The handoff's "12 px, 600" is the large size; the owner's B2 answer is to take what the design uses.
+ * Below 768 px every size is at least 44 px high, the touch target of handoff section 13. `asChild`
+ * renders a link styled as a button, so navigation stays a real link.
  */
 export const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-1.5 whitespace-nowrap font-semibold transition-colors disabled:pointer-events-none disabled:opacity-50 [&_svg]:shrink-0',
+  'inline-flex items-center justify-center gap-1.5 whitespace-nowrap transition-colors disabled:pointer-events-none disabled:opacity-[.45] max-md:min-h-[44px] [&_svg]:shrink-0',
   {
     variants: {
       variant: {
-        primary: 'bg-ink text-white hover:bg-[#2a2a2a] hover:text-white',
-        secondary: 'border border-line-strong bg-surface text-ink hover:border-accent-mid hover:text-ink',
+        primary: 'bg-ink text-white hover:text-white',
+        secondary: 'border border-line-strong bg-surface text-ink hover:text-ink',
         danger: 'border border-danger-border bg-surface text-danger hover:text-danger',
-        ghost: 'text-ink hover:bg-surface-soft hover:text-ink',
+        // white on an ink surface: the Upgrade in the sample banner
+        'on-ink': 'bg-surface text-accent-deep hover:text-accent-deep',
       },
       size: {
-        default: 'min-h-[40px] rounded-btn px-[14px] py-[9px] text-[14px]',
-        small: 'min-h-[32px] rounded-btn-sm px-3 py-[7px] text-[12.5px] font-bold',
-        large: 'min-h-[48px] rounded-btn px-[22px] py-3 text-[15px]',
-        icon: 'h-9 w-9 rounded-btn-sm',
+        default: 'rounded-input px-4 py-2.5 text-[13.5px]',
+        compact: 'rounded-btn-sm px-[15px] py-[9px] text-[13.5px] font-semibold',
+        small: 'rounded-btn-sm px-[13px] py-2 text-[12.5px] font-bold',
+        xsmall: 'rounded-r9 px-3 py-1.5 text-[12.5px] font-bold',
+        large: 'rounded-btn px-[22px] py-3 text-[14px] font-semibold',
       },
     },
+    compoundVariants: [
+      { variant: 'primary', size: 'default', className: 'font-bold' },
+      { variant: ['secondary', 'danger'], size: 'default', className: 'font-semibold' },
+      { variant: 'on-ink', size: 'default', className: 'rounded-btn-sm px-4 py-[9px] font-bold' },
+      { variant: 'secondary', size: 'large', className: 'px-[18px]' },
+    ],
     defaultVariants: { variant: 'primary', size: 'default' },
   },
 )

@@ -36,7 +36,7 @@ export function TabsSpecimen({ label, tabs }: { label: string; tabs: { value: st
         </TabsList>
       </div>
       {tabs.map((t) => (
-        <TabsContent key={t.value} value={t.value} className="text-[13.5px] text-text-2">
+        <TabsContent key={t.value} value={t.value} className="text-[13.5px] text-text-2 max-md:text-[15px]">
           {t.body}
         </TabsContent>
       ))}
@@ -48,7 +48,7 @@ export function ToastTrigger({ label, message }: { label: string; message: strin
   return (
     <>
       <Toaster />
-      <Button variant="secondary" size="small" onClick={() => toast(message)}>
+      <Button variant="secondary" size="small" onClick={() => toast.success(message)}>
         {label}
       </Button>
     </>

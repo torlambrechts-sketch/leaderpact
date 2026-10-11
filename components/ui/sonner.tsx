@@ -1,19 +1,19 @@
 'use client'
-// Origin: shadcn/ui sonner (MIT), restyled to the design's toast: ink background, white text, radius 12,
-// 13.5 px at 500, bottom centre. Exact values: docs/design/component-specs.md, toast.
+// Origin: shadcn/ui sonner (MIT), restyled to the design's toast: ink, radius 12, padding 12 by 16, 13.5 px
+// at 500, a check in --accent-mid, bottom centre at 24 px, 3.8 s. Values: docs/design/component-specs.md.
+import { CircleCheck } from 'lucide-react'
 import { Toaster as Sonner, toast } from 'sonner'
+import { toastClass } from '@/components/lp/ToastView'
 
 export function Toaster() {
   return (
     <Sonner
       position="bottom-center"
-      toastOptions={{
-        unstyled: true,
-        classNames: {
-          toast: 'flex items-center gap-2 rounded-btn bg-ink px-4 py-3 text-[13.5px] font-medium text-white shadow-lg',
-          icon: 'text-white',
-        },
-      }}
+      offset={24}
+      duration={3800}
+      visibleToasts={1}
+      icons={{ success: <CircleCheck aria-hidden size="1em" className="text-accent-mid" /> }}
+      toastOptions={{ unstyled: true, classNames: { toast: toastClass } }}
     />
   )
 }

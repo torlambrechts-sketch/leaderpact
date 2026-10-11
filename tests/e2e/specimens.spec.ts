@@ -9,7 +9,7 @@ import { expect, test } from '@playwright/test'
 const SPECIMENS = [
   'topbar', 'nav-item-active', 'nav-item', 'plan-pill', 'hero-block', 'card', 'section-header', 'list-row',
   'button-primary', 'button-secondary', 'button-small', 'button-danger', 'pill', 'tabs', 'option-row-off',
-  'option-row-on', 'progress-bar', 'level-bar', 'count-dots', 'hint-box', 'warning-box', 'sample-banner',
+  'option-row-on', 'progress-bar', 'level-bar', 'level-bar-results', 'count-dots', 'hint-box', 'warning-box', 'sample-banner',
   'evidence-chip-strong', 'evidence-chip-moderate', 'evidence-chip-other', 'standing-label', 'avatar', 'toast',
   'icon-tile',
 ]

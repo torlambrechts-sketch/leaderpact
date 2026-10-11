@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
-import { CalendarCheck, ClipboardList } from 'lucide-react'
+import { Activity, ClipboardList, FileText } from 'lucide-react'
 import { PRODUCT_NAME } from '@/lib/brand'
 import { Avatar } from '@/components/lp/Avatar'
 import { Card } from '@/components/lp/Card'
@@ -12,6 +12,7 @@ import { HintBox } from '@/components/lp/HintBox'
 import { IconTile } from '@/components/lp/IconTile'
 import { LevelBar } from '@/components/lp/LevelBar'
 import { ListRow } from '@/components/lp/ListRow'
+import { QuestionProgress } from '@/components/lp/QuestionProgress'
 import { NavItem } from '@/components/lp/NavItem'
 import { Pill } from '@/components/lp/Pill'
 import { PlanPill } from '@/components/lp/PlanPill'
@@ -20,10 +21,9 @@ import { SectionHeader } from '@/components/lp/SectionHeader'
 import { StandingLabel } from '@/components/lp/StandingLabel'
 import { ToastView } from '@/components/lp/ToastView'
 import { TopBar } from '@/components/lp/TopBar'
-import { WarningBox } from '@/components/lp/WarningBox'
+import { WarningAction, WarningBox } from '@/components/lp/WarningBox'
 import { NAV } from '@/components/lp/nav'
 import { Button } from '@/components/ui/button'
-import { Progress } from '@/components/ui/progress'
 import { OptionsSpecimen, TabsSpecimen, ToastTrigger } from './Interactive'
 
 /**
@@ -33,6 +33,18 @@ import { OptionsSpecimen, TabsSpecimen, ToastTrigger } from './Interactive'
  */
 export const metadata: Metadata = { robots: { index: false, follow: false } }
 
+/**
+ * The Team plan's test price (handoff section 1, Plans), for the sample banner only. Prices are rows from
+ * the plans milestone on; this page has no database, so the sample holds the number and formats it.
+ */
+const SAMPLE_TEAM_PRICE = { amount: 1800, currency: 'USD' } as const
+const price = new Intl.NumberFormat('en-GB', {
+  style: 'currency',
+  currency: SAMPLE_TEAM_PRICE.currency,
+  currencyDisplay: 'narrowSymbol',
+  maximumFractionDigits: 0,
+}).format(SAMPLE_TEAM_PRICE.amount)
+
 export default async function SpecimensPage() {
   if (process.env.VERCEL_ENV === 'production') notFound()
   const t = await getTranslations('specimens')
@@ -40,7 +52,7 @@ export default async function SpecimensPage() {
   const navLabels = {
     home: nav('home'), group: nav('group'), people: nav('people'), assess: nav('assess'), results: nav('results'),
     plan: nav('plan'), meetings: nav('meetings'), me: nav('me'), more: nav('more'), settings: nav('settings'),
-    switchGroup: nav('switchGroup'), groups: nav('groups'), primary: nav('primary'),
+    switchGroup: nav('switchGroup'), groups: nav('groups'), primary: nav('primary'), planAndBilling: nav('planAndBilling'),
   }
   const home = NAV[0]!
   const group = NAV[1]!
@@ -67,7 +79,7 @@ export default async function SpecimensPage() {
             <h1 className="font-display text-section-headline">{t('title')}</h1>
             <Pill tone="ink">{t('sample')}</Pill>
           </div>
-          <p className="max-w-questionnaire text-[14px] text-text-2">{t('intro')}</p>
+          <p className="max-w-questionnaire text-[14px] text-text-2 max-md:text-[15px]">{t('intro')}</p>
         </header>
 
         <Specimen name={t('names.navItem')}>
@@ -85,25 +97,26 @@ export default async function SpecimensPage() {
         </Specimen>
 
         <div data-specimen="hero-block">
-          <HeroBlock date={t('heroDate')} greeting={t('heroGreeting')} status={t('heroStatus')} action={<Button>{t('rowActionAnswer')}</Button>} />
+          <HeroBlock date={t('heroDate')} greeting={t('heroGreeting')} status={t('heroStatus')} />
         </div>
 
         <div className="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
           <div data-specimen="card">
             <Card>
               <div data-specimen="section-header">
-                <SectionHeader title={t('needsYou')} count={2} countLabel={t('needsYouCount', { count: 2 })} meta={t('needsYouMeta')} />
+                <SectionHeader title={t('needsYou')} count={4} countLabel={t('needsYouCount', { count: 4 })} meta={t('needsYouMeta')} />
               </div>
               <ul className="mt-2">
-                <ListRow specimen="list-row" icon={ClipboardList} kind={t('rowKindQuestionnaire')} title={t('rowTitlePulse')} meta={t('rowMetaPulse')} action={<Button size="small">{t('rowActionAnswer')}</Button>} />
-                <ListRow icon={CalendarCheck} kind={t('rowKindAction')} title={t('rowTitleAction')} meta={t('rowMetaAction')} action={<Button size="small">{t('rowActionDone')}</Button>} />
+                <ListRow specimen="list-row" icon={Activity} kind={t('rowKindAssessment')} title={t('rowTitlePulse')} meta={t('rowMetaPulse')} action={<Button size="small">{t('rowActionAnswer')}</Button>} />
+                <ListRow icon={FileText} kind={t('rowKindLeader')} kindTone="moderate" title={t('rowTitleLeader')} meta={t('rowMetaLeader')} action={<Button size="small">{t('rowActionOpen')}</Button>} />
+                <ListRow icon={ClipboardList} kind={t('rowKindAction')} kindTone="other" title={t('rowTitleAction')} meta={t('rowMetaAction')} />
               </ul>
             </Card>
           </div>
 
           <Card>
             <SectionHeader title={t('cardTitle')} />
-            <p className="mt-3 text-[14px] leading-[1.55] text-text-2">{t('cardBody')}</p>
+            <p className="mt-3 text-[14px] leading-[1.55] text-text-2 max-md:text-[15px]">{t('cardBody')}</p>
           </Card>
         </div>
 
@@ -113,15 +126,18 @@ export default async function SpecimensPage() {
             <span data-specimen="button-secondary"><Button variant="secondary">{t('buttonSecondary')}</Button></span>
             <span data-specimen="button-small"><Button size="small">{t('buttonSmall')}</Button></span>
             <span data-specimen="button-danger"><Button variant="danger">{t('buttonDanger')}</Button></span>
+            <Button variant="secondary" size="large">{t('buttonBack')}</Button>
+            <Button size="large">{t('buttonNext')}</Button>
           </div>
         </Specimen>
 
         <Specimen name={t('names.pill')}>
           <div className="flex flex-wrap gap-2">
             <span data-specimen="pill"><Pill tone="accent">{t('pillAccent')}</Pill></span>
+            <Pill tone="plan">{t('pillPlan')}</Pill>
+            <Pill tone="ink">{t('pillInk')}</Pill>
             <Pill tone="ok">{t('pillOk')}</Pill>
             <Pill tone="pending">{t('pillPending')}</Pill>
-            <Pill tone="neutral">{t('pillNeutral')}</Pill>
           </div>
         </Specimen>
 
@@ -140,37 +156,45 @@ export default async function SpecimensPage() {
         </Specimen>
 
         <Specimen name={t('names.progressBar')}>
-          <div data-specimen="progress-bar" className="flex max-w-questionnaire flex-col gap-2">
-            <p className="text-[12.5px] text-text-2">{t('progress', { n: 4, total: 12 })}</p>
-            <Progress value={(4 / 12) * 100} aria-label={t('progress', { n: 4, total: 12 })} />
+          <div data-specimen="progress-bar" className="max-w-questionnaire">
+            <QuestionProgress
+              leaveHref="/"
+              leaveLabel={t('leaveScan')}
+              position={t('position', { n: 1, total: 12 })}
+              value={(1 / 12) * 100}
+              label={t('progressLabel', { n: 1, total: 12 })}
+              prefetch={false}
+            />
           </div>
         </Specimen>
 
         <Specimen name={t('names.levelBar')}>
-          <div className="flex max-w-questionnaire flex-col gap-2">
-            <div className="flex items-center justify-between gap-3">
-              <span className="text-[13px] font-semibold">{t('levelTheme')}</span>
-              <span className="text-[12px] text-muted">{t('researchLabel')}</span>
-            </div>
+          <div className="flex max-w-questionnaire flex-col gap-4">
+            <p className="text-[12px] text-muted">{t('researchLabel')}</p>
             <div data-specimen="level-bar"><LevelBar level={3.9} agreement={t('levelAgreement')} label={t('levelTheme')} /></div>
+            <div data-specimen="level-bar-results"><LevelBar level={3.4} agreement={t('levelAgreementMedium')} label={t('levelThemeResults')} track={8} /></div>
           </div>
         </Specimen>
 
         <Specimen name={t('names.countDots')}>
-          <div data-specimen="count-dots"><CountDots answered={5} total={8} words={t('countWords', { answered: 5, total: 8 })} /></div>
+          <div data-specimen="count-dots" className="max-w-[360px]"><CountDots answered={1} total={8} caption={t('countCaption')} words={t('countWords', { answered: 1, total: 8 })} /></div>
         </Specimen>
 
         <Specimen name={t('names.hintBox')}>
-          <div data-specimen="hint-box"><HintBox>{t('hint')}</HintBox></div>
+          <div className="flex max-w-questionnaire flex-col gap-3">
+            <div data-specimen="hint-box"><HintBox>{t('hint')}</HintBox></div>
+            <HintBox title={t('hintTitle')}>{t('hintBody')}</HintBox>
+          </div>
         </Specimen>
 
         <Specimen name={t('names.warningBox')}>
-          <div data-specimen="warning-box"><WarningBox>{t('warning')}</WarningBox></div>
+          <div data-specimen="warning-box" className="max-w-[420px]"><WarningBox action={<WarningAction>{t('warningAction')}</WarningAction>}>{t('warning')}</WarningBox></div>
         </Specimen>
 
         <div data-specimen="sample-banner">
-          <SampleBanner chip={t('sample')} title={t('bannerTitle')} body={t('bannerBody')} action={<Button variant="secondary" size="small">{t('bannerAction')}</Button>} />
+          <SampleBanner audience="leader" chip={t('sample')} text={t('bannerLeader', { price })} action={<Button variant="on-ink">{t('bannerAction')}</Button>} />
         </div>
+        <SampleBanner audience="member" chip={t('sample')} text={t('bannerMember')} />
 
         <Specimen name={t('names.evidenceChip')}>
           <div className="flex flex-wrap gap-2">
@@ -186,6 +210,8 @@ export default async function SpecimensPage() {
             <StandingLabel standing="watch" label={t('standingWatch')} />
             <StandingLabel standing="priority" label={t('standingPriority')} />
             <StandingLabel standing="views-differ" label={t('standingViewsDiffer')} />
+            <StandingLabel standing="fact" label={t('standingFact')} />
+            <StandingLabel standing="read-with" label={t('standingReadWith')} />
           </div>
         </Specimen>
 

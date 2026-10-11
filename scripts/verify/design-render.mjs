@@ -68,7 +68,7 @@ export const VIEWPORT = { width: 1280, height: 900 }
 export const LAUNCH_ARGS = ['--font-render-hinting=none']
 
 export const ROUTES = [
-  'landing', 'scan', 'personal', 'invite', 'home', 'group', 'people',
+  'landing', 'scan', 'personal', 'invite', 'team', 'home', 'group', 'people',
   'assess', 'results', 'develop', 'meetings', 'live', 'me', 'settings',
 ]
 export const PLANS = ['free', 'team']
@@ -93,7 +93,7 @@ const MIME = {
   '.ttf': 'font/ttf',
   '.otf': 'font/otf',
 }
-const TEMPLATE_PARSE_NOISE = /attribute [\w:-]+: Expected [^"]*"[^"]*\{\{[^"]*\}\}[^"]*"/
+const TEMPLATE_PARSE_NOISE = /attribute [\w:-]+: Expected [^"]*"[^"]*\{\{/
 const CORS = { 'access-control-allow-origin': '*', 'cache-control': 'no-store' }
 
 /** The Chromium every visual check uses: the cloud image's when PLAYWRIGHT_CHROMIUM names it. */
@@ -227,7 +227,8 @@ let fontWarned = false
  * Returns { page, context, errors, blocked, warnings, close }.
  *
  * `state.steps` runs after the settle, for states the store cannot seed (a toast is cleared on load):
- * [{ click: '<playwright selector>' }, { wait: <ms> }]. Toasts clear after 3.8 s, so capture promptly.
+ * [{ click: '<playwright selector>' }, { act: '<prototype action>', args: [] }, { wait: <ms> }] (see
+ * runStep). Toasts clear after 3.8 s, so capture promptly.
  */
 export async function openDesign(browser, state = {}, opts = {}) {
   const { log = (m) => console.error(m), hideProto = true, timeout = 30_000 } = opts

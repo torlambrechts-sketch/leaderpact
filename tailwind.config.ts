@@ -33,6 +33,7 @@ const config: Config = {
         'text-3': v('text-3'),
         muted: v('muted'),
         'chip-off-ink': v('chip-off-ink'),
+        'text-body': v('text-body'),
         'nav-ink': v('nav-ink'),
         'link-hover': v('link-hover'),
         accent: {
@@ -43,7 +44,7 @@ const config: Config = {
           deep: v('accent-deep'),
         },
         danger: { DEFAULT: v('danger'), border: v('danger-border') },
-        flag: { DEFAULT: v('flag'), bg: v('flag-bg'), ink: v('flag-ink') },
+        flag: { DEFAULT: v('flag'), bg: v('flag-bg'), ink: v('flag-ink'), icon: v('flag-icon') },
         'step-current': v('step-current'),
         ok: { bg: v('ok-bg'), ink: v('ok-ink') },
         pending: { bg: v('pending-bg'), ink: v('pending-ink') },
@@ -81,6 +82,8 @@ const config: Config = {
         'landing-headline': ['58px', { lineHeight: '1.03', letterSpacing: '-0.035em', fontWeight: '500' }],
         'section-headline': ['36px', { letterSpacing: '-0.03em', fontWeight: '500' }],
         greeting: ['34px', { letterSpacing: '-0.03em', fontWeight: '500' }],
+        // the app's page title (Group, Results, Plan …): in the design on eight pages, not in the handoff
+        'page-title': ['32px', { letterSpacing: '-0.03em', fontWeight: '500' }],
         'card-headline': ['28px', { letterSpacing: '-0.02em', fontWeight: '500' }],
         'sub-headline': ['22px', { fontWeight: '500' }],
         'big-number': ['40px', { lineHeight: '1', letterSpacing: '-0.03em', fontWeight: '700' }],
