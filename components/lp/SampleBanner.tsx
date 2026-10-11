@@ -38,7 +38,7 @@ export function SampleBanner({
       >
         {chip}
       </span>
-      <p data-part="text" className={cn('min-w-0 text-[14px] max-md:text-[15px]', leader && 'flex-1')}>{text}</p>
+      <p data-part="text" className={cn('min-w-0 text-[14px] max-md:basis-full max-md:text-[15px]', leader && 'flex-1')}>{text}</p>
       {leader && action}
     </section>
   )

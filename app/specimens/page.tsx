@@ -177,7 +177,7 @@ export default async function SpecimensPage() {
         </Specimen>
 
         <Specimen name={t('names.countDots')}>
-          <div data-specimen="count-dots" className="max-w-[360px]"><CountDots answered={1} total={8} caption={t('countCaption')} words={t('countWords', { answered: 1, total: 8 })} /></div>
+          <div data-specimen="count-dots" className="max-w-[440px]"><CountDots answered={1} total={8} caption={t('countCaption')} words={t('countWords', { answered: 1, total: 8 })} /></div>
         </Specimen>
 
         <Specimen name={t('names.hintBox')}>
