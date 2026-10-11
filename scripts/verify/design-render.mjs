@@ -93,6 +93,7 @@ const MIME = {
   '.ttf': 'font/ttf',
   '.otf': 'font/otf',
 }
+const TEMPLATE_PARSE_NOISE = /attribute [\w:-]+: Expected [^"]*"[^"]*\{\{[^"]*\}\}[^"]*"/
 const CORS = { 'access-control-allow-origin': '*', 'cache-control': 'no-store' }
 
 /** The Chromium every visual check uses: the cloud image's when PLAYWRIGHT_CHROMIUM names it. */
@@ -331,27 +332,77 @@ export async function openDesign(browser, state = {}, opts = {}) {
   page.on('request', (r) => isIcon(r) && iconNet.pending++)
   page.on('requestfinished', (r) => isIcon(r) && iconNet.pending--)
   page.on('requestfailed', (r) => isIcon(r) && iconNet.pending--)
+  const noise = []
   page.on('pageerror', (e) => errors.push(`pageerror: ${e.message}`))
   page.on('console', (m) => {
-    if (m.type() === 'error') errors.push(`console: ${m.text()}`)
+    if (m.type() !== 'error') return
+    // the browser parses the raw <x-dc> template before support.js renders it, so an SVG attribute
+    // holding a binding ("{{ g.p }}") is reported once by the HTML parser. That is the design file's
+    // nature, not a failed render; the rendered DOM is checked for leftover {{ separately.
+    if (TEMPLATE_PARSE_NOISE.test(m.text())) noise.push(m.text())
+    else errors.push(`console: ${m.text()}`)
   })
 
   const close = () => context.close().catch(() => {})
   try {
     await page.goto(DESIGN_URL, { waitUntil: 'load' })
     await settle(page, { timeout, hideProto })
-    for (const step of state.steps ?? []) {
-      if (step.click) {
-        await page.locator(step.click).first().click()
-        await page.waitForTimeout(250)
-      }
-      if (step.wait) await page.waitForTimeout(step.wait)
-    }
-    if (state.steps?.length) await settle(page, { timeout, hideProto })
+    for (const step of state.steps ?? []) await runStep(page, step)
+    if (state.steps?.length) await iconsQuiet(page)
   } catch (e) {
     errors.push(`settle: ${e.message.split('\n')[0]}`)
   }
-  return { page, context, errors, blocked, warnings, close, state, seed: seedFor(state) }
+  return { page, context, errors, blocked, warnings, noise, close, state, seed: seedFor(state) }
+}
+
+/**
+ * One step after the settle: { click: '<playwright selector>' } presses the first visible match, the
+ * way a person reaches a state behind a control; { act: '<name>', args: [] } calls the prototype's
+ * own action (window.__lt['lt-proto-p6'].A, proto-core-v5.js L605); { wait: <ms> } pauses.
+ */
+export async function runStep(page, step) {
+  if (step.click) {
+    await page.locator(step.click).locator('visible=true').first().click()
+    await page.waitForTimeout(200)
+  }
+  if (step.act) {
+    await page.evaluate(
+      ([key, name, args]) => {
+        const A = window.__lt?.[key]?.A
+        if (!A || typeof A[name] !== 'function') throw new Error(`the prototype has no action ${name}`)
+        A[name](...args)
+      },
+      [STORE_KEY, step.act, step.args ?? []],
+    )
+    await page.waitForTimeout(200)
+  }
+  if (step.wait) await page.waitForTimeout(step.wait)
+}
+
+/** Waits until no icon request is in flight for 300 ms (at most 10 s), then briefly for the svgs. */
+export async function iconsQuiet(page) {
+  const net = page.__iconNet
+  if (net) {
+    const until = Date.now() + 10_000
+    let quietSince = Date.now()
+    while (Date.now() < until) {
+      if (net.pending > 0) quietSince = Date.now()
+      else if (Date.now() - quietSince >= 300) break
+      await page.waitForTimeout(50)
+    }
+  }
+  await page
+    .waitForFunction(
+      () =>
+        [...document.querySelectorAll('iconify-icon')].every((el) => {
+          const r = el.getBoundingClientRect()
+          if (!r.width && !r.height) return true
+          return !!el.shadowRoot?.querySelector('svg')
+        }),
+      null,
+      { timeout: 2_000 },
+    )
+    .catch(() => {})
 }
 
 /** Waits until the prototype has mounted with the store, the fonts are in and the icons are drawn. */
@@ -393,28 +444,7 @@ export async function settle(page, { timeout = 30_000, hideProto = true } = {}) 
     .catch(() => {})
   await page.evaluate(() => document.fonts.ready)
   // icons come from api.iconify.design: wait for those requests to go quiet, then for the svgs
-  const net = page.__iconNet
-  if (net) {
-    const until = Date.now() + 10_000
-    let quietSince = Date.now()
-    while (Date.now() < until) {
-      if (net.pending > 0) quietSince = Date.now()
-      else if (Date.now() - quietSince >= 300) break
-      await page.waitForTimeout(50)
-    }
-  }
-  await page
-    .waitForFunction(
-      () =>
-        [...document.querySelectorAll('iconify-icon')].every((el) => {
-          const r = el.getBoundingClientRect()
-          if (!r.width && !r.height) return true
-          return !!el.shadowRoot?.querySelector('svg')
-        }),
-      null,
-      { timeout: 2_000 },
-    )
-    .catch(() => {})
+  await iconsQuiet(page)
   await page.evaluate(() => window.scrollTo(0, 0))
   await page.mouse.move(0, 0)
   await page.waitForTimeout(250)
