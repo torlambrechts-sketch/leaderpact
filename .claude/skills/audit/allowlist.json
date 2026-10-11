@@ -1,0 +1,12 @@
+{
+  "_comment": "Reviewed exceptions for scripts/audit/wiring.mjs. Each entry names its reason. Origin: Orgpuls allowlist.json @ 6f5d441 (structure only; no entries carried over).",
+  "anon_executes": {
+    "app.k_floor()": "the threshold's floor; not secret, a screen shows the range (0001)",
+    "app.k_max()": "the threshold's ceiling; not secret, a screen shows the range (0001)"
+  },
+  "client_writes": {},
+  "unread_columns": {},
+  "uncalled_rpcs": {},
+  "settings_tables": [],
+  "app_only_settings": {}
+}
