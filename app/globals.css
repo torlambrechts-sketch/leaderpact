@@ -1,14 +1,146 @@
+@import './fonts.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /*
- * Focus: a 2 px ink outline with 1 px offset on every interactive element (handoff section 4).
- * The colour tokens arrive in milestone 1; #111111 is --ink.
+ * Design tokens (handoff section 4), transcribed from the design, not chosen. Every hex here appears in
+ * design/reference/LeaderPact App - Cream v2.dc.html; docs/design/component-specs.md gives each one's
+ * measured role and line. The owner's B2 answer adds the colours the design uses that the handoff's
+ * table left out.
+ *
+ * Contrast fixes (handoff section 4), which the components apply:
+ *   --muted on --bg, --bar or --hero fails 4.5:1: small text there uses --text-2.
+ *   No text on --accent-strong. --flag and --step-current are borders and marks, never text.
+ *
+ * The shadcn/ui semantic names at the end map onto these, so a primitive from shadcn reads the same
+ * palette. Note the trap: the handoff's --muted is a TEXT colour; shadcn's --muted is a background and
+ * --muted-foreground its text. The handoff colour maps to --muted-foreground.
  */
-:focus-visible {
-  outline: 2px solid #111111;
-  outline-offset: 1px;
+@layer base {
+  :root {
+    /* surfaces */
+    --bg: #f1ede6;
+    --bg-veil: rgba(241, 237, 230, 0.92); /* the top bar: page colour at 92% */
+    --surface: #ffffff;
+    --surface-sunk: #f8f5ef;
+    --surface-soft: #f5f1ea;
+    --bar: #e4ddd2;
+    --hero: #e4d9c9;
+    --track: #ece6dc;
+    --divider: #f0ebe2;
+    --rule-soft: #efe9df; /* SAMPLE chip, rules (B2) */
+    --rule-softer: #efeae1; /* (B2) */
+
+    /* borders */
+    --border: #e2dbcf;
+    --border-strong: #ddd5c8; /* secondary buttons: what the design uses (B2), not the handoff's #d8d0c2 */
+    --border-quiet: #d8d0c2;
+    --border-card-off: #ebe5da; /* an unselected card (B2) */
+    --border-dashed: #cfc6b6;
+
+    /* text */
+    --ink: #111111;
+    --text-2: #55524a;
+    --text-3: #46433c;
+    --muted: #77736a; /* on white only; on cream use --text-2 */
+    --text-body: #36342f; /* body text in tinted boxes; an off chip's text (B2) */
+    --chip-off-ink: var(--text-body);
+    --nav-ink: #2b2a26; /* inactive navigation (B2) */
+    --link-hover: #4f33b8; /* (B2) */
+    --landing-pill-ink: #4b3a8f; /* (B2) */
+
+    /* accent */
+    --accent: #cccbdc;
+    --accent-strong: #8a87b3; /* bar fills: never text on it */
+    --accent-mid: #b5b3cf;
+    --accent-ink: #3a3950;
+    --accent-deep: #2b2a3d;
+
+    /* signals */
+    --danger: #c0502e;
+    --danger-border: #f0c9d2;
+    --flag: #d08a12; /* border only */
+    --flag-bg: #fff9ef;
+    --flag-ink: #7a4e03; /* the warning's action */
+    --flag-icon: #a86c05; /* the warning's icon; 4.17:1, an icon beside words (spec section 1) */
+    --step-current: #e07049; /* mark only */
+
+    /* status and evidence pairs: background, then text */
+    --ok-bg: #e6f5e9;
+    --ok-ink: #22603a;
+    --pending-bg: #fff1c9;
+    --pending-ink: #6b5208;
+    --evidence-strong-bg: #ebe5fb;
+    --evidence-strong-ink: #2b2a3d;
+    --evidence-moderate-bg: #f6f1e3;
+    --evidence-moderate-ink: #6b5208;
+    --evidence-other-bg: #f1eff5;
+    --evidence-other-ink: #55524a;
+
+    /* shadcn/ui semantic names */
+    --background: var(--bg);
+    --foreground: var(--ink);
+    --card: var(--surface);
+    --card-foreground: var(--ink);
+    --popover: var(--surface);
+    --popover-foreground: var(--ink);
+    --primary: var(--ink);
+    --primary-foreground: #ffffff;
+    --secondary: var(--surface);
+    --secondary-foreground: var(--ink);
+    --muted-foreground: var(--muted);
+    --accent-foreground: var(--accent-ink);
+    --destructive: var(--danger);
+    --input: var(--border);
+    --ring: var(--ink);
+  }
+
+  /*
+   * Tailwind's preflight sets `html { line-height: 1.5 }`. The design sets none, so its text takes the
+   * browser's `normal`. Orgpuls found preflight's value made its header 3 px taller than the design's;
+   * the same fix here: take the design's default and set line-height only where the design does.
+   */
+  html {
+    line-height: normal;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Figtree', system-ui, sans-serif;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  /* The design's global `a:hover` (#4f33b8) never renders there, since the design has no links; it is
+     applied only to inline text links, with the `text-link` utility below. */
+
+  /* Focus: a 2 px ink outline with 1 px offset on every interactive element (handoff section 4). */
+  :focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 1px;
+  }
+
+  /* Phones (handoff section 4): body text at least 15 px, inputs at least 16 px. */
+  @media (max-width: 767px) {
+    input,
+    select,
+    textarea {
+      font-size: max(16px, 1em);
+    }
+  }
+}
+
+@layer utilities {
+  .text-link:hover {
+    color: var(--link-hover);
+  }
 }
 
 .skip-link {
@@ -19,6 +151,6 @@
   left: 16px;
   top: 16px;
   z-index: 50;
-  background: #ffffff;
+  background: var(--surface);
   padding: 8px 12px;
 }

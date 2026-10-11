@@ -40,6 +40,8 @@ export const PUBLIC_PATHS = [
   '/privacy',
   '/data-processing',
   '/robots.txt',
+  // the component specimens (milestone 1), for the side-by-side check; app/specimens refuses production
+  '/specimens',
 ] as const
 
 export const SIGN_IN_PATH = '/sign-in'

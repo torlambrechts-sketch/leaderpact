@@ -1,0 +1,1384 @@
+{
+  "about": [
+    "Design claims for the side-by-side check (scripts/verify/side-by-side.mjs). One entry per component of handoff section 4 'Components to build in /components/lp'.",
+    "design.state is a prototype state (scripts/verify/design-render.mjs): route, plan, role, an optional seed merged into the prototype's store and optional steps. design.locator is a Playwright selector that resolves to exactly one visible element in the design DOM; part locators are relative to it.",
+    "app.locator finds the element on the app's /specimens page ([data-specimen=\"<id>\"] unless stated). A marker on an unstyled wrapper is followed down to the first element that draws something. app locators may be a list: the first that resolves wins, so a data-part or data-specimen can come first and a semantic fallback (a role, a heading, the first child) after it. Part app locators are relative to the app element ([data-part=\"<name>\"] unless stated).",
+    "properties are compared by computed style and gate the run. Group names expand: padding, border, border-top, border-width, border-style, border-color, border-radius, gap. box-width and box-height are the rendered box, for elements whose width is not a computed length (icons).",
+    "expect overrides the design's value where a higher source corrects it (handoff section 4 component spec, a contrast fix, or an owner's answer in REUSE_EVALUATION 2.0); the app is held to expect, the design value is reported beside it.",
+    "excluded lists what is deliberately not compared, each with its reason. Widths of layout containers are never compared: handoff section 11, Whole product, 'A fixed 1280 px layout -> Responsive from 360 px'.",
+    "tolerance is the share of differing pixels the visual sheet calls close enough. It is informational and never fails the run; copy, data and icons differ between the design and the app by design.",
+    "mask lists design regions painted over before the pixel diff because handoff section 11 removes them."
+  ],
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "claims": [
+    {
+      "id": "topbar",
+      "what": "TopBar: the sticky strip across the top (page colour at 92 % with a 10 px blur), holding the --bar pill. data-specimen on the sticky strip; data-part=\"bar\" on the pill.",
+      "design": {
+        "state": {
+          "route": "home",
+          "plan": "team"
+        },
+        "locator": "span[title=\"Plan and billing\"] >> xpath=../.."
+      },
+      "app": {
+        "locator": "[data-specimen=\"topbar\"]"
+      },
+      "properties": [
+        "background-color",
+        "backdrop-filter",
+        "padding-top",
+        "padding-left",
+        "padding-right"
+      ],
+      "excluded": {
+        "position, top": "the specimens page draws the bar in place so it does not cover the specimens; sticky is the shell's behaviour (handoff section 4 TopBar), checked in the app, not here",
+        "padding-bottom": "the design's strip pads 14 px all round; where the space under the bar lives is the shell's rhythm",
+        "width": "handoff section 11 Whole product: fixed 1280 px layout -> responsive; widths are checked by mobile.mjs and a person",
+        "z-index": "stacking is the shell's concern, not the bar's look"
+      },
+      "parts": [
+        {
+          "name": "bar",
+          "design": "xpath=./div[1]",
+          "app": [
+            "[data-part=\"bar\"]",
+            "xpath=./*[1]"
+          ],
+          "properties": [
+            "font-family",
+            "background-color",
+            "border",
+            "border-radius",
+            "padding",
+            "min-height",
+            "column-gap"
+          ],
+          "excluded": {
+            "max-width": "handoff section 11 Whole product (responsive): the 1240 px cap is the page's content width, held by the shell",
+            "the layout and width toggles": "handoff section 11 Whole product: 'A sidebar layout, a width switch and an Appearance tab -> The top bar only'",
+            "the 360 navigation item": "handoff section 11 Whole product: 'A 360 item in the navigation -> Nothing'"
+          }
+        }
+      ],
+      "mask": [
+        "div[title=\"Switch to a vertical menu\"]",
+        "div[title=\"Extend to full width\"]",
+        "span[title=\"Plan and billing\"] >> xpath=../div[2]/div[normalize-space()=\"360\"]"
+      ],
+      "tolerance": 0.25
+    },
+    {
+      "id": "nav-item-active",
+      "what": "NavItem, active (black fill, white text, radius 10). data-specimen on the link; its lucide icon is the svg inside.",
+      "design": {
+        "state": {
+          "route": "home",
+          "plan": "team"
+        },
+        "locator": "span[title=\"Plan and billing\"] >> xpath=../div[2]/div[normalize-space()=\"Home\"]"
+      },
+      "app": {
+        "locator": "[data-specimen=\"nav-item-active\"]"
+      },
+      "properties": [
+        "font-family",
+        "font-size",
+        "font-weight",
+        "letter-spacing",
+        "line-height",
+        "color",
+        "background-color",
+        "border-radius",
+        "padding",
+        "column-gap"
+      ],
+      "parts": [
+        {
+          "name": "icon",
+          "design": "iconify-icon",
+          "app": "svg",
+          "properties": [
+            "box-width",
+            "box-height"
+          ]
+        }
+      ],
+      "excluded": {
+        "cursor": "handoff section 11 Whole product: the design's clickable div becomes a real link"
+      },
+      "tolerance": 0.12
+    },
+    {
+      "id": "nav-item",
+      "what": "NavItem, inactive (no fill, ink #2b2a26). data-specimen on the link.",
+      "design": {
+        "state": {
+          "route": "home",
+          "plan": "team"
+        },
+        "locator": "span[title=\"Plan and billing\"] >> xpath=../div[2]/div[normalize-space()=\"Group\"]"
+      },
+      "app": {
+        "locator": "[data-specimen=\"nav-item\"]"
+      },
+      "properties": [
+        "font-family",
+        "font-size",
+        "font-weight",
+        "letter-spacing",
+        "line-height",
+        "color",
+        "background-color",
+        "border-radius",
+        "padding",
+        "column-gap"
+      ],
+      "parts": [
+        {
+          "name": "icon",
+          "design": "iconify-icon",
+          "app": "svg",
+          "properties": [
+            "box-width",
+            "box-height"
+          ]
+        }
+      ],
+      "excluded": {
+        "cursor": "handoff section 11 Whole product: the design's clickable div becomes a real link"
+      },
+      "tolerance": 0.12
+    },
+    {
+      "id": "plan-pill",
+      "what": "PlanPill in the top bar (--accent fill, --accent-ink text). data-specimen on the link.",
+      "design": {
+        "state": {
+          "route": "home",
+          "plan": "team"
+        },
+        "locator": "span[title=\"Plan and billing\"]"
+      },
+      "app": {
+        "locator": "[data-specimen=\"plan-pill\"]"
+      },
+      "properties": [
+        "font-family",
+        "font-size",
+        "font-weight",
+        "letter-spacing",
+        "line-height",
+        "color",
+        "background-color",
+        "border-radius",
+        "padding"
+      ],
+      "tolerance": 0.12
+    },
+    {
+      "id": "hero-block",
+      "what": "HeroBlock, the Home greeting (--hero fill, radius 20, padding 28 by 32). Parts: date, greeting (the headline), status.",
+      "design": {
+        "state": {
+          "route": "home",
+          "plan": "team"
+        },
+        "locator": "h1:has-text(\"Good morning\") >> xpath=../.."
+      },
+      "app": {
+        "locator": "[data-specimen=\"hero-block\"]"
+      },
+      "properties": [
+        "font-family",
+        "background-color",
+        "border",
+        "border-radius",
+        "padding",
+        "column-gap"
+      ],
+      "parts": [
+        {
+          "name": "date",
+          "design": "xpath=./div[1]/span[1]",
+          "app": [
+            "[data-part=\"date\"]",
+            "xpath=(.//h1|.//h2)[1]/preceding-sibling::*[1]"
+          ],
+          "properties": [
+            "font-size",
+            "font-weight",
+            "color"
+          ],
+          "expect": {
+            "color": {
+              "value": "#55524a",
+              "reason": "contrast fix, handoff section 4: --muted on --hero is 3.4 to 3.5; use --text-2"
+            }
+          }
+        },
+        {
+          "name": "greeting",
+          "design": "h1",
+          "app": [
+            "[data-part=\"greeting\"]",
+            "h1, h2"
+          ],
+          "properties": [
+            "font-family",
+            "font-size",
+            "font-weight",
+            "letter-spacing",
+            "line-height",
+            "color"
+          ]
+        },
+        {
+          "name": "status",
+          "design": "xpath=./div[1]/span[2]",
+          "app": [
+            "[data-part=\"status\"]",
+            "xpath=(.//h1|.//h2)[1]/following-sibling::*[1]"
+          ],
+          "properties": [
+            "font-size",
+            "font-weight",
+            "color"
+          ]
+        }
+      ],
+      "excluded": {
+        "the Assessment schedule button": "handoff section 11 Scan and Home: 'An Assessment schedule button on Home -> No such button in the MVP'",
+        "width": "handoff section 11 Whole product: responsive"
+      },
+      "mask": [
+        "div:text-is(\"Assessment schedule\")"
+      ],
+      "tolerance": 0.2
+    },
+    {
+      "id": "card",
+      "what": "Card (white, white border, radius 18, padding 22 by 24). The Home 'Needs you' card.",
+      "design": {
+        "state": {
+          "route": "home",
+          "plan": "team"
+        },
+        "locator": "span:text-is(\"Needs you\") >> xpath=../.."
+      },
+      "app": {
+        "locator": "[data-specimen=\"card\"]"
+      },
+      "properties": [
+        "font-family",
+        "background-color",
+        "border",
+        "border-radius",
+        "padding",
+        "box-shadow"
+      ],
+      "excluded": {
+        "width, height": "handoff section 11 Whole product: responsive; a card's size is its content's"
+      },
+      "tolerance": 0.3
+    },
+    {
+      "id": "section-header",
+      "what": "SectionHeader at a card's top: title 18 px 700, optional count pill, meta text right. Parts: title, count, meta.",
+      "design": {
+        "state": {
+          "route": "home",
+          "plan": "team"
+        },
+        "locator": "span:text-is(\"Needs you\") >> xpath=.."
+      },
+      "app": {
+        "locator": "[data-specimen=\"section-header\"]"
+      },
+      "properties": [
+        "font-family",
+        "column-gap",
+        "align-items"
+      ],
+      "parts": [
+        {
+          "name": "title",
+          "design": "xpath=./span[1]",
+          "app": [
+            "[data-part=\"title\"]",
+            "h2, h3"
+          ],
+          "properties": [
+            "font-family",
+            "font-size",
+            "font-weight",
+            "letter-spacing",
+            "line-height",
+            "color"
+          ]
+        },
+        {
+          "name": "count",
+          "design": "xpath=./span[2]",
+          "app": [
+            "[data-part=\"count\"]",
+            "xpath=(.//h2|.//h3)[1]/following-sibling::*[1]"
+          ],
+          "properties": [
+            "font-size",
+            "font-weight",
+            "color",
+            "background-color",
+            "border-radius",
+            "padding"
+          ]
+        },
+        {
+          "name": "meta",
+          "design": "xpath=./span[3]",
+          "app": [
+            "[data-part=\"meta\"]",
+            "xpath=./*[last()]"
+          ],
+          "properties": [
+            "font-size",
+            "font-weight",
+            "color"
+          ]
+        }
+      ],
+      "excluded": {
+        "margin-bottom": "the space under the header is the card's rhythm, set by its container in the app"
+      },
+      "tolerance": 0.2
+    },
+    {
+      "id": "list-row",
+      "what": "ListRow from 'Needs you': icon tile, kind chip, title 14 px 700, meta 12 px, action button right, divider above. Parts: kind, title, meta (the tile and the button are their own claims).",
+      "design": {
+        "state": {
+          "route": "home",
+          "plan": "team"
+        },
+        "locator": "span:text-is(\"Answer pulse 6\") >> xpath=ancestor::div[contains(@style,\"border-top\")][1]"
+      },
+      "app": {
+        "locator": "[data-specimen=\"list-row\"]"
+      },
+      "properties": [
+        "font-family",
+        "padding",
+        "border-top",
+        "column-gap",
+        "align-items"
+      ],
+      "parts": [
+        {
+          "name": "kind",
+          "design": "xpath=./div[2]/div[1]/span[1]",
+          "properties": [
+            "font-size",
+            "font-weight",
+            "color",
+            "background-color",
+            "border-radius",
+            "padding"
+          ]
+        },
+        {
+          "name": "title",
+          "design": "xpath=./div[2]/div[1]/span[2]",
+          "properties": [
+            "font-size",
+            "font-weight",
+            "letter-spacing",
+            "color"
+          ]
+        },
+        {
+          "name": "meta",
+          "design": "xpath=./div[2]/span[1]",
+          "properties": [
+            "font-size",
+            "font-weight",
+            "color"
+          ]
+        }
+      ],
+      "excluded": {
+        "width": "handoff section 11 Whole product: responsive"
+      },
+      "tolerance": 0.25
+    },
+    {
+      "id": "button-primary",
+      "what": "Button, primary (black, white text). The Settings 'Save changes' button, the same family as button-secondary and button-danger.",
+      "design": {
+        "state": {
+          "route": "settings",
+          "plan": "team"
+        },
+        "locator": "text=\"Save changes\""
+      },
+      "app": {
+        "locator": "[data-specimen=\"button-primary\"]"
+      },
+      "properties": [
+        "font-family",
+        "font-size",
+        "font-weight",
+        "letter-spacing",
+        "line-height",
+        "color",
+        "background-color",
+        "border-radius",
+        "padding"
+      ],
+      "excluded": {
+        "cursor": "handoff section 11 Whole product: a real button, not a clickable div"
+      },
+      "tolerance": 0.12
+    },
+    {
+      "id": "button-secondary",
+      "what": "Button, secondary (white, #ddd5c8 border per owner answer B2). The Settings 'Sign out everywhere' button.",
+      "design": {
+        "state": {
+          "route": "settings",
+          "plan": "team"
+        },
+        "locator": "text=\"Sign out everywhere\""
+      },
+      "app": {
+        "locator": "[data-specimen=\"button-secondary\"]"
+      },
+      "properties": [
+        "font-family",
+        "font-size",
+        "font-weight",
+        "letter-spacing",
+        "line-height",
+        "color",
+        "background-color",
+        "border",
+        "border-radius",
+        "padding"
+      ],
+      "excluded": {
+        "cursor": "handoff section 11 Whole product: a real button, not a clickable div"
+      },
+      "tolerance": 0.12
+    },
+    {
+      "id": "button-small",
+      "what": "Button, small (radius 10, 12.5 px, 700). The 'Answer now' action of a 'Needs you' row.",
+      "design": {
+        "state": {
+          "route": "home",
+          "plan": "team"
+        },
+        "locator": "span:text-is(\"Answer pulse 6\") >> xpath=ancestor::div[contains(@style,\"border-top\")][1]/div[last()]"
+      },
+      "app": {
+        "locator": "[data-specimen=\"button-small\"]"
+      },
+      "properties": [
+        "font-family",
+        "font-size",
+        "font-weight",
+        "letter-spacing",
+        "line-height",
+        "color",
+        "background-color",
+        "border-radius",
+        "padding"
+      ],
+      "excluded": {
+        "cursor": "handoff section 11 Whole product: a real button, not a clickable div",
+        "min-height on phones": "targets are 44 px below 768 px (handoff section 4 Type; checked by mobile.mjs)"
+      },
+      "tolerance": 0.12
+    },
+    {
+      "id": "button-danger",
+      "what": "Button, danger (white, --danger text, --danger-border). The Settings 'Delete account' button.",
+      "design": {
+        "state": {
+          "route": "settings",
+          "plan": "team"
+        },
+        "locator": "text=\"Delete account\""
+      },
+      "app": {
+        "locator": "[data-specimen=\"button-danger\"]"
+      },
+      "properties": [
+        "font-family",
+        "font-size",
+        "font-weight",
+        "letter-spacing",
+        "line-height",
+        "color",
+        "background-color",
+        "border",
+        "border-radius",
+        "padding"
+      ],
+      "excluded": {
+        "cursor": "handoff section 11 Whole product: a real button, not a clickable div"
+      },
+      "tolerance": 0.12
+    },
+    {
+      "id": "pill",
+      "what": "Pill (11.5 to 12 px, 600, padding 4 by 10, --accent fill). The scan's theme pill.",
+      "design": {
+        "state": {
+          "route": "scan",
+          "plan": "free",
+          "seed": {
+            "scan": {
+              "idx": 1,
+              "answers": [
+                4,
+                3,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ]
+            }
+          }
+        },
+        "locator": "h2 >> xpath=preceding-sibling::span[1]"
+      },
+      "app": {
+        "locator": "[data-specimen=\"pill\"]"
+      },
+      "properties": [
+        "font-family",
+        "font-size",
+        "font-weight",
+        "letter-spacing",
+        "line-height",
+        "color",
+        "background-color",
+        "border-radius",
+        "padding"
+      ],
+      "tolerance": 0.15
+    },
+    {
+      "id": "tabs",
+      "what": "Tabs (Group, Results, Plan, Settings): white strip with a --border-ish border; active tab black with white text, others --text-2 with no fill. Parts are found by ARIA: the selected and an unselected tab.",
+      "design": {
+        "state": {
+          "route": "group",
+          "plan": "team"
+        },
+        "locator": "h1:text-is(\"Group\") >> xpath=../../div[last()]"
+      },
+      "app": {
+        "locator": [
+          ":is([data-specimen=\"tabs\"][role=\"tablist\"], [data-specimen=\"tabs\"] [role=\"tablist\"])",
+          "[data-specimen=\"tabs\"]"
+        ]
+      },
+      "properties": [
+        "background-color",
+        "border",
+        "border-radius",
+        "padding",
+        "column-gap"
+      ],
+      "parts": [
+        {
+          "name": "tab-active",
+          "design": "xpath=./div[1]",
+          "app": "[role=\"tab\"][aria-selected=\"true\"]",
+          "properties": [
+            "font-family",
+            "font-size",
+            "font-weight",
+            "letter-spacing",
+            "line-height",
+            "color",
+            "background-color",
+            "border-radius",
+            "padding"
+          ]
+        },
+        {
+          "name": "tab",
+          "design": "xpath=./div[2]",
+          "app": "[role=\"tab\"][aria-selected=\"false\"]",
+          "properties": [
+            "font-family",
+            "font-size",
+            "font-weight",
+            "letter-spacing",
+            "line-height",
+            "color",
+            "background-color",
+            "border-radius",
+            "padding"
+          ]
+        }
+      ],
+      "tolerance": 0.15
+    },
+    {
+      "id": "option-row-off",
+      "what": "OptionRow, not selected (white, --border, radius 14, border 1.5, min-height 52, a 26 px numbered circle). Part: number, the circle.",
+      "design": {
+        "state": {
+          "route": "scan",
+          "plan": "free",
+          "seed": {
+            "scan": {
+              "idx": 1,
+              "answers": [
+                4,
+                3,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ]
+            }
+          }
+        },
+        "locator": "h2 >> xpath=following-sibling::div[1]/div[span[normalize-space()=\"1\"]]"
+      },
+      "app": {
+        "locator": "[data-specimen=\"option-row-off\"]"
+      },
+      "properties": [
+        "font-family",
+        "font-size",
+        "font-weight",
+        "letter-spacing",
+        "color",
+        "background-color",
+        "border",
+        "border-radius",
+        "padding",
+        "min-height",
+        "column-gap"
+      ],
+      "parts": [
+        {
+          "name": "number",
+          "design": "xpath=./span[1]",
+          "app": [
+            "[data-part=\"number\"]",
+            "xpath=./*[1]"
+          ],
+          "properties": [
+            "width",
+            "height",
+            "font-size",
+            "font-weight",
+            "border",
+            "border-radius"
+          ]
+        }
+      ],
+      "excluded": {
+        "width": "handoff section 4 Layout: questionnaires sit in a centred 640 px column; the row's width is the column's",
+        "cursor": "handoff section 11 Whole product: a labelled radio, not a clickable div"
+      },
+      "tolerance": 0.15
+    },
+    {
+      "id": "option-row-on",
+      "what": "OptionRow, selected (--accent fill, --ink border). Part: number, the circle.",
+      "design": {
+        "state": {
+          "route": "scan",
+          "plan": "free",
+          "seed": {
+            "scan": {
+              "idx": 1,
+              "answers": [
+                4,
+                3,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ]
+            }
+          }
+        },
+        "locator": "h2 >> xpath=following-sibling::div[1]/div[span[normalize-space()=\"3\"]]"
+      },
+      "app": {
+        "locator": "[data-specimen=\"option-row-on\"]"
+      },
+      "properties": [
+        "font-family",
+        "font-size",
+        "font-weight",
+        "letter-spacing",
+        "color",
+        "background-color",
+        "border",
+        "border-radius",
+        "padding",
+        "min-height",
+        "column-gap"
+      ],
+      "parts": [
+        {
+          "name": "number",
+          "design": "xpath=./span[1]",
+          "app": [
+            "[data-part=\"number\"]",
+            "xpath=./*[1]"
+          ],
+          "properties": [
+            "width",
+            "height",
+            "font-size",
+            "font-weight",
+            "border",
+            "border-radius"
+          ]
+        }
+      ],
+      "excluded": {
+        "width": "handoff section 4 Layout: questionnaires sit in a centred 640 px column; the row's width is the column's",
+        "cursor": "handoff section 11 Whole product: a labelled radio, not a clickable div"
+      },
+      "tolerance": 0.15
+    },
+    {
+      "id": "progress-bar",
+      "what": "ProgressBar of a questionnaire: the 6 px track (--border) with the --ink fill as part fill.",
+      "design": {
+        "state": {
+          "route": "scan",
+          "plan": "free",
+          "seed": {
+            "scan": {
+              "idx": 1,
+              "answers": [
+                4,
+                3,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ]
+            }
+          }
+        },
+        "locator": "text=\"Leave the scan\" >> xpath=ancestor::div[1]/following-sibling::div[1]"
+      },
+      "app": {
+        "locator": [
+          ":is([data-specimen=\"progress-bar\"][role=\"progressbar\"], [data-specimen=\"progress-bar\"] [role=\"progressbar\"])",
+          "[data-specimen=\"progress-bar\"]"
+        ]
+      },
+      "properties": [
+        "height",
+        "background-color",
+        "border-radius",
+        "overflow-x"
+      ],
+      "parts": [
+        {
+          "name": "fill",
+          "design": "xpath=./div[1]",
+          "app": [
+            "[data-part=\"fill\"]",
+            "xpath=./*[1]"
+          ],
+          "properties": [
+            "height",
+            "background-color",
+            "border-top-right-radius",
+            "border-bottom-right-radius"
+          ]
+        }
+      ],
+      "excluded": {
+        "fill width": "data, not style: the share answered",
+        "width": "handoff section 4 Layout: the questionnaire column's width"
+      },
+      "tolerance": 0.05
+    },
+    {
+      "id": "level-bar",
+      "what": "LevelBar of a team-view row: the 9 px track (--track) with the --accent-strong fill as part fill, in the row of label, bar, level and agreement. data-specimen on the row; the track is role meter.",
+      "design": {
+        "state": {
+          "route": "team",
+          "plan": "free",
+          "seed": {
+            "scan": {
+              "idx": 11,
+              "answers": [
+                4,
+                3,
+                3,
+                2,
+                4,
+                4,
+                3,
+                4,
+                4,
+                5,
+                3,
+                4
+              ]
+            },
+            "invite": {
+              "answered": 6,
+              "copied": false
+            }
+          }
+        },
+        "locator": "xpath=//div[contains(@style,\"180px 1fr 34px 130px\")][span[normalize-space()=\"Purpose and priorities\"]]/div[1]"
+      },
+      "app": {
+        "locator": [
+          ":is([data-specimen=\"level-bar\"][role=\"meter\"], [data-specimen=\"level-bar\"] [role=\"meter\"])",
+          "[data-specimen=\"level-bar\"] [data-part=\"track\"]",
+          "[data-specimen=\"level-bar\"]"
+        ]
+      },
+      "properties": [
+        "height",
+        "background-color",
+        "border-radius"
+      ],
+      "parts": [
+        {
+          "name": "fill",
+          "design": "xpath=./div[1]",
+          "app": [
+            "[data-part=\"fill\"]",
+            "xpath=./*[1]"
+          ],
+          "properties": [
+            "height",
+            "background-color",
+            "border-radius"
+          ]
+        }
+      ],
+      "excluded": {
+        "fill width": "data, not style: (level - 1) / 4 (handoff section 4 Components, LevelBar)",
+        "the round-1 tick": "not in handoff section 4 LevelBar; a person decides whether the build shows the previous round",
+        "width": "handoff section 11 Whole product: responsive"
+      },
+      "tolerance": 0.2
+    },
+    {
+      "id": "level-bar-results",
+      "what": "LevelBar of a Results row: the 8 px track. The Results table itself is a later milestone; this holds the bar to the design height there (spec section 7, conflict 2).",
+      "design": {
+        "state": {
+          "route": "results",
+          "plan": "team"
+        },
+        "locator": "xpath=//div[contains(@style,\"border-top\")][div/span[normalize-space()=\"Clear purpose\"]]/div[2]"
+      },
+      "app": {
+        "locator": [
+          ":is([data-specimen=\"level-bar-results\"][role=\"meter\"], [data-specimen=\"level-bar-results\"] [role=\"meter\"])",
+          "[data-specimen=\"level-bar-results\"] [data-part=\"track\"]",
+          "[data-specimen=\"level-bar-results\"]"
+        ]
+      },
+      "properties": [
+        "height",
+        "background-color",
+        "border-radius"
+      ],
+      "parts": [
+        {
+          "name": "fill",
+          "design": "xpath=./div[1]",
+          "app": [
+            "[data-part=\"fill\"]",
+            "xpath=./*[1]"
+          ],
+          "properties": [
+            "height",
+            "background-color",
+            "border-radius"
+          ]
+        }
+      ],
+      "excluded": {
+        "fill width": "data, not style: (level - 1) / 4 (handoff section 4 Components, LevelBar)",
+        "the round-1 tick": "not in handoff section 4 LevelBar; a person decides whether the build shows the previous round",
+        "width": "handoff section 11 Whole product: responsive"
+      },
+      "tolerance": 0.2
+    },
+    {
+      "id": "count-dots",
+      "what": "CountDots: 16 px squares, radius 5, on --ink, off --border, beside the count in words. data-specimen on the row of dots; parts dot-on and dot-off.",
+      "design": {
+        "state": {
+          "route": "home",
+          "plan": "free"
+        },
+        "locator": "xpath=//div[div[contains(@style,\"width: 16px; height: 16px; border-radius: 5px\")]]"
+      },
+      "app": {
+        "locator": [
+          "[data-specimen=\"count-dots\"] [data-part=\"dots\"]",
+          "[data-specimen=\"count-dots\"]"
+        ]
+      },
+      "properties": [
+        "row-gap",
+        "column-gap"
+      ],
+      "parts": [
+        {
+          "name": "dot-on",
+          "design": "xpath=./div[1]",
+          "app": [
+            "[data-part=\"dot-on\"]",
+            "xpath=./*[1]"
+          ],
+          "properties": [
+            "width",
+            "height",
+            "background-color",
+            "border-radius"
+          ]
+        },
+        {
+          "name": "dot-off",
+          "design": "xpath=./div[last()]",
+          "app": [
+            "[data-part=\"dot-off\"]",
+            "xpath=./*[last()]"
+          ],
+          "properties": [
+            "width",
+            "height",
+            "background-color",
+            "border-radius"
+          ]
+        }
+      ],
+      "excluded": {
+        "max-width": "handoff section 11 Whole product: responsive",
+        "how many dots are on": "data, not style; and handoff section 11 Scan and Home replaces the live count toward 4 with the count and the closing date"
+      },
+      "tolerance": 0.1
+    },
+    {
+      "id": "hint-box",
+      "what": "HintBox: --surface-sunk, dashed --border-dashed, radius 12. The Home scan card's hint.",
+      "design": {
+        "state": {
+          "route": "home",
+          "plan": "free"
+        },
+        "locator": "text=/more needed\\. The team view opens/"
+      },
+      "app": {
+        "locator": "[data-specimen=\"hint-box\"]"
+      },
+      "properties": [
+        "font-family",
+        "font-size",
+        "font-weight",
+        "line-height",
+        "color",
+        "background-color",
+        "border",
+        "border-radius",
+        "padding"
+      ],
+      "excluded": {
+        "its wording": "handoff section 11 Scan and Home: 'At 4 answers the team view opens' -> 'The team view opens when the scan closes' (text is never compared)"
+      },
+      "tolerance": 0.3
+    },
+    {
+      "id": "warning-box",
+      "what": "WarningBox: --flag-bg, 1.5 px --flag border, radius 12, text --flag-ink. The agenda's task-match warning.",
+      "design": {
+        "state": {
+          "route": "meetings",
+          "plan": "team",
+          "seed": {
+            "sel": "a5"
+          }
+        },
+        "locator": "text=\"This item matches no team task. Does it need the whole group?\" >> xpath=../.."
+      },
+      "app": {
+        "locator": "[data-specimen=\"warning-box\"]"
+      },
+      "properties": [
+        "font-family",
+        "font-size",
+        "line-height",
+        "color",
+        "background-color",
+        "border",
+        "border-radius",
+        "padding",
+        "column-gap"
+      ],
+      "excluded": {
+        "the icon's colour #a86c05": "not a token; handoff section 4 contrast fixes keep --flag for borders and marks only, so the build picks the icon colour from the tokens"
+      },
+      "tolerance": 0.3
+    },
+    {
+      "id": "sample-banner",
+      "what": "SampleBanner on a paid page on the Free plan, as the leader: black, white text, radius 18, a white SAMPLE chip, an Upgrade button. Parts: chip, text, upgrade.",
+      "design": {
+        "state": {
+          "route": "group",
+          "plan": "free"
+        },
+        "locator": "span:text-is(\"SAMPLE\") >> xpath=.."
+      },
+      "app": {
+        "locator": "[data-specimen=\"sample-banner\"]"
+      },
+      "properties": [
+        "font-family",
+        "color",
+        "background-color",
+        "border-radius",
+        "padding",
+        "column-gap"
+      ],
+      "parts": [
+        {
+          "name": "chip",
+          "design": "xpath=./span[1]",
+          "app": [
+            "[data-part=\"chip\"]",
+            "xpath=./*[1]"
+          ],
+          "properties": [
+            "font-size",
+            "font-weight",
+            "letter-spacing",
+            "color",
+            "background-color",
+            "border-radius",
+            "padding"
+          ]
+        },
+        {
+          "name": "text",
+          "design": "xpath=./span[2]",
+          "properties": [
+            "font-size",
+            "font-weight",
+            "color"
+          ]
+        },
+        {
+          "name": "upgrade",
+          "design": "xpath=./div[1]",
+          "app": [
+            "[data-part=\"upgrade\"]",
+            "button, a"
+          ],
+          "properties": [
+            "font-size",
+            "font-weight",
+            "color",
+            "background-color",
+            "border-radius",
+            "padding"
+          ]
+        }
+      ],
+      "excluded": {
+        "the price in the sentence": "never invent prices (CLAUDE.md); text is never compared"
+      },
+      "tolerance": 0.3
+    },
+    {
+      "id": "evidence-chip-strong",
+      "what": "EvidenceChip, strong (#ebe5fb / #2b2a3d).",
+      "design": {
+        "state": {
+          "route": "results",
+          "plan": "team"
+        },
+        "locator": "xpath=//div[contains(@style,\"border-top\")][div/span[normalize-space()=\"Clear purpose\"]]/span[1]"
+      },
+      "app": {
+        "locator": "[data-specimen=\"evidence-chip-strong\"]"
+      },
+      "properties": [
+        "font-family",
+        "font-size",
+        "font-weight",
+        "letter-spacing",
+        "line-height",
+        "color",
+        "background-color",
+        "border-radius",
+        "padding"
+      ],
+      "tolerance": 0.12,
+      "expect": {
+        "font-weight": {
+          "value": "700",
+          "reason": "spec section 7, conflict 12: the chip is 700 in the overview table and the scale view (L501, L528); only the Standing table draws 600 (L477)"
+        }
+      }
+    },
+    {
+      "id": "evidence-chip-moderate",
+      "what": "EvidenceChip, moderate (#f6f1e3 / #6b5208).",
+      "design": {
+        "state": {
+          "route": "results",
+          "plan": "team"
+        },
+        "locator": "xpath=//div[contains(@style,\"border-top\")][div/span[normalize-space()=\"Team tasks\"]]/span[1]"
+      },
+      "app": {
+        "locator": "[data-specimen=\"evidence-chip-moderate\"]"
+      },
+      "properties": [
+        "font-family",
+        "font-size",
+        "font-weight",
+        "letter-spacing",
+        "line-height",
+        "color",
+        "background-color",
+        "border-radius",
+        "padding"
+      ],
+      "tolerance": 0.12,
+      "expect": {
+        "font-weight": {
+          "value": "700",
+          "reason": "spec section 7, conflict 12: the chip is 700 in the overview table and the scale view (L501, L528); only the Standing table draws 600 (L477)"
+        }
+      }
+    },
+    {
+      "id": "evidence-chip-other",
+      "what": "EvidenceChip, other (#f1eff5 / #55524a): Mixed, Not yet rated, Self-rated.",
+      "design": {
+        "state": {
+          "route": "results",
+          "plan": "team"
+        },
+        "locator": "xpath=//div[contains(@style,\"border-top\")][div/span[normalize-space()=\"Size and membership\"]]/span[1]"
+      },
+      "app": {
+        "locator": "[data-specimen=\"evidence-chip-other\"]"
+      },
+      "properties": [
+        "font-family",
+        "font-size",
+        "font-weight",
+        "letter-spacing",
+        "line-height",
+        "color",
+        "background-color",
+        "border-radius",
+        "padding"
+      ],
+      "tolerance": 0.12,
+      "expect": {
+        "font-weight": {
+          "value": "700",
+          "reason": "spec section 7, conflict 12: the chip is 700 in the overview table and the scale view (L501, L528); only the Standing table draws 600 (L477)"
+        }
+      }
+    },
+    {
+      "id": "standing-label",
+      "what": "StandingLabel: an icon and a word, never colour alone. Part: icon.",
+      "design": {
+        "state": {
+          "route": "results",
+          "plan": "team"
+        },
+        "locator": "xpath=//div[contains(@style,\"border-top\")][div/span[normalize-space()=\"Clear purpose\"]]/span[5]"
+      },
+      "app": {
+        "locator": "[data-specimen=\"standing-label\"]"
+      },
+      "properties": [
+        "font-family",
+        "font-size",
+        "font-weight",
+        "letter-spacing",
+        "color",
+        "column-gap"
+      ],
+      "parts": [
+        {
+          "name": "icon",
+          "design": "iconify-icon",
+          "app": [
+            "[data-part=\"icon\"]",
+            "svg"
+          ],
+          "properties": [
+            "box-width",
+            "box-height",
+            "color"
+          ]
+        }
+      ],
+      "excluded": {
+        "which word": "data: the standing comes from the one cut-off table of handoff section 7 (handoff section 11 Results: 'Standing with other cut-offs')"
+      },
+      "tolerance": 0.2
+    },
+    {
+      "id": "avatar",
+      "what": "Avatar: 34 px circle with initials, the first avatar pair (#ffe2cf / #7a3a12).",
+      "design": {
+        "state": {
+          "route": "home",
+          "plan": "team"
+        },
+        "locator": "span[title=\"Plan and billing\"] >> xpath=../div[last()]"
+      },
+      "app": {
+        "locator": "[data-specimen=\"avatar\"]"
+      },
+      "properties": [
+        "font-family",
+        "font-size",
+        "font-weight",
+        "letter-spacing",
+        "color",
+        "background-color",
+        "border-radius",
+        "width",
+        "height"
+      ],
+      "tolerance": 0.12
+    },
+    {
+      "id": "toast",
+      "what": "Toast for saved, copied and errors: black, white text, radius 12. Reached by pressing the invite page's Copy. Part: icon.",
+      "design": {
+        "state": {
+          "route": "invite",
+          "plan": "free",
+          "steps": [
+            {
+              "click": "text=\"Copy\""
+            }
+          ]
+        },
+        "locator": "text=\"Invite link copied\" >> xpath=.."
+      },
+      "app": {
+        "locator": "[data-specimen=\"toast\"]"
+      },
+      "properties": [
+        "font-family",
+        "font-size",
+        "font-weight",
+        "letter-spacing",
+        "line-height",
+        "color",
+        "background-color",
+        "border-radius",
+        "padding",
+        "column-gap",
+        "box-shadow"
+      ],
+      "parts": [
+        {
+          "name": "icon",
+          "design": "iconify-icon",
+          "app": "svg",
+          "properties": [
+            "color"
+          ]
+        }
+      ],
+      "excluded": {
+        "position, bottom, left, transform": "where the toast sits is the toaster's; the specimen shows it in place"
+      },
+      "tolerance": 0.2
+    },
+    {
+      "id": "icon-tile",
+      "what": "Icon tile: 36 px square, radius 11, --accent fill. The tile of a 'Needs you' row. Part: icon.",
+      "design": {
+        "state": {
+          "route": "home",
+          "plan": "team"
+        },
+        "locator": "span:text-is(\"Answer pulse 6\") >> xpath=ancestor::div[contains(@style,\"border-top\")][1]/div[1]"
+      },
+      "app": {
+        "locator": "[data-specimen=\"icon-tile\"]"
+      },
+      "properties": [
+        "width",
+        "height",
+        "color",
+        "background-color",
+        "border-radius"
+      ],
+      "parts": [
+        {
+          "name": "icon",
+          "design": "iconify-icon",
+          "app": "svg",
+          "properties": [
+            "box-width",
+            "box-height"
+          ]
+        }
+      ],
+      "excluded": {
+        "which icon": "icons are lucide-react in the app (CLAUDE.md Stack); the glyphs differ from iconify's by a hair"
+      },
+      "tolerance": 0.3
+    }
+  ]
+}
