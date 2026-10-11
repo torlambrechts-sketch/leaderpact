@@ -1,4 +1,6 @@
-// Origin: Orgpuls lib/supabase/env.ts @ 6f5d441 (unchanged).
+// Origin: Orgpuls lib/supabase/env.ts @ 6f5d441 (adapted: refuses another product's project, lib/supabase/project.ts).
+import { foreignProject } from '@/lib/supabase/project'
+
 /**
  * The two variables every Supabase client in this application needs.
  *
@@ -71,6 +73,10 @@ export function readSupabaseEnv(): SupabaseEnv | SupabaseEnvProblem {
         'It should look like https://<project-ref>.supabase.co.',
     }
   }
+
+  // LeaderPact's project or a local stack, never another product's database
+  const foreign = foreignProject(parsed)
+  if (foreign) return { problem: foreign }
 
   return { url, key, warnings }
 }

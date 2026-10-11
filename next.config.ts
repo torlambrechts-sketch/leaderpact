@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next'
 import createNextIntlPlugin from 'next-intl/plugin'
+import { foreignProject } from './lib/supabase/project'
 
 const withNextIntl = createNextIntlPlugin('./lib/i18n/request.ts')
 
@@ -15,8 +16,18 @@ const withNextIntl = createNextIntlPlugin('./lib/i18n/request.ts')
  *   which the live meeting uses (milestone 14). `'unsafe-inline'` in `script-src` is Next's inlined
  *   bootstrap; a per-request nonce is its own piece of work.
  */
-const supabase = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''
+// only LeaderPact's project or a local stack may be allowed by the CSP (lib/supabase/project.ts)
+const supabase = allowedOrigin(process.env.NEXT_PUBLIC_SUPABASE_URL)
 const realtime = supabase.replace(/^http/, 'ws')
+
+function allowedOrigin(value: string | undefined): string {
+  try {
+    const url = new URL((value ?? '').trim())
+    return foreignProject(url) ? '' : url.origin
+  } catch {
+    return ''
+  }
+}
 
 function csp() {
   return [
