@@ -85,7 +85,7 @@ These are built new, with Orgpuls patterns where one fits:
 | # | Answer | Effect |
 |---|---|---|
 | A1 | **Full Orgpuls authority**, including its bypass settings | `CLAUDE.md` carries Orgpuls's build-phase authority, and `.claude/settings.json` is copied as it is. Not the recommended default. The safeguard moves into `CLAUDE.md`: LeaderPact's project ref is the only Supabase project an agent may touch. |
-| A2 | **The agent creates the Supabase project** through the connector: organisation `vercel_icfg_TuXKkB6YTdYbFaAe3z5nN3sv`, Pro plan, eu-central-1 | Not the default, which was a separate organisation. Orgpuls's own project is not visible in that organisation, but the safeguard in `CLAUDE.md` still applies: one project ref, no other. |
+| A2 | **The agent creates the Supabase project** through the connector, in the owner's **Pro** organisation, eu-central-1 | The connector in the first session reached only a free-plan organisation (`vercel_icfg_TuXKkB6YTdYbFaAe3z5nN3sv`), so no project was created. The owner reconnects the connector to the Pro organisation; a new session then creates `leaderpact`. The safeguard in `CLAUDE.md` still applies: one project ref, no other. |
 | A3 | The owner links Vercel, region `fra1` | As recommended |
 | A4 | shadcn/ui hybrid on Tailwind 3.4 | As recommended (section 7) |
 | A5 | One CI job per pull request; heavy flows on `main` and nightly | As recommended |
@@ -124,8 +124,7 @@ These are built new, with Orgpuls patterns where one fits:
 | E7 | LeaderPact sends its own account mail; support by email only | As recommended |
 | E8 | No erasure command for Sentral | As recommended |
 
-Three answers differ from the recommended defaults beyond A1 and A2: the trial (D2a), Google sign-in
-(D4), and the Supabase organisation (A2). The tables below keep the questions as they were asked.
+Two answers differ from the recommended defaults beyond A1 and A2: the trial (D2a) and Google sign-in (D4). The tables below keep the questions as they were asked.
 
 Each question has a recommended default. "Agree to all defaults except …" is a complete answer. The
 **Blocks** column says which milestone waits for it.
