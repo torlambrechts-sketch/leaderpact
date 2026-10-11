@@ -9,7 +9,7 @@ the owner has answered section 2.
 | Orgpuls read at | `torlambrechts-sketch/Orgpuls` commit `6f5d441` |
 | Sentral read at | `torlambrechts-sketch/Owntheagenda_Admin` commit `f6a43bd` (attached read-only for this evaluation) |
 | Method | Nine reviewers read the code read-only, one area each, and cited `file:line`. The lead verified the claims that carry a decision. No file in either repository was changed. |
-| Status | Waiting for the owner's answers to section 2 |
+| Status | The owner answered 17 questions on 11 October (section 2.0). 21 are open. |
 
 Every `file:line` below is at the commit above. Migration numbers are Orgpuls's unless they say otherwise.
 
@@ -44,8 +44,8 @@ Every `file:line` below is at the commit above. Migration numbers are Orgpuls's 
 1. **Sentral is ready in its data model, not in its wiring.** It has products, installations and accounts.
    But its events endpoint, its command signer and its audience are hard-coded to Orgpuls. About seven
    changes in Sentral connect LeaderPact. Neither system makes invoices (section 6).
-2. **The design file cannot be rendered as supplied.** Without `proto-core-v5.js` only the landing page
-   renders. Milestone 1's side-by-side check would cover 4 of the 21 components (question B1).
+2. **The design file now renders in full.** As first supplied, only the landing page rendered. The owner
+   then supplied `proto-core-v5.js` and `support.js`, and all 14 screens render (question B1, section 4.13).
 3. **The anonymity structure ports, but the threat is different.** In Orgpuls, managers read employees'
    answers. In LeaderPact every reader answered too. Three new design points need the owner (questions
    C1 to C4).
@@ -80,6 +80,30 @@ These are built new, with Orgpuls patterns where one fits:
 
 ## 2. Questions for the owner
 
+### 2.0 Answers received, 11 October 2026
+
+| # | Answer | Effect |
+|---|---|---|
+| A1 | **Full Orgpuls authority**, including its bypass settings | `CLAUDE.md` carries Orgpuls's build-phase authority, and `.claude/settings.json` is copied as it is. Not the recommended default. The safeguard moves into `CLAUDE.md`: LeaderPact's project ref is the only Supabase project an agent may touch. |
+| A2 | **The agent creates the Supabase project** through the connector | Not the default. Before creating it, the organisation and plan are confirmed with the owner, because it costs money. The connector sees one organisation today. |
+| A3 | The owner links Vercel, region `fra1` | As recommended |
+| A4 | shadcn/ui hybrid on Tailwind 3.4 | As recommended (section 7) |
+| A5 | One CI job per pull request; heavy flows on `main` and nightly | As recommended |
+| B1 | **The owner supplied `proto-core-v5.js` and `support.js`** | Committed in `design/reference/`. All 14 screens render (section 4.13). |
+| Reference | **Cream v2 is the only visual reference.** The bundle's purple Manrope `LeaderPact.dc.html` is not used. | `design/reference/README.md` |
+| B2 | Take what the design uses | `#ddd5c8` for secondary borders; the other colours and the 8, 9 and 16 px radii become tokens |
+| B3 | Rules, axe and a person's review at 390 and 360 px | As recommended |
+| C1 | Accept padding on the open link, with honest copy | As recommended |
+| C2 | A sealed replace key, deleted at close | As recommended |
+| C3 | Reshuffle at close | As recommended |
+| C4 | The leader counts toward the cap and toward the 4 | As recommended |
+| C5 | Change across versions only when a scale's core items are identical | As recommended |
+| C6 | Freeze level, label and standing at close; version the cut-offs | As recommended |
+| C7 | The members invited at opening are the denominator | As recommended |
+| C8 | Every diagnostic item is required | As recommended |
+
+Open: C9 to C11, D1 to D8, and E1 to E8 (with D2 asked as three: trial, downgrade and tax).
+
 Each question has a recommended default. "Agree to all defaults except …" is a complete answer. The
 **Blocks** column says which milestone waits for it.
 
@@ -97,7 +121,7 @@ Each question has a recommended default. "Agree to all defaults except …" is a
 
 | # | Question | Recommended default | Blocks |
 |---|---|---|---|
-| B1 | **Please supply `proto-core-v5.js` and the `support.js` the design was built with, or a standalone export with its resources inlined.** The file reads every value from `window.LTCore` (design line 1654). Without it, only the landing page renders, and 17 of the 21 components cannot be captured. | No default. Without the files, components are compared against hand-made specimens of the design's static markup. That is weak evidence, so it is logged. | 1 |
+| B1 | **Answered: supplied.** ~~Please supply `proto-core-v5.js` and the `support.js` the design was built with, or a standalone export with its resources inlined.** The file reads every value from `window.LTCore` (design line 1654). Without it, only the landing page renders, and 17 of the 21 components cannot be captured.~~ | No default. Without the files, components are compared against hand-made specimens of the design's static markup. That is weak evidence, so it is logged. | 1 |
 | B2 | **Missing tokens.** The design uses `#ddd5c8` 69 times, 64 of them as the secondary-button border. The handoff assigns that border to `#d8d0c2`, which appears 4 times. Also used but not listed: `#36342f` (26 times, text), `#ebe5da` (8, card border), `#efe9df` (7, SAMPLE chip and rules), `#2b2a26`, `#4b3a8f`, `#4f33b8`. The radius table omits 8, 9 and 16 px (35, 44 and 22 uses). | Take what the design uses: `#ddd5c8` for secondary borders, and add the others as tokens with the role measured. | 1 |
 | B3 | **The 390 px check.** The design has no phone layout: it is `min-width:1280px`. | At 390 px and 360 px: no sideways scroll, body text at least 15 px, inputs at least 16 px, targets at least 44 px, axe clean, and a person reviews the screenshots. | 1 |
 
@@ -813,15 +837,24 @@ look alike.
 
 **The design render (verified by the lead).** The design file is a Claude Design `.dc.html`, the same
 format as Orgpuls's. Its component reads every value from `window.LTCore`, which `proto-core-v5.js` defines
-(design lines 1653-1669). That file is not supplied.
+(design lines 1653-1669). It was not supplied with the handoff; the owner supplied it afterwards.
 
 | Attempt | Result |
 |---|---|
 | The file as supplied, network blocked | All 23 screens stacked into a 35,638 px page, with 898 literal `{{` |
 | With Orgpuls's `support.js`, React 18.3.1 and Babel served locally, and local fonts | A clean render at 1280 px, landing page only, with no unresolved bindings. It already shows rows of handoff section 11: "Team Scan", "Research / Templates / For coaches" and "Open the demo group". |
+| With the supplied `support.js` and `proto-core-v5.js`, the same local vendor files and fonts, one fresh context per state | All 14 screens render with no unresolved binding, no page error and no blocked request: landing, scan, personal, invite, home (Free and Team), group, people, assess, results, develop, meetings, live, me and settings. |
 
-From the landing page, only Button, Pill, a level-bar sample and the hero can be captured. The other 17
-components sit on screens that need `proto-core-v5.js` (question B1).
+Every component of the list can now be captured. The prototype opens in its sidebar layout, so the
+render switches it to the top bar before comparing. The screens still show what section 11 removes, such
+as 360, "Assessment schedule" and the CXO tile, so the claims file excludes those regions.
+
+`proto-core-v5.js` also holds older drafts of the scan items. For example, it has "We know which few
+priorities matter most right now" where Appendix C has "The issues on our agenda are ones that need the
+whole team". The handoff wins: item wording comes from Appendix C, as data.
+
+The bundle's own README asks for pixel-perfect output and says not to render the files. The handoff
+overrides both (`design/reference/README.md`).
 
 **The pipeline.** One design-render script:
 - serves the file;
