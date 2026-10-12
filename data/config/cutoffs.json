@@ -1,0 +1,13 @@
+[
+  {
+    "version": 1,
+    "agreementHigh": 0.70,
+    "agreementLow": 0.50,
+    "higherPriorityBelow": 3.0,
+    "higherStrengthFrom": 3.4,
+    "lowerPriorityFrom": 3.5,
+    "lowerStrengthBelow": 2.8,
+    "changeMargin": 0.6,
+    "validFrom": "2026-01-01T00:00:00Z"
+  }
+]

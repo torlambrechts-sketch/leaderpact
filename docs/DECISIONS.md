@@ -129,3 +129,86 @@ others in the spec's conflict 14 belong to screens of later milestones: `#d4cfdd
 `#b7790b`, `#f0d7a5`, `#f3efe8`, `#e9e4f3`, `#2a2a2a` and `#aaa59a`. Each is tokenised by the milestone that
 builds its screen, with its measured role, or mapped to the nearest token if it fails contrast. `#aaa59a`
 fails (2.45:1), so it will not be used for text.
+
+## D-15 — No scan answer exists before the group does (M2, security)
+
+The leader answers the scan before any account exists. Those answers stay on the device through the
+email sign-in and are submitted to the group's new scan session (REUSE 4.7). So `scan_session` always
+belongs to a group and an organisation, and no answer is stored for a visitor who never signs up. The
+handoff's 90-day rule for "scan answers before sign-up" therefore has nothing to delete. This is the
+stricter reading: an anonymous visitor's answers are not kept on the chance that they return.
+
+## D-16 — `person` carries no organisation (M2)
+
+"Every row carries an organisation ID" (handoff 8) holds for every table but `person`. A person is the
+signed-in identity, one per auth user, and may belong to groups of more than one organisation, so the
+organisation lives on `membership`. A person is read only by themselves and by people who share a group
+with them now (`app.shares_team`).
+
+## D-17 — The agreement index, exactly (M2)
+
+Handoff 7 proposes "1 minus the variance of respondents' scale scores divided by 2.0". The build uses:
+
+- **The sample variance (n − 1)**, as the rwg index it is modelled on does.
+- **Labels:** high above 0.70, low at or below 0.50, medium between. The handoff's "medium from 0.51"
+  is read as "above 0.50", so no value falls between labels.
+- **Exact arithmetic.** In integers the variance is num / den, with num = n·Σs² − (Σs)² and
+  den = items² · n · (n − 1). A label is decided by comparing num with 2·(1 − cut-off)·den, never in
+  floating point. The SQL (`app.agreement_label`) and TypeScript (`lib/scoring`) functions agree on all
+  119 cases in `lib/scoring/cases.json`, whose expected values were computed separately with exact
+  rationals. Exactly 0.70 is possible only for some group sizes, and the case names say which.
+- **Where the index lives.** It is stored in the snapshot to four decimals and never returned by a
+  reader. The formula is one function in each language, so a confirmed formula changes one body
+  (handoff 14).
+
+## D-18 — Rounds and scans at close (M2)
+
+- **Phases.** A round moves scheduled → answering → closed or released (owner C11).
+- **What opening fixes.** Opening freezes k, fixes the window and invites the current members
+  (`app.open_round`). One round answers per group at a time; a due round waits until the open one
+  closes.
+- **When it closes.** On its date, or inside the transaction of the last answer.
+- **Below k:**
+  - a diagnostic is extended once while someone has yet to answer, then gives no result;
+  - a pulse is missed, with no extension;
+  - the scan is extended once while seats are left, then gives no team view.
+  Either way the answers are deleted (owner C9).
+- **Owner C3's reshuffle** runs in the closing transaction. The suite shows the link while a round is
+  open (one shared transaction id per answer) and its absence after close (one id spans every
+  participation row and response set). This proves the residual of C3 is real and that close removes it.
+- **The snapshots** `factor_score`, `item_score` and `scan_theme_score` are as unreadable as the answers
+  (no policy, no grant). Readers return levels and labels for current members only. The scan's team view
+  is also readable through its link, for members without an account.
+- **Change** is decided on the two shown levels (`app.change_shows`), so what a person reads is what
+  was compared. Across versions it shows only when the scale's core item rows are identical
+  (`app.factor_comparable`, owner C5).
+- **The scan link's code is stored as it is.** The leader re-shares the link, so the code must be
+  readable; current members read it through `get_scan_link`, and it is not a column a client can
+  select. Only the replace key is kept as a hash.
+- **Testing deadlines.** `now()` does not advance inside one transaction, so the suites pass a deadline
+  by moving a closing date back with the guard trigger switched off for that one statement, inside a
+  block that is rolled back.
+
+## D-19 — The model as data, version 1 (M2)
+
+- **The data.** `data/` holds the bank, the scan, the instruments, the cut-offs, the settings and the
+  plans, checked by Zod in `lib/model/schema.ts`: counts, the 6/11/4/3 split, 3 core and 1 candidate
+  per scale, the copy rules. `scripts/seed/model.mjs` renders migration 0004 from them, and a unit test
+  fails if the two disagree.
+- **Once 0004 is applied, it is never edited.** A reworded item, a new cut-off version or a changed
+  setting or price becomes a new data version and a new migration.
+- **Who reads what.**
+  - Candidate items are read by no client; a pilot reader comes with milestone 10 (owner D8).
+  - A visitor without an account reads only the scan's items.
+- **Fixed settings carry no range.** The `reminder_days` range is 1 to 30, the longest window.
+- **Templates** (charter, agenda, the four agenda item types) are seeded by the milestones that build
+  their tables, 9 and 13.
+- **The charter version** on a score is a column without a reference until milestone 9 creates the
+  charter tables.
+
+## D-20 — The Lumio fixture comes with milestone 4 (M2)
+
+The generator of handoff 9 and REUSE 4.12 needs sign-in, groups made through their RPCs and known
+passwords for local use; none exists before milestone 4. Until then the suites build their own
+organisations in rolled-back blocks, as REUSE 4.4 asks, and depend on no fixture. The generator, local
+only, arrives with milestone 4. It solves for the design's figures by milestone 5, the team view.

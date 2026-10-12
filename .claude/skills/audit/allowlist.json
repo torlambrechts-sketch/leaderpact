@@ -2,7 +2,12 @@
   "_comment": "Reviewed exceptions for scripts/audit/wiring.mjs. Each entry names its reason. Origin: Orgpuls allowlist.json @ 6f5d441 (structure only; no entries carried over).",
   "anon_executes": {
     "app.k_floor()": "the threshold's floor; not secret, a screen shows the range (0001)",
-    "app.k_max()": "the threshold's ceiling; not secret, a screen shows the range (0001)"
+    "app.k_max()": "the threshold's ceiling; not secret, a screen shows the range (0001)",
+    "app.cutoff_version()": "the cut-off version in force; reference data, not secret (0003)",
+    "app.is_scan_item(p_item uuid)": "whether an item belongs to a published scan; the policy that lets a visitor read the scan's items, and no others (0003)",
+    "app.submit_scan(p_code text, p_answers jsonb, p_replace_key text)": "the scan's one write path, for members without an account (handoff 6.5): checks every answer, caps at the member count, returns ok and a replace key, never an id (0006, CLAUDE.md invariant 4)",
+    "app.get_team_view_by_code(p_code text)": "the team view through the link, for members without an account: levels and labels per theme, only once released at or above k (0006)",
+    "app.get_scan_status_by_code(p_code text)": "the link page's count and closing date: never a score, never a name (handoff 6.4, 0006)"
   },
   "client_writes": {},
   "unread_columns": {},

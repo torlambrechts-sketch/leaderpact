@@ -1,0 +1,5 @@
+[
+  { "key": "scan", "name": "Leadership Team Scan" },
+  { "key": "diagnostic", "name": "Full diagnostic" },
+  { "key": "pulse", "name": "Pulse" }
+]

@@ -56,9 +56,11 @@ a value is missing, leave a named `TODO(owner)` and say so.
    - The invite link's replace key is a SHA-256 in its own table, with no policy and no grant, deleted
      when the scan closes (C2). No function reads answers by it.
 3. **Answer tables are unreadable.** `response`, `response_set`, `scan_response`, `scan_response_set`,
-   `scan_replace_key`, `participation` and `factor_score` have RLS on, **no policy and no grant to any
-   role, `service_role` included**. Aggregates come only from SECURITY DEFINER functions that return
-   nothing for an open round and nothing below the round's k.
+   `scan_replace_key`, `participation` and the snapshots `factor_score`, `item_score` and
+   `scan_theme_score` have RLS on, **no policy and no grant to any role, `service_role` included**.
+   Aggregates come only from SECURITY DEFINER functions that return nothing for an open round and nothing
+   below the round's k. `app.anonymity_firewall()` proves it from the catalogue; a new reader is added to
+   its reviewed list on purpose.
 4. **One write path per instrument**, in one transaction, never returning the id it wrote:
    `submit_response` for a signed-in member, `submit_scan` for the shared link.
 5. **Nothing before close; computed once.** A result is a snapshot written at close: level, agreement
