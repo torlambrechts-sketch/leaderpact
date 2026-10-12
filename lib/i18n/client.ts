@@ -8,6 +8,8 @@ import type { AbstractIntlMessages } from 'next-intl'
  * given the namespaces its client components use rather than the whole catalogue.
  */
 export const PUBLIC_CLIENT_NAMESPACES = ['common'] as const
+/** The scan and the personal view: their client components read these too (app/(public)/scan/layout.tsx) */
+export const SCAN_CLIENT_NAMESPACES = ['common', 'scan', 'result'] as const
 
 export function pickMessages(messages: AbstractIntlMessages, namespaces: readonly string[]): AbstractIntlMessages {
   const picked: AbstractIntlMessages = {}
