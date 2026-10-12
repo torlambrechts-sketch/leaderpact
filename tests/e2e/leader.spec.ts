@@ -1,5 +1,5 @@
 import { expect, test, type Browser, type Page } from '@playwright/test'
-import { FLOW_LEADER } from '../../scripts/seed/fixture.mjs'
+import { FLOW_LEADER, LUMIO } from '../../scripts/seed/fixture.mjs'
 import { canReadMail, signInLink } from './support/mail'
 import { answerScan, axe, watch } from './support/page'
 import { canMintSession, signInAs } from './support/session'
@@ -11,7 +11,8 @@ import { canMintSession, signInAs } from './support/session'
  *
  * The leader takes the scan, saves it with a group of 10, and signs in: in CI by the email link from
  * Mailpit, in a cloud session with a session minted for the fixture's flow leader (D-27). Then eight
- * browsers answer, one replaces its answers, a tenth closes the scan, and an eleventh is refused.
+ * browsers answer, one replaces its answers, a tenth closes the scan, and an eleventh is refused. Last,
+ * another group's page is refused and the leader signs out.
  */
 test.skip(!canReadMail() && !canMintSession(), 'no way to sign in: needs Mailpit (CI) or the local API (D-27)')
 
@@ -113,5 +114,14 @@ test('the leader saves, signs in and invites; eight browsers answer through one 
 
   for (const m of [...members, last]) await m.context.close()
   await late.close()
+
+  // another group's page is not shown to the leader, and signing out closes the pages behind sign-in
+  await page.goto(`/app/${LUMIO.group.id}/invite`)
+  await expect(page.getByRole('heading', { level: 1, name: 'This group is not one of yours' })).toBeVisible()
+  await expect(page.getByText(LUMIO.group.name)).toHaveCount(0)
+  await page.getByRole('button', { name: 'Sign out' }).click()
+  await expect(page).toHaveURL(/\/leadership-team-assessment$/)
+  await page.goto('/app')
+  await expect(page).toHaveURL(/\/sign-in$/)
   expect(problems).toEqual([])
 })
