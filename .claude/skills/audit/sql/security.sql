@@ -17,7 +17,8 @@ select 'S2 answer table readable', 'app.' || t,
        || case when has_table_privilege('authenticated', 'app.' || t, 'select') then ' +authenticated' else '' end
        || case when has_table_privilege('anon', 'app.' || t, 'select') then ' +anon' else '' end
        || case when has_table_privilege('service_role', 'app.' || t, 'select') then ' +service_role' else '' end
-from unnest(array['response_set', 'response', 'scan_response_set', 'scan_response', 'scan_replace_key', 'participation', 'factor_score']) t
+from unnest(array['response_set', 'response', 'scan_response_set', 'scan_response', 'scan_replace_key', 'participation', 'factor_score',
+                   'item_score', 'scan_theme_score']) t
 where to_regclass('app.' || t) is not null
   and (exists (select 1 from pg_policies p where p.schemaname = 'app' and p.tablename = t)
        or has_table_privilege('authenticated', 'app.' || t, 'select')

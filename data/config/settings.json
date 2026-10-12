@@ -1,0 +1,13 @@
+[
+  { "key": "anonymity_threshold", "scope": "organisation", "default": 4, "min": 4, "max": 8, "fixed": false, "unit": "count" },
+  { "key": "scan_window_days", "scope": "group", "default": 7, "min": 2, "max": 14, "fixed": false, "unit": "days" },
+  { "key": "diagnostic_rhythm_months", "scope": "group", "default": 6, "min": 3, "max": 12, "fixed": false, "unit": "months" },
+  { "key": "diagnostic_window_days", "scope": "group", "default": 14, "min": 7, "max": 30, "fixed": false, "unit": "days" },
+  { "key": "reminder_days", "scope": "group", "default": [3, 7, 12], "min": 1, "max": 30, "fixed": false, "unit": "days" },
+  { "key": "pulse_rhythm_weeks", "scope": "group", "default": 4, "min": 2, "max": 8, "fixed": false, "unit": "weeks" },
+  { "key": "pulse_window_days", "scope": "group", "default": 7, "min": 3, "max": 14, "fixed": false, "unit": "days" },
+  { "key": "active_focus_areas", "scope": "platform", "default": 2, "min": null, "max": null, "fixed": true, "unit": "count" },
+  { "key": "members_per_group", "scope": "platform", "default": 15, "min": null, "max": null, "fixed": true, "unit": "count" },
+  { "key": "retention_after_cancel_days", "scope": "organisation", "default": 90, "min": 30, "max": 365, "fixed": false, "unit": "days" },
+  { "key": "extension_days", "scope": "platform", "default": 7, "min": null, "max": null, "fixed": true, "unit": "days" }
+]

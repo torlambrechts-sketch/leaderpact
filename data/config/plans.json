@@ -1,0 +1,23 @@
+[
+  {
+    "key": "free",
+    "name": "Free",
+    "ordinal": 1,
+    "maxGroups": 1,
+    "maxMembers": 15,
+    "features": ["scan", "team_view", "leader_profile"],
+    "prices": []
+  },
+  {
+    "key": "team",
+    "name": "Team",
+    "ordinal": 2,
+    "maxGroups": 1,
+    "maxMembers": 15,
+    "features": ["scan", "team_view", "leader_profile", "scan_history", "charter", "diagnostic", "pulse", "meetings", "focus_areas"],
+    "prices": [
+      { "interval": "year", "currency": "USD", "amountMinor": 180000, "version": 1, "validFrom": "2026-01-01T00:00:00Z" },
+      { "interval": "month", "currency": "USD", "amountMinor": 18000, "version": 1, "validFrom": "2026-01-01T00:00:00Z" }
+    ]
+  }
+]

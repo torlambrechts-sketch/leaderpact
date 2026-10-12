@@ -209,9 +209,9 @@ export default async function SpecimensPage() {
             <span data-specimen="standing-label"><StandingLabel standing="strength" label={t('standingStrength')} /></span>
             <StandingLabel standing="watch" label={t('standingWatch')} />
             <StandingLabel standing="priority" label={t('standingPriority')} />
-            <StandingLabel standing="views-differ" label={t('standingViewsDiffer')} />
+            <StandingLabel standing="views_differ" label={t('standingViewsDiffer')} />
             <StandingLabel standing="fact" label={t('standingFact')} />
-            <StandingLabel standing="read-with" label={t('standingReadWith')} />
+            <StandingLabel standing="read_with" label={t('standingReadWith')} />
           </div>
         </Specimen>
 

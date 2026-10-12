@@ -1,0 +1,775 @@
+{
+  "version": 1,
+  "factors": [
+    {
+      "key": "clear_purpose",
+      "name": "Clear purpose",
+      "layer": "conditions",
+      "readingType": "higher",
+      "evidence": "strong",
+      "ordinal": 1
+    },
+    {
+      "key": "team_tasks",
+      "name": "Team tasks",
+      "layer": "conditions",
+      "readingType": "higher",
+      "evidence": "moderate",
+      "ordinal": 2
+    },
+    {
+      "key": "size_and_membership",
+      "name": "Size and membership",
+      "layer": "conditions",
+      "readingType": "descriptive",
+      "evidence": "mixed",
+      "ordinal": 3
+    },
+    {
+      "key": "composition",
+      "name": "Composition",
+      "layer": "conditions",
+      "readingType": "descriptive",
+      "evidence": "mixed",
+      "ordinal": 4
+    },
+    {
+      "key": "rewards",
+      "name": "Rewards",
+      "layer": "conditions",
+      "readingType": "higher",
+      "evidence": "moderate",
+      "ordinal": 5
+    },
+    {
+      "key": "information_and_support",
+      "name": "Information and support",
+      "layer": "conditions",
+      "readingType": "higher",
+      "evidence": "moderate",
+      "ordinal": 6
+    },
+    {
+      "key": "preparation",
+      "name": "Preparation",
+      "layer": "processes",
+      "readingType": "higher",
+      "evidence": "not_rated",
+      "ordinal": 7
+    },
+    {
+      "key": "meeting_goals",
+      "name": "Meeting goals",
+      "layer": "processes",
+      "readingType": "higher",
+      "evidence": "moderate",
+      "ordinal": 8
+    },
+    {
+      "key": "focus",
+      "name": "Focus",
+      "layer": "processes",
+      "readingType": "higher",
+      "evidence": "moderate",
+      "ordinal": 9
+    },
+    {
+      "key": "dialogue",
+      "name": "Dialogue",
+      "layer": "processes",
+      "readingType": "higher",
+      "evidence": "moderate",
+      "ordinal": 10
+    },
+    {
+      "key": "task_conflict",
+      "name": "Task conflict",
+      "layer": "processes",
+      "readingType": "conditional",
+      "evidence": "moderate",
+      "ordinal": 11
+    },
+    {
+      "key": "relationship_conflict",
+      "name": "Relationship conflict",
+      "layer": "processes",
+      "readingType": "lower",
+      "evidence": "strong",
+      "ordinal": 12
+    },
+    {
+      "key": "political_behaviour",
+      "name": "Political behaviour",
+      "layer": "processes",
+      "readingType": "lower",
+      "evidence": "moderate",
+      "ordinal": 13
+    },
+    {
+      "key": "behavioural_integration",
+      "name": "Behavioural integration",
+      "layer": "processes",
+      "readingType": "higher",
+      "evidence": "strong",
+      "ordinal": 14
+    },
+    {
+      "key": "external_relations",
+      "name": "External relations",
+      "layer": "processes",
+      "readingType": "higher",
+      "evidence": "not_rated",
+      "ordinal": 15
+    },
+    {
+      "key": "learning",
+      "name": "Learning",
+      "layer": "processes",
+      "readingType": "higher",
+      "evidence": "moderate",
+      "ordinal": 16
+    },
+    {
+      "key": "team_leadership",
+      "name": "Team leadership",
+      "layer": "processes",
+      "readingType": "higher",
+      "evidence": "strong",
+      "ordinal": 17
+    },
+    {
+      "key": "psychological_safety",
+      "name": "Psychological safety",
+      "layer": "states",
+      "readingType": "higher",
+      "evidence": "strong",
+      "ordinal": 18
+    },
+    {
+      "key": "trust",
+      "name": "Trust",
+      "layer": "states",
+      "readingType": "higher",
+      "evidence": "strong",
+      "ordinal": 19
+    },
+    {
+      "key": "cohesion",
+      "name": "Cohesion",
+      "layer": "states",
+      "readingType": "higher",
+      "evidence": "strong",
+      "ordinal": 20
+    },
+    {
+      "key": "norms",
+      "name": "Norms",
+      "layer": "states",
+      "readingType": "higher",
+      "evidence": "not_rated",
+      "ordinal": 21
+    },
+    {
+      "key": "direction_alignment_and_commitment",
+      "name": "Direction, alignment and commitment",
+      "layer": "outcomes",
+      "readingType": "higher",
+      "evidence": null,
+      "ordinal": 22
+    },
+    {
+      "key": "viability",
+      "name": "Viability",
+      "layer": "outcomes",
+      "readingType": "higher",
+      "evidence": null,
+      "ordinal": 23
+    },
+    {
+      "key": "member_growth",
+      "name": "Member growth",
+      "layer": "outcomes",
+      "readingType": "higher",
+      "evidence": null,
+      "ordinal": 24
+    }
+  ],
+  "items": [
+    {
+      "code": "clear_purpose.1",
+      "factor": "clear_purpose",
+      "text": "We agree on what this leadership team is for.",
+      "use": "core"
+    },
+    {
+      "code": "clear_purpose.2",
+      "factor": "clear_purpose",
+      "text": "We know what this team adds beyond what each of us does in our own unit.",
+      "use": "core"
+    },
+    {
+      "code": "clear_purpose.3",
+      "factor": "clear_purpose",
+      "text": "Our purpose tells us what to say no to.",
+      "use": "core"
+    },
+    {
+      "code": "clear_purpose.4",
+      "factor": "clear_purpose",
+      "text": "I could explain this team's purpose to a new member in two sentences.",
+      "use": "candidate"
+    },
+    {
+      "code": "team_tasks.1",
+      "factor": "team_tasks",
+      "text": "The issues on our agenda are ones that need the whole team.",
+      "use": "core"
+    },
+    {
+      "code": "team_tasks.2",
+      "factor": "team_tasks",
+      "text": "We know which decisions belong to this team and which belong elsewhere.",
+      "use": "core"
+    },
+    {
+      "code": "team_tasks.3",
+      "factor": "team_tasks",
+      "text": "We spend our time together on what only this team can do.",
+      "use": "core"
+    },
+    {
+      "code": "team_tasks.4",
+      "factor": "team_tasks",
+      "text": "We know which tasks we own together.",
+      "use": "candidate"
+    },
+    {
+      "code": "size_and_membership.1",
+      "factor": "size_and_membership",
+      "text": "We agree on who belongs to this team.",
+      "use": "core"
+    },
+    {
+      "code": "size_and_membership.2",
+      "factor": "size_and_membership",
+      "text": "The team is small enough for everyone to take a real part in discussions.",
+      "use": "core"
+    },
+    {
+      "code": "size_and_membership.3",
+      "factor": "size_and_membership",
+      "text": "The right people are members of this team.",
+      "use": "core"
+    },
+    {
+      "code": "size_and_membership.4",
+      "factor": "size_and_membership",
+      "text": "Membership of this team has been stable over the past year.",
+      "use": "candidate"
+    },
+    {
+      "code": "composition.1",
+      "factor": "composition",
+      "text": "Together we have the expertise our tasks require.",
+      "use": "core"
+    },
+    {
+      "code": "composition.2",
+      "factor": "composition",
+      "text": "Members have clearly different professional backgrounds.",
+      "use": "core"
+    },
+    {
+      "code": "composition.3",
+      "factor": "composition",
+      "text": "The viewpoints we need are present when we discuss major issues.",
+      "use": "core"
+    },
+    {
+      "code": "composition.4",
+      "factor": "composition",
+      "text": "Every important area of the organisation has a voice in this team.",
+      "use": "candidate"
+    },
+    {
+      "code": "rewards.1",
+      "factor": "rewards",
+      "text": "Part of how each of us is assessed depends on shared results.",
+      "use": "core"
+    },
+    {
+      "code": "rewards.2",
+      "factor": "rewards",
+      "text": "Helping a colleague's unit succeed is recognised here.",
+      "use": "core"
+    },
+    {
+      "code": "rewards.3",
+      "factor": "rewards",
+      "text": "Our goals reward working together.",
+      "use": "core"
+    },
+    {
+      "code": "rewards.4",
+      "factor": "rewards",
+      "text": "What gets rewarded here matches what we say matters.",
+      "use": "candidate"
+    },
+    {
+      "code": "information_and_support.1",
+      "factor": "information_and_support",
+      "text": "We have the facts we need in time to decide well.",
+      "use": "core"
+    },
+    {
+      "code": "information_and_support.2",
+      "factor": "information_and_support",
+      "text": "The team gets the support it needs to improve how it works.",
+      "use": "core"
+    },
+    {
+      "code": "information_and_support.3",
+      "factor": "information_and_support",
+      "text": "We have the specialist help we need for difficult issues.",
+      "use": "core"
+    },
+    {
+      "code": "information_and_support.4",
+      "factor": "information_and_support",
+      "text": "The figures we are given are accurate.",
+      "use": "candidate"
+    },
+    {
+      "code": "preparation.1",
+      "factor": "preparation",
+      "text": "The meeting papers arrive several days ahead.",
+      "use": "core"
+    },
+    {
+      "code": "preparation.2",
+      "factor": "preparation",
+      "text": "Members come to our meetings prepared.",
+      "use": "core"
+    },
+    {
+      "code": "preparation.3",
+      "factor": "preparation",
+      "text": "Items for decision come with a written proposal.",
+      "use": "core"
+    },
+    {
+      "code": "preparation.4",
+      "factor": "preparation",
+      "text": "Whoever owns an agenda item knows what is expected of them.",
+      "use": "candidate"
+    },
+    {
+      "code": "meeting_goals.1",
+      "factor": "meeting_goals",
+      "text": "For each agenda item, it is clear what we are meant to achieve.",
+      "use": "core"
+    },
+    {
+      "code": "meeting_goals.2",
+      "factor": "meeting_goals",
+      "text": "We know before each item whether we are there to listen, to discuss or to decide.",
+      "use": "core"
+    },
+    {
+      "code": "meeting_goals.3",
+      "factor": "meeting_goals",
+      "text": "We know when an agenda item is finished.",
+      "use": "core"
+    },
+    {
+      "code": "meeting_goals.4",
+      "factor": "meeting_goals",
+      "text": "We agree at the start of an item what a good result would be.",
+      "use": "candidate"
+    },
+    {
+      "code": "focus.1",
+      "factor": "focus",
+      "text": "Our discussions stay on the item at hand.",
+      "use": "core"
+    },
+    {
+      "code": "focus.2",
+      "factor": "focus",
+      "text": "We finish one question before we move to the next.",
+      "use": "core"
+    },
+    {
+      "code": "focus.3",
+      "factor": "focus",
+      "text": "When a side issue comes up, we leave it for later.",
+      "use": "core"
+    },
+    {
+      "code": "focus.4",
+      "factor": "focus",
+      "text": "We return quickly to the topic when a discussion moves away from it.",
+      "use": "candidate"
+    },
+    {
+      "code": "dialogue.1",
+      "factor": "dialogue",
+      "text": "When someone offers an idea, others add to it.",
+      "use": "core"
+    },
+    {
+      "code": "dialogue.2",
+      "factor": "dialogue",
+      "text": "We explore an issue before we take positions.",
+      "use": "core"
+    },
+    {
+      "code": "dialogue.3",
+      "factor": "dialogue",
+      "text": "We ask questions to understand each other's views.",
+      "use": "core"
+    },
+    {
+      "code": "dialogue.4",
+      "factor": "dialogue",
+      "text": "Members change their view when they hear a better argument.",
+      "use": "candidate"
+    },
+    {
+      "code": "task_conflict.1",
+      "factor": "task_conflict",
+      "text": "When members see an issue differently, they tell the team.",
+      "use": "core"
+    },
+    {
+      "code": "task_conflict.2",
+      "factor": "task_conflict",
+      "text": "We tell each other where a proposal is weak.",
+      "use": "core"
+    },
+    {
+      "code": "task_conflict.3",
+      "factor": "task_conflict",
+      "text": "We debate the options before we decide.",
+      "use": "core"
+    },
+    {
+      "code": "task_conflict.4",
+      "factor": "task_conflict",
+      "text": "Disagreements are stated in the meeting itself.",
+      "use": "candidate"
+    },
+    {
+      "code": "relationship_conflict.1",
+      "factor": "relationship_conflict",
+      "text": "Disagreements about issues turn personal.",
+      "use": "core"
+    },
+    {
+      "code": "relationship_conflict.2",
+      "factor": "relationship_conflict",
+      "text": "Some members clearly irritate each other.",
+      "use": "core"
+    },
+    {
+      "code": "relationship_conflict.3",
+      "factor": "relationship_conflict",
+      "text": "Some members are unfriendly to each other.",
+      "use": "core"
+    },
+    {
+      "code": "relationship_conflict.4",
+      "factor": "relationship_conflict",
+      "text": "Some members avoid each other.",
+      "use": "candidate"
+    },
+    {
+      "code": "political_behaviour.1",
+      "factor": "political_behaviour",
+      "text": "Members hold back information to protect their own position.",
+      "use": "core"
+    },
+    {
+      "code": "political_behaviour.2",
+      "factor": "political_behaviour",
+      "text": "Some members agree on the outcome between themselves before the meeting.",
+      "use": "core"
+    },
+    {
+      "code": "political_behaviour.3",
+      "factor": "political_behaviour",
+      "text": "Members say one thing in the meeting and another outside it.",
+      "use": "core"
+    },
+    {
+      "code": "political_behaviour.4",
+      "factor": "political_behaviour",
+      "text": "Some members put their own interests ahead of the team's.",
+      "use": "candidate"
+    },
+    {
+      "code": "behavioural_integration.1",
+      "factor": "behavioural_integration",
+      "text": "We share the information colleagues need without being asked.",
+      "use": "core"
+    },
+    {
+      "code": "behavioural_integration.2",
+      "factor": "behavioural_integration",
+      "text": "Each member's view counts in our major decisions.",
+      "use": "core"
+    },
+    {
+      "code": "behavioural_integration.3",
+      "factor": "behavioural_integration",
+      "text": "We help each other in practical ways when a unit is in difficulty.",
+      "use": "core"
+    },
+    {
+      "code": "behavioural_integration.4",
+      "factor": "behavioural_integration",
+      "text": "We weigh how a decision in one unit affects the others.",
+      "use": "candidate"
+    },
+    {
+      "code": "external_relations.1",
+      "factor": "external_relations",
+      "text": "We keep close contact with the people outside the team who matter for our results.",
+      "use": "core"
+    },
+    {
+      "code": "external_relations.2",
+      "factor": "external_relations",
+      "text": "Our units coordinate well between meetings.",
+      "use": "core"
+    },
+    {
+      "code": "external_relations.3",
+      "factor": "external_relations",
+      "text": "Before a major decision, we ask the people it will affect.",
+      "use": "core"
+    },
+    {
+      "code": "external_relations.4",
+      "factor": "external_relations",
+      "text": "People affected by a decision hear about it from us first.",
+      "use": "candidate"
+    },
+    {
+      "code": "learning.1",
+      "factor": "learning",
+      "text": "Our own teamwork is a regular item on our agenda.",
+      "use": "core"
+    },
+    {
+      "code": "learning.2",
+      "factor": "learning",
+      "text": "We change how we work when something fails.",
+      "use": "core"
+    },
+    {
+      "code": "learning.3",
+      "factor": "learning",
+      "text": "When we make a mistake, we find out why.",
+      "use": "core"
+    },
+    {
+      "code": "learning.4",
+      "factor": "learning",
+      "text": "We ask people outside the team how they think we are doing.",
+      "use": "candidate"
+    },
+    {
+      "code": "team_leadership.1",
+      "factor": "team_leadership",
+      "text": "The team leader makes sure our priorities are clear.",
+      "use": "core"
+    },
+    {
+      "code": "team_leadership.2",
+      "factor": "team_leadership",
+      "text": "It is easy to disagree with the team leader.",
+      "use": "core"
+    },
+    {
+      "code": "team_leadership.3",
+      "factor": "team_leadership",
+      "text": "The team leader makes sure decisions are followed up.",
+      "use": "core"
+    },
+    {
+      "code": "team_leadership.4",
+      "factor": "team_leadership",
+      "text": "The team leader deals with tension in the team before it grows.",
+      "use": "candidate"
+    },
+    {
+      "code": "psychological_safety.1",
+      "factor": "psychological_safety",
+      "text": "I can admit a mistake here without paying a price for it.",
+      "use": "core"
+    },
+    {
+      "code": "psychological_safety.2",
+      "factor": "psychological_safety",
+      "text": "I can say what I really think here, even when others disagree.",
+      "use": "core"
+    },
+    {
+      "code": "psychological_safety.3",
+      "factor": "psychological_safety",
+      "text": "I can point out a problem here as soon as I see it.",
+      "use": "core"
+    },
+    {
+      "code": "psychological_safety.4",
+      "factor": "psychological_safety",
+      "text": "I can raise a concern here before I am sure I am right.",
+      "use": "candidate"
+    },
+    {
+      "code": "trust.1",
+      "factor": "trust",
+      "text": "The other members do what they say they will do.",
+      "use": "core"
+    },
+    {
+      "code": "trust.2",
+      "factor": "trust",
+      "text": "I trust the intentions of the other members.",
+      "use": "core"
+    },
+    {
+      "code": "trust.3",
+      "factor": "trust",
+      "text": "When I ask other members to keep something private, they do.",
+      "use": "core"
+    },
+    {
+      "code": "trust.4",
+      "factor": "trust",
+      "text": "The other members lead their own units well.",
+      "use": "candidate"
+    },
+    {
+      "code": "cohesion.1",
+      "factor": "cohesion",
+      "text": "We are committed to this team's shared tasks.",
+      "use": "core"
+    },
+    {
+      "code": "cohesion.2",
+      "factor": "cohesion",
+      "text": "Members put the whole organisation before their own unit.",
+      "use": "core"
+    },
+    {
+      "code": "cohesion.3",
+      "factor": "cohesion",
+      "text": "Membership of this team matters to the people in it.",
+      "use": "core"
+    },
+    {
+      "code": "cohesion.4",
+      "factor": "cohesion",
+      "text": "We feel like one team.",
+      "use": "candidate"
+    },
+    {
+      "code": "norms.1",
+      "factor": "norms",
+      "text": "We have a shared set of working agreements.",
+      "use": "core"
+    },
+    {
+      "code": "norms.2",
+      "factor": "norms",
+      "text": "We follow our working agreements in practice.",
+      "use": "core"
+    },
+    {
+      "code": "norms.3",
+      "factor": "norms",
+      "text": "We speak up when someone breaks our agreements.",
+      "use": "core"
+    },
+    {
+      "code": "norms.4",
+      "factor": "norms",
+      "text": "A new member quickly learns how we work together.",
+      "use": "candidate"
+    },
+    {
+      "code": "direction_alignment_and_commitment.1",
+      "factor": "direction_alignment_and_commitment",
+      "text": "People in the organisation know which priorities this team has set.",
+      "use": "core"
+    },
+    {
+      "code": "direction_alignment_and_commitment.2",
+      "factor": "direction_alignment_and_commitment",
+      "text": "Our units work towards the same goals.",
+      "use": "core"
+    },
+    {
+      "code": "direction_alignment_and_commitment.3",
+      "factor": "direction_alignment_and_commitment",
+      "text": "What we decide here gets done.",
+      "use": "core"
+    },
+    {
+      "code": "direction_alignment_and_commitment.4",
+      "factor": "direction_alignment_and_commitment",
+      "text": "After a meeting, we all support what we decided.",
+      "use": "candidate"
+    },
+    {
+      "code": "viability.1",
+      "factor": "viability",
+      "text": "I want to keep working in this team.",
+      "use": "core"
+    },
+    {
+      "code": "viability.2",
+      "factor": "viability",
+      "text": "After a hard discussion, we cooperate as well as before.",
+      "use": "core"
+    },
+    {
+      "code": "viability.3",
+      "factor": "viability",
+      "text": "We would choose to work together again.",
+      "use": "core"
+    },
+    {
+      "code": "viability.4",
+      "factor": "viability",
+      "text": "We work better together now than we did a year ago.",
+      "use": "candidate"
+    },
+    {
+      "code": "member_growth.1",
+      "factor": "member_growth",
+      "text": "I leave our meetings better equipped to lead my own unit.",
+      "use": "core"
+    },
+    {
+      "code": "member_growth.2",
+      "factor": "member_growth",
+      "text": "I learn from the other members of this team.",
+      "use": "core"
+    },
+    {
+      "code": "member_growth.3",
+      "factor": "member_growth",
+      "text": "I leave our meetings with more energy than I came with.",
+      "use": "core"
+    },
+    {
+      "code": "member_growth.4",
+      "factor": "member_growth",
+      "text": "The team makes me a better leader.",
+      "use": "candidate"
+    }
+  ]
+}
