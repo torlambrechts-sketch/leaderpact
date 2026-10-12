@@ -212,3 +212,14 @@ The generator of handoff 9 and REUSE 4.12 needs sign-in, groups made through the
 passwords for local use; none exists before milestone 4. Until then the suites build their own
 organisations in rolled-back blocks, as REUSE 4.4 asks, and depend on no fixture. The generator, local
 only, arrives with milestone 4. It solves for the design's figures by milestone 5, the team view.
+
+## D-21 — SQL is always allowed, in production too (owner, 12 October 2026)
+
+The owner: "always allow SQL; even in production". `execute_sql` and `apply_migration` through the
+Supabase MCP on `tgxjbshdjwoemsmrtkzw` run without a prompt, now and after the product is declared in
+production; CLAUDE.md, Operating authority, says so. `.claude/settings.json` names both tools in its allow
+list. It changes who asks, not what may be done: weakening a security invariant still needs the owner's
+written decision here, and no other project is touched.
+
+A cloud session ignores `defaultMode: bypassPermissions` and reads a repository's allow rules only when it
+holds that one repository, so a session opened on LeaderPact alone gets these rules.

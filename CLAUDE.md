@@ -157,6 +157,11 @@ wording, a threshold).
 - git: branches, commits, PRs, merges. Force-push only a branch this session created, never `main`.
 - rotating keys (through env or Vault, never printed) and plan or billing settings
 
+**SQL is always allowed, in production too** (owner, 12 October 2026): `execute_sql` and `apply_migration`
+through the Supabase MCP on `tgxjbshdjwoemsmrtkzw` run without asking, in the build phase and after the
+product is declared in production. It covers SQL only, never another project, and it does not reach the
+line below.
+
 **Not a deployment decision:** weakening a security invariant. That covers disabling RLS, a policy or
 grant on an answer table, lowering the threshold, a column that could link a person, or an event field
 that carries an answer. These change only by the owner's written decision in `docs/DECISIONS.md`.
