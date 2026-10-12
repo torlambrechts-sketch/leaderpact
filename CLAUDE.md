@@ -182,6 +182,10 @@ never weaken a control to get past one.
    `{"status":"cancelled"}`. Set objects aside instead: move a function to `app`, rename it `…_retired` and
    revoke it; rename a table and revoke its grants. A migration not yet applied to the hosted project may
    be edited; once applied, it is superseded, never edited.
+   The connector also holds any query with two or more `DELETE` statements, even inside function bodies.
+   Its confirmation never reaches a cloud session, so the call times out and nothing runs. Do not reshape
+   the SQL to pass: generate the owner's script with `scripts/qa/editor-script.mjs`, rehearse it locally,
+   hand it over, then verify on hosted (D-22).
 4. **Before every push**, with exit codes read: the testing gates above.
 5. **Ship:** one milestone per pull request (handoff section 3). Push the branch, open the PR, watch CI,
    merge when green. Vercel deploys `main`.
