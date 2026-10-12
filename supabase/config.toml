@@ -20,11 +20,35 @@ extra_search_path = ["public", "extensions"]
 
 [auth]
 site_url = "http://127.0.0.1:3000"
-additional_redirect_urls = ["http://127.0.0.1:3000/auth/confirm", "http://localhost:3000/auth/confirm"]
+# where an email link may return: the confirmation page of the dev server (3000) and of the flows (3100).
+# Hosted: the production and preview addresses (scripts/hosted/auth-config.mjs).
+additional_redirect_urls = [
+  "http://127.0.0.1:3000/auth/confirm",
+  "http://localhost:3000/auth/confirm",
+  "http://127.0.0.1:3100/auth/confirm",
+  "http://localhost:3100/auth/confirm",
+]
+
+[auth.rate_limit]
+# sign-in mail per hour, project-wide: Supabase's default with custom SMTP, as hosted will have (D-26).
+# The handoff's 5 per address per hour comes with milestone 16's rate limits.
+email_sent = 30
 
 [auth.email]
-# a sign-in link is valid for 15 minutes (handoff section 8)
+# a sign-in link is valid for 15 minutes and works once (handoff section 8)
 otp_expiry = 900
+
+# Both mails carry the same link: back to the confirmation page, whose button signs in, so a mail scanner
+# that opens links first does not use it up (REUSE 4.15). The link works on any device; there is no PKCE.
+# The product's name is not in the mails: it lives in lib/brand.ts, and the sender's name carries it.
+# A first sign-in (a new address, from the save card) gets the confirmation mail; later ones the magic link.
+[auth.email.template.magic_link]
+subject = "Your sign-in link"
+content_path = "./supabase/templates/magic_link.html"
+
+[auth.email.template.confirmation]
+subject = "Your sign-in link"
+content_path = "./supabase/templates/confirmation.html"
 
 [auth.sessions]
 # a session lasts 30 days on a device (handoff section 8). On hosted Supabase this is a paid-plan

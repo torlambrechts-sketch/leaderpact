@@ -123,15 +123,21 @@ jobs:
             echo "a service-role reference in the app (CLAUDE.md)"; exit 1
           fi
 
+      # Mailpit's address goes to the flows too: the leader's flow reads its sign-in link there
       - name: Build against the local database
         run: |
           eval "$(supabase status -o env)"
           echo "NEXT_PUBLIC_SUPABASE_URL=$API_URL" >> "$GITHUB_ENV"
           echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=$ANON_KEY" >> "$GITHUB_ENV"
+          echo "MAILPIT_URL=${MAILPIT_URL:-${INBUCKET_URL:-http://127.0.0.1:54324}}" >> "$GITHUB_ENV"
           NEXT_PUBLIC_SUPABASE_URL="$API_URL" NEXT_PUBLIC_SUPABASE_ANON_KEY="$ANON_KEY" npx next build
           if grep -rlE 'service_role|sb_secret_' .next/static 2>/dev/null; then
             echo "a service-role reference in the browser bundle"; exit 1
           fi
+
+      # The one source of fixture rows: Lumio AS, and each Playwright project's own group (local only)
+      - name: Seed the fixture
+        run: node scripts/seed/fixture.mjs --db "$DB_URL" --e2e
 
       # Chromium for the flows, kept between runs instead of downloaded each time
       - uses: actions/cache@v4

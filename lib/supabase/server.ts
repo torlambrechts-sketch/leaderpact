@@ -1,7 +1,8 @@
-// Origin: Orgpuls lib/supabase/server.ts @ 6f5d441 (unchanged).
+// Origin: Orgpuls lib/supabase/server.ts @ 6f5d441 (adapted: session cookies capped at 30 days, lib/supabase/cookies.ts).
 import 'server-only'
 import { cookies } from 'next/headers'
 import { createServerClient } from '@supabase/ssr'
+import { capSessionCookie } from '@/lib/supabase/cookies'
 import { readSupabaseEnv } from '@/lib/supabase/env'
 import { withIssuedAtRetry } from '@/lib/supabase/skew'
 
@@ -31,7 +32,7 @@ export async function createClient() {
       getAll: () => cookieStore.getAll(),
       setAll: (toSet) => {
         try {
-          toSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options))
+          toSet.forEach(({ name, value, options }) => cookieStore.set(name, value, capSessionCookie(options)))
         } catch {
           // called from a Server Component, where cookies are read-only. The
           // middleware refreshes the session, so this is safe to ignore.

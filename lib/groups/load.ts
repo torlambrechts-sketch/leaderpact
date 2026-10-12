@@ -1,0 +1,109 @@
+import 'server-only'
+import { z } from 'zod'
+import { createClient } from '@/lib/supabase/server'
+import { callFailed, parseFailed, readFailed } from '@/lib/supabase/read'
+import { codeSchema } from '@/lib/scan/link'
+
+/**
+ * What a signed-in person reads of their groups, through row-level security (0002, 0006): only groups
+ * they are a current member of. Parsed, never cast. A failed read is null, which the page shows as a
+ * failure, never as "no groups" (lib/supabase/read.ts).
+ */
+
+export interface MyGroup {
+  id: string
+  name: string
+  role: 'leader' | 'member'
+}
+
+const membershipRow = z.object({
+  role: z.enum(['leader', 'member']),
+  valid_from: z.string(),
+  team: z.object({ id: z.uuid(), name: z.string().min(1) }),
+})
+
+/** The person's current groups, oldest membership first; null when they cannot be read */
+export async function loadMyGroups(personId: string): Promise<MyGroup[] | null> {
+  const supabase = await createClient()
+  const now = new Date().toISOString()
+  const { data, error } = await supabase
+    .schema('app')
+    .from('membership')
+    .select('role, valid_from, team:team(id, name)')
+    .eq('person_id', personId)
+    .lte('valid_from', now)
+    .or(`valid_to.is.null,valid_to.gt.${now}`)
+    .order('valid_from')
+  if (readFailed('loadMyGroups', error, data)) return null
+  const rows = z.array(membershipRow).safeParse(data)
+  if (parseFailed('loadMyGroups', rows)) return null
+  const seen = new Set<string>()
+  return rows.data
+    .filter((r) => (seen.has(r.team.id) ? false : (seen.add(r.team.id), true)))
+    .map((r) => ({ id: r.team.id, name: r.team.name, role: r.role }))
+}
+
+export interface GroupScan {
+  id: string
+  phase: 'open' | 'closed' | 'released'
+  answered: number
+  memberCount: number
+  closesAt: string
+  extended: boolean
+}
+
+export interface InviteView {
+  group: { id: string; name: string }
+  role: 'leader' | 'member'
+  scan: GroupScan | null
+  /** the link's code, read through get_scan_link; null when there is no scan */
+  code: string | null
+}
+
+const scanRow = z.object({
+  id: z.uuid(),
+  phase: z.enum(['open', 'closed', 'released']),
+  answered: z.number().int().min(0),
+  member_count: z.number().int().min(4).max(15),
+  closes_at: z.string().min(1),
+  extended: z.boolean(),
+})
+
+/**
+ * The group's scan status (handoff 6.4): its name, the caller's role, the latest scan's count and closing
+ * date, and the link. 'none' when the caller is not a current member, or the group does not exist; null
+ * when a read failed.
+ */
+export async function loadInvite(groupId: string, personId: string): Promise<InviteView | 'none' | null> {
+  if (!z.uuid().safeParse(groupId).success) return 'none'
+  const groups = await loadMyGroups(personId)
+  if (groups === null) return null
+  const mine = groups.find((g) => g.id === groupId)
+  if (!mine) return 'none'
+
+  const supabase = await createClient()
+  const db = supabase.schema('app')
+  const scans = await db
+    .from('scan_session')
+    .select('id, phase, answered, member_count, closes_at, extended')
+    .eq('team_id', groupId)
+    .order('opens_at', { ascending: false })
+    .limit(1)
+  if (readFailed('loadInvite.scan', scans.error, scans.data)) return null
+  const rows = z.array(scanRow).safeParse(scans.data)
+  if (parseFailed('loadInvite.scan', rows)) return null
+  const row = rows.data[0]
+  if (!row) return { group: { id: mine.id, name: mine.name }, role: mine.role, scan: null, code: null }
+
+  const link = await db.rpc('get_scan_link', { p_scan: row.id })
+  if (callFailed('loadInvite.link', link.error)) return null
+  const code = codeSchema.safeParse(link.data)
+  if (parseFailed('loadInvite.link', code)) return null
+
+  return {
+    group: { id: mine.id, name: mine.name },
+    role: mine.role,
+    scan: { id: row.id, phase: row.phase, answered: row.answered, memberCount: row.member_count, closesAt: row.closes_at, extended: row.extended },
+    code: code.data,
+  }
+}

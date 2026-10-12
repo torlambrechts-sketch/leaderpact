@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { anonClient } from '@/lib/supabase/anon'
 import { parseFailed, readFailed } from '@/lib/supabase/read'
 import { buildScan, itemRowSchema, versionRowSchema, type Scan } from '@/lib/scan/model'
+import { codeSchema, inviteRowSchema, type InviteRow } from '@/lib/scan/link'
 
 /**
  * The published Leadership Team Scan, read as a visitor reads it: the anon client, no session, no
@@ -14,18 +15,16 @@ import { buildScan, itemRowSchema, versionRowSchema, type Scan } from '@/lib/sca
  * thrown inside the cache and caught outside it, so a database that was briefly unreachable is asked
  * again on the next request instead of being remembered as "no scan" for ten minutes.
  */
-async function fetchScan(): Promise<Scan> {
+async function fetchScan(versionId?: string): Promise<Scan> {
   const client = anonClient()
   if (!client) throw new Error('no Supabase configuration')
   const db = client.schema('app')
 
-  const versions = await db
-    .from('instrument_version')
-    .select('id, version, instrument!inner(key)')
-    .eq('instrument.key', 'scan')
-    .eq('status', 'published')
-    .order('version', { ascending: false })
-    .limit(1)
+  // the latest published version, or the one a group's scan session was opened on
+  const query = db.from('instrument_version').select('id, version, instrument!inner(key)').eq('instrument.key', 'scan')
+  const versions = await (versionId
+    ? query.eq('id', versionId).limit(1)
+    : query.eq('status', 'published').order('version', { ascending: false }).limit(1))
   if (readFailed('loadScan.version', versions.error, versions.data)) throw new Error('read failed')
   const version = z.array(versionRowSchema).safeParse(versions.data)
   if (parseFailed('loadScan.version', version)) throw new Error('parse failed')
@@ -49,16 +48,50 @@ async function fetchScan(): Promise<Scan> {
   return scan
 }
 
-const cachedScan = unstable_cache(fetchScan, ['scan:published'], { revalidate: 600 })
+const cachedScan = unstable_cache(() => fetchScan(), ['scan:published'], { revalidate: 600 })
+// a version's items never change once it is published (0003), so each is cached by its id
+const cachedVersion = unstable_cache((versionId: string) => fetchScan(versionId), ['scan:version'], { revalidate: 600 })
+
+function quietly(error: unknown): null {
+  if (error instanceof Error && !/^(read|parse) failed$|^not a scan$|^no published scan version$/.test(error.message)) {
+    console.error(`[read] loadScan: ${error.message}`)
+  }
+  return null
+}
 
 /** The published scan, or null when it cannot be read; the page then says the scan is not available */
 export async function loadScan(): Promise<Scan | null> {
   try {
     return await cachedScan()
   } catch (error) {
-    if (error instanceof Error && !/^(read|parse) failed$|^not a scan$/.test(error.message)) {
-      console.error(`[read] loadScan: ${error.message}`)
-    }
+    return quietly(error)
+  }
+}
+
+/** One version of the scan, the one a group's link asks (handoff 6.5), or null when it cannot be read */
+export async function loadScanVersion(versionId: string): Promise<Scan | null> {
+  try {
+    return await cachedVersion(versionId)
+  } catch (error) {
+    return quietly(error)
+  }
+}
+
+/**
+ * The invite link's page (0009, get_scan_invite): the group's name, the phase, the count, the closing date
+ * and the version to answer. 'none' for a code that leads nowhere; null when the read failed. Never cached:
+ * the count and the phase change with every answer.
+ */
+export async function loadInviteByCode(code: string): Promise<InviteRow | 'none' | null> {
+  if (!codeSchema.safeParse(code).success) return 'none'
+  const client = anonClient()
+  if (!client) {
+    console.error('[read] loadInviteByCode: no Supabase configuration')
     return null
   }
+  const { data, error } = await client.schema('app').rpc('get_scan_invite', { p_code: code })
+  if (readFailed('loadInviteByCode', error, data)) return null
+  const rows = z.array(inviteRowSchema).safeParse(data)
+  if (parseFailed('loadInviteByCode', rows)) return null
+  return rows.data[0] ?? 'none'
 }

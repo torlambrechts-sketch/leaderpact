@@ -7,7 +7,8 @@
     "app.is_scan_item(p_item uuid)": "whether an item belongs to a published scan; the policy that lets a visitor read the scan's items, and no others (0003)",
     "app.submit_scan(p_code text, p_answers jsonb, p_replace_key text)": "the scan's one write path, for members without an account (handoff 6.5): checks every answer, caps at the member count, returns ok and a replace key, never an id (0006, CLAUDE.md invariant 4)",
     "app.get_team_view_by_code(p_code text)": "the team view through the link, for members without an account: levels and labels per theme, only once released at or above k (0006)",
-    "app.get_scan_status_by_code(p_code text)": "the link page's count and closing date: never a score, never a name (handoff 6.4, 0006)"
+    "app.get_scan_status_by_code(p_code text)": "the link page's count and closing date: never a score, never a name (handoff 6.4, 0006)",
+    "app.get_scan_invite(p_code text)": "the invite link's page (handoff 6.4, 6.5): the group's name, phase, count, closing date and the version to answer; never a score, never a name; a malformed or unknown code reads nothing (0009)"
   },
   "client_writes": {},
   "unread_columns": {},

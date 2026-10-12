@@ -13,7 +13,9 @@
 # - The schemas Supabase exposes plus `app` (supabase/config.toml), and Supabase's `/rest/v1` prefix,
 #   served by scripts/qa/local-api-proxy.mjs.
 #
-# There is no Auth service: sign-in flows need CI's real Supabase. It never touches a hosted project.
+# There is no Auth service: sign-in flows need CI's real Supabase. The proxy answers Auth's user lookup for
+# tokens signed with this run's secret, so a test can open a signed-in page with a minted session (D-27);
+# LOCAL_API_JWT_SECRET is printed for that. It never touches a hosted project.
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 : "${DATABASE_URL:?run scripts/qa/local-pg.sh first and eval its output}"
@@ -67,7 +69,7 @@ CONF
 
 nohup "$DIR/postgrest" "$DIR/postgrest.conf" > "$DIR/postgrest.log" 2>&1 &
 echo $! > "$DIR/postgrest.pid"
-nohup node scripts/qa/local-api-proxy.mjs "$API_PORT" "$PGRST_PORT" > "$DIR/proxy.log" 2>&1 &
+LOCAL_API_JWT_SECRET="$SECRET" nohup node scripts/qa/local-api-proxy.mjs "$API_PORT" "$PGRST_PORT" > "$DIR/proxy.log" 2>&1 &
 echo $! > "$DIR/proxy.pid"
 
 for _ in $(seq 1 20); do
@@ -78,3 +80,4 @@ curl -sf -o /dev/null "http://127.0.0.1:$API_PORT/rest/v1/" -H "Authorization: B
 
 echo "export NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:$API_PORT"
 echo "export NEXT_PUBLIC_SUPABASE_ANON_KEY=$ANON_KEY"
+echo "export LOCAL_API_JWT_SECRET=$SECRET"

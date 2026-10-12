@@ -16,6 +16,7 @@
     "verify:i18n": "node scripts/verify/i18n.mjs",
     "test:db": "bash scripts/qa/test-db.sh",
     "seed:model": "node scripts/seed/model.mjs",
+    "seed:fixture": "node scripts/seed/fixture.mjs",
     "audit:security": "node scripts/audit/wiring.mjs --security-only",
     "e2e": "playwright test"
   },

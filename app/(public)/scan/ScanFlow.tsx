@@ -22,8 +22,24 @@ const VALUES = [1, 2, 3, 4, 5] as const
  *
  * The question is the page's heading, and the options a radio group labelled by it. When the question
  * changes, focus moves to the new heading, so a screen reader reads it and Tab reaches the options next.
+ *
+ * A group's invite link runs the same scan (handoff 6.5) with its own draft (`draftKey`), its own way out
+ * (`onLeave`, back to the link's intro) and its own last step (`onFinish`) instead of the public personal
+ * view.
  */
-export function ScanFlow({ scan }: { scan: Scan }) {
+export function ScanFlow({
+  scan,
+  draftKey,
+  leaveHref = LANDING_PATH,
+  onLeave,
+  onFinish,
+}: {
+  scan: Scan
+  draftKey?: string
+  leaveHref?: string
+  onLeave?: () => void
+  onFinish?: (answers: Record<string, number>) => void
+}) {
   const t = useTranslations('scan')
   const router = useRouter()
   const [answers, setAnswers] = React.useState<Record<string, number>>({})
@@ -33,14 +49,14 @@ export function ScanFlow({ scan }: { scan: Scan }) {
   const moved = React.useRef(false)
 
   React.useEffect(() => {
-    const draft = readDraft(deviceStore(), scan, new Date())
+    const draft = readDraft(deviceStore(), scan, new Date(), draftKey)
     if (draft) {
       setAnswers({ ...draft.answers })
       setPosition(draft.position)
     }
     setReady(true)
-    router.prefetch(RESULT_PATH as Route)
-  }, [scan, router])
+    if (!onFinish) router.prefetch(RESULT_PATH as Route)
+  }, [scan, router, draftKey, onFinish])
 
   React.useEffect(() => {
     if (moved.current) heading.current?.focus()
@@ -53,7 +69,7 @@ export function ScanFlow({ scan }: { scan: Scan }) {
   const last = position === total - 1
 
   function save(nextAnswers: Record<string, number>, nextPosition: number) {
-    writeDraft(deviceStore(), scan, { answers: nextAnswers, position: nextPosition }, new Date())
+    writeDraft(deviceStore(), scan, { answers: nextAnswers, position: nextPosition }, new Date(), draftKey)
   }
 
   function choose(raw: string) {
@@ -73,15 +89,17 @@ export function ScanFlow({ scan }: { scan: Scan }) {
   function next() {
     if (value === undefined) return
     if (!last) return go(position + 1)
-    if (isComplete(scan, answers)) router.push(RESULT_PATH as Route)
-    else go(firstUnanswered(scan, answers))
+    if (!isComplete(scan, answers)) return go(firstUnanswered(scan, answers))
+    if (onFinish) onFinish(answers)
+    else router.push(RESULT_PATH as Route)
   }
 
   const done = position + (value !== undefined ? 1 : 0)
   return (
     <div className="mx-auto mt-6 flex max-w-questionnaire flex-col gap-[18px] px-4 md:mt-10 md:px-6">
       <QuestionProgress
-        leaveHref={LANDING_PATH}
+        leaveHref={leaveHref}
+        onLeave={onLeave}
         leaveLabel={t('leave')}
         position={t('position', { n: position + 1, total })}
         value={(done / total) * 100}
