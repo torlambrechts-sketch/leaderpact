@@ -223,3 +223,22 @@ written decision here, and no other project is touched.
 
 A cloud session ignores `defaultMode: bypassPermissions` and reads a repository's allow rules only when it
 holds that one repository, so a session opened on LeaderPact alone gets these rules.
+
+## D-22 — Migrations the connector holds go to the owner's SQL editor (M2)
+
+Hosted 0006 and 0007 would not apply. `apply_migration` and `execute_sql` both timed out after 60 s, and
+once returned `{"status":"cancelled"}`. The Postgres log shows the query never arrived.
+
+Bisected with rolled-back probes: a query with one `DELETE` in a function body runs; a query with two is
+held. The Supabase connector asks for a confirmation on destructive statements, and a cloud session
+cannot show it. `close_scan` holds four and `close_round` two, so neither file can pass.
+
+- **The SQL is not reshaped to pass.** Splitting a function's deletes or hiding the keyword would dodge a
+  control (CLAUDE.md: when a tool refuses).
+- **The owner runs a generated script** in the SQL editor of `tgxjbshdjwoemsmrtkzw`.
+  `scripts/qa/editor-script.mjs` writes it: one transaction, the committed files verbatim, each history
+  row as `apply_migration` writes it, a guard that refuses another project or a second run, and the
+  firewall last.
+- **Rehearsed first, verified after.** The script runs on a local database built to the migration
+  before, and the suites pass on the result. On hosted afterwards: `list_migrations`, each file's md5,
+  the firewall and the security advisor.
