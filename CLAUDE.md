@@ -196,7 +196,8 @@ A cloud session is a fresh VM with a clone of this repo. `.mcp.json` and `.claud
 it; the settings file is read once, at session start.
 - There is no Docker and no Supabase CLI: use `scripts/qa/local-pg.sh` for the SQL suites.
 - For the app and the Playwright flows, put the Data API in front of it: `eval "$(bash scripts/qa/local-api.sh)"`
-  (D-23). There is no Auth service there; sign-in flows run in CI.
+  (D-23), then `node scripts/seed/fixture.mjs --e2e`. There is no Auth service there: a flow opens a signed-in
+  page with a minted session (D-27), and sign-in by email link runs in CI.
 - To look at the app: build, start it in the background, and use the Playwright MCP against
   `http://localhost:3000`. Never run `playwright install`; Chromium is at `/opt/pw-browsers/chromium`.
 

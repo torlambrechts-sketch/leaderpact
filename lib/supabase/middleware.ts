@@ -1,5 +1,6 @@
-// Origin: Orgpuls lib/supabase/middleware.ts @ 6f5d441 (adapted: deny by default; no host gate).
+// Origin: Orgpuls lib/supabase/middleware.ts @ 6f5d441 (adapted: deny by default; no host gate; 30-day session cookies).
 import { NextResponse, type NextRequest } from 'next/server'
+import { capSessionCookie } from '@/lib/supabase/cookies'
 import { readSupabaseEnv } from '@/lib/supabase/env'
 
 /**
@@ -115,7 +116,7 @@ async function guard(request: NextRequest) {
       setAll: (toSet) => {
         toSet.forEach(({ name, value }) => request.cookies.set(name, value))
         response = pass()
-        toSet.forEach(({ name, value, options }) => response.cookies.set(name, value, options))
+        toSet.forEach(({ name, value, options }) => response.cookies.set(name, value, capSessionCookie(options)))
       },
     },
   })

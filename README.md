@@ -35,6 +35,7 @@ npm run dev
 | `npm run e2e` | Playwright flows with axe at 1280, 390 and 360 px (after a build) |
 | `npm run test:db` | Every SQL suite against a local database |
 | `npm run audit:security` | The catalogue security audit (`scripts/audit/wiring.mjs --security-only`) |
+| `npm run seed:fixture` | The fixture, Lumio AS, into a local database only (`scripts/seed/fixture.mjs`; add `-- --e2e` for the flows' groups) |
 
 ### The database, locally
 
@@ -44,7 +45,10 @@ Without Docker (a cloud session): `eval "$(bash scripts/qa/local-pg.sh)"` starts
 PostgreSQL, stubs what Supabase provides, applies every migration and sets `DATABASE_URL`. Then
 `npm run test:db` and `node scripts/audit/wiring.mjs --security-only --db "$DATABASE_URL"`.
 For the app and the Playwright flows, `eval "$(bash scripts/qa/local-api.sh)"` then puts PostgREST in
-front of it and sets `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` (no Auth service).
+front of it and sets `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`. There is no Auth
+service: the proxy answers Auth's user lookup for tokens signed with the run's secret, so a flow can open
+a signed-in page with a minted session (D-27). Seed with `node scripts/seed/fixture.mjs --e2e` before the
+flows. Sign-in by email link runs in CI, where Mailpit catches the mail.
 
 ## Environments
 
@@ -56,4 +60,5 @@ front of it and sets `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_K
 | Production | Vercel, from `main` | `tgxjbshdjwoemsmrtkzw` |
 
 Hosted migrations are applied through the Supabase MCP, with the committed file verbatim (`CLAUDE.md`,
-deployment playbook).
+deployment playbook). The hosted Auth settings (the 15-minute link, the redirect addresses, the mails and
+the sender) come from `scripts/hosted/auth-config.mjs` (D-10, D-26, D-28).

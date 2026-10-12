@@ -11,9 +11,9 @@ export default async function PublicLayout({ children }: { children: React.React
   const t = await getTranslations('publicNav')
   return (
     <>
-      <PublicHeader productName={PRODUCT_NAME} labels={{ menu: t('menu'), scan: t('scan'), start: t('start'), home: t('home', { product: PRODUCT_NAME }) }} />
+      <PublicHeader productName={PRODUCT_NAME} labels={{ menu: t('menu'), scan: t('scan'), start: t('start'), home: t('home', { product: PRODUCT_NAME }), signIn: t('signIn') }} />
       <main id="main">{children}</main>
-      <PublicFooter labels={{ menu: t('legal'), privacy: t('privacy'), dataProcessing: t('dataProcessing') }} />
+      <PublicFooter labels={{ menu: t('footer'), privacy: t('privacy'), dataProcessing: t('dataProcessing'), signIn: t('signIn') }} />
     </>
   )
 }

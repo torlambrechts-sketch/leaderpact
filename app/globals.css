@@ -53,6 +53,7 @@
     --step-teal: #c3e1e6; /* the landing page's second step tile (M3, D-14) */
     --step-yellow: #fdea8a; /* the landing page's third step tile (M3, D-14) */
     --white-veil: rgba(255, 255, 255, 0.75); /* the landing hero's facts pill */
+    --ink-raised: #2a2a2a; /* the save card's gradient, from ink-raised to ink (M4, D-14) */
 
     /* accent */
     --accent: #cccbdc;
@@ -143,6 +144,10 @@
 @layer utilities {
   .text-link:hover {
     color: var(--link-hover);
+  }
+  /* On an ink surface the ink outline would not show: focus there is the same outline in white (M4) */
+  .on-ink :focus-visible {
+    outline-color: #ffffff;
   }
 }
 

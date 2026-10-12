@@ -61,7 +61,7 @@ never wired.
 page is `noindex` until the name is cleared (handoff section 0). The icon is the design's logo mark: a
 black circle with a white dot.
 
-## D-10 — Hosted Auth settings not yet applied (0b)
+## D-10 — Hosted Auth settings not yet applied (0b; still open, see D-28)
 
 `supabase/config.toml` declares a 15-minute sign-in link and a 30-day session. The free project is reachable
 only through the Supabase MCP, which has no Auth-configuration tool, and the environment's Management API
@@ -287,7 +287,7 @@ Handoff 6.1 to 6.3 with section 11's corrections. Where the build differs from t
 - **Two colours from the design became tokens:** `--step-teal` (`#c3e1e6`) and `--step-yellow` (`#fdea8a`),
   the step tiles; their text passes 4.5:1. `--white-veil` is the facts pill's 75% white.
 
-## D-25 — The hosted Data API must expose `app` (M3, deployment)
+## D-25 — The hosted Data API must expose `app` (M3, deployment; applied, see D-28)
 
 Every table and reader is in the `app` schema, and `supabase/config.toml` exposes it locally and in CI.
 The hosted project still exposes only `public` and `graphql_public`, so the deployed scan says it is not
@@ -296,3 +296,104 @@ has no tool for this setting, and the Management API token does not reach this s
 the schema opens nothing by itself: row-level security and grants decide what a role reads, and the
 answer tables have neither.
 
+
+## D-26 — The mail sender: post@leaderpact.com (owner, 12 October 2026)
+
+The owner's answer to D3's open part: `MAIL_FROM` and the reply-to address are both
+`post@leaderpact.com`, on the same Brevo account as Orgpuls with a verified LeaderPact sender domain (D3).
+The sender's name is `PRODUCT_NAME`.
+
+- **Sign-in mail** goes through Supabase Auth, with Brevo's SMTP relay as its custom SMTP and
+  `post@leaderpact.com` as the sender (`scripts/hosted/auth-config.mjs`). Auth sets no reply-to of its own,
+  so a reply goes to the sender, which is the address D3 names.
+- **The outbox mail** (invitations and reminders, milestones 10 and 16) will send from and reply to the same
+  address through Brevo's API.
+- **Not yet in place:** the relay's login and key (`BREVO_SMTP_LOGIN`, `BREVO_SMTP_KEY`) are not in this
+  environment, and the domain's verification in Brevo is the owner's. Until both exist, hosted sign-in mail
+  uses Supabase's built-in mailer, which sends only a few mails an hour (D-28).
+
+## D-27 — Sign-in, the group, the invite link and members' answers (M4)
+
+Handoff 6.3 to 6.5 and section 8's Authentication, with the owner's C1, C2 and C4. Where the build chose,
+and why:
+
+- **An account is made only from the save card.** `signInWithOtp` may create a user only when the personal
+  view's save card asks (REUSE 4.15). The sign-in page never creates one, and it says the same thing whether
+  or not an address has an account: "if it has an account, a link is on its way".
+- **The link opens a page; a button signs in.** `/auth/confirm` verifies the token on a POST, so a mail
+  scanner that opens the link does not use it up (REUSE 4.15). Both mails carry the same link, back to
+  `emailRedirectTo` with the token (`supabase/templates`); a token that lands on `/` is passed on.
+- **No return address in the link.** After sign-in everyone lands on `/app/new`, and the device decides. With
+  the save card's group on it, the group is made and the leader's answers go to its scan. Without, the
+  person's group opens, or the form to make one. Only the device holds the answers (D-15), so only the device
+  can finish the save.
+- **The session cookie lasts 30 days** from the last visit. `@supabase/ssr` writes 400 days and ignores a
+  shorter `maxAge`, so the cap is applied where the cookies are written (`lib/supabase/cookies.ts`). A hard
+  limit from sign-in is the paid plan's time-box (A2).
+- **`start_group` (0009)** makes the organisation, the group, the leader's membership and the scan in one
+  transaction, and returns the group and the link's code. It writes no answer: the leader's answers go
+  through `submit_scan` like every member's, so the scan keeps one write path (invariant 4, owner C4).
+  - **A new organisation per group**, named after it. Free is one group (handoff 1), and an existing person
+    who saves another scan adds a group (6.3). Milestone 8 brings plans and may join them.
+  - **A random request id** makes a repeated start return the first group. It is kept in the audit row,
+    which records the start anyway, and starts by one person are serialised.
+  - **The display name** is the part of the email before the @, until Settings lets the person set one:
+    `person` needs a name and the save card asks for none.
+- **Every scan submission is made as a visitor.** The server action calls `submit_scan` with the anon
+  client, the leader's included, so the request that writes answers carries no user id. The residual owner
+  C3 names, the request's time, remains.
+- **The link's page reads the group's name** (`get_scan_invite`), so a member knows which group asks. It
+  also returns the version to answer, so a member answers the version the scan was opened on.
+- **The invite page is `/app/[group]/invite`**, the design's `invite` screen, until Home (milestone 6)
+  carries the scan status card. Its bar holds the logo and Sign out only (D-24's rule: no link to a page
+  that does not exist). Section 11's corrections apply: the count and the closing date, no countdown to 4,
+  and no word about reminders, which are not sent yet.
+- **The invite link's pages have a bar with the logo only.** The public menu's "Start the scan" would lead a
+  member to a different scan from the one they were sent.
+- **The member's flow** is intro, questions, personal view, then "Submit anonymously". After submitting, the
+  device keeps only the replace key; coming back shows "your answers are in" with "Answer again", which
+  replaces them (owner C2). The intro lists how answers are kept, as 6.5 asks.
+- **The save card starts at 8 members**, the design's value; the stepper and the field take 4 to 15, and the
+  hint says a group of 3 or fewer gets no team view (6.6).
+- **Sign in** sits in the public header from 768 px, where the design puts it, and in the footer at every
+  width: below 768 px the logo, Sign in and "Start the scan" do not fit in 360 px.
+- **A closed scan says so** on both pages, with the count; the team view and its three states are
+  milestone 5.
+- **Dates are written in UTC** until a person's time zone exists (Settings), as everywhere else.
+- **Rate limits wait for milestone 16:** 5 sign-in links per address per hour, and 60 scan submissions per
+  address per hour. Until then Auth's own project-wide mail limit applies (30 an hour locally and with
+  custom SMTP).
+- **Two design colours became tokens:** `--ink-raised` (`#2a2a2a`), the save card's gradient start (D-14).
+  On that ink card the focus outline is white (`.on-ink`), since the ink one would not show.
+- **A local Auth lookup for cloud sessions** (extends D-23). `scripts/qa/local-api-proxy.mjs` answers
+  `GET /auth/v1/user` for tokens signed with the run's own secret, and a flow mints such a session
+  (`tests/e2e/support/session.ts`). It signs nobody in and never touches a hosted project; real sign-in by
+  email link runs in CI, where the leader's flow reads the link from Mailpit.
+- **The fixture** (D-20) is `scripts/seed/fixture.mjs`: Lumio AS and its group of 8 led by Kari Nordmann,
+  an open scan with Kari's answers written through `submit_scan`, and with `--e2e` one group per Playwright
+  project and a flow leader with no group. Addresses are on `lumio.example`. It refuses any database not on
+  127.0.0.1 or localhost. Solving the answers for the design's figures is milestone 5's.
+
+## D-28 — The hosted project's configuration, 12 October 2026 (deployment)
+
+The owner asked for two settings on `tgxjbshdjwoemsmrtkzw` through the Management API, with the network
+secret "Supabase LeaderPact".
+
+- **The Management API refused the injected credential.** Every call, read or write, answered
+  `401 JWT could not be decoded`. The Vercel API answered `403 missing authentication token` with its own
+  injected secret. Neither is the owner saying no; the credentials did not arrive in a form the APIs read.
+- **`app` is exposed, by SQL.** Supabase documents the same setting as a role setting:
+  `alter role authenticator set pgrst.db_schemas = 'public, graphql_public, app'`, then
+  `notify pgrst, 'reload config'`. It ran through the MCP's `execute_sql` on `tgxjbshdjwoemsmrtkzw` (SQL is
+  always allowed, D-21). An anon read of `app.instrument_version` and of the scan's items then answered 200.
+  The dashboard's "Exposed schemas" no longer manages the list while the role setting stands; resetting it
+  is `alter role authenticator reset pgrst.db_schemas`.
+- **The live `/scan` still said it was not available.** The project's API log showed no request from the
+  deployment at all, ever: the Vercel build has no `NEXT_PUBLIC_SUPABASE_URL` and
+  `NEXT_PUBLIC_SUPABASE_ANON_KEY`, or was built before they were set. Both are inlined at build time.
+- **The Auth settings of D-10 are not applied.** No other route sets them: Auth's configuration is not in
+  the database. `scripts/hosted/auth-config.mjs` holds them (the 15-minute link, the redirect addresses, the
+  two mails, and with Brevo's relay key the sender of D-26) and applies them once the Management API takes
+  a token: `NODE_USE_ENV_PROXY=1 node scripts/hosted/auth-config.mjs --site https://leaderpact.vercel.app --apply`.
+  Until then hosted links last Supabase's default hour, return to its default site address, and go out
+  through its built-in mailer.
