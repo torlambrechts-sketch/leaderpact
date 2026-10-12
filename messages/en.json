@@ -4,11 +4,12 @@
   },
   "meta": {
     "title": "{product}",
-    "description": "{product} helps a leadership team see how it works, then improve it meeting by meeting."
-  },
-  "holding": {
-    "heading": "{product}",
-    "body": "This site is being built. Nothing here is live yet."
+    "description": "{product} helps a leadership team see how it works, then improve it meeting by meeting.",
+    "landingTitle": "Leadership team assessment · {product}",
+    "scanTitle": "Leadership Team Scan · {product}",
+    "resultTitle": "Your reading of the team · {product}",
+    "privacyTitle": "Privacy · {product}",
+    "dataProcessingTitle": "Data processing · {product}"
   },
   "nav": {
     "home": "Home",
@@ -132,5 +133,85 @@
     "standingFact": "Fact, no target",
     "standingReadWith": "Read with relationship conflict",
     "groupSecond": "Lumio product group"
+  },
+  "publicNav": {
+    "menu": "Main",
+    "home": "{product}, the Leadership Team Scan",
+    "scan": "Leadership Team Scan",
+    "start": "Start the scan",
+    "legal": "Legal",
+    "privacy": "Privacy",
+    "dataProcessing": "Data processing"
+  },
+  "landing": {
+    "free": "Free",
+    "factsWithCount": "{count} questions · about 3 minutes · no account",
+    "facts": "About 3 minutes · no account",
+    "eyebrow": "Leadership team assessment",
+    "headline": "See how your leadership team really works.",
+    "lead": "A research-based reading of your team in minutes. Invite your group to one shared, anonymous picture, then improve it meeting by meeting.",
+    "start": "Start the scan",
+    "researchBased": "Research-based, not yet validated",
+    "countsOnly": "Counts only, never names",
+    "sample": {
+      "label": "Sample team view",
+      "title": "Team view",
+      "subtitle": "Sample · level and agreement across six themes",
+      "answered": "{answered} of {members} answered",
+      "footer": "Research-based, not yet validated · scale 1–5"
+    },
+    "how": {
+      "pill": "How the scan works",
+      "heading": "From one view to a shared picture.",
+      "answerTitleWithCount": "Answer {count} questions",
+      "answerTitle": "Answer the questions",
+      "answerBody": "One per screen. Your personal view appears right after the last answer.",
+      "inviteTitle": "Invite your group",
+      "inviteBody": "One link for everyone. A counter shows how many have answered, never who.",
+      "readTitle": "Read it together",
+      "readBody": "When the scan closes, the team view opens for the whole group, with level and agreement per theme."
+    }
+  },
+  "agreement": {
+    "high": "High agreement",
+    "medium": "Medium agreement",
+    "low": "Views differ"
+  },
+  "scan": {
+    "leave": "Leave the scan",
+    "position": "{n} of {total}",
+    "progress": "Progress through the scan",
+    "options": {
+      "1": "Strongly disagree",
+      "2": "Disagree",
+      "3": "Neither agree nor disagree",
+      "4": "Agree",
+      "5": "Strongly agree"
+    },
+    "back": "Back",
+    "next": "Next",
+    "finish": "See my view",
+    "onDevice": "Answers stay on this device until you finish. No account needed.",
+    "unavailableTitle": "The scan is not available right now",
+    "unavailableBody": "Please try again in a few minutes.",
+    "unavailableBack": "Back to the Leadership Team Scan"
+  },
+  "result": {
+    "pill": "One person's view",
+    "heading": "Your reading of the team",
+    "lead": "This is your view only. The team view opens when the scan closes, and shows how far you agree.",
+    "indicativeWord": "indicative",
+    "indicative": "Each score is indicative: the mean of two questions.",
+    "label": "Research-based, not yet validated · scale 1–5",
+    "noneTitle": "There is no finished scan on this device",
+    "noneBody": "Answers stay on the device where they were given. Finish the scan there, or start it here.",
+    "start": "Start the scan",
+    "resume": "Continue the scan"
+  },
+  "legal": {
+    "privacyHeading": "Privacy",
+    "privacyPending": "The privacy notice is not written yet.",
+    "dataProcessingHeading": "Data processing",
+    "dataProcessingPending": "The data-processing terms are not written yet."
   }
 }

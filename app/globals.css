@@ -50,6 +50,9 @@
     --nav-ink: #2b2a26; /* inactive navigation (B2) */
     --link-hover: #4f33b8; /* (B2) */
     --landing-pill-ink: #4b3a8f; /* (B2) */
+    --step-teal: #c3e1e6; /* the landing page's second step tile (M3, D-14) */
+    --step-yellow: #fdea8a; /* the landing page's third step tile (M3, D-14) */
+    --white-veil: rgba(255, 255, 255, 0.75); /* the landing hero's facts pill */
 
     /* accent */
     --accent: #cccbdc;

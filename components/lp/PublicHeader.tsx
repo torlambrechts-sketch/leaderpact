@@ -1,0 +1,65 @@
+'use client'
+import * as React from 'react'
+import Link from 'next/link'
+import type { Route } from 'next'
+import { usePathname } from 'next/navigation'
+import { ArrowRight } from 'lucide-react'
+import { Logo } from '@/components/lp/Logo'
+import { cn } from '@/lib/cn'
+import { DATA_PROCESSING_PATH, LANDING_PATH, PRIVACY_PATH, SCAN_PATH } from '@/lib/routes'
+
+/**
+ * The public site's header (design, `r.public`): a --bar pill up to 1080 px wide, padding 10 by 10 by 14,
+ * gap 24, with the public logo, the menu in the middle (14 px, --text-2; the current section in ink, 600)
+ * and "Start the scan" (ink, radius 10, 9 by 14, 14 / 600, a 15 px arrow). It is not sticky.
+ *
+ * The menu is handoff 6.1's: Leadership Team Scan, Leader Profile and Sign in, without the design's
+ * Research, Templates and For coaches (section 11). Leader Profile and Sign in are listed only once their
+ * pages exist (milestones 7 and 4), so no link leads nowhere (D-24). Below 768 px the menu folds away and
+ * the logo, which also leads to the landing page, and the button stay.
+ */
+export function PublicHeader({ productName, labels }: { productName: string; labels: { menu: string; scan: string; start: string; home: string } }) {
+  const path = usePathname()
+  const inScan = path === LANDING_PATH || path === SCAN_PATH || path.startsWith(`${SCAN_PATH}/`)
+  return (
+    <header className="flex justify-center px-4 pt-3 md:px-gutter md:pt-5">
+      <div className="flex w-full max-w-[1080px] items-center gap-6 rounded-pill border border-bar bg-bar py-2.5 pl-3.5 pr-2.5">
+        <Link href={LANDING_PATH as Route} aria-label={labels.home} className="shrink-0 hover:text-ink max-md:inline-flex max-md:min-h-[44px] max-md:items-center">
+          <Logo name={productName} variant="public" />
+        </Link>
+        <nav aria-label={labels.menu} className="hidden flex-1 justify-center gap-[26px] text-[14px] md:flex">
+          <Link
+            href={LANDING_PATH as Route}
+            aria-current={path === LANDING_PATH ? 'page' : undefined}
+            className={cn(inScan ? 'font-semibold text-ink hover:text-ink' : 'text-text-2 hover:text-ink')}
+          >
+            {labels.scan}
+          </Link>
+        </nav>
+        <Link
+          href={SCAN_PATH as Route}
+          className="ml-auto inline-flex items-center gap-1.5 whitespace-nowrap rounded-btn-sm bg-ink px-3.5 py-[9px] text-[14px] font-semibold text-white hover:text-white max-md:min-h-[44px] md:ml-0"
+        >
+          {labels.start}
+          <ArrowRight aria-hidden size={15} />
+        </Link>
+      </div>
+    </header>
+  )
+}
+
+/** The public footer: the privacy and data-processing pages (handoff 6.1). The design draws none. */
+export function PublicFooter({ labels }: { labels: { menu: string; privacy: string; dataProcessing: string } }) {
+  return (
+    <footer className="mx-auto max-w-landing px-4 pb-10 pt-12 md:px-gutter md:pt-16">
+      <nav aria-label={labels.menu} className="flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-text-2 max-md:text-[15px]">
+        <Link href={PRIVACY_PATH as Route} className="text-text-2 hover:text-ink max-md:inline-flex max-md:min-h-[44px] max-md:items-center">
+          {labels.privacy}
+        </Link>
+        <Link href={DATA_PROCESSING_PATH as Route} className="text-text-2 hover:text-ink max-md:inline-flex max-md:min-h-[44px] max-md:items-center">
+          {labels.dataProcessing}
+        </Link>
+      </nav>
+    </footer>
+  )
+}

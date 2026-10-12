@@ -36,6 +36,9 @@ const config: Config = {
         'text-body': v('text-body'),
         'nav-ink': v('nav-ink'),
         'link-hover': v('link-hover'),
+        'landing-pill-ink': v('landing-pill-ink'),
+        step: { teal: v('step-teal'), yellow: v('step-yellow') },
+        'white-veil': v('white-veil'),
         accent: {
           DEFAULT: v('accent'),
           strong: v('accent-strong'),

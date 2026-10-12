@@ -55,7 +55,7 @@ Copied from Orgpuls as it is (owner, A1): bypass mode, an allow list covering ev
 SessionStart hook that runs `scripts/cloud-session-start.sh`, which Orgpuls's script expects but Orgpuls
 never wired.
 
-## D-09 — A holding page until milestone 3 (0b)
+## D-09 — A holding page until milestone 3 (0b; superseded by D-24)
 
 `/` shows the product name and one sentence: "This site is being built. Nothing here is live yet." Every
 page is `noindex` until the name is cleared (handoff section 0). The icon is the design's logo mark: a
@@ -242,3 +242,57 @@ cannot show it. `close_scan` holds four and `close_round` two, so neither file c
 - **Rehearsed first, verified after.** The script runs on a local database built to the migration
   before, and the suites pass on the result. On hosted afterwards: `list_migrations`, each file's md5,
   the firewall and the security advisor.
+
+## D-23 — A local Data API for the flows in a cloud session (M3)
+
+A cloud session has PostgreSQL (D-07) but no PostgREST, so a page that reads the database could not run
+there. `scripts/qa/local-api.sh` puts PostgREST v12.2.3 in front of the local database, the way Supabase
+does: the `authenticator` role, an anon key signed for the run, the schemas of `supabase/config.toml`, and
+Supabase's `/rest/v1` prefix (`scripts/qa/local-api-proxy.mjs`). The binary is downloaded once and checked
+against its SHA-256. There is no Auth service, so sign-in flows still need CI's real Supabase. It never
+touches a hosted project.
+
+## D-24 — The landing page, the scan and the personal view (M3)
+
+Handoff 6.1 to 6.3 with section 11's corrections. Where the build differs from the design, and why:
+
+- **The first heading says "leadership team assessment"** (handoff section 5). It is the heading's first
+  line, small, above the design's headline; the page title starts with it.
+- **The menu lists only pages that exist.** Leadership Team Scan now; Leader Profile and Sign in join with
+  milestones 7 and 4, so no link leads nowhere. Research, Templates, For coaches and the demo group are not
+  built (section 11).
+- **Two trust lines changed.** "Built on meta-analytic research" is not stated in the handoff, so the line
+  is the handoff's own label: "Research-based, not yet validated". "Counts only, never who answered" is
+  "Counts only, never names" (section 10).
+- **"Read it together"** says the team view opens when the scan closes, not at 4 answers (section 11).
+- **The sample card** keeps the design's figures, labelled Sample. Its theme names come from the published
+  scan, so a renamed theme is renamed there too. The question count comes from the scan as well.
+- **The personal view leaves out "You rate highest / lowest".** Handoff 6.3 lists what the view shows, and
+  these boxes are not in it. With tied scores, as in the design's six 3.0s, they name a theme for no
+  reason. The owner can ask for them.
+- **The personal view is one 560 px column** until milestone 4 adds the save card beside it (email, group
+  name and size), which signs the leader in. A form that cannot submit is not built ahead of it.
+- **Every score is labelled.** "Each score is indicative: the mean of two questions" and "Research-based, not
+  yet validated · scale 1–5" sit under the six themes; a screen reader hears "indicative" with each level.
+- **A draft lives 7 days from its last save,** in one localStorage record. A draft for another version of
+  the scan is dropped, and an unreadable one is removed. Where the device refuses storage, the scan works
+  for the visit and does not resume.
+- **The question is the page's heading.** Focus moves to it when the question changes, and the options are
+  a radio group labelled by it.
+- **Two states the design does not draw:** the scan cannot be read ("not available right now"), and the
+  personal view is opened on a device with no finished scan.
+- **The footer** with the privacy and data-processing links is on every public page. Both pages say their
+  text is not written yet, with `TODO(owner)` in the code.
+- **`/` redirects to the landing page** (307, while the name is not cleared). D-09's holding page is gone.
+- **Two colours from the design became tokens:** `--step-teal` (`#c3e1e6`) and `--step-yellow` (`#fdea8a`),
+  the step tiles; their text passes 4.5:1. `--white-veil` is the facts pill's 75% white.
+
+## D-25 — The hosted Data API must expose `app` (M3, deployment)
+
+Every table and reader is in the `app` schema, and `supabase/config.toml` exposes it locally and in CI.
+The hosted project still exposes only `public` and `graphql_public`, so the deployed scan says it is not
+available until `app` is added: Supabase, Project Settings, Data API, Exposed schemas. The Supabase MCP
+has no tool for this setting, and the Management API token does not reach this session (D-10). Exposing
+the schema opens nothing by itself: row-level security and grants decide what a role reads, and the
+answer tables have neither.
+

@@ -43,6 +43,8 @@ With Docker and the Supabase CLI: `supabase start && supabase db reset`, then `n
 Without Docker (a cloud session): `eval "$(bash scripts/qa/local-pg.sh)"` starts a throwaway
 PostgreSQL, stubs what Supabase provides, applies every migration and sets `DATABASE_URL`. Then
 `npm run test:db` and `node scripts/audit/wiring.mjs --security-only --db "$DATABASE_URL"`.
+For the app and the Playwright flows, `eval "$(bash scripts/qa/local-api.sh)"` then puts PostgREST in
+front of it and sets `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` (no Auth service).
 
 ## Environments
 

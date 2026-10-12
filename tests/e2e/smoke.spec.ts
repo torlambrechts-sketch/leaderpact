@@ -2,10 +2,10 @@ import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 
 /**
- * Milestone 0b's smoke: the holding page renders, is accessible, does not scroll sideways, carries
- * the security headers, and a page behind sign-in refuses an anonymous visitor.
+ * The smoke: the root leads to the landing page, which renders, is accessible, does not scroll sideways
+ * and carries the security headers; and a page behind sign-in refuses an anonymous visitor.
  */
-test('the holding page renders and passes axe', async ({ page }) => {
+test('the root leads to the landing page, which renders and passes axe', async ({ page }) => {
   const errors: string[] = []
   page.on('pageerror', (e) => errors.push(String(e)))
   page.on('console', (m) => {
@@ -17,6 +17,7 @@ test('the holding page renders and passes axe', async ({ page }) => {
 
   const response = await page.goto('/')
   expect(response?.status()).toBe(200)
+  expect(new URL(page.url()).pathname).toBe('/leadership-team-assessment')
   await expect(page.locator('html')).toHaveAttribute('lang', 'en-GB')
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
 

@@ -26,7 +26,7 @@ describe('copy rules (handoff section 10)', () => {
     expect(forbiddenNames('All 24 scales')).toHaveLength(1)
   })
 
-  it('the shipped holding text passes', () => {
-    expect(copyFindings('This site is being built. Nothing here is live yet.')).toEqual([])
+  it('the lead of the landing page passes', () => {
+    expect(copyFindings('A research-based reading of your team in minutes. Invite your group to one shared, anonymous picture, then improve it meeting by meeting.')).toEqual([])
   })
 })
