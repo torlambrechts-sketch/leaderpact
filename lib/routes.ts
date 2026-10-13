@@ -25,3 +25,9 @@ export const invitePath = (group: string) => `/app/${group}/invite`
 export const teamPath = (group: string) => `/app/${group}/team`
 /** The group's one invite link (handoff 6.5) */
 export const joinPath = (code: string) => `/j/${code}`
+
+/** The Leader Profile's public page (handoff section 5), and each test's page */
+export const PROFILE_PATH = '/leader-profile'
+export const profileTestPath = (test: 'quick' | 'full') => `/leader-profile/${test}`
+/** The person's own page: the Leader Profile and its sharing (handoff 6.17); not per group */
+export const ME_PATH = '/app/me'

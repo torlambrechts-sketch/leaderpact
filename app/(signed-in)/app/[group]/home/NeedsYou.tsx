@@ -2,7 +2,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 import type { Route } from 'next'
-import { ListChecks, Link2 } from 'lucide-react'
+import { ListChecks, Link2, UserRound } from 'lucide-react'
 import { Card } from '@/components/lp/Card'
 import { ListRow } from '@/components/lp/ListRow'
 import { SectionHeader } from '@/components/lp/SectionHeader'
@@ -13,7 +13,7 @@ import { joinPath } from '@/lib/routes'
 
 export interface NeedsYouLabels {
   title: string
-  /** "# things need you", for 0, 1 and 2 rows */
+  /** "# things need you", for 0 to 3 rows */
   counts: readonly string[]
   empty: string
   kindScan: string
@@ -25,15 +25,20 @@ export interface NeedsYouLabels {
   shareAction: string
   shareCopied: string
   shareFailed: string
+  kindProfile: string
+  profileTitle: string
+  profileMeta: string
+  profileAction: string
 }
 
 /**
  * Home's "Needs you" on the Free plan (handoff 6.7): answer the scan and share the link, while the scan is
- * open. Whether this person has answered is known only to their device, by the replace key the link left
- * there (C2): nothing on the server says who answered. A person who answered on another device sees the
- * row; the link's page then says the answers are in. The Leader Profile's row comes with milestone 7.
+ * open, and take the Leader Profile while the person has none (milestone 7). Whether this person has
+ * answered the scan is known only to their device, by the replace key the link left there (C2): nothing
+ * on the server says who answered. A person who answered on another device sees the row; the link's page
+ * then says the answers are in.
  */
-export function NeedsYou({ code, link, labels }: { code: string | null; link: string | null; labels: NeedsYouLabels }) {
+export function NeedsYou({ code, link, profileHref, labels }: { code: string | null; link: string | null; profileHref: string | null; labels: NeedsYouLabels }) {
   const answered = React.useSyncExternalStore(subscribeStorage, () => (code ? readReplaceKey(deviceStore(), code) !== null : true), () => null)
   const [said, setSaid] = React.useState<'copied' | 'failed' | null>(null)
 
@@ -76,6 +81,24 @@ export function NeedsYou({ code, link, labels }: { code: string | null; link: st
           <button type="button" onClick={copy} className={buttonVariants({ size: 'xsmall' })}>
             {said === 'copied' ? labels.shareCopied : labels.shareAction}
           </button>
+        }
+      />,
+    )
+  }
+
+  if (profileHref) {
+    rows.push(
+      <ListRow
+        key="profile"
+        icon={UserRound}
+        kind={labels.kindProfile}
+        kindTone="other"
+        title={labels.profileTitle}
+        meta={labels.profileMeta}
+        action={
+          <Link href={profileHref as Route} className={buttonVariants({ size: 'xsmall' })}>
+            {labels.profileAction}
+          </Link>
         }
       />,
     )

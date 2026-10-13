@@ -36,6 +36,7 @@ npm run dev
 | `npm run test:db` | Every SQL suite against a local database |
 | `npm run audit:security` | The catalogue security audit (`scripts/audit/wiring.mjs --security-only`) |
 | `npm run seed:fixture` | The fixture, Lumio AS, into a local database only (`scripts/seed/fixture.mjs`; add `-- --e2e` for the flows' groups) |
+| `npm run seed:model` / `seed:profile` | Validate `data/` and regenerate the model's rows (0004) or the Leader Profile's tests (0012); `--check` writes nothing |
 
 ### The database, locally
 

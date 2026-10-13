@@ -1,0 +1,162 @@
+{
+  "key": "quick",
+  "version": 1,
+  "name": "Mini-IPIP",
+  "source": {
+    "items": "https://ipip.ori.org/MiniIPIPKey.htm",
+    "order": "Round robin across the five factors, in the order of the scoring key (D-32)",
+    "citation": "Donnellan, M. B., Oswald, F. L., Baird, B. M., & Lucas, R. E. (2006). The Mini-IPIP scales: Tiny-yet-effective measures of the Big Five factors of personality. Psychological Assessment, 18, 192-203.",
+    "licence": "Public domain (https://ipip.ori.org/newPermission.htm)",
+    "retrieved": "2026-10-13"
+  },
+  "domains": [
+    {
+      "key": "I",
+      "name": "Intellect or imagination",
+      "ordinal": 1
+    },
+    {
+      "key": "C",
+      "name": "Conscientiousness",
+      "ordinal": 2
+    },
+    {
+      "key": "E",
+      "name": "Surgency or extraversion",
+      "ordinal": 3
+    },
+    {
+      "key": "A",
+      "name": "Agreeableness",
+      "ordinal": 4
+    },
+    {
+      "key": "N",
+      "name": "Neuroticism",
+      "ordinal": 5
+    }
+  ],
+  "facets": [],
+  "items": [
+    {
+      "ordinal": 1,
+      "text": "Am the life of the party.",
+      "trait": "E",
+      "keyed": 1
+    },
+    {
+      "ordinal": 2,
+      "text": "Sympathize with others' feelings.",
+      "trait": "A",
+      "keyed": 1
+    },
+    {
+      "ordinal": 3,
+      "text": "Get chores done right away.",
+      "trait": "C",
+      "keyed": 1
+    },
+    {
+      "ordinal": 4,
+      "text": "Have frequent mood swings.",
+      "trait": "N",
+      "keyed": 1
+    },
+    {
+      "ordinal": 5,
+      "text": "Have a vivid imagination.",
+      "trait": "I",
+      "keyed": 1
+    },
+    {
+      "ordinal": 6,
+      "text": "Talk to a lot of different people at parties.",
+      "trait": "E",
+      "keyed": 1
+    },
+    {
+      "ordinal": 7,
+      "text": "Feel others' emotions.",
+      "trait": "A",
+      "keyed": 1
+    },
+    {
+      "ordinal": 8,
+      "text": "Like order.",
+      "trait": "C",
+      "keyed": 1
+    },
+    {
+      "ordinal": 9,
+      "text": "Get upset easily.",
+      "trait": "N",
+      "keyed": 1
+    },
+    {
+      "ordinal": 10,
+      "text": "Have difficulty understanding abstract ideas.",
+      "trait": "I",
+      "keyed": -1
+    },
+    {
+      "ordinal": 11,
+      "text": "Don't talk a lot.",
+      "trait": "E",
+      "keyed": -1
+    },
+    {
+      "ordinal": 12,
+      "text": "Am not really interested in others.",
+      "trait": "A",
+      "keyed": -1
+    },
+    {
+      "ordinal": 13,
+      "text": "Often forget to put things back in their proper place.",
+      "trait": "C",
+      "keyed": -1
+    },
+    {
+      "ordinal": 14,
+      "text": "Am relaxed most of the time.",
+      "trait": "N",
+      "keyed": -1
+    },
+    {
+      "ordinal": 15,
+      "text": "Am not interested in abstract ideas.",
+      "trait": "I",
+      "keyed": -1
+    },
+    {
+      "ordinal": 16,
+      "text": "Keep in the background.",
+      "trait": "E",
+      "keyed": -1
+    },
+    {
+      "ordinal": 17,
+      "text": "Am not interested in other people's problems.",
+      "trait": "A",
+      "keyed": -1
+    },
+    {
+      "ordinal": 18,
+      "text": "Make a mess of things.",
+      "trait": "C",
+      "keyed": -1
+    },
+    {
+      "ordinal": 19,
+      "text": "Seldom feel blue.",
+      "trait": "N",
+      "keyed": -1
+    },
+    {
+      "ordinal": 20,
+      "text": "Do not have a good imagination.",
+      "trait": "I",
+      "keyed": -1
+    }
+  ]
+}
