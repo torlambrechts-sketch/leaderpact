@@ -1,4 +1,5 @@
 import 'server-only'
+import { cache } from 'react'
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
 import { callFailed, parseFailed, readFailed } from '@/lib/supabase/read'
@@ -125,3 +126,32 @@ export async function loadGroupTeamView(groupId: string, personId: string): Prom
   if (parseFailed('loadGroupTeamView', rows)) return null
   return { ...invite, view: buildTeamView(rows.data) }
 }
+
+export interface Shell {
+  groups: MyGroup[]
+  current: MyGroup
+  person: { id: string; name: string }
+}
+
+/**
+ * What the app shell needs (handoff section 5): the person's current groups for the switcher, the group
+ * open now with the person's role in it, and the person's name for the avatar. 'none' when the person is
+ * not a current member of the group; null when a read failed. Read once per request: the layout and the
+ * page below it both ask.
+ */
+export const loadShell = cache(async (groupId: string, personId: string): Promise<Shell | 'none' | null> => {
+  if (!z.uuid().safeParse(groupId).success) return 'none'
+  const groups = await loadMyGroups(personId)
+  if (groups === null) return null
+  const current = groups.find((g) => g.id === groupId)
+  if (!current) return 'none'
+  const supabase = await createClient()
+  const { data, error } = await supabase.schema('app').from('person').select('display_name').eq('id', personId).maybeSingle()
+  if (error) {
+    callFailed('loadShell.person', error)
+    return null
+  }
+  const name = z.object({ display_name: z.string().min(1) }).safeParse(data)
+  if (parseFailed('loadShell.person', name)) return null
+  return { groups, current, person: { id: personId, name: name.data.display_name } }
+})

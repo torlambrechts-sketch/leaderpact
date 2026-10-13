@@ -17,6 +17,8 @@ export const NEW_GROUP_PATH = '/app/new'
 /** The signed-in start: the person's group, or a new one */
 export const APP_PATH = '/app'
 
+/** The group's Home (handoff 6.7) */
+export const homePath = (group: string) => `/app/${group}/home`
 /** The group's scan status and invite link (design `invite`, handoff 6.4) */
 export const invitePath = (group: string) => `/app/${group}/invite`
 /** The group's team view, for its members (design `team`, handoff 6.6); Home carries it from milestone 6 */

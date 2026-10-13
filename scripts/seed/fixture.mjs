@@ -5,8 +5,9 @@
  *   node scripts/seed/fixture.mjs                     # DATABASE_URL, or the local Supabase stack
  *   node scripts/seed/fixture.mjs --db <url> --e2e    # also the flows' own groups (tests/e2e)
  *
- * 1. **Lumio AS**, the demo organisation, with the Lumio leadership group of 8 led by Kari Nordmann. Every
- *    other name is invented, and every address is on `lumio.example`, a name that cannot receive mail.
+ * 1. **Lumio AS**, the demo organisation, with the Lumio leadership group of 8 led by Kari Nordmann, its
+ *    members named as the design names them (and as data/sample/lumio.v1.json does). Every name is
+ *    invented, and every address is on `lumio.example`, a name that cannot receive mail.
  * 2. **Its Leadership Team Scan is open**, with one answer: Kari's, written through `app.submit_scan`, the
  *    write path itself, so the rows have exactly the shape a submission gives (REUSE 4.12). Every answer is
  *    3, the design's personal view. Milestone 5 solves the answers backwards from the design's figures.
@@ -42,10 +43,10 @@ export const LUMIO = {
     { id: id('4c0e0000', 11), name: 'Ola Hansen', email: 'ola.hansen@lumio.example', role: 'member' },
     { id: id('4c0e0000', 12), name: 'Ingrid Berg', email: 'ingrid.berg@lumio.example', role: 'member' },
     { id: id('4c0e0000', 13), name: 'Lars Johansen', email: 'lars.johansen@lumio.example', role: 'member' },
-    { id: id('4c0e0000', 14), name: 'Marte Olsen', email: 'marte.olsen@lumio.example', role: 'member' },
-    { id: id('4c0e0000', 15), name: 'Jonas Lie', email: 'jonas.lie@lumio.example', role: 'member' },
-    { id: id('4c0e0000', 16), name: 'Sofie Dahl', email: 'sofie.dahl@lumio.example', role: 'member' },
-    { id: id('4c0e0000', 17), name: 'Erik Moe', email: 'erik.moe@lumio.example', role: 'member' },
+    { id: id('4c0e0000', 14), name: 'Sofie Lie', email: 'sofie.lie@lumio.example', role: 'member' },
+    { id: id('4c0e0000', 15), name: 'Erik Dahl', email: 'erik.dahl@lumio.example', role: 'member' },
+    { id: id('4c0e0000', 16), name: 'Maja Strand', email: 'maja.strand@lumio.example', role: 'member' },
+    { id: id('4c0e0000', 17), name: 'Henrik Bakke', email: 'henrik.bakke@lumio.example', role: 'member' },
   ],
 }
 
