@@ -21,7 +21,7 @@ import { cn } from '@/lib/cn'
  * Meetings, Plan and More.
  *
  * In the app it lists only the pages that exist (`items`), hides the gear until Settings exists, shows the
- * plan as a label until plan and billing exist, and opens Sign out from the avatar (milestone 6).
+ * plan pill only when the plan is known, and opens Sign out from the avatar (milestone 6).
  */
 export interface TopBarProps {
   productName: string
@@ -29,8 +29,8 @@ export interface TopBarProps {
   currentGroup: string
   active?: NavKey
   labels: Record<NavKey, string> & { more: string; settings: string; switchGroup: string; groups: string; primary: string; planAndBilling: string }
-  /** the plan pill links to plan and billing; without an address it is a label only (milestone 8 brings the page) */
-  plan: { label: string; href?: string }
+  /** the plan pill links to plan and billing; without an address it is a label only; absent while the plan is unknown */
+  plan?: { label: string; href?: string }
   /** title: the design's tooltip, e.g. 'Kari Nordmann · Leader' */
   person: { id: string; name: string; title?: string }
   /** the specimens page draws the bar in place; the app makes it sticky */
@@ -97,7 +97,7 @@ export function TopBar({
           </nav>
 
           <div className="ml-auto flex items-center gap-3.5 md:ml-0">
-            <PlanPill href={plan.href} label={plan.label} title={plan.href ? labels.planAndBilling : undefined} prefetch={prefetch} />
+            {plan && <PlanPill href={plan.href} label={plan.label} title={plan.href ? labels.planAndBilling : undefined} prefetch={prefetch} />}
             {/* the design's tray holds settings, a layout switch and a width switch; section 11 keeps settings */}
             {showSettings && (
               <div className="hidden rounded-btn-sm bg-rule-soft p-[3px] md:flex">

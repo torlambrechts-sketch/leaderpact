@@ -2,7 +2,7 @@ import * as React from 'react'
 import Link from 'next/link'
 import type { Route } from 'next'
 import { cn } from '@/lib/cn'
-import { tabClass, tabOnClass, tabStripClass } from '@/components/ui/tabs'
+import { tabClass, tabOnClass, tabStripClass } from '@/components/ui/tab-classes'
 
 /**
  * Tabs that change the URL (Group, Results, Plan): links with aria-current, in the same segmented strip as
