@@ -527,6 +527,11 @@ Handoff 6.17, 8 and 9, CLAUDE.md invariant 11. Where the build chose:
 - **Left out of Me**: the design's team map, conversation prompt, modules, contribution feedback and the
   per-domain descriptions, which no source supplies. The person's actions and open questionnaires join
   Me when they exist (milestones 10 and 12).
+- **Hosted, through the owner's SQL editor** (D-22). `apply_migration` held 0011 and timed out with
+  nothing applied, so the owner runs the script `scripts/qa/editor-script.mjs 0011_profile 0012_profile_v1`
+  makes. It was rehearsed on a local database built to 0010: both files applied in one transaction, the
+  firewall six of six, every suite passing, the history hashes matching the files, a second run refused.
+  The code merges once hosted carries both (the deployment playbook: database first).
 - **Open for the owner: the political facet.** Facet O6, Liberalism, is scored from four items about
   voting and politics ("Tend to vote for liberal political candidates"). Its band reveals a political
   opinion, a special category of personal data under the GDPR, and "domains and facets" would show it to a
