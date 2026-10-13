@@ -476,3 +476,64 @@ Handoff sections 4 and 5, 6.7 and 6.19, with section 11's corrections. Where the
   no hosted row changes.
 - **Each flow signs in a person of its own.** Auth sends one address one link per interval, so the leader's
   and a member's checks run at 1280 px, and two other members check the phones.
+
+## D-31 — The Leader Profile's bands are equal thirds of the answer scale (owner, 13 October 2026)
+
+Handoff 6.17 and section 9 ("Ask before choosing them"). The owner chose equal thirds of the 1 to 5 answer
+scale for "lower", "middle" and "higher": a trait's mean below 2.33 is lower, above 3.67 is higher, and the
+rest is middle. The limits are a versioned row (`app.profile_band_set`, version 1), and a profile keeps
+the version it was made with. The bands against a norm group wait for the norm table (section 9), and are
+asked again then.
+
+## D-32 — The Leader Profile (M7)
+
+Handoff 6.17, 8 and 9, CLAUDE.md invariant 11. Where the build chose:
+
+- **The items were read from the sources, not written from memory** (handoff 9). The full test is the
+  IPIP-NEO-120 as published at ipip.ori.org (facet names, keys and wording), in the administration order of
+  the open-source set the handoff names (Alheimsins, commit 493546d), and every one of the 120 items was
+  checked against both: wording, facet and key. The domain names come from the IPIP's NEO domains page.
+  The quick test is the Mini-IPIP from its IPIP scoring key, with the key's own labels ("Surgency or
+  extraversion", "Intellect or imagination"). The key gives no order, so its items are asked round robin
+  across the five factors, so that no two items of one factor follow each other. Both are public domain;
+  the public page credits the IPIP. The data files keep their sources.
+- **Item wording is verbatim**, so it keeps the source's American spelling ("Sympathize") and its sentence
+  fragments; the copy rules apply to the product's own words, not to a published instrument's items.
+  The answer options are the source's, in sentence case.
+- **One profile per person: the latest test taken.** A retake of either length replaces it and resets
+  every share to nothing, in one transaction. A quick profile shared "domains and facets" shows domains,
+  since it has none.
+- **Only sums are stored.** `save_profile` takes the full set of answers, checks them, and keeps per trait
+  the sum of the keyed answers and their count. The answers are not stored, so nobody, the owner included,
+  can read them back. The device shows the result before anything is sent (lib/profile/score.ts), and the
+  database computes the same sums; the SQL suite and the unit tests hold the same cases.
+- **Sharing is per group**, readable and settable by its owner only, and applies at once. A group reads a
+  shared profile through `get_group_profiles`, as bands only: never a sum, a count or a position. A
+  profile that is not shared and a member with no profile read the same, "Not shared", so the group cannot
+  tell whether one exists.
+- **Delete is immediate**, within the 30 days handoff 8 allows: the profile and its shares, with an audit
+  row that carries nothing but the kind.
+- **The quick and full results show a position on the answer scale** in the three bands of D-31, and say
+  that no norm group is used, until the norm table exists. The owner sees a dot for their mean; a group
+  sees only the band.
+- **A visitor keeps a result by email sign-in.** The answers wait on the device (7 days) and Me saves
+  them once the link is opened there; sign-in may make an account for this (`intent: 'profile'`). Drafts
+  resume for 30 days, since the full test is 120 questions. Every key starts `leaderpact.profile.`, so
+  nothing is shared with the scan's.
+- **People is real on the Free plan.** The Leader Profile is free (handoff 1), and a share needs a place to
+  be read, so People lists the group's current members with their shared profiles (handoff 6.9) instead of
+  a sample. Me joins the navigation, and Home's "Needs you" offers the quick test while the person has no
+  profile. After sign-in, a person with a group now lands on Home.
+- **Left out of Me**: the design's team map, conversation prompt, modules, contribution feedback and the
+  per-domain descriptions, which no source supplies. The person's actions and open questionnaires join
+  Me when they exist (milestones 10 and 12).
+- **Hosted, through the owner's SQL editor** (D-22). `apply_migration` held 0011 and timed out with
+  nothing applied, so the owner runs the script `scripts/qa/editor-script.mjs 0011_profile 0012_profile_v1`
+  makes. It was rehearsed on a local database built to 0010: both files applied in one transaction, the
+  firewall six of six, every suite passing, the history hashes matching the files, a second run refused.
+  The code merges once hosted carries both (the deployment playbook: database first).
+- **Open for the owner: the political facet.** Facet O6, Liberalism, is scored from four items about
+  voting and politics ("Tend to vote for liberal political candidates"). Its band reveals a political
+  opinion, a special category of personal data under the GDPR, and "domains and facets" would show it to a
+  group. The handoff asks for the IPIP-NEO-120 as published, so it is built as published; whether to keep,
+  drop or withhold this facet from sharing is the owner's decision before launch.

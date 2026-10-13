@@ -1,0 +1,944 @@
+{
+  "key": "full",
+  "version": 1,
+  "name": "IPIP-NEO-120",
+  "source": {
+    "items": "https://ipip.ori.org/30FacetNEO-PI-RItems.htm",
+    "domains": "https://ipip.ori.org/newNEODomainsKey.htm",
+    "order": "https://github.com/Alheimsins/b5-johnson-120-ipip-neo-pi-r/blob/493546d48eb9053aca7e6c55574f4bf8033cc5a4/data/en/questions.json",
+    "citation": "Johnson, J. A. (2014). Measuring thirty facets of the Five Factor Model with a 120-item public domain inventory: Development of the IPIP-NEO-120. Journal of Research in Personality, 51, 78-89.",
+    "licence": "Public domain (https://ipip.ori.org/newPermission.htm)",
+    "retrieved": "2026-10-13"
+  },
+  "domains": [
+    {
+      "key": "O",
+      "name": "Openness to experience",
+      "ordinal": 1
+    },
+    {
+      "key": "C",
+      "name": "Conscientiousness",
+      "ordinal": 2
+    },
+    {
+      "key": "E",
+      "name": "Extraversion",
+      "ordinal": 3
+    },
+    {
+      "key": "A",
+      "name": "Agreeableness",
+      "ordinal": 4
+    },
+    {
+      "key": "N",
+      "name": "Neuroticism",
+      "ordinal": 5
+    }
+  ],
+  "facets": [
+    {
+      "key": "O1",
+      "domain": "O",
+      "name": "Imagination",
+      "ordinal": 1
+    },
+    {
+      "key": "O2",
+      "domain": "O",
+      "name": "Artistic interests",
+      "ordinal": 2
+    },
+    {
+      "key": "O3",
+      "domain": "O",
+      "name": "Emotionality",
+      "ordinal": 3
+    },
+    {
+      "key": "O4",
+      "domain": "O",
+      "name": "Adventurousness",
+      "ordinal": 4
+    },
+    {
+      "key": "O5",
+      "domain": "O",
+      "name": "Intellect",
+      "ordinal": 5
+    },
+    {
+      "key": "O6",
+      "domain": "O",
+      "name": "Liberalism",
+      "ordinal": 6
+    },
+    {
+      "key": "C1",
+      "domain": "C",
+      "name": "Self-efficacy",
+      "ordinal": 7
+    },
+    {
+      "key": "C2",
+      "domain": "C",
+      "name": "Orderliness",
+      "ordinal": 8
+    },
+    {
+      "key": "C3",
+      "domain": "C",
+      "name": "Dutifulness",
+      "ordinal": 9
+    },
+    {
+      "key": "C4",
+      "domain": "C",
+      "name": "Achievement-striving",
+      "ordinal": 10
+    },
+    {
+      "key": "C5",
+      "domain": "C",
+      "name": "Self-discipline",
+      "ordinal": 11
+    },
+    {
+      "key": "C6",
+      "domain": "C",
+      "name": "Cautiousness",
+      "ordinal": 12
+    },
+    {
+      "key": "E1",
+      "domain": "E",
+      "name": "Friendliness",
+      "ordinal": 13
+    },
+    {
+      "key": "E2",
+      "domain": "E",
+      "name": "Gregariousness",
+      "ordinal": 14
+    },
+    {
+      "key": "E3",
+      "domain": "E",
+      "name": "Assertiveness",
+      "ordinal": 15
+    },
+    {
+      "key": "E4",
+      "domain": "E",
+      "name": "Activity level",
+      "ordinal": 16
+    },
+    {
+      "key": "E5",
+      "domain": "E",
+      "name": "Excitement-seeking",
+      "ordinal": 17
+    },
+    {
+      "key": "E6",
+      "domain": "E",
+      "name": "Cheerfulness",
+      "ordinal": 18
+    },
+    {
+      "key": "A1",
+      "domain": "A",
+      "name": "Trust",
+      "ordinal": 19
+    },
+    {
+      "key": "A2",
+      "domain": "A",
+      "name": "Morality",
+      "ordinal": 20
+    },
+    {
+      "key": "A3",
+      "domain": "A",
+      "name": "Altruism",
+      "ordinal": 21
+    },
+    {
+      "key": "A4",
+      "domain": "A",
+      "name": "Cooperation",
+      "ordinal": 22
+    },
+    {
+      "key": "A5",
+      "domain": "A",
+      "name": "Modesty",
+      "ordinal": 23
+    },
+    {
+      "key": "A6",
+      "domain": "A",
+      "name": "Sympathy",
+      "ordinal": 24
+    },
+    {
+      "key": "N1",
+      "domain": "N",
+      "name": "Anxiety",
+      "ordinal": 25
+    },
+    {
+      "key": "N2",
+      "domain": "N",
+      "name": "Anger",
+      "ordinal": 26
+    },
+    {
+      "key": "N3",
+      "domain": "N",
+      "name": "Depression",
+      "ordinal": 27
+    },
+    {
+      "key": "N4",
+      "domain": "N",
+      "name": "Self-consciousness",
+      "ordinal": 28
+    },
+    {
+      "key": "N5",
+      "domain": "N",
+      "name": "Immoderation",
+      "ordinal": 29
+    },
+    {
+      "key": "N6",
+      "domain": "N",
+      "name": "Vulnerability",
+      "ordinal": 30
+    }
+  ],
+  "items": [
+    {
+      "ordinal": 1,
+      "text": "Worry about things.",
+      "trait": "N1",
+      "keyed": 1
+    },
+    {
+      "ordinal": 2,
+      "text": "Make friends easily.",
+      "trait": "E1",
+      "keyed": 1
+    },
+    {
+      "ordinal": 3,
+      "text": "Have a vivid imagination.",
+      "trait": "O1",
+      "keyed": 1
+    },
+    {
+      "ordinal": 4,
+      "text": "Trust others.",
+      "trait": "A1",
+      "keyed": 1
+    },
+    {
+      "ordinal": 5,
+      "text": "Complete tasks successfully.",
+      "trait": "C1",
+      "keyed": 1
+    },
+    {
+      "ordinal": 6,
+      "text": "Get angry easily.",
+      "trait": "N2",
+      "keyed": 1
+    },
+    {
+      "ordinal": 7,
+      "text": "Love large parties.",
+      "trait": "E2",
+      "keyed": 1
+    },
+    {
+      "ordinal": 8,
+      "text": "Believe in the importance of art.",
+      "trait": "O2",
+      "keyed": 1
+    },
+    {
+      "ordinal": 9,
+      "text": "Use others for my own ends.",
+      "trait": "A2",
+      "keyed": -1
+    },
+    {
+      "ordinal": 10,
+      "text": "Like to tidy up.",
+      "trait": "C2",
+      "keyed": 1
+    },
+    {
+      "ordinal": 11,
+      "text": "Often feel blue.",
+      "trait": "N3",
+      "keyed": 1
+    },
+    {
+      "ordinal": 12,
+      "text": "Take charge.",
+      "trait": "E3",
+      "keyed": 1
+    },
+    {
+      "ordinal": 13,
+      "text": "Experience my emotions intensely.",
+      "trait": "O3",
+      "keyed": 1
+    },
+    {
+      "ordinal": 14,
+      "text": "Love to help others.",
+      "trait": "A3",
+      "keyed": 1
+    },
+    {
+      "ordinal": 15,
+      "text": "Keep my promises.",
+      "trait": "C3",
+      "keyed": 1
+    },
+    {
+      "ordinal": 16,
+      "text": "Find it difficult to approach others.",
+      "trait": "N4",
+      "keyed": 1
+    },
+    {
+      "ordinal": 17,
+      "text": "Am always busy.",
+      "trait": "E4",
+      "keyed": 1
+    },
+    {
+      "ordinal": 18,
+      "text": "Prefer variety to routine.",
+      "trait": "O4",
+      "keyed": 1
+    },
+    {
+      "ordinal": 19,
+      "text": "Love a good fight.",
+      "trait": "A4",
+      "keyed": -1
+    },
+    {
+      "ordinal": 20,
+      "text": "Work hard.",
+      "trait": "C4",
+      "keyed": 1
+    },
+    {
+      "ordinal": 21,
+      "text": "Go on binges.",
+      "trait": "N5",
+      "keyed": 1
+    },
+    {
+      "ordinal": 22,
+      "text": "Love excitement.",
+      "trait": "E5",
+      "keyed": 1
+    },
+    {
+      "ordinal": 23,
+      "text": "Love to read challenging material.",
+      "trait": "O5",
+      "keyed": 1
+    },
+    {
+      "ordinal": 24,
+      "text": "Believe that I am better than others.",
+      "trait": "A5",
+      "keyed": -1
+    },
+    {
+      "ordinal": 25,
+      "text": "Am always prepared.",
+      "trait": "C5",
+      "keyed": 1
+    },
+    {
+      "ordinal": 26,
+      "text": "Panic easily.",
+      "trait": "N6",
+      "keyed": 1
+    },
+    {
+      "ordinal": 27,
+      "text": "Radiate joy.",
+      "trait": "E6",
+      "keyed": 1
+    },
+    {
+      "ordinal": 28,
+      "text": "Tend to vote for liberal political candidates.",
+      "trait": "O6",
+      "keyed": 1
+    },
+    {
+      "ordinal": 29,
+      "text": "Sympathize with the homeless.",
+      "trait": "A6",
+      "keyed": 1
+    },
+    {
+      "ordinal": 30,
+      "text": "Jump into things without thinking.",
+      "trait": "C6",
+      "keyed": -1
+    },
+    {
+      "ordinal": 31,
+      "text": "Fear for the worst.",
+      "trait": "N1",
+      "keyed": 1
+    },
+    {
+      "ordinal": 32,
+      "text": "Feel comfortable around people.",
+      "trait": "E1",
+      "keyed": 1
+    },
+    {
+      "ordinal": 33,
+      "text": "Enjoy wild flights of fantasy.",
+      "trait": "O1",
+      "keyed": 1
+    },
+    {
+      "ordinal": 34,
+      "text": "Believe that others have good intentions.",
+      "trait": "A1",
+      "keyed": 1
+    },
+    {
+      "ordinal": 35,
+      "text": "Excel in what I do.",
+      "trait": "C1",
+      "keyed": 1
+    },
+    {
+      "ordinal": 36,
+      "text": "Get irritated easily.",
+      "trait": "N2",
+      "keyed": 1
+    },
+    {
+      "ordinal": 37,
+      "text": "Talk to a lot of different people at parties.",
+      "trait": "E2",
+      "keyed": 1
+    },
+    {
+      "ordinal": 38,
+      "text": "See beauty in things that others might not notice.",
+      "trait": "O2",
+      "keyed": 1
+    },
+    {
+      "ordinal": 39,
+      "text": "Cheat to get ahead.",
+      "trait": "A2",
+      "keyed": -1
+    },
+    {
+      "ordinal": 40,
+      "text": "Often forget to put things back in their proper place.",
+      "trait": "C2",
+      "keyed": -1
+    },
+    {
+      "ordinal": 41,
+      "text": "Dislike myself.",
+      "trait": "N3",
+      "keyed": 1
+    },
+    {
+      "ordinal": 42,
+      "text": "Try to lead others.",
+      "trait": "E3",
+      "keyed": 1
+    },
+    {
+      "ordinal": 43,
+      "text": "Feel others' emotions.",
+      "trait": "O3",
+      "keyed": 1
+    },
+    {
+      "ordinal": 44,
+      "text": "Am concerned about others.",
+      "trait": "A3",
+      "keyed": 1
+    },
+    {
+      "ordinal": 45,
+      "text": "Tell the truth.",
+      "trait": "C3",
+      "keyed": 1
+    },
+    {
+      "ordinal": 46,
+      "text": "Am afraid to draw attention to myself.",
+      "trait": "N4",
+      "keyed": 1
+    },
+    {
+      "ordinal": 47,
+      "text": "Am always on the go.",
+      "trait": "E4",
+      "keyed": 1
+    },
+    {
+      "ordinal": 48,
+      "text": "Prefer to stick with things that I know.",
+      "trait": "O4",
+      "keyed": -1
+    },
+    {
+      "ordinal": 49,
+      "text": "Yell at people.",
+      "trait": "A4",
+      "keyed": -1
+    },
+    {
+      "ordinal": 50,
+      "text": "Do more than what's expected of me.",
+      "trait": "C4",
+      "keyed": 1
+    },
+    {
+      "ordinal": 51,
+      "text": "Rarely overindulge.",
+      "trait": "N5",
+      "keyed": -1
+    },
+    {
+      "ordinal": 52,
+      "text": "Seek adventure.",
+      "trait": "E5",
+      "keyed": 1
+    },
+    {
+      "ordinal": 53,
+      "text": "Avoid philosophical discussions.",
+      "trait": "O5",
+      "keyed": -1
+    },
+    {
+      "ordinal": 54,
+      "text": "Think highly of myself.",
+      "trait": "A5",
+      "keyed": -1
+    },
+    {
+      "ordinal": 55,
+      "text": "Carry out my plans.",
+      "trait": "C5",
+      "keyed": 1
+    },
+    {
+      "ordinal": 56,
+      "text": "Become overwhelmed by events.",
+      "trait": "N6",
+      "keyed": 1
+    },
+    {
+      "ordinal": 57,
+      "text": "Have a lot of fun.",
+      "trait": "E6",
+      "keyed": 1
+    },
+    {
+      "ordinal": 58,
+      "text": "Believe that there is no absolute right and wrong.",
+      "trait": "O6",
+      "keyed": 1
+    },
+    {
+      "ordinal": 59,
+      "text": "Feel sympathy for those who are worse off than myself.",
+      "trait": "A6",
+      "keyed": 1
+    },
+    {
+      "ordinal": 60,
+      "text": "Make rash decisions.",
+      "trait": "C6",
+      "keyed": -1
+    },
+    {
+      "ordinal": 61,
+      "text": "Am afraid of many things.",
+      "trait": "N1",
+      "keyed": 1
+    },
+    {
+      "ordinal": 62,
+      "text": "Avoid contacts with others.",
+      "trait": "E1",
+      "keyed": -1
+    },
+    {
+      "ordinal": 63,
+      "text": "Love to daydream.",
+      "trait": "O1",
+      "keyed": 1
+    },
+    {
+      "ordinal": 64,
+      "text": "Trust what people say.",
+      "trait": "A1",
+      "keyed": 1
+    },
+    {
+      "ordinal": 65,
+      "text": "Handle tasks smoothly.",
+      "trait": "C1",
+      "keyed": 1
+    },
+    {
+      "ordinal": 66,
+      "text": "Lose my temper.",
+      "trait": "N2",
+      "keyed": 1
+    },
+    {
+      "ordinal": 67,
+      "text": "Prefer to be alone.",
+      "trait": "E2",
+      "keyed": -1
+    },
+    {
+      "ordinal": 68,
+      "text": "Do not like poetry.",
+      "trait": "O2",
+      "keyed": -1
+    },
+    {
+      "ordinal": 69,
+      "text": "Take advantage of others.",
+      "trait": "A2",
+      "keyed": -1
+    },
+    {
+      "ordinal": 70,
+      "text": "Leave a mess in my room.",
+      "trait": "C2",
+      "keyed": -1
+    },
+    {
+      "ordinal": 71,
+      "text": "Am often down in the dumps.",
+      "trait": "N3",
+      "keyed": 1
+    },
+    {
+      "ordinal": 72,
+      "text": "Take control of things.",
+      "trait": "E3",
+      "keyed": 1
+    },
+    {
+      "ordinal": 73,
+      "text": "Rarely notice my emotional reactions.",
+      "trait": "O3",
+      "keyed": -1
+    },
+    {
+      "ordinal": 74,
+      "text": "Am indifferent to the feelings of others.",
+      "trait": "A3",
+      "keyed": -1
+    },
+    {
+      "ordinal": 75,
+      "text": "Break rules.",
+      "trait": "C3",
+      "keyed": -1
+    },
+    {
+      "ordinal": 76,
+      "text": "Only feel comfortable with friends.",
+      "trait": "N4",
+      "keyed": 1
+    },
+    {
+      "ordinal": 77,
+      "text": "Do a lot in my spare time.",
+      "trait": "E4",
+      "keyed": 1
+    },
+    {
+      "ordinal": 78,
+      "text": "Dislike changes.",
+      "trait": "O4",
+      "keyed": -1
+    },
+    {
+      "ordinal": 79,
+      "text": "Insult people.",
+      "trait": "A4",
+      "keyed": -1
+    },
+    {
+      "ordinal": 80,
+      "text": "Do just enough work to get by.",
+      "trait": "C4",
+      "keyed": -1
+    },
+    {
+      "ordinal": 81,
+      "text": "Easily resist temptations.",
+      "trait": "N5",
+      "keyed": -1
+    },
+    {
+      "ordinal": 82,
+      "text": "Enjoy being reckless.",
+      "trait": "E5",
+      "keyed": 1
+    },
+    {
+      "ordinal": 83,
+      "text": "Have difficulty understanding abstract ideas.",
+      "trait": "O5",
+      "keyed": -1
+    },
+    {
+      "ordinal": 84,
+      "text": "Have a high opinion of myself.",
+      "trait": "A5",
+      "keyed": -1
+    },
+    {
+      "ordinal": 85,
+      "text": "Waste my time.",
+      "trait": "C5",
+      "keyed": -1
+    },
+    {
+      "ordinal": 86,
+      "text": "Feel that I'm unable to deal with things.",
+      "trait": "N6",
+      "keyed": 1
+    },
+    {
+      "ordinal": 87,
+      "text": "Love life.",
+      "trait": "E6",
+      "keyed": 1
+    },
+    {
+      "ordinal": 88,
+      "text": "Tend to vote for conservative political candidates.",
+      "trait": "O6",
+      "keyed": -1
+    },
+    {
+      "ordinal": 89,
+      "text": "Am not interested in other people's problems.",
+      "trait": "A6",
+      "keyed": -1
+    },
+    {
+      "ordinal": 90,
+      "text": "Rush into things.",
+      "trait": "C6",
+      "keyed": -1
+    },
+    {
+      "ordinal": 91,
+      "text": "Get stressed out easily.",
+      "trait": "N1",
+      "keyed": 1
+    },
+    {
+      "ordinal": 92,
+      "text": "Keep others at a distance.",
+      "trait": "E1",
+      "keyed": -1
+    },
+    {
+      "ordinal": 93,
+      "text": "Like to get lost in thought.",
+      "trait": "O1",
+      "keyed": 1
+    },
+    {
+      "ordinal": 94,
+      "text": "Distrust people.",
+      "trait": "A1",
+      "keyed": -1
+    },
+    {
+      "ordinal": 95,
+      "text": "Know how to get things done.",
+      "trait": "C1",
+      "keyed": 1
+    },
+    {
+      "ordinal": 96,
+      "text": "Am not easily annoyed.",
+      "trait": "N2",
+      "keyed": -1
+    },
+    {
+      "ordinal": 97,
+      "text": "Avoid crowds.",
+      "trait": "E2",
+      "keyed": -1
+    },
+    {
+      "ordinal": 98,
+      "text": "Do not enjoy going to art museums.",
+      "trait": "O2",
+      "keyed": -1
+    },
+    {
+      "ordinal": 99,
+      "text": "Obstruct others' plans.",
+      "trait": "A2",
+      "keyed": -1
+    },
+    {
+      "ordinal": 100,
+      "text": "Leave my belongings around.",
+      "trait": "C2",
+      "keyed": -1
+    },
+    {
+      "ordinal": 101,
+      "text": "Feel comfortable with myself.",
+      "trait": "N3",
+      "keyed": -1
+    },
+    {
+      "ordinal": 102,
+      "text": "Wait for others to lead the way.",
+      "trait": "E3",
+      "keyed": -1
+    },
+    {
+      "ordinal": 103,
+      "text": "Don't understand people who get emotional.",
+      "trait": "O3",
+      "keyed": -1
+    },
+    {
+      "ordinal": 104,
+      "text": "Take no time for others.",
+      "trait": "A3",
+      "keyed": -1
+    },
+    {
+      "ordinal": 105,
+      "text": "Break my promises.",
+      "trait": "C3",
+      "keyed": -1
+    },
+    {
+      "ordinal": 106,
+      "text": "Am not bothered by difficult social situations.",
+      "trait": "N4",
+      "keyed": -1
+    },
+    {
+      "ordinal": 107,
+      "text": "Like to take it easy.",
+      "trait": "E4",
+      "keyed": -1
+    },
+    {
+      "ordinal": 108,
+      "text": "Am attached to conventional ways.",
+      "trait": "O4",
+      "keyed": -1
+    },
+    {
+      "ordinal": 109,
+      "text": "Get back at others.",
+      "trait": "A4",
+      "keyed": -1
+    },
+    {
+      "ordinal": 110,
+      "text": "Put little time and effort into my work.",
+      "trait": "C4",
+      "keyed": -1
+    },
+    {
+      "ordinal": 111,
+      "text": "Am able to control my cravings.",
+      "trait": "N5",
+      "keyed": -1
+    },
+    {
+      "ordinal": 112,
+      "text": "Act wild and crazy.",
+      "trait": "E5",
+      "keyed": 1
+    },
+    {
+      "ordinal": 113,
+      "text": "Am not interested in theoretical discussions.",
+      "trait": "O5",
+      "keyed": -1
+    },
+    {
+      "ordinal": 114,
+      "text": "Boast about my virtues.",
+      "trait": "A5",
+      "keyed": -1
+    },
+    {
+      "ordinal": 115,
+      "text": "Have difficulty starting tasks.",
+      "trait": "C5",
+      "keyed": -1
+    },
+    {
+      "ordinal": 116,
+      "text": "Remain calm under pressure.",
+      "trait": "N6",
+      "keyed": -1
+    },
+    {
+      "ordinal": 117,
+      "text": "Look at the bright side of life.",
+      "trait": "E6",
+      "keyed": 1
+    },
+    {
+      "ordinal": 118,
+      "text": "Believe that we should be tough on crime.",
+      "trait": "O6",
+      "keyed": -1
+    },
+    {
+      "ordinal": 119,
+      "text": "Try not to think about the needy.",
+      "trait": "A6",
+      "keyed": -1
+    },
+    {
+      "ordinal": 120,
+      "text": "Act without thinking.",
+      "trait": "C6",
+      "keyed": -1
+    }
+  ]
+}

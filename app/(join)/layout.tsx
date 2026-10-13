@@ -23,7 +23,7 @@ export default async function JoinLayout({ children }: { children: React.ReactNo
         </div>
       </header>
       <main id="main">{children}</main>
-      <PublicFooter labels={{ menu: t('footer'), privacy: t('privacy'), dataProcessing: t('dataProcessing'), signIn: t('signIn') }} />
+      <PublicFooter labels={{ menu: t('footer'), profile: t('profile'), privacy: t('privacy'), dataProcessing: t('dataProcessing'), signIn: t('signIn') }} />
     </>
   )
 }

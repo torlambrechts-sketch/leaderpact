@@ -13,7 +13,8 @@ import { forgetSave, readSave, writeReplaceKey, type PendingSave } from '@/lib/s
 import { deviceStore, forget, readDraft } from '@/lib/scan/draft'
 import { isComplete, type Scan } from '@/lib/scan/model'
 import { submitScan } from '@/lib/scan/submit'
-import { SIGN_IN_PATH, invitePath } from '@/lib/routes'
+import { ME_PATH, SIGN_IN_PATH, homePath, invitePath } from '@/lib/routes'
+import { readPending } from '@/lib/profile/device'
 
 type Problem = 'name' | 'signed_out' | 'unavailable' | 'failed'
 type State = { kind: 'deciding' } | { kind: 'working' } | { kind: 'form'; problem?: Problem }
@@ -24,7 +25,8 @@ const START_SIZE = 8
  * Makes the group after sign-in (handoff 6.3). With the save card's group on this device it runs at once:
  * `start_group` makes the group and its scan, then the leader's finished scan, if it is on this device, goes
  * to that scan through `submit_scan` like any member's (owner C4), and the device keeps only its replace
- * key. Without a save it opens the person's group, or shows the form to make one.
+ * key. Without a save, a Leader Profile kept by email goes to Me; otherwise the person's group opens at
+ * Home, or the form to make one shows.
  */
 export function NewGroup({ firstGroup, scan }: { firstGroup: string | null; scan: Scan | null }) {
   const t = useTranslations('newGroup')
@@ -68,9 +70,13 @@ export function NewGroup({ firstGroup, scan }: { firstGroup: string | null; scan
   React.useEffect(() => {
     if (started.current) return
     started.current = true
-    const save = readSave(deviceStore(), new Date())
+    const store = deviceStore()
+    const now = new Date()
+    const save = readSave(store, now)
     if (save) void run(save)
-    else if (firstGroup) router.replace(invitePath(firstGroup) as Route)
+    // a Leader Profile kept by email sign-in: Me saves it (handoff 6.17)
+    else if (readPending(store, now)) router.replace(ME_PATH as Route)
+    else if (firstGroup) router.replace(homePath(firstGroup) as Route)
     else setState({ kind: 'form' })
   }, [firstGroup, router, run])
 

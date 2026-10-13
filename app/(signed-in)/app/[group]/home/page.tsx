@@ -18,7 +18,8 @@ import { currentUser } from '@/lib/auth/session'
 import { loadGroupTeamView } from '@/lib/groups/load'
 import { dateFormat } from '@/lib/i18n/dates'
 import { formatPrice, loadTeamPrice } from '@/lib/plans/load'
-import { SIGN_IN_PATH, joinPath, teamPath } from '@/lib/routes'
+import { loadMyProfile } from '@/lib/profile/load'
+import { SIGN_IN_PATH, joinPath, profileTestPath, teamPath } from '@/lib/routes'
 import { HomeHero } from './HomeHero'
 import { NeedsYou } from './NeedsYou'
 
@@ -30,7 +31,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * Home on the Free plan (handoff 6.7, design `home` with plan free): the greeting block, "Needs you", the
+ * Home on the Free plan (handoff 6.7, design `home` with plan free): the greeting block, "Needs you" (the
+ * scan, the link, and the Leader Profile while the person has none), the
  * scan's status card with the count, the dots, the closing date and the link, and one card on what the
  * Team plan adds, meetings included. Once the team view is open, "Where we stand" shows it.
  *
@@ -46,7 +48,7 @@ export default async function HomePage({ params }: { params: Promise<{ group: st
   const tInvite = await getTranslations('invite')
   const tTeam = await getTranslations('teamView')
   const tAgree = await getTranslations('agreement')
-  const data = await loadGroupTeamView(group, user.id)
+  const [data, profile] = await Promise.all([loadGroupTeamView(group, user.id), loadMyProfile(user.id)])
 
   if (data === null || data === 'none') {
     return <PageProblem title={data === null ? tInvite('readFailed') : tInvite('notFoundTitle')} body={data === 'none' ? tInvite('notFoundBody') : undefined} />
@@ -78,9 +80,10 @@ export default async function HomePage({ params }: { params: Promise<{ group: st
         <NeedsYou
           code={open}
           link={link}
+          profileHref={profile === 'none' ? profileTestPath('quick') : null}
           labels={{
             title: t('needsTitle'),
-            counts: [0, 1, 2].map((count) => t('needsCount', { count })),
+            counts: [0, 1, 2, 3].map((count) => t('needsCount', { count })),
             empty: t('needsEmpty'),
             kindScan: t('kindScan'),
             answerTitle: t('answerTitle'),
@@ -91,6 +94,10 @@ export default async function HomePage({ params }: { params: Promise<{ group: st
             shareAction: t('shareAction'),
             shareCopied: t('shareCopied'),
             shareFailed: t('shareFailed'),
+            kindProfile: t('kindProfile'),
+            profileTitle: t('profileTitle'),
+            profileMeta: t('profileMeta'),
+            profileAction: t('profileAction'),
           }}
         />
 

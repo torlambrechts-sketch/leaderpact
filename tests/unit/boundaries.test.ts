@@ -17,8 +17,8 @@ describe('sign-in', () => {
     for (const bad of ['', 'kari', 'kari@', '@lumio.example', `${'a'.repeat(250)}@lumio.example`]) expect(emailSchema.safeParse(bad).success).toBe(false)
   })
 
-  it('knows two intents only', () => {
-    expect(linkRequestSchema.safeParse({ email: 'a@b.example', intent: 'save' }).success).toBe(true)
+  it('knows three intents only', () => {
+    for (const intent of ['save', 'profile', 'sign_in']) expect(linkRequestSchema.safeParse({ email: 'a@b.example', intent }).success).toBe(true)
     expect(linkRequestSchema.safeParse({ email: 'a@b.example', intent: 'sign_up' }).success).toBe(false)
   })
 

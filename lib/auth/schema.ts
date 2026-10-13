@@ -9,13 +9,15 @@ import { z } from 'zod'
 export const emailSchema = z.string().trim().toLowerCase().pipe(z.email().max(254))
 
 /**
- * A sign-in link is asked for from two places. `save` comes from the personal view's save card and may
- * make an account (handoff 6.3: "if the email is already registered, sign in and add the group"); `sign_in`
- * comes from the sign-in page and never makes one, so an account exists only for someone who saved a scan.
+ * A sign-in link is asked for from three places. `save` comes from the personal view's save card and may
+ * make an account (handoff 6.3: "if the email is already registered, sign in and add the group");
+ * `profile` comes from a finished Leader Profile that a visitor keeps (handoff 6.17), and may make one too;
+ * `sign_in` comes from the sign-in page and never makes one. So an account exists only for someone who
+ * kept a scan or a profile.
  */
 export const linkRequestSchema = z.object({
   email: emailSchema,
-  intent: z.enum(['save', 'sign_in']),
+  intent: z.enum(['save', 'profile', 'sign_in']),
 })
 export type LinkRequest = z.infer<typeof linkRequestSchema>
 

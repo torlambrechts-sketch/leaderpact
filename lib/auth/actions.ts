@@ -35,7 +35,7 @@ export async function requestSignInLink(input: unknown): Promise<LinkResult> {
   }
   const { error } = await supabase.auth.signInWithOtp({
     email: parsed.data.email,
-    options: { shouldCreateUser: parsed.data.intent === 'save', emailRedirectTo: `${origin}${CONFIRM_PATH}` },
+    options: { shouldCreateUser: parsed.data.intent !== 'sign_in', emailRedirectTo: `${origin}${CONFIRM_PATH}` },
   })
   if (!error) return { ok: true }
 

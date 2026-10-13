@@ -5,9 +5,9 @@ import { axe, watch } from './support/page'
 
 /**
  * Milestone 6 (handoff 12): the app shell, Home on the Free plan, and a sample page with the banner in every
- * paid area (handoff 6.7, 6.19). Read from the Lumio group, whose scan is open. Each project signs in a
- * person of its own, because Auth sends one address one link per interval: the leader and a member at
- * 1280 px, two other members on the phones.
+ * paid area (handoff 6.7, 6.19); People is real from milestone 7 (tests/e2e/profile.spec.ts). Read from
+ * the Lumio group, whose scan is open. Each project signs in a person of its own, because Auth sends one
+ * address one link per interval: the leader and a member at 1280 px, two other members on the phones.
  */
 const person = (name: string) => {
   const p = LUMIO.people.find((x) => x.name === name)
@@ -17,7 +17,6 @@ const person = (name: string) => {
 const home = `/app/${LUMIO.group.id}/home`
 const AREAS = [
   { nav: 'Group', path: 'group', heading: 'Group' },
-  { nav: 'People', path: 'people', heading: 'People' },
   { nav: 'Assess', path: 'assess', heading: 'Assess' },
   { nav: 'Results', path: 'results', heading: 'Results' },
   { nav: 'Plan', path: 'plan', heading: 'Plan' },
@@ -51,8 +50,7 @@ test('the leader: Home on the Free plan, and every paid area a sample page with 
 
   // the shell lists the pages that exist: no Me and no Settings yet; the plan pill says Free
   const nav = page.getByRole('navigation', { name: 'Main' })
-  for (const label of ['Home', ...AREAS.map((a) => a.nav)]) await expect(nav.getByRole('link', { name: label, exact: true })).toBeVisible()
-  await expect(nav.getByRole('link', { name: 'Me', exact: true })).toHaveCount(0)
+  for (const label of ['Home', ...AREAS.map((a) => a.nav), 'People', 'Me']) await expect(nav.getByRole('link', { name: label, exact: true })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Settings' })).toHaveCount(0)
   await expect(page.getByText('Free plan', { exact: true })).toBeVisible()
   await expect(nav.getByRole('link', { name: 'Home', exact: true })).toHaveAttribute('aria-current', 'page')
@@ -60,7 +58,9 @@ test('the leader: Home on the Free plan, and every paid area a sample page with 
   // Home: the greeting, "Needs you", the scan's card, and what the Team plan adds with its price
   await expect(page.getByRole('heading', { level: 1, name: /^Good (morning|afternoon|evening)\.$/ })).toBeVisible()
   await expect(page.getByText('Free plan · latest scan only, no history')).toBeVisible()
-  await expect(page.getByRole('link', { name: 'Start' })).toHaveAttribute('href', `/j/${LUMIO.scan.code}`)
+  const row = (title: string) => page.getByRole('listitem').filter({ hasText: title })
+  await expect(row('Answer the Leadership Team Scan').getByRole('link', { name: 'Start' })).toHaveAttribute('href', `/j/${LUMIO.scan.code}`)
+  await expect(row('Take the Leader Profile').getByRole('link', { name: 'Start' })).toHaveAttribute('href', '/leader-profile/quick')
   await expect(page.getByRole('button', { name: 'Copy invite link' })).toBeVisible()
   await expect(page.getByText(/^\d+ of 8 have answered\. Counts only, never names\.$/)).toBeAttached()
   await expect(page.getByText('The team view opens when the scan closes', { exact: true })).toHaveCount(1)
