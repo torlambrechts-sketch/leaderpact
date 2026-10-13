@@ -1,6 +1,9 @@
+import Link from 'next/link'
+import type { Route } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { Check, Info, Split } from 'lucide-react'
 import { LevelBar } from '@/components/lp/LevelBar'
+import { buttonVariants } from '@/components/ui/button'
 import type { TeamView as View } from '@/lib/scan/team-view'
 
 /**
@@ -8,9 +11,9 @@ import type { TeamView as View } from '@/lib/scan/team-view'
  * close; "You agree on" and "Your views differ most on"; and the card on what the Team plan adds. Never a
  * score of a person, a spread, a lowest or highest, or the agreement number (handoff 7).
  *
- * The leader sees the Team plan's price (handoff 6.19); anyone else, the link's readers included, is asked to
- * ask their team leader. The Upgrade button comes with the checkout (milestone 8): no button leads to a page
- * that does not exist yet (D-24, D-29). Two columns from 900 px, one below.
+ * On the Free plan the leader sees the Team plan's price and Upgrade (handoff 6.19); anyone else, the link's
+ * readers included, is asked to ask their team leader. A group with the Team plan sees neither (D-33). Two
+ * columns from 900 px, one below.
  */
 export async function TeamView({
   groupName,
@@ -18,6 +21,8 @@ export async function TeamView({
   total,
   audience,
   price,
+  upgradeHref,
+  upsell = true,
 }: {
   groupName: string
   view: View
@@ -25,6 +30,10 @@ export async function TeamView({
   audience: 'leader' | 'member'
   /** the Team plan's price, formatted; shown to the leader only */
   price: string | null
+  /** the checkout, for the leader on the Free plan */
+  upgradeHref?: string
+  /** false once the group has the Team plan */
+  upsell?: boolean
 }) {
   const t = await getTranslations('teamView')
   const tAgree = await getTranslations('agreement')
@@ -72,13 +81,20 @@ export async function TeamView({
         </div>
       </div>
 
-      {audience === 'leader' ? (
+      {!upsell ? null : audience === 'leader' ? (
         <section className="grid items-center gap-6 rounded-card-lg bg-ink px-6 py-6 text-white md:grid-cols-[minmax(0,1fr)_auto] md:px-8 md:py-7">
           <div className="flex flex-col gap-2">
             <h2 className="m-0 text-[20px] font-bold">{t('upsellTitle')}</h2>
             <p className="m-0 text-[14px] leading-[1.55] text-white/85 max-md:text-[15px]">{t('upsellBody')}</p>
           </div>
-          {price && <p className="m-0 text-[13px] text-white/80 max-md:text-[15px] md:text-right">{t('upsellPrice', { price })}</p>}
+          <div className="flex flex-col gap-2 md:items-end">
+            {price && <p className="m-0 text-[13px] text-white/80 max-md:text-[15px] md:text-right">{t('upsellPrice', { price })}</p>}
+            {upgradeHref && (
+              <Link href={upgradeHref as Route} className={buttonVariants({ variant: 'on-ink', className: 'self-start md:self-end' })}>
+                {t('upgrade')}
+              </Link>
+            )}
+          </div>
         </section>
       ) : (
         <section className="flex items-center gap-3.5 rounded-card-lg border border-white bg-surface px-[26px] py-[22px]">

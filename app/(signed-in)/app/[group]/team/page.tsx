@@ -7,10 +7,11 @@ import { NoTeamView, TeamView } from '@/components/team/TeamView'
 import { HintBox } from '@/components/lp/HintBox'
 import { PRODUCT_NAME } from '@/lib/brand'
 import { currentUser } from '@/lib/auth/session'
+import { loadGroupPlan } from '@/lib/billing/load'
 import { loadGroupTeamView } from '@/lib/groups/load'
 import { dateFormat } from '@/lib/i18n/dates'
 import { formatPrice, loadTeamPrice } from '@/lib/plans/load'
-import { SIGN_IN_PATH, invitePath } from '@/lib/routes'
+import { SIGN_IN_PATH, invitePath, upgradePath } from '@/lib/routes'
 
 export const dynamic = 'force-dynamic'
 
@@ -60,8 +61,20 @@ export default async function TeamPage({ params }: { params: Promise<{ group: st
         </Frame>
       )
     }
-    const price = data.role === 'leader' ? await loadTeamPrice() : null
-    return <TeamView groupName={data.group.name} view={data.view} total={scan.memberCount} audience={data.role} price={price ? formatPrice(price) : null} />
+    const plan = await loadGroupPlan(data.group.id)
+    const free = plan !== null && plan !== 'none' && plan.access === 'free'
+    const price = data.role === 'leader' && free ? await loadTeamPrice() : null
+    return (
+      <TeamView
+        groupName={data.group.name}
+        view={data.view}
+        total={scan.memberCount}
+        audience={data.role}
+        price={price ? formatPrice(price) : null}
+        upgradeHref={data.role === 'leader' && free ? upgradePath(data.group.id) : undefined}
+        upsell={free}
+      />
+    )
   }
 
   const date = dateFormat({ locale: 'en', timeZone: 'UTC' }, { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date(scan.closesAt))

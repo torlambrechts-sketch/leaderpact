@@ -537,3 +537,52 @@ Handoff 6.17, 8 and 9, CLAUDE.md invariant 11. Where the build chose:
   opinion, a special category of personal data under the GDPR, and "domains and facets" would show it to a
   group. The handoff asks for the IPIP-NEO-120 as published, so it is built as published; whether to keep,
   drop or withhold this facet from sharing is the owner's decision before launch.
+
+## D-33 — Plans and checkout (M8)
+
+Handoff 1, 3, 6.18, 6.19 and 11; REUSE 4.9; owner D1, D2a, D2b, D2c. Where the build chose:
+
+- **Billed per group, as rows.** A group with no `app.subscription` row is on the Free plan. Upgrading
+  writes the row and nothing else, so the group, its members, its scan and the Leader Profile shares carry
+  over as they are (handoff 6.18). The price is read from `plan_price` at checkout and stored on the
+  subscription with its version, so a later price change does not alter a plan already bought.
+- **One access function** (`group_access`): free, trial, team, grace or read_only. `group_writable` and
+  `plan_allows` are internal, not client entry points; milestone 9 on asks them in every group write.
+  Read-only reads everything and writes nothing of the Team plan's; the Free features (the scan, its
+  invite link, the Leader Profile) stay open, as on Free.
+- **The trial (owner D2a): 14 days, once per group**, started by the leader with no billing details.
+  Its length is a fixed setting row, `trial_days`. A group that has had a trial or a subscription has no
+  second one. Unpaid at its end, the group is on Free and its Team data is kept for the organisation's
+  retention, then deleted (the deletion job is milestone 16). Buying during the trial ends it; the paid
+  period starts on payment. The trial-ending mail is milestone 16's notifications, and the
+  `billing.changed` fields are milestone 17's.
+- **Grace and read-only** (handoff 6.18). A failed renewal ends the paid period and opens 7 days' grace
+  (`payment_grace_days()`, a fixed rule like the threshold's floor). After it, read-only until a payment
+  arrives. Every page of the group says so, to every member; only the leader's notice links to Plan and
+  billing. A cancel keeps the plan to the end of the paid period, or ends it at once while a payment is
+  owed, and sets the deletion date from the retention setting. It can be withdrawn before it takes effect.
+- **No payment vendor** (handoff 3, owner D1). Checkouts go through a `PaymentProvider` with two adapters,
+  chosen by the database (`app.payment_adapter`): `none`, the hosted value, where a checkout can never be
+  paid and the review says payment is not connected; and `development`, which the fixture sets in a local
+  or CI database, and which pays or fails on demand. With it the leader can also make a renewal fail, the
+  grace end, a payment arrive and a trial end, so every state can be seen and tested. The functions refuse
+  those events unless the database runs that adapter.
+- **Tax is the provider's** (owner D2c; handoff 11: no "VAT 25%"). The checkout takes the company's
+  country and says tax follows it; no rate or total with tax is shown. No card number is shown (handoff
+  11): a vendor brings its own form.
+- **No invoice list.** The design lists invoices; none exists until a vendor makes one, so Plan and billing
+  shows the billing details only (CLAUDE.md: never fabricate data).
+- **Settings has one tab so far**, Plan and billing, in the spec's vertical menu. Account, Group,
+  Notifications and Privacy follow with their milestones; the shell lists only pages that exist. The gear
+  and the plan pill now lead there. The pill reads Free plan, Team trial, Team plan or Read-only.
+- **A member sees no price anywhere** (handoff 6.19, D-30): Plan and billing shows a member the plans'
+  contents and the group's state, never a price or the billing details. Row-level security keeps the
+  details to the leader.
+- **Upgrade buttons** (supersedes D-30's "no button"): the leader's sample banner, Home's Team plan card
+  and the team view lead to the checkout. With the Team plan or its trial the paid areas are still samples
+  until their milestones build them, and their banner says so; Home drops the Team plan card.
+- **The plan list leaves out the Organisation plan**, which is not in the MVP (handoff 1), and lists
+  meetings (handoff 11). The design's Done step names a receipt and next steps that do not exist yet; the
+  built step says what carried over.
+- **Hosted:** 0013 has no `DELETE` or `DROP` statement, so it goes through `apply_migration`. If the
+  connector holds it, the owner's script follows D-22.
