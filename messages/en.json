@@ -14,7 +14,8 @@
     "confirmTitle": "Finish signing in · {product}",
     "newGroupTitle": "Make your group · {product}",
     "inviteTitle": "Invite your group · {product}",
-    "joinTitle": "Leadership Team Scan · {product}"
+    "joinTitle": "Leadership Team Scan · {product}",
+    "teamTitle": "Team view · {product}"
   },
   "nav": {
     "home": "Home",
@@ -307,7 +308,8 @@
     "noScan": "This group has no scan yet.",
     "notFoundTitle": "This group is not one of yours",
     "notFoundBody": "You can open a group's page only while you are a member of it.",
-    "readFailed": "The group could not be read. Try again in a few minutes."
+    "readFailed": "The group could not be read. Try again in a few minutes.",
+    "teamOpen": "The team view is open"
   },
   "join": {
     "eyebrow": "{group}",
@@ -331,8 +333,6 @@
     "doneClosed": "Yours was the last answer, so the scan has closed.",
     "again": "Answer again",
     "closedTitle": "This scan has closed",
-    "releasedBody": "It closed with {answered} answers. Answers after the close are not added.",
-    "closedBody": "Fewer than 4 answered, so no team view was made.",
     "fullTitle": "Every place in this scan is taken",
     "fullBody": "The scan takes one answer per member, and all {total} are in.",
     "notFoundTitle": "This link does not lead to a scan",
@@ -342,5 +342,31 @@
     "readFailed": "The scan could not be read. Try again in a few minutes.",
     "closedNow": "It closed before your answers arrived. Answers after the close are not added.",
     "change": "Change an answer"
+  },
+  "teamView": {
+    "heading": "Team view",
+    "answered": "{answered} of {total} answered",
+    "answeredWords": "{answered} of {total} answered. Counts only, never names.",
+    "themesLabel": "Level and agreement per theme",
+    "label": "Research-based, not yet validated · scale 1–5",
+    "noOne": "Counts only, never names. No one's answers are shown.",
+    "computed": "Computed once, when the scan closed. Answers after the close are not added.",
+    "agreeOn": "You agree on",
+    "agreeNone": "No theme reads high agreement.",
+    "differOn": "Your views differ most on",
+    "differNone": "No theme reads views differ.",
+    "differHint": "Talk about the difference first.",
+    "upsellTitle": "Unlock the full diagnostic",
+    "upsellBody": "21 scales and 3 outcomes, a team charter, meetings with agendas and live process comments, focus areas and a pulse every 4 weeks.",
+    "upsellPrice": "{price} per group per year",
+    "ask": "The full diagnostic comes with the Team plan. Ask your team leader to upgrade.",
+    "openTitle": "The team view opens when the scan closes",
+    "openBody": "{answered} of {total} have answered. It closes when all {total} have answered, or on {date}.",
+    "openCounts": "Counts only, never names.",
+    "toInvite": "Back to the invite link",
+    "noneTitle": "No team view was made",
+    "noneBody": "Fewer than 4 answered, so no team view was made and the answers were deleted.",
+    "noneWhy": "A team view needs at least 4 answers, so that no one's answers can be seen.",
+    "readFailed": "The team view could not be read. Try again in a few minutes."
   }
 }

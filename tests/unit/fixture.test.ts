@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { E2E_GROUPS, FLOW_LEADER, LUMIO, localOnly, render } from '../../scripts/seed/fixture.mjs'
+import { E2E_GROUPS, FLOW_LEADER, LUMIO, TEAM_STATES, localOnly, render } from '../../scripts/seed/fixture.mjs'
 
 /**
  * The fixture (CLAUDE.md, The fixture): Lumio AS with the Lumio leadership group of 8 led by Kari Nordmann,
@@ -16,14 +16,19 @@ describe('the fixture', () => {
 
   it('uses addresses that cannot receive mail, and codes the scan accepts', () => {
     for (const p of [...LUMIO.people, FLOW_LEADER]) expect(p.email).toMatch(/@lumio\.example$/)
-    for (const g of [LUMIO, ...E2E_GROUPS]) expect(g.scan.code).toMatch(/^[A-Za-z0-9_-]{22,64}$/)
-    expect(new Set(E2E_GROUPS.map((g) => g.scan.code)).size).toBe(E2E_GROUPS.length)
+    const all = [LUMIO, ...E2E_GROUPS, ...Object.values(TEAM_STATES)]
+    for (const g of all) expect(g.scan.code).toMatch(/^[A-Za-z0-9_-]{22,64}$/)
+    expect(new Set(all.map((g) => g.scan.code)).size).toBe(all.length)
+    expect(new Set(all.map((g) => g.group.id)).size).toBe(all.length)
   })
 
   it('is deterministic, and writes the leader\'s answers through submit_scan', () => {
     expect(render({ e2e: true })).toBe(render({ e2e: true }))
     expect(render()).toContain('app.submit_scan(')
     expect(render()).not.toContain('insert into app.scan_response')
+    // the three states: answers through submit_scan, deadlines through close_scan, and nothing else
+    expect(render({ e2e: true })).toContain('app.close_scan(')
+    expect(render({ e2e: true })).not.toMatch(/insert into app\.(scan_response|scan_theme_score)|update app\.scan_session set (phase|answered|extended)/)
   })
 
   it('writes to 127.0.0.1 or localhost only', () => {

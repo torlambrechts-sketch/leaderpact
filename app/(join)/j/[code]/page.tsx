@@ -3,8 +3,9 @@ import { getTranslations } from 'next-intl/server'
 import { ClientMessages } from '@/components/lp/ClientMessages'
 import { PRODUCT_NAME } from '@/lib/brand'
 import { dateFormat } from '@/lib/i18n/dates'
-import { loadInviteByCode, loadScanVersion } from '@/lib/scan/load'
+import { loadInviteByCode, loadScanVersion, loadTeamViewByCode } from '@/lib/scan/load'
 import { ScanUnavailable } from '@/app/(public)/scan/Unavailable'
+import { NoTeamView, TeamView } from '@/components/team/TeamView'
 import { JoinFlow } from './JoinFlow'
 
 export const dynamic = 'force-dynamic'
@@ -18,7 +19,12 @@ export async function generateMetadata(): Promise<Metadata> {
  * A member answers from the group's invite link (handoff 6.5): no account, the 12 questions, their
  * personal view, then "Submit anonymously". The page says how answers are kept and when the team view
  * opens. Read through `get_scan_invite` (0009): the group's name, the count and the closing date, never a
- * score. A closed scan says so; its team view is milestone 5.
+ * score.
+ *
+ * After the close the same address is the team view (handoff 5 and 6.6), for everyone with the link at
+ * the same moment: released, the levels and labels computed at close (`get_team_view_by_code`); closed
+ * below the threshold, a page that says no team view was made. Past its date and not yet closed by the
+ * scheduled job, it says the scan has closed, and shows nothing more until the job has run.
  */
 export default async function JoinPage({ params }: { params: Promise<{ code: string }> }) {
   const { code } = await params
@@ -27,15 +33,13 @@ export default async function JoinPage({ params }: { params: Promise<{ code: str
 
   if (invite === null) return <Message title={t('readFailed')} />
   if (invite === 'none') return <Message title={t('notFoundTitle')} body={t('notFoundBody')} />
-  if (invite.phase !== 'open' || Date.parse(invite.closes_at) <= Date.now()) {
-    const body =
-      invite.phase === 'released'
-        ? t('releasedBody', { answered: invite.answered })
-        : invite.phase === 'closed'
-          ? t('closedBody')
-          : t('closedNow')
-    return <Message eyebrow={invite.group_name} title={t('closedTitle')} body={body} />
+  if (invite.phase === 'released') {
+    const view = await loadTeamViewByCode(code)
+    if (!view) return <Message eyebrow={invite.group_name} title={(await getTranslations('teamView'))('readFailed')} />
+    return <TeamView groupName={invite.group_name} view={view} total={invite.member_count} audience="member" price={null} />
   }
+  if (invite.phase === 'closed') return <NoTeamView groupName={invite.group_name} />
+  if (Date.parse(invite.closes_at) <= Date.now()) return <Message eyebrow={invite.group_name} title={t('closedTitle')} body={t('closedNow')} />
 
   const scan = await loadScanVersion(invite.instrument_version_id)
   if (!scan) return <ScanUnavailable />

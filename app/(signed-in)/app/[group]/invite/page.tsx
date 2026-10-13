@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import type { Route } from 'next'
 import { getTranslations } from 'next-intl/server'
-import { ExternalLink } from 'lucide-react'
+import { ArrowRight, ExternalLink } from 'lucide-react'
 import { ClientMessages } from '@/components/lp/ClientMessages'
 import { HintBox } from '@/components/lp/HintBox'
 import { WarningBox } from '@/components/lp/WarningBox'
@@ -14,7 +14,7 @@ import { currentUser } from '@/lib/auth/session'
 import { loadInvite } from '@/lib/groups/load'
 import { dateFormat } from '@/lib/i18n/dates'
 import { cn } from '@/lib/cn'
-import { SIGN_IN_PATH, joinPath } from '@/lib/routes'
+import { SIGN_IN_PATH, joinPath, teamPath } from '@/lib/routes'
 import { CopyLink } from './CopyLink'
 
 export const dynamic = 'force-dynamic'
@@ -28,7 +28,8 @@ export async function generateMetadata(): Promise<Metadata> {
  * Invite and scan status (handoff 6.4, design `invite`): the group's one link, the count of answers and
  * the closing date. Never a score and never a name. With section 11's corrections: no "more answers
  * needed" countdown toward 4 and no "the team view opens at 4 answers"; the team view opens when the scan
- * closes. Reminders are not mentioned: none are sent yet. The leader cannot close the scan early.
+ * closes, and then the design's "The team view is open" leads to it. Reminders are not mentioned: none are
+ * sent yet. The leader cannot close the scan early.
  */
 export default async function InvitePage({
   params,
@@ -106,7 +107,13 @@ export default async function InvitePage({
             </>
           )}
           {scan.phase === 'released' && (
-            <HintBox title={t('releasedTitle')}>{t('releasedBody', { answered: scan.answered, total: scan.memberCount })}</HintBox>
+            <>
+              <HintBox title={t('releasedTitle')}>{t('releasedBody', { answered: scan.answered, total: scan.memberCount })}</HintBox>
+              <Link href={teamPath(view.group.id) as Route} className={buttonVariants({ size: 'large', className: 'w-full gap-2 font-bold' })}>
+                {t('teamOpen')}
+                <ArrowRight aria-hidden size={16} />
+              </Link>
+            </>
           )}
           {scan.phase === 'closed' && <HintBox title={t('closedTitle')}>{t('closedBody')}</HintBox>}
         </>

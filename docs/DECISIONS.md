@@ -397,3 +397,40 @@ secret "Supabase LeaderPact".
   a token: `NODE_USE_ENV_PROXY=1 node scripts/hosted/auth-config.mjs --site https://leaderpact.vercel.app --apply`.
   Until then hosted links last Supabase's default hour, return to its default site address, and go out
   through its built-in mailer.
+- **Update, 13 October 2026.** The owner set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+  in Vercel for Production and redeployed; the live `/scan` then read the scan from the hosted project. With
+  the Vercel secret now working, both were extended to Preview, as the README's environments table says
+  (targets only; the values were not read). Migration 0009 was applied to hosted before #7 merged. The
+  Management API still answers `401 JWT could not be decoded`, so the Auth settings above still wait.
+
+## D-29 — The scan's close and the team view (M5)
+
+Handoff 6.6 and section 7's "When results open", with section 11's corrections. Where the build chose:
+
+- **The scheduled close** is `app.close_due_scans()` (0010): every five minutes pg_cron hands each open scan
+  past its date to `close_scan`, which alone decides (snapshot and reshuffle, one extension, or no team
+  view). A scan an answer has locked is taken on the next run. The migration creates pg_cron where it exists
+  (hosted and CI); the local PostgreSQL has none, and the suites call the function themselves. No client
+  may run it, and the leader cannot close early (6.4).
+- **Where the team view is.** At the link, `/j/[code]`, once the scan has closed (handoff section 5), for
+  everyone with the link at the same moment. For a group's members at `/app/[group]/team` (design `team`),
+  reached from the invite page's "The team view is open", until Home carries it (milestone 6).
+- **The three states.**
+  - Open: the count and the closing date only. Section 11 removes the design's "3 more answers needed".
+  - Closed with 4 or more: the levels and labels computed once at close, with a line that says so.
+  - Closed with fewer: a page that says no team view was made, that the answers were deleted, and why: a
+    team view needs at least 4 answers so that no one's answers can be seen.
+  - Between the date and the job's next run, the link says the scan has closed and shows nothing more.
+- **"You agree on" and "Your views differ most on" come from the labels alone.** The first lists the themes
+  labelled high agreement, highest level first. The second lists the themes whose views differ. When none
+  qualifies, the card says so. The design picks the theme with the lowest agreement number, but no reader
+  returns that number, and an order by it would show what the label exists to hide (handoff 7).
+- **The plan card.** The leader sees what the Team plan adds and its price from the plan rows
+  (`lib/plans/load.ts`), without the Upgrade button: the checkout is milestone 8, and no button leads to a
+  page that does not exist (D-24). Everyone else sees "Ask your team leader to upgrade" (6.19). The link
+  cannot tell who reads it, so it always shows the member's card.
+- **The fixture's three flow groups** (`--e2e`), each led by the flow leader: released from four answer sets
+  chosen so that every label appears, extended once, and closed with no team view. Deadlines pass through
+  `close_scan`, with only the closing date moved back, as the suites do. Lumio's own scan stays open at 1 of
+  8, the state the design's Home and invite screens draw; solving answers for the design's team-view
+  figures waits until a screen compares against them.

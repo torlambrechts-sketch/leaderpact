@@ -48,7 +48,9 @@ For the app and the Playwright flows, `eval "$(bash scripts/qa/local-api.sh)"` t
 front of it and sets `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`. There is no Auth
 service: the proxy answers Auth's user lookup for tokens signed with the run's secret, so a flow can open
 a signed-in page with a minted session (D-27). Seed with `node scripts/seed/fixture.mjs --e2e` before the
-flows. Sign-in by email link runs in CI, where Mailpit catches the mail.
+flows. Sign-in by email link runs in CI, where Mailpit catches the mail. After rebuilding the local
+database, remove `.next-build/cache/fetch-cache` before the flows: the published scan is cached for ten
+minutes, and a rebuilt database gives its items new ids.
 
 ## Environments
 
