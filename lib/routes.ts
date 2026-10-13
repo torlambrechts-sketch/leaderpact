@@ -19,5 +19,7 @@ export const APP_PATH = '/app'
 
 /** The group's scan status and invite link (design `invite`, handoff 6.4) */
 export const invitePath = (group: string) => `/app/${group}/invite`
+/** The group's team view, for its members (design `team`, handoff 6.6); Home carries it from milestone 6 */
+export const teamPath = (group: string) => `/app/${group}/team`
 /** The group's one invite link (handoff 6.5) */
 export const joinPath = (code: string) => `/j/${code}`

@@ -5,6 +5,7 @@ import { anonClient } from '@/lib/supabase/anon'
 import { parseFailed, readFailed } from '@/lib/supabase/read'
 import { buildScan, itemRowSchema, versionRowSchema, type Scan } from '@/lib/scan/model'
 import { codeSchema, inviteRowSchema, type InviteRow } from '@/lib/scan/link'
+import { buildTeamView, teamViewRowSchema, type TeamView } from '@/lib/scan/team-view'
 
 /**
  * The published Leadership Team Scan, read as a visitor reads it: the anon client, no session, no
@@ -94,4 +95,20 @@ export async function loadInviteByCode(code: string): Promise<InviteRow | 'none'
   const rows = z.array(inviteRowSchema).safeParse(data)
   if (parseFailed('loadInviteByCode', rows)) return null
   return rows.data[0] ?? 'none'
+}
+
+/**
+ * The team view through the link (0006, get_team_view_by_code), for members without an account: levels and
+ * labels, only once released at or above k. Null when it cannot be read or is not there; the page decides
+ * from the phase which it is. Never cached: it appears at the close.
+ */
+export async function loadTeamViewByCode(code: string): Promise<TeamView | null> {
+  if (!codeSchema.safeParse(code).success) return null
+  const client = anonClient()
+  if (!client) return null
+  const { data, error } = await client.schema('app').rpc('get_team_view_by_code', { p_code: code })
+  if (readFailed('loadTeamViewByCode', error, data)) return null
+  const rows = z.array(teamViewRowSchema).safeParse(data)
+  if (parseFailed('loadTeamViewByCode', rows)) return null
+  return buildTeamView(rows.data)
 }

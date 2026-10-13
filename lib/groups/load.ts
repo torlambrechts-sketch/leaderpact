@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
 import { callFailed, parseFailed, readFailed } from '@/lib/supabase/read'
 import { codeSchema } from '@/lib/scan/link'
+import { buildTeamView, teamViewRowSchema, type TeamView } from '@/lib/scan/team-view'
 
 /**
  * What a signed-in person reads of their groups, through row-level security (0002, 0006): only groups
@@ -106,4 +107,21 @@ export async function loadInvite(groupId: string, personId: string): Promise<Inv
     scan: { id: row.id, phase: row.phase, answered: row.answered, memberCount: row.member_count, closesAt: row.closes_at, extended: row.extended },
     code: code.data,
   }
+}
+
+/**
+ * The group's team view for a current member (0006, get_team_view, which checks the membership again), with
+ * the invite page's view of the group and its latest scan. `view` is null while the scan is open or when it
+ * closed without one.
+ */
+export async function loadGroupTeamView(groupId: string, personId: string): Promise<(InviteView & { view: TeamView | null }) | 'none' | null> {
+  const invite = await loadInvite(groupId, personId)
+  if (invite === null || invite === 'none') return invite
+  if (!invite.scan || invite.scan.phase !== 'released') return { ...invite, view: null }
+  const supabase = await createClient()
+  const { data, error } = await supabase.schema('app').rpc('get_team_view', { p_scan: invite.scan.id })
+  if (readFailed('loadGroupTeamView', error, data)) return null
+  const rows = z.array(teamViewRowSchema).safeParse(data)
+  if (parseFailed('loadGroupTeamView', rows)) return null
+  return { ...invite, view: buildTeamView(rows.data) }
 }

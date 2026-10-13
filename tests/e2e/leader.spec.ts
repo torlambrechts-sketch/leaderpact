@@ -11,8 +11,9 @@ import { canMintSession, signInAs } from './support/session'
  *
  * The leader takes the scan, saves it with a group of 10, and signs in: in CI by the email link from
  * Mailpit, in a cloud session with a session minted for the fixture's flow leader (D-27). Then eight
- * browsers answer, one replaces its answers, a tenth closes the scan, and an eleventh is refused. Last,
- * another group's page is refused and the leader signs out.
+ * browsers answer and one replaces its answers. There is no team view yet; a tenth answer closes the scan,
+ * and the team view appears, the same for the leader and for a later browser on the link (milestone 5).
+ * Last, another group's page is refused and the leader signs out.
  */
 test.skip(!canReadMail() && !canMintSession(), 'no way to sign in: needs Mailpit (CI) or the local API (D-27)')
 
@@ -97,6 +98,13 @@ test('the leader saves, signs in and invites; eight browsers answer through one 
   await expect(again.getByRole('heading', { name: 'Your answers are in' })).toBeVisible()
   await expectCountsOnly(page, 9)
 
+  // before the close there is no team view, for the leader or for the link (handoff 6.6, milestone 5)
+  const groupPath = new URL(page.url()).pathname.replace(/\/invite$/, '')
+  await page.goto(`${groupPath}/team`)
+  await expect(page.getByText('The team view opens when the scan closes', { exact: true })).toBeVisible()
+  await expect(page.getByRole('meter')).toHaveCount(0)
+  await page.goto(`${groupPath}/invite`)
+
   // the tenth answer takes the last seat: the scan closes at once (handoff 6.4)
   const last = await member(browser, baseURL!, path, 9)
   await expect(last.page.getByText('Yours was the last answer, so the scan has closed.')).toBeVisible()
@@ -106,11 +114,17 @@ test('the leader saves, signs in and invites; eight browsers answer through one 
   await expect(page.getByLabel("The group's invite link")).toHaveCount(0)
   await axe(page)
 
-  // a later browser is told the scan has closed
+  // and the team view appears, the same for the leader and for everyone with the link
+  await page.getByRole('link', { name: 'The team view is open' }).click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Team view' })).toBeVisible()
+  await expect(page.getByRole('meter')).toHaveCount(6)
+  await expect(page.getByText(`${SIZE} of ${SIZE} answered. Counts only, never names.`)).toBeAttached()
+  const leaderSees = await page.getByRole('meter').evaluateAll((m) => m.map((x) => x.getAttribute('aria-valuetext')))
   const late = await browser.newContext({ baseURL })
   const latePage = await late.newPage()
   await latePage.goto(path)
-  await expect(latePage.getByRole('heading', { name: 'This scan has closed' })).toBeVisible()
+  await expect(latePage.getByRole('heading', { level: 1, name: 'Team view' })).toBeVisible()
+  expect(await latePage.getByRole('meter').evaluateAll((m) => m.map((x) => x.getAttribute('aria-valuetext')))).toEqual(leaderSees)
 
   for (const m of [...members, last]) await m.context.close()
   await late.close()

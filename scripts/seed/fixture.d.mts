@@ -8,3 +8,6 @@ export declare const E2E_GROUPS: (Group & { project: string })[]
 export declare function render(options?: { e2e?: boolean }): string
 /** true for a database on 127.0.0.1 or localhost: the only place the fixture writes */
 export declare function localOnly(url: string): boolean
+export declare const TEAM_VIEW_ANSWERS: number[][]
+export declare const TEAM_VIEW_FIGURES: { theme: string; level: string; agreement: 'high' | 'medium' | 'low' }[]
+export declare const TEAM_STATES: Record<'released' | 'extended' | 'closed', Group>
