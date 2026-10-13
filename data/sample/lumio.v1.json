@@ -1,0 +1,103 @@
+{
+  "v": 1,
+  "group": "Lumio leadership group",
+  "people": [
+    { "key": "kn", "name": "Kari Nordmann", "job": "Chief executive", "role": "leader", "state": "active", "since": "2024-01", "profile": "domains" },
+    { "key": "oh", "name": "Ola Hansen", "job": "Finance", "role": "member", "state": "active", "since": "2022-03", "profile": "domains" },
+    { "key": "ib", "name": "Ingrid Berg", "job": "Operations", "role": "member", "state": "active", "since": "2023-08", "profile": "facets" },
+    { "key": "lj", "name": "Lars Johansen", "job": "Product", "role": "member", "state": "active", "since": "2025-02", "profile": "none" },
+    { "key": "sl", "name": "Sofie Lie", "job": "People", "role": "member", "state": "active", "since": "2021-06", "profile": "domains" },
+    { "key": "ed", "name": "Erik Dahl", "job": "Sales", "role": "member", "state": "active", "since": "2024-11", "profile": "none" },
+    { "key": "ms", "name": "Maja Strand", "job": "Marketing", "role": "member", "state": "active", "since": "2026-04", "profile": "none" },
+    { "key": "hb", "name": "Henrik Bakke", "job": "Technology", "role": "member", "state": "invited", "since": "2026-10", "profile": "none" }
+  ],
+  "charter": {
+    "version": 3,
+    "earlier": [
+      { "version": 1, "agreed": "2026-03-20" },
+      { "version": 2, "agreed": "2026-05-14" }
+    ],
+    "purpose": "We set Lumio's direction, decide what only this group can decide, and make sure the four units pull the same way.",
+    "tasks": [
+      { "key": "t1", "title": "Set strategy and yearly priorities", "right": "decide", "owner": "kn" },
+      { "key": "t2", "title": "Approve budgets and major investments", "right": "decide", "owner": "oh" },
+      { "key": "t3", "title": "Coordinate priorities across the units", "right": "advise", "owner": "ib" },
+      { "key": "t4", "title": "Develop the leaders below us", "right": "decide", "owner": "sl" }
+    ],
+    "agreements": [
+      "We send pre-reads 48 hours before the meeting.",
+      "Every agenda item states its desired outcome.",
+      "We disagree in the room, not after it.",
+      "Decisions get an owner before we move on."
+    ]
+  },
+  "rounds": [
+    { "name": "Round 3", "kind": "diagnostic", "phase": "scheduled", "opens": "2027-03-01", "closes": "2027-03-15", "invited": 8, "answered": null },
+    { "name": "Pulse 7", "kind": "pulse", "phase": "scheduled", "opens": "2026-11-02", "closes": null, "invited": 8, "answered": null },
+    { "name": "Pulse 6", "kind": "pulse", "phase": "released", "opens": null, "closes": null, "invited": 8, "answered": 6 },
+    { "name": "Round 2", "kind": "diagnostic", "phase": "released", "opens": "2026-09-14", "closes": "2026-09-28", "invited": 8, "answered": 8 },
+    { "name": "Round 1", "kind": "diagnostic", "phase": "released", "opens": "2026-03-02", "closes": "2026-03-16", "invited": 8, "answered": 8 }
+  ],
+  "results": {
+    "round": 2,
+    "previous": 1,
+    "closed": "2026-09-28",
+    "released": "2026-09-30",
+    "invited": 8,
+    "answered": 8,
+    "scales": [
+      { "key": "clear_purpose", "previous": 3.6, "level": 3.9, "agreement": "high" },
+      { "key": "team_tasks", "previous": 3.0, "level": 3.4, "agreement": "medium" },
+      { "key": "size_and_membership", "previous": 3.5, "level": 3.5, "agreement": "high" },
+      { "key": "composition", "previous": 3.3, "level": 3.4, "agreement": "medium" },
+      { "key": "rewards", "previous": 2.8, "level": 2.9, "agreement": "low" },
+      { "key": "information_and_support", "previous": 3.2, "level": 3.3, "agreement": "medium" },
+      { "key": "preparation", "previous": 3.2, "level": 3.4, "agreement": "medium" },
+      { "key": "meeting_goals", "previous": 2.8, "level": 3.3, "agreement": "medium" },
+      { "key": "focus", "previous": 2.7, "level": 3.0, "agreement": "low" },
+      { "key": "dialogue", "previous": 3.0, "level": 2.9, "agreement": "medium" },
+      { "key": "task_conflict", "previous": 2.5, "level": 2.4, "agreement": "medium" },
+      { "key": "relationship_conflict", "previous": 2.0, "level": 1.9, "agreement": "high" },
+      { "key": "political_behaviour", "previous": 2.3, "level": 2.2, "agreement": "high" },
+      { "key": "behavioural_integration", "previous": 3.3, "level": 3.5, "agreement": "high" },
+      { "key": "external_relations", "previous": 3.6, "level": 3.7, "agreement": "high" },
+      { "key": "learning", "previous": 3.0, "level": 3.1, "agreement": "medium" },
+      { "key": "team_leadership", "previous": 3.6, "level": 3.9, "agreement": "high" },
+      { "key": "psychological_safety", "previous": 3.8, "level": 3.9, "agreement": "high" },
+      { "key": "trust", "previous": 3.7, "level": 3.8, "agreement": "high" },
+      { "key": "cohesion", "previous": 3.5, "level": 3.6, "agreement": "medium" },
+      { "key": "norms", "previous": 3.1, "level": 3.2, "agreement": "medium" },
+      { "key": "direction_alignment_and_commitment", "previous": 3.5, "level": 3.8, "agreement": "high" },
+      { "key": "viability", "previous": 3.5, "level": 3.6, "agreement": "medium" },
+      { "key": "member_growth", "previous": 3.1, "level": 3.2, "agreement": "low" }
+    ]
+  },
+  "plan": {
+    "focus": [
+      {
+        "scale": "meeting_goals",
+        "actions": [
+          { "title": "Add an outcome field to the agenda template", "owner": "ib", "due": "2026-10-07", "done": false },
+          { "title": "Share the Q4 hiring plan pre-read", "owner": "lj", "due": "2026-10-06", "done": false },
+          { "title": "Run a structured round on the decision item", "owner": "kn", "due": "2026-10-08", "done": false },
+          { "title": "Collect private input on purpose", "owner": "sl", "due": "2026-10-02", "done": true }
+        ]
+      }
+    ]
+  },
+  "meeting": {
+    "title": "Thursday leadership meeting",
+    "on": "2026-10-08",
+    "at": "09:00",
+    "minutes": 90,
+    "items": [
+      { "title": "Check-in round", "type": "information", "outcome": "Everyone has shared one headline from their unit.", "owner": "kn", "minutes": 5, "task": "t3" },
+      { "title": "Q3 results", "type": "information", "outcome": "Everyone knows where Q3 landed against plan.", "owner": "oh", "minutes": 15, "task": "t2" },
+      { "title": "Q4 hiring plan for the product unit", "type": "decision", "outcome": "A yes or no on six new roles, each with a hiring owner.", "owner": "lj", "minutes": 20, "task": "t2" },
+      { "title": "SMB pricing change", "type": "discussion", "outcome": null, "owner": "ed", "minutes": 25, "task": "t1" },
+      { "title": "Office move", "type": "information", "outcome": "Everyone knows the move dates.", "owner": "ib", "minutes": 10, "task": null },
+      { "title": "Customer churn follow-up", "type": "follow_up", "outcome": "Agreed status on the three churn actions.", "owner": "ms", "minutes": 15, "task": "t3" },
+      { "title": "Reflection", "type": "information", "outcome": "One thing to keep and one to change.", "owner": "kn", "minutes": 5, "task": "t4" }
+    ]
+  }
+}

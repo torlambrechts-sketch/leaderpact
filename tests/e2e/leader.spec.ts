@@ -75,7 +75,7 @@ test('the leader saves, signs in and invites; eight browsers answer through one 
   // the group is made, the leader's own answers count as 1 (owner C4), and the link is shown
   await expect(page).toHaveURL(/\/app\/[0-9a-f-]{36}\/invite$/)
   await expect(page.getByRole('heading', { level: 1, name: 'Invite your group' })).toBeVisible()
-  await expect(page.getByText('Flow leadership group')).toBeVisible()
+  await expect(page.getByRole('main').getByText('Flow leadership group')).toBeVisible()
   await expectCountsOnly(page, 1)
   await expect(page.getByText('The team view opens when the scan closes', { exact: true })).toBeVisible()
   await axe(page)

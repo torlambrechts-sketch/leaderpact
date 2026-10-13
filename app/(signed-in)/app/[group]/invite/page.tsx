@@ -4,7 +4,6 @@ import { redirect } from 'next/navigation'
 import type { Route } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { ArrowRight, ExternalLink } from 'lucide-react'
-import { ClientMessages } from '@/components/lp/ClientMessages'
 import { HintBox } from '@/components/lp/HintBox'
 import { WarningBox } from '@/components/lp/WarningBox'
 import { buttonVariants } from '@/components/ui/button'
@@ -15,7 +14,7 @@ import { loadInvite } from '@/lib/groups/load'
 import { dateFormat } from '@/lib/i18n/dates'
 import { cn } from '@/lib/cn'
 import { SIGN_IN_PATH, joinPath, teamPath } from '@/lib/routes'
-import { CopyLink } from './CopyLink'
+import { CopyLink } from '@/components/lp/CopyLink'
 
 export const dynamic = 'force-dynamic'
 
@@ -70,9 +69,7 @@ export default async function InvitePage({
       ) : (
         <>
           {scan.phase === 'open' && link && (
-            <ClientMessages namespaces={['invite']}>
-              <CopyLink link={link} />
-            </ClientMessages>
+            <CopyLink link={link} labels={{ field: t('linkLabel'), copy: t('copy'), copied: t('copied'), failed: t('copyFailed') }} />
           )}
 
           <div className="flex flex-wrap items-end justify-between gap-5">

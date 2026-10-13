@@ -434,3 +434,45 @@ Handoff 6.6 and section 7's "When results open", with section 11's corrections. 
   `close_scan`, with only the closing date moved back, as the suites do. Lumio's own scan stays open at 1 of
   8, the state the design's Home and invite screens draw; solving answers for the design's team-view
   figures waits until a screen compares against them.
+
+## D-30 — The app shell, Home on the Free plan and the sample pages (M6)
+
+Handoff sections 4 and 5, 6.7 and 6.19, with section 11's corrections. Where the build chose:
+
+- **The shell lists the pages that exist.** Home, Group, People, Assess, Results, Plan and Meetings. Me
+  waits for the Leader Profile (milestone 7), and the gear for Settings (milestones 8 and 16). The plan pill
+  says "Free plan" and links nowhere until plan and billing exist (milestone 8). The avatar opens a menu
+  with the person's name and Sign out. Every group is on the Free plan until plans exist. `/app` opens the
+  person's first group's Home; `/app/[group]` is that Home too.
+- **The greeting has no name.** Until a person sets one, the stored name is the start of their email
+  address (0009), and "Good morning, kari.nordmann." reads as a mistake. The date and the time of day are
+  the device's, put in once the page runs in the browser, since the server does not know the reader's
+  clock. The status line is the plan's limit, said once: "Free plan · latest scan only, no history".
+- **"Needs you" on the Free plan** has two rows while the scan is open: answer the scan, and share the link.
+  Whether a person has answered is known only to their device, by the replace key the link left there (C2);
+  nothing on the server says who answered, so a person who answered on another device still sees the row.
+  The Leader Profile's row comes with milestone 7. When nothing is open, the card says nothing needs you.
+- **The scan card** says the closing date once, with the count and the dots (section 11). "Where we stand"
+  appears only once the team view is open, from the same snapshot as the team view page; while the scan is
+  open the design's empty bars would show the shape of a result that does not exist yet.
+- **No Upgrade button yet.** Handoff 6.19 gives the leader an Upgrade button; the checkout is milestone 8,
+  and no button leads to a page that does not exist (D-24, D-29). The leader sees the price from the plan
+  rows; a member is asked to ask their team leader, with no price. The button comes with the checkout.
+- **The sample content is a data file**, `data/sample/lumio.v1.json`, parsed with `lib/sample/schema.ts`.
+  The tables it stands for arrive in milestones 9 to 15; when they exist, the samples come from the demo
+  organisation's rows instead (REUSE 4.12) and the file goes. Its content is the design's Lumio group with
+  section 11's corrections. Scale names, layers, reading types and evidence ratings come from the bank
+  file the seed loads, and standing and change come from `lib/scoring` with the version 1 cut-offs. Every
+  change in the sample is within normal variation, so none shows as a number.
+- **What each sample leaves out** (section 11): the coach card, composition, the agenda time per task and
+  counts of tasks or actions per member; the team map, person pages and contribution feedback; the six
+  phases, the library, schedule and coverage tabs and the team-leader feedback round; the dots per answer,
+  SD, the agreement number, the matrix, the radar, the results session and the plan column; initiatives,
+  milestones, targets and practices; the meeting series, check-in, decision and audit tabs, and pre-read
+  flags. A shared Leader Profile shows its sharing level only: its scores need the items and the norm
+  table, which are not supplied (6.17).
+- **The fixture's members take the design's names** (Sofie Lie, Erik Dahl, Maja Strand, Henrik Bakke in
+  place of four invented ones), so the sample and the fixture are one group. The fixture is local only, so
+  no hosted row changes.
+- **Each flow signs in a person of its own.** Auth sends one address one link per interval, so the leader's
+  and a member's checks run at 1280 px, and two other members check the phones.
