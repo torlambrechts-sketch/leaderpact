@@ -6,13 +6,10 @@
 import * as React from 'react'
 import * as TabsPrimitive from '@radix-ui/react-tabs'
 import { cn } from '@/lib/cn'
+import { tabClass, tabStripClass } from '@/components/ui/tab-classes'
 
 export const Tabs = TabsPrimitive.Root
 
-export const tabStripClass = 'inline-flex flex-wrap gap-1 rounded-btn border border-bar bg-surface p-1'
-export const tabClass =
-  'inline-flex items-center gap-1.5 whitespace-nowrap rounded-r9 px-4 py-2 text-[13.5px] font-semibold text-text-2 transition-colors max-md:min-h-[44px]'
-export const tabOnClass = 'bg-ink text-white hover:text-white'
 
 export const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,

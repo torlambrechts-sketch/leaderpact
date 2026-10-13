@@ -5,7 +5,8 @@ import { axe, watch } from './support/page'
 
 /**
  * Milestone 6 (handoff 12): the app shell, Home on the Free plan, and a sample page with the banner in every
- * paid area (handoff 6.7, 6.19); People is real from milestone 7 (tests/e2e/profile.spec.ts). Read from
+ * paid area (handoff 6.7, 6.19); People is real from milestone 7 (tests/e2e/profile.spec.ts), and Upgrade
+ * leads to the checkout from milestone 8 (tests/e2e/billing.spec.ts). Read from
  * the Lumio group, whose scan is open. Each project signs in a person of its own, because Auth sends one
  * address one link per interval: the leader and a member at 1280 px, two other members on the phones.
  */
@@ -29,14 +30,18 @@ const MEMBER_BANNER = 'This page shows sample content. Ask your team leader to u
 async function nothingRemoved(page: Page) {
   await expect(page.getByText(/Assessment schedule|(?<!Leadership )Team Scan|24 scales|fit check|360|contribution|coach|practice|initiative|milestone|target, round|results session/i)).toHaveCount(0)
   await expect(page.getByText(/lowest|highest|median|standard deviation|\bSD\b|rwg|confidence|distribution/i)).toHaveCount(0)
-  await expect(page.getByRole('button', { name: 'Upgrade' })).toHaveCount(0)
 }
+
+const upgrade = `/app/${LUMIO.group.id}/settings/upgrade`
 
 async function sampleArea(page: Page, area: (typeof AREAS)[number], banner: string) {
   await expect(page).toHaveURL(new RegExp(`/app/${LUMIO.group.id}/${area.path}$`))
   await expect(page.getByRole('heading', { level: 1, name: area.heading })).toBeVisible()
   await expect(page.getByText('Sample', { exact: true })).toBeVisible()
   await expect(page.getByText(banner, { exact: true })).toBeVisible()
+  // the leader's banner leads to the checkout; a member's has no Upgrade (handoff 6.19)
+  await expect(page.getByRole('link', { name: 'Upgrade' })).toHaveCount(banner === LEADER_BANNER ? 1 : 0)
+  if (banner === LEADER_BANNER) await expect(page.getByRole('link', { name: 'Upgrade' })).toHaveAttribute('href', upgrade)
   await nothingRemoved(page)
 }
 
@@ -48,11 +53,11 @@ test('the leader: Home on the Free plan, and every paid area a sample page with 
   await page.goto('/app')
   await expect(page).toHaveURL(new RegExp(`${home}$`))
 
-  // the shell lists the pages that exist: no Me and no Settings yet; the plan pill says Free
+  // the shell lists the pages that exist; the gear leads to Settings and the plan pill to Plan and billing
   const nav = page.getByRole('navigation', { name: 'Main' })
   for (const label of ['Home', ...AREAS.map((a) => a.nav), 'People', 'Me']) await expect(nav.getByRole('link', { name: label, exact: true })).toBeVisible()
-  await expect(page.getByRole('link', { name: 'Settings' })).toHaveCount(0)
-  await expect(page.getByText('Free plan', { exact: true })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Settings' }).first()).toHaveAttribute('href', `/app/${LUMIO.group.id}/settings`)
+  await expect(page.getByRole('link', { name: 'Free plan' })).toHaveAttribute('href', `/app/${LUMIO.group.id}/settings/plan`)
   await expect(nav.getByRole('link', { name: 'Home', exact: true })).toHaveAttribute('aria-current', 'page')
 
   // Home: the greeting, "Needs you", the scan's card, and what the Team plan adds with its price
@@ -68,6 +73,7 @@ test('the leader: Home on the Free plan, and every paid area a sample page with 
   await expect(page.getByRole('heading', { name: 'What the Team plan adds' })).toBeVisible()
   await expect(page.getByText('Meetings', { exact: true }).last()).toBeVisible()
   await expect(page.getByText('$1,800 per group per year', { exact: true })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Upgrade' })).toHaveAttribute('href', upgrade)
   await expect(page.getByRole('meter')).toHaveCount(0)
   await nothingRemoved(page)
   await axe(page)
@@ -112,6 +118,7 @@ test('a member: Home asks them to ask their team leader, and the samples show no
   await expect(page.getByRole('heading', { level: 1, name: /^Good (morning|afternoon|evening)\.$/ })).toBeVisible()
   await expect(page.getByText('Ask your team leader to upgrade.', { exact: true })).toBeVisible()
   await expect(page.getByText(/\$/)).toHaveCount(0)
+  await expect(page.getByRole('link', { name: 'Upgrade' })).toHaveCount(0)
   await axe(page)
   for (const area of AREAS) {
     await page.goto(`/app/${LUMIO.group.id}/${area.path}`)
