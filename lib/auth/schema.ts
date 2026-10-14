@@ -17,7 +17,7 @@ export const emailSchema = z.string().trim().toLowerCase().pipe(z.email().max(25
  */
 export const linkRequestSchema = z.object({
   email: emailSchema,
-  intent: z.enum(['save', 'profile', 'sign_in']),
+  intent: z.enum(['save', 'profile', 'sign_in', 'sign_up']),
 })
 export type LinkRequest = z.infer<typeof linkRequestSchema>
 

@@ -28,7 +28,7 @@ export async function ProductPage({
   content: PageContent
   related: readonly string[]
   extra?: React.ReactNode
-  /** the platform's feature pages (D-44), under the steps */
+  /** the platform's feature pages (D-46), under the steps */
   features?: React.ReactNode
 }) {
   const t = await getTranslations('site')
@@ -91,7 +91,7 @@ export async function ProductPage({
 
       {features}
 
-      {/* figures take the page's width, text keeps the reading measure (D-44) */}
+      {/* figures take the page's width, text keeps the reading measure (D-46) */}
       <div className="mt-12">
         <Blocks blocks={c.blocks} wide />
       </div>

@@ -13,7 +13,7 @@ import { allFeatures, featurePath, PLATFORM_PATH } from '@/lib/site/features'
  */
 export default async function PublicLayout({ children }: { children: React.ReactNode }) {
   const t = await getTranslations('publicNav')
-  // the Platform menu (D-44): the features, named and summed up by their own pages, then the pages about how it is built
+  // the Platform menu (D-46): the features, named and summed up by their own pages, then the pages about how it is built
   const platform: PlatformNav = {
     label: t('platform'),
     featuresTitle: t('platformFeatures'),

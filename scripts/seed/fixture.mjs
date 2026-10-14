@@ -29,9 +29,10 @@
  * 7. **The diagnostic round's groups** (`--e2e`, milestone 10), both on their trial with the same five people:
  *    one with no round yet, where the flow opens the Full diagnostic and two of them answer; and one with a
  *    round in each of the other states, opened through `open_round` and answered through `submit_response`
- *    as each person: round 1 released at 4 of 5, round 2 closed with no result at 2 of 5 (its extension,
- *    then its second deadline), and round 3 answering at 3 of 5.
- * 8. **The product screenshots' groups** (`--shots`, D-44): the Lumio leadership group as the public site
+ *    as each person: rounds 1 and 2 released at 4 of 5 (half of round 2's questions answered as in round 1,
+ *    so the results show change and no change), round 3 closed with no result at 2 of 5 (its extension, then
+ *    its second deadline), and round 4 answering at 3 of 5.
+ * 8. **The product screenshots' groups** (`--shots`, D-46): the Lumio leadership group as the public site
  *    pictures it, with the design's names, in its own organisation and accounts so no flow shares a row. Kari
  *    Nordmann leads it on its trial: its scan released from eight answers, its charter at version 2, a Full
  *    diagnostic answering at 5 of 8, and her Leader Profile shared with the group at the level of domains.
@@ -137,6 +138,9 @@ export const GROUP_FLOW = {
   invitee: { id: id('4c0e0000', 906), name: 'Charter invitee', email: 'charter.invitee@lumio.example' },
 }
 
+/** An account with no group, as an account made without the scan leaves it (D-44; tests/e2e/sign-in.spec.ts) */
+export const NO_GROUP = { id: id('4c0e0000', 912), name: 'No group person', email: 'no.group@lumio.example' }
+
 /** The diagnostic round's people (milestone 10): a leader and four members, in both round groups */
 const ROUND_PEOPLE = [
   { id: id('4c0e0000', 907), name: 'Round leader', email: 'round.leader@lumio.example', role: 'leader' },
@@ -161,12 +165,12 @@ export const ROUND_STATES = {
   org: { id: id('0a000000', 502), name: 'Flow round states group' },
   group: { id: id('0b000000', 502), name: 'Flow round states group' },
   scan: { id: id('0c000000', 502), code: 'flowRoundStatesScan000001', size: 5 },
-  rounds: { released: id('0d000000', 501), closed: id('0d000000', 502), answering: id('0d000000', 503) },
+  rounds: { released: id('0d000000', 501), closed: id('0d000000', 502), answering: id('0d000000', 503), again: id('0d000000', 504) },
   people: ROUND_PEOPLE,
 }
 
 /**
- * The product screenshots' groups (--shots, D-44): the Lumio leadership group of 8, with the design's names, in
+ * The product screenshots' groups (--shots, D-46): the Lumio leadership group of 8, with the design's names, in
  * accounts of its own, and the sales leadership group beside it with its scan still open.
  */
 const SHOT_NAMES = ['Kari Nordmann', 'Ola Hansen', 'Ingrid Berg', 'Lars Johansen', 'Sofie Lie', 'Erik Dahl', 'Maja Strand', 'Henrik Bakke']
@@ -254,7 +258,7 @@ export function render({ e2e = false, shots = false } = {}) {
   ]
   const accounts = [
     ...LUMIO.people,
-    ...(e2e ? [FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE] : []),
+    ...(e2e ? [FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, NO_GROUP] : []),
     ...(shots ? SHOT_PEOPLE : []),
   ]
   const orgIds = [...new Set(groups.map((g) => g.org.id))].map(q).join(', ')
@@ -265,7 +269,7 @@ export function render({ e2e = false, shots = false } = {}) {
   // and the groups the flow leader made in an earlier run, which a reset would otherwise leave behind
   lines.push(`delete from app.organisation where id in (select m.org_id from app.membership m where m.person_id = ${q(FLOW_LEADER.id)});`)
   lines.push(
-    `delete from auth.users where id in (${[...LUMIO.people, FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...SHOT_PEOPLE].map((p) => q(p.id)).join(', ')});`,
+    `delete from auth.users where id in (${[...LUMIO.people, FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, NO_GROUP, ...SHOT_PEOPLE].map((p) => q(p.id)).join(', ')});`,
   )
   // a local database completes checkouts with the development adapter (0013): it succeeds or fails on demand
   lines.push(`update app.payment_adapter set adapter = 'development';`)
@@ -367,7 +371,7 @@ const as = (person, statement) => `  perform set_config('request.jwt.claims', js
   if not (v_reply ->> 'ok')::boolean then raise exception 'fixture: shots refused % (%)', ${q(statement.slice(0, 40))}, v_reply ->> 'reason'; end if;`
 
 /**
- * The screenshots' states (--shots, D-44), each through its write path: the leadership group's scan released by
+ * The screenshots' states (--shots, D-46), each through its write path: the leadership group's scan released by
  * its eighth answer; its charter drafted and agreed as Kari, twice; a Full diagnostic opened three days ago and
  * answered by five; Kari's Leader Profile, shared with the group at the level of domains; and the sales group's
  * scan, open at 3 of 7.
@@ -417,15 +421,20 @@ end $$;`
 /**
  * The round states' group: each round opened through open_round and answered through submit_response as
  * each person, then closed through close_round after its date is moved back, with the round's guard off for
- * that one statement, as the suites do. Round 1: 4 of 5, released. Round 2: 2 of 5, extended at its first
- * date, closed with no result at its second. Round 3: 3 of 5, answering.
+ * that one statement, as the suites do. Round 1: 4 of 5, released. Round 2: 4 of 5, released, half its
+ * questions answered as in round 1. Round 3: 2 of 5, extended at its first date, closed with no result at its
+ * second. Round 4: 3 of 5, answering.
  */
 function roundStates() {
   const g = ROUND_STATES
+  // the first 36 questions answered alike in rounds 1 and 2, the other 36 all 5 in round 2: half the scales
+  // show no change, half a change well past the margin
+  const same = (i) => `1 + (vi.ordinal + ${i}) % 5`
   const plan = [
-    { round: g.rounds.released, opened: 90, answer: [1, 2, 3, 4], deadlines: 1, phase: 'released' },
-    { round: g.rounds.closed, opened: 40, answer: [1, 2], deadlines: 2, phase: 'closed' },
-    { round: g.rounds.answering, opened: 2, answer: [2, 3, 4], deadlines: 0, phase: 'answering' },
+    { round: g.rounds.released, opened: 90, answer: [1, 2, 3, 4], value: same, deadlines: 1, phase: 'released' },
+    { round: g.rounds.again, opened: 60, answer: [1, 2, 3, 4], value: (i) => `case when vi.ordinal <= 36 then ${same(i)} else 5 end`, deadlines: 1, phase: 'released' },
+    { round: g.rounds.closed, opened: 40, answer: [1, 2], value: same, deadlines: 2, phase: 'closed' },
+    { round: g.rounds.answering, opened: 2, answer: [2, 3, 4], value: same, deadlines: 0, phase: 'answering' },
   ]
   return plan
     .map(
@@ -437,7 +446,7 @@ begin
   if app.open_round(${q(r.round)}) <> ${g.people.length} then raise exception 'fixture: round ${r.phase} did not invite everyone'; end if;
 ${r.answer
   .map(
-    (i) => `  select jsonb_agg(jsonb_build_object('item', vi.item_id, 'value', 1 + (vi.ordinal + ${i}) % 5) order by vi.ordinal) into v_answers
+    (i) => `  select jsonb_agg(jsonb_build_object('item', vi.item_id, 'value', ${r.value(i)}) order by vi.ordinal) into v_answers
   from app.instrument_version_item vi where vi.instrument_version_id = app.diagnostic_version();
   perform set_config('request.jwt.claims', json_build_object('sub', ${q(g.people[i].id)}, 'role', 'authenticated')::text, true);
   v_reply := app.submit_response(${q(r.round)}, v_answers);

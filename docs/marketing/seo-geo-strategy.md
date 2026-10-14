@@ -23,7 +23,7 @@ receives it (D-36). Change the map and the pages together.
   - ten articles under `/articles`, each with at least eight checked sources (section 5);
   - two free Word templates behind an e-mail address under `/templates`;
   - four product pages: `/platform`, `/research`, `/anonymity` and `/leadership-team-assessment-tools`;
-  - five feature pages under `/platform/`, one per feature built, with screenshots of the real app (D-44);
+  - five feature pages under `/platform/`, one per feature built, with screenshots of the real app (D-46);
   - a canonical address, Open Graph and Twitter cards on every public page, and a share card per page;
   - JSON-LD: Organization, WebSite and SoftwareApplication on the landing page; Article with `citation` on every
     article; FAQPage on the product pages; BreadcrumbList and CollectionPage where they apply;

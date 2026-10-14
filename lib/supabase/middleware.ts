@@ -38,6 +38,8 @@ export const PUBLIC_PATHS = [
   '/join',
   '/leader-profile',
   '/sign-in',
+  // an account without the scan (D-44)
+  '/sign-up',
   // the email link's confirmation and the OAuth callback
   '/auth',
   '/privacy',

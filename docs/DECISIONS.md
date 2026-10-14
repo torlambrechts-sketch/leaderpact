@@ -836,7 +836,72 @@ round engine of 0007; `supabase/tests/diagnostic_invariants.sql` (20 checks) pro
 - **What remains outside the database.** When the dispatcher exists, the mail provider will see who is
   reminded on which day, as API logs see the time of each submission (owner C3's residuals).
 
-## D-44 — The platform's pages: every built feature, in screenshots of the real app (owner, 14 October 2026)
+## D-44 — An account without the scan, and the diagnostic's time to answer (owner, 14 October 2026)
+
+The owner's words: "build in a way to register WITHOUT taking the test … it won't work for people who want to
+test the system, mentors and others not part of the leadership group (HR for example)"; "time to answer, go
+with scientific validated time recommendation"; on D-43's removed members, "your decision is fine".
+
+- **`/sign-up` makes an account with an email link and no scan.** The sign-in page links to it ("No account
+  yet? Create an account"), beside the scan, which still makes an account when its result is saved. The link
+  may create the account (`intent: 'sign_up'`); the sign-in page's still never does, and still never says
+  whether an address has one. Auth's own limits on links apply.
+- **After the link, `/app/new` offers the ways in.** Making a group (the form, as before); joining one by its
+  leader's invitation (milestone 9); the Leader Profile, which is the person's own. Someone trying the product
+  makes a group of their own and may start its 14-day trial.
+- **No new role.** A mentor or HR person who joins a group by invitation is a member of it, with a member's
+  view: there is no observer role, and handoff 6.10 asks every current member in a round. An outside role is
+  not in the handoff, and a rating of a person by outsiders is never built (CLAUDE.md invariant 13).
+- **The diagnostic takes "about 10 minutes".** No peer-reviewed study gives a validated time per
+  agree–disagree item, so the figure is built from what is measured:
+  - The 72 statements hold 682 words (9.5 each). Adults read English non-fiction silently at 238 words a
+    minute on average, most between 175 and 300 (Brysbaert, 2019, *Journal of Memory and Language* 109,
+    104047; 190 studies, 18,573 readers). Reading takes 2.9 minutes, 3.9 at 175.
+  - An attentive answer takes at least about 2 seconds an item (Huang, Curran, Keeney, Poposki and DeShon,
+    2012, *Journal of Business and Psychology* 27, 99–114, the cut-off for insufficient effort). Answering
+    adds at least 2.4 minutes.
+  - So a careful reader at the slow end of the normal range needs at least about 6.5 minutes. Attitude
+    questions take longer than factual ones (Yan and Tourangeau, 2008, *Applied Cognitive Psychology* 22,
+    51–68), so the copy rounds up to "about 10 minutes". The figure is re-measured when pilot data exists.
+  - It shows on the questionnaire's intro, the leader's card that opens a round, and Home's row.
+- **D-43's removed members stand** as decided: the participation row stays, so the count never shows
+  whether a removed member had answered.
+
+## D-45 — Results in three depths (M11)
+
+Milestone 11 of handoff section 12: "Every row shows level, agreement label and one standing. No forbidden
+element appears." `supabase/tests/results_invariants.sql` (8 checks) proves it in the database, and
+`tests/e2e/results.spec.ts` on the screens.
+
+- **The snapshot is the only source.** The overview, a scale and its questions read `get_results` and
+  `get_item_results` (0007), the firewall's reviewed readers: a current member, a released round, at or above
+  its threshold. No new reader of an answer table. The suite checks from the catalogue that the two return
+  exactly the columns a result may show, and that the agreement they return is the label.
+- **Three depths, three pages:** `/results` (the newest released round, or one by `?round=`), a scale at
+  `/results/[scale]`, and its questions at `/results/[scale]/items`. The overview shows the three outcomes
+  first, marked self-rated, then the 21 scales by layer: scale, evidence chip, level, change, agreement label,
+  standing. A scale's page adds its definition, the evidence behind its rating and the guidance. The questions
+  page shows each question's text and its mean to one decimal, nothing else.
+- **Change** shows only between two released rounds of the Full diagnostic, at the margin of the cut-offs in
+  force when the later one closed (0.6 in version 1), and only for a scale whose questions were the same in
+  both versions (owner C5, "Not comparable: the questions changed"). A first round shows "First round". It is
+  worked out in the app from the two rounds' results and the versions' items, which members may read.
+- **Definitions are rows** (`factor_text`, 0016), versioned like the item wording. Version 1 is the owner's
+  design bundle's sentence per scale (`proto-core-v5.js`, `SDEF`): neither the handoff nor the item bank has
+  definitions. The owner may reword them as a version 2.
+- **Guidance** follows handoff 7: the standing says what, the scale's own evidence rating the tone. Strong is
+  direct ("Make … a priority"), moderate and not yet rated are "likely to help", mixed describes with no flag,
+  low agreement says the views differ. The sentences are product copy in `messages/en.json`, one per case,
+  naming the scale; they claim no research beyond the scale's rating. The evidence explanations are the
+  design bundle's (`WHY`), without its "outside view", which is not built.
+- **"Make this a focus area"** comes with the focus areas (milestone 12); until then the scale page has no
+  dead button.
+- **Assess links a released round to its results.** The sample results on the Free plan now draw the same
+  rows (`components/results/ScaleRows.tsx`).
+- **The fixture** adds a second released round to the round states' group, half its questions answered as in
+  the first, so the overview shows both change and no change.
+
+## D-46 — The platform's pages: every built feature, in screenshots of the real app (owner, 14 October 2026)
 
 The owner asked for detailed platform pages in the articles' style: real features in screenshots, what each
 brings to the user, the leadership group and the organisation, illustrations and visuals, nothing commercial,

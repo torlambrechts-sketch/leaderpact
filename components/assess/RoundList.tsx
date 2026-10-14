@@ -15,6 +15,8 @@ export interface RoundRow extends Round {
   to: string | null
   /** the questionnaire, for a member asked who has yet to answer */
   answerHref: string | null
+  /** the round's results, once released (milestone 11) */
+  resultsHref: string | null
 }
 
 /**
@@ -80,7 +82,16 @@ export async function RoundList({ rounds }: { rounds: RoundRow[] }) {
             {round.phase === 'answering' && round.me === null && <p className="m-0 text-[13px] text-text-2 max-md:text-[15px]">{t('notAsked')}</p>}
             {round.phase === 'answering' && round.extended && round.k !== null && <p className="m-0 text-[13px] text-text-2 max-md:text-[15px]">{t('extended', { k: round.k })}</p>}
             {round.phase === 'closed' && round.k !== null && <p className="m-0 text-[13px] text-text-2 max-md:text-[15px]">{t('noResult', { k: round.k })}</p>}
-            {round.phase === 'released' && <p className="m-0 text-[13px] text-text-2 max-md:text-[15px]">{t('released')}</p>}
+            {round.phase === 'released' && (
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                <p className="m-0 text-[13px] text-text-2 max-md:text-[15px]">{t('released')}</p>
+                {round.resultsHref && (
+                  <Link href={round.resultsHref as Route} className={buttonVariants({ variant: 'secondary', size: 'compact' })}>
+                    {t('seeResults')}
+                  </Link>
+                )}
+              </div>
+            )}
           </li>
         )
       })}

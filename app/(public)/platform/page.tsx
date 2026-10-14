@@ -14,7 +14,7 @@ export function generateMetadata(): Metadata {
   return pageMeta({ title: c.title, description: c.description, path: PAGE.path, image: pageCard('platform') })
 }
 
-/** A product page (D-38); its words are data/pages, its frame components/site/ProductPage; the features' pages under the steps (D-44) */
+/** A product page (D-38); its words are data/pages, its frame components/site/ProductPage; the features' pages under the steps (D-46) */
 export default async function Page() {
   const t = await getTranslations('site.platform')
   const features = (

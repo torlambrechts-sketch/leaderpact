@@ -17,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absolute(LANDING_PATH), changeFrequency: 'monthly', priority: 1 },
     { url: absolute(PROFILE_PATH), changeFrequency: 'monthly', priority: 0.8 },
     ...Object.values(PRODUCT_PAGES).map((p) => ({ url: absolute(p.path), changeFrequency: 'monthly' as const, priority: 0.8 })),
-    // the platform's feature pages (D-44)
+    // the platform's feature pages (D-46)
     ...FEATURES.map((f) => ({ url: absolute(featurePath(f.slug)), changeFrequency: 'monthly' as const, priority: 0.8 })),
     { url: absolute(ARTICLES_PATH), lastModified: newest, changeFrequency: 'weekly', priority: 0.7 },
     ...PUBLISHED.map((a) => ({ url: absolute(articlePath(a.slug)), lastModified: a.modified, changeFrequency: 'monthly' as const, priority: 0.6 })),

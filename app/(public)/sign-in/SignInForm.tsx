@@ -8,16 +8,22 @@ import { TextField } from '@/components/lp/TextField'
 import { Button } from '@/components/ui/button'
 import { requestSignInLink } from '@/lib/auth/actions'
 import { emailSchema } from '@/lib/auth/schema'
-import { SCAN_PATH } from '@/lib/routes'
+import { SCAN_PATH, SIGN_IN_PATH, SIGN_UP_PATH } from '@/lib/routes'
+
+const footLink = 'text-link font-semibold text-ink underline underline-offset-2 max-md:inline-flex max-md:min-h-[44px] max-md:items-center'
 
 type State = { kind: 'form'; error?: 'invalid' | 'rate_limited' | 'failed' } | { kind: 'sending' } | { kind: 'sent'; email: string }
 
 /**
  * The sign-in form: one email field. It never says whether an address has an account: an unknown address
  * reads "if it has an account, a link is on its way", as a known one does (lib/auth/actions.ts).
+ *
+ * The same form makes an account without the scan (`mode="sign_up"`, D-44): its link may create the
+ * account, for someone trying the product, a mentor or HR, who then makes a group, joins one by invitation
+ * or takes the Leader Profile (app/(signed-in)/app/new).
  */
-export function SignInForm() {
-  const t = useTranslations('signIn')
+export function SignInForm({ mode = 'sign_in' }: { mode?: 'sign_in' | 'sign_up' }) {
+  const t = useTranslations(mode === 'sign_up' ? 'signUp' : 'signIn')
   const [state, setState] = React.useState<State>({ kind: 'form' })
   const [email, setEmail] = React.useState('')
   const heading = React.useRef<HTMLHeadingElement>(null)
@@ -31,7 +37,7 @@ export function SignInForm() {
     const parsed = emailSchema.safeParse(email)
     if (!parsed.success) return setState({ kind: 'form', error: 'invalid' })
     setState({ kind: 'sending' })
-    const result = await requestSignInLink({ email: parsed.data, intent: 'sign_in' }).catch(() => ({ ok: false as const, reason: 'failed' as const }))
+    const result = await requestSignInLink({ email: parsed.data, intent: mode }).catch(() => ({ ok: false as const, reason: 'failed' as const }))
     setState(result.ok ? { kind: 'sent', email: parsed.data } : { kind: 'form', error: result.reason })
   }
 
@@ -77,12 +83,29 @@ export function SignInForm() {
           {state.kind === 'sending' ? t('sending') : t('submit')}
         </Button>
       </form>
-      <p className="m-0 border-t border-rule-softer pt-4 text-[13.5px] text-text-2 max-md:text-[15px]">
-        {t('noAccount')}{' '}
-        <Link href={SCAN_PATH as Route} className="text-link font-semibold text-ink underline underline-offset-2 max-md:inline-flex max-md:min-h-[44px] max-md:items-center">
-          {t('startScan')}
-        </Link>
-      </p>
+      {mode === 'sign_up' ? (
+        <p className="m-0 border-t border-rule-softer pt-4 text-[13.5px] text-text-2 max-md:text-[15px]">
+          {t('haveAccount')}{' '}
+          <Link href={SIGN_IN_PATH as Route} className={footLink}>
+            {t('signIn')}
+          </Link>
+        </p>
+      ) : (
+        <div className="flex flex-col gap-1 border-t border-rule-softer pt-4 text-[13.5px] text-text-2 max-md:text-[15px]">
+          <p className="m-0">
+            {t('noAccount')}{' '}
+            <Link href={SIGN_UP_PATH as Route} className={footLink}>
+              {t('createAccount')}
+            </Link>
+          </p>
+          <p className="m-0">
+            {t('orScan')}{' '}
+            <Link href={SCAN_PATH as Route} className={footLink}>
+              {t('startScan')}
+            </Link>
+          </p>
+        </div>
+      )}
     </section>
   )
 }

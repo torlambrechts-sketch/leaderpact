@@ -144,7 +144,7 @@ export const Block = z.discriminatedUnion('t', [
     parts: z.array(z.object({ label: Copy, text: Copy })).min(3).max(8),
   }),
 
-  // the product pages' pictures (D-44): a screenshot of the real app, from lib/site/shots.ts, always marked as
+  // the product pages' pictures (D-46): a screenshot of the real app, from lib/site/shots.ts, always marked as
   // a fictional demo group; its description (`alt`) and caption are the page's words
   /** one screenshot, with what it shows */
   z.object({ t: z.literal('shot'), id: z.string(), alt: Copy, caption: Copy }),
@@ -196,7 +196,7 @@ export const WIDE = new Set<Block['t']>(['feature', 'value', 'shot', 'flow', 'st
 export const isFigure = (b: Block) => (FIGURES as readonly string[]).includes(b.t)
 
 /**
- * What a block's schema cannot say on its own (D-41, D-44): every source it cites is in the page's list (a page
+ * What a block's schema cannot say on its own (D-41, D-46): every source it cites is in the page's list (a page
  * with no list may cite none), a time bar's kind names one of its kinds, a percentage is at most 100, and a
  * screenshot is one the capture has taken.
  */

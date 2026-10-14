@@ -53,7 +53,7 @@ const cards = [
     const c = loadPage(k)
     return { file: PRODUCT_PAGES[k].path.slice(1), kicker: c.kicker, title: c.h1 }
   }),
-  // the platform's feature pages (D-44)
+  // the platform's feature pages (D-46)
   ...allFeatures().map(({ entry, content }) => ({ file: `platform/${entry.slug}`, kicker: messages.site.features.crumb, title: content.h1 })),
   ...allTemplates().map(({ template, content }) => ({ file: `templates/${template.slug}`, kicker: content.kicker, title: content.h1 })),
   ...allArticles().map(({ entry, content }) => ({ file: `articles/${entry.slug}`, kicker: messages.site.articles.crumb, title: content.h1 })),

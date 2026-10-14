@@ -10,6 +10,8 @@ export const DATA_PROCESSING_PATH = '/data-processing'
 
 /** Sign-in by email link (handoff section 8, Authentication) */
 export const SIGN_IN_PATH = '/sign-in'
+/** An account without the scan: for someone trying the product, a mentor or HR, who then makes or joins a group */
+export const SIGN_UP_PATH = '/sign-up'
 /** Where the email link lands: a button that signs in, so a mail scanner opening the link uses nothing */
 export const CONFIRM_PATH = '/auth/confirm'
 /** After sign-in: the group the device's saved scan asked for, or the person's group, or a new one */
@@ -45,3 +47,8 @@ export const joinInvitePath = (token: string) => `/join/${token}`
 /** The group's rounds (handoff 6.10), and one round's questionnaire for a member who is asked (handoff 6.11) */
 export const assessPath = (group: string) => `/app/${group}/assess`
 export const roundPath = (group: string, round: string) => `/app/${group}/assess/${round}`
+
+/** The group's results in three depths (handoff 6.12): the overview, one scale, and the scale's questions */
+export const resultsPath = (group: string, round?: string) => `/app/${group}/results${round ? `?round=${round}` : ''}`
+export const scalePath = (group: string, scale: string, round: string) => `/app/${group}/results/${scale}?round=${round}`
+export const scaleItemsPath = (group: string, scale: string, round: string) => `/app/${group}/results/${scale}/items?round=${round}`

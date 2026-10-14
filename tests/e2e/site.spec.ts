@@ -93,7 +93,7 @@ for (const [path, heading] of [
   })
 }
 
-test('the Platform menu (D-44): opens, lists every feature, closes on Escape and leads to the page', async ({ page }) => {
+test('the Platform menu (D-46): opens, lists every feature, closes on Escape and leads to the page', async ({ page }) => {
   const problems = watch(page)
   await page.goto('/articles')
   const phone = (page.viewportSize()?.width ?? 1280) < 768
