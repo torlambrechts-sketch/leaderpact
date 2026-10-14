@@ -4,7 +4,7 @@ import { PRODUCT, drainPlatform, signBody, type PlatformDb } from '../../supabas
 import { PRODUCT_KEY } from '@/lib/platform/sentral'
 
 /**
- * Milestone 17 (handoff A.3; D-54): events reach Sentral signed the way its product-events checks them
+ * Milestone 17 (handoff A.3; D-55): events reach Sentral signed the way its product-events checks them
  * (Sentral `_shared/signing.ts` verifyWebhook: `sha256=` and the hex HMAC-SHA256 of "<timestamp>.<body>", at most
  * five minutes old). The database's half (what may be emitted, the claim, the audit) is
  * supabase/tests/platform_invariants.sql.

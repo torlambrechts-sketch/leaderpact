@@ -39,6 +39,8 @@ export const ART_KINDS = [
   'research',
   'reading',
   'files',
+  'meeting',
+  'pulse',
 ] as const
 export type ArtKind = (typeof ART_KINDS)[number]
 

@@ -1,5 +1,5 @@
 /**
- * Events to Sentral, from the outbox 0025 fills (handoff A.3; D-54). Pure on purpose: the database and the
+ * Events to Sentral, from the outbox 0025 fills (handoff A.3; D-55). Pure on purpose: the database and the
  * network are passed in, so tests/unit/platform.test.ts drives it under Vitest against Sentral's own check.
  *
  * Sentral receives every product on one function, product-events: the body is `{"product": "leaderpact",

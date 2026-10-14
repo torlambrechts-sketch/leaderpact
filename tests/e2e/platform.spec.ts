@@ -4,7 +4,7 @@ import { expect, test } from '@playwright/test'
 import { canDispatch } from './support/dispatch'
 
 /**
- * Milestone 17 (handoff A.3; D-54): "a command round-trips. A replayed token is refused." Sentral's product-command
+ * Milestone 17 (handoff A.3; D-55): "a command round-trips. A replayed token is refused." Sentral's product-command
  * signs an HS256 token (its _shared/signing.ts signJwt) and posts `{p_token, p_command, p_args}` to the product's
  * /rest/v1/rpc/platform_command with the public key. This does the same against the local stack, with the token
  * secret read from the local Vault. supabase/tests/platform_invariants.sql proves every refusal.

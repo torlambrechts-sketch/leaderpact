@@ -4,6 +4,7 @@ import { articleProblems, ArticleContent } from '@/lib/site/article-content'
 import { ARTICLE_GROUPS, ARTICLES, articlePath, PUBLISHED } from '@/lib/site/articles'
 import { ARTICLE_FILES, loadArticle } from '@/lib/site/article-load'
 import { linksIn, blockText, plain } from '@/lib/site/blocks'
+import { FEATURES, featurePath } from '@/lib/site/features'
 import { contentInventory } from '@/lib/site/inventory'
 import { loadPage, PRODUCT_PAGES, type ProductPageKey } from '@/lib/site/pages'
 import { TEMPLATE_FILES, loadTemplate } from '@/lib/site/template-load'
@@ -107,7 +108,12 @@ describe('the product pages', () => {
       'Agree a charter',
       'Run the full diagnostic',
       'Choose focus areas',
+      'Meet with purpose',
+      'Measure again',
     ])
+    // every step leads to the feature page that shows it (D-54)
+    const pages = new Set(FEATURES.map((f) => featurePath(f.slug)))
+    for (const s of steps) expect(pages, s.title).toContain(s.href)
     for (const key of Object.keys(PRODUCT_PAGES) as ProductPageKey[]) {
       const text = JSON.stringify(loadPage(key))
       expect(text, key).not.toMatch(/\$\s?\d|£\s?\d|per seat|most chosen/i)

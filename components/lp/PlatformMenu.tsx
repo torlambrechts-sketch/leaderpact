@@ -3,7 +3,7 @@ import * as React from 'react'
 import Link from 'next/link'
 import type { Route } from 'next'
 import { usePathname } from 'next/navigation'
-import { BarChart3, BookOpen, ChevronDown, ClipboardCheck, Kanban, ListChecks, Menu, Route as RouteIcon, ScrollText, ShieldCheck, UserRound, X } from 'lucide-react'
+import { Activity, BarChart3, BookOpen, CalendarClock, ChevronDown, ClipboardCheck, Kanban, ListChecks, Menu, Route as RouteIcon, ScrollText, ShieldCheck, UserRound, X } from 'lucide-react'
 import { cn } from '@/lib/cn'
 
 /**
@@ -19,6 +19,9 @@ const ICONS = {
   charter: ScrollText,
   diagnostic: ListChecks,
   plan: Kanban,
+  // the app's own icons for its Meetings tab and for a pulse
+  meetings: CalendarClock,
+  pulses: Activity,
   overview: RouteIcon,
   anonymity: ShieldCheck,
   research: BookOpen,

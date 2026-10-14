@@ -104,7 +104,7 @@ test('the Platform menu (D-47): opens, lists every feature, closes on Escape and
   await button.click()
   const opened = phone ? page.getByRole('button', { name: 'Close the menu' }) : button
   await expect(opened).toHaveAttribute('aria-expanded', 'true')
-  for (const name of ['Leadership Team Scan', 'Team view', 'Leader Profile', 'Charter and members', 'Full diagnostic', 'Focus areas and actions', 'How it works', 'Anonymity', 'Research']) {
+  for (const name of ['Leadership Team Scan', 'Team view', 'Leader Profile', 'Charter and members', 'Full diagnostic', 'Focus areas and actions', 'Meetings', 'Pulses', 'How it works', 'Anonymity', 'Research']) {
     await expect(page.getByRole('banner').getByRole('link', { name: new RegExp(`^${name}`) }).first()).toBeVisible()
   }
   await axe(page)
@@ -127,6 +127,8 @@ for (const [path, heading] of [
   ['/platform/team-charter', 'The group’s charter'],
   ['/platform/full-diagnostic', 'The Full diagnostic'],
   ['/platform/focus-areas', 'Focus areas and actions'],
+  ['/platform/meetings', 'Meetings with purpose'],
+  ['/platform/pulses', 'Pulses'],
 ] as const) {
   test(`the feature page ${path}: screenshots of the real app, marked, and what it brings`, async ({ page }) => {
     const problems = watch(page)
@@ -166,6 +168,21 @@ test('one frame (D-48): the header, the page and the footer share their edges, a
   const frame = (await page.locator('header > div').first().boundingBox())!
   const value = (await page.getByText('For the organisation', { exact: true }).locator('xpath=ancestor::ul[1]').boundingBox())!
   if (frame.width > 1000) expect(value.width).toBeGreaterThan(frame.width - 40)
+})
+
+test('every step on the overview leads to its feature page (D-54)', async ({ page }) => {
+  const problems = watch(page)
+  await page.goto('/platform')
+  const steps = page.getByRole('heading', { level: 2, name: 'What it does' }).locator('xpath=..').getByRole('listitem')
+  await expect(steps).toHaveCount(9)
+  await expect(steps.getByRole('link')).toHaveCount(9)
+  await steps.getByRole('link', { name: /Meet with purpose/ }).click()
+  await expect(page).toHaveURL(/\/platform\/meetings$/)
+  await expect(page.getByRole('heading', { level: 1, name: 'Meetings with purpose' })).toBeVisible()
+  await page.goBack()
+  await steps.getByRole('link', { name: /Measure again/ }).click()
+  await expect(page).toHaveURL(/\/platform\/pulses$/)
+  expect(problems).toEqual([])
 })
 
 test('the research page reads the model: 21 scales and 3 outcomes with their evidence', async ({ page }) => {

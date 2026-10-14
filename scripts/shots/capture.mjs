@@ -96,7 +96,8 @@ const PICTURES = [
     region: CONTENT,
   },
   { id: 'people', as: kari, at: DESKTOP, path: `/app/${G}/people`, region: CONTENT },
-  { id: 'assess', as: kari, at: DESKTOP, path: `/app/${G}/assess`, region: CONTENT },
+  // the round answering, at the top of Assess; the pulses below it have pictures of their own
+  { id: 'assess', as: kari, at: DESKTOP, path: `/app/${G}/assess`, region: CONTENT, maxHeight: 305 },
   { id: 'diagnostic-intro', as: henrik, at: DESKTOP, path: `/app/${G}/assess/${SHOTS.round}`, region: CONTENT },
   {
     id: 'diagnostic-question',
@@ -117,6 +118,8 @@ const PICTURES = [
     path: `/app/${G}/results`,
     steps: async (page) => {
       await page.getByRole('link', { name: 'Meeting goals' }).first().click()
+      // a client-side navigation: wait for the scale's own address before the picture
+      await page.waitForURL(/\/results\/meeting_goals/)
       await page.waitForLoadState('networkidle')
     },
     region: CONTENT,
@@ -139,6 +142,55 @@ const PICTURES = [
       await page.evaluate(() => document.activeElement?.blur?.())
     },
     view: 'main form',
+  },
+  // the next meeting's agenda: the time check, the task match, items ready or not, and the open actions beside them
+  { id: 'meetings-agenda', as: kari, at: DESKTOP, path: `/app/${G}/meetings`, region: CONTENT, maxHeight: 1080 },
+  {
+    // the sales group's meeting, live, as its leader runs it: the current item, its timer, the decision and the agenda
+    id: 'meetings-live',
+    as: ingrid,
+    at: DESKTOP,
+    path: `/app/${SALES}/meetings`,
+    steps: async (page) => {
+      await page.getByRole('link', { name: 'Join the live meeting' }).click()
+      await page.waitForLoadState('networkidle')
+      // the room reads the meeting after it renders; measure once the current item and the agenda stand
+      await page.getByText(/^Item 1 of/).waitFor()
+      await page.getByRole('heading', { name: 'Agenda' }).waitFor()
+      await page.waitForTimeout(800)
+    },
+    // the meeting's grid, below its header: locally there is no Realtime, and the header says the sync is off
+    region: 'main > div > div > div:has(> div > section)',
+    maxHeight: 600,
+  },
+  {
+    // yesterday's meeting, held: each item as it closed, the decision, the action and the parking lot
+    id: 'meetings-summary',
+    as: kari,
+    at: DESKTOP,
+    path: `/app/${G}/meetings`,
+    steps: async (page) => {
+      await page.getByRole('link', { name: /Leadership meeting$/ }).last().click()
+      await page.waitForLoadState('networkidle')
+      await page.getByRole('link', { name: 'See the summary' }).click()
+      await page.waitForLoadState('networkidle')
+    },
+    region: CONTENT,
+  },
+  // the pulses: the rhythm and the next pulse's questions beside the rounds, then pulse 2's result with its change
+  { id: 'pulse-rhythm', as: kari, at: DESKTOP, path: `/app/${G}/assess`, region: CONTENT, maxHeight: 760 },
+  {
+    id: 'pulse-result',
+    as: kari,
+    at: DESKTOP,
+    path: `/app/${G}/assess`,
+    steps: async (page) => {
+      await page.getByRole('link', { name: 'See the results' }).first().click()
+      await page.waitForURL(/results\?round=/)
+      await page.waitForLoadState('networkidle')
+    },
+    region: CONTENT,
+    maxHeight: 660,
   },
   { id: 'leader-profile', as: kari, at: DESKTOP, path: '/app/me', region: CONTENT },
   {

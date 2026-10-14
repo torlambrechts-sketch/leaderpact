@@ -1,6 +1,6 @@
 -- 0025_platform.sql — the Sentral connection: events out, commands in, the audit and a resync (handoff A.3 and
 -- 13; milestone 17: "An event arrives at Sentral and a command round-trips. A replayed token is refused. The
--- suite proves no answer field can leave"; REUSE 6; owner E1 to E8; D-54).
+-- suite proves no answer field can leave"; REUSE 6; owner E1 to E8; D-55).
 --
 -- Ported from Orgpuls 0205 and 0207 at 6f5d441, with the two defects REUSE 6.1 found fixed: every claim check
 -- is null-safe (a token with no audience or no lifetime is refused), and a refused command leaves its audit row.

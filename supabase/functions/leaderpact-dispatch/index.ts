@@ -1,6 +1,6 @@
 /**
  * leaderpact-dispatch: empties the outbox, the round reminders and the events to Sentral (0015, 0022, 0025;
- * D-53, D-54).
+ * D-53, D-55).
  *
  * Called every five minutes by pg_cron through pg_net, with the dispatcher's secret in `x-dispatch-secret`. The
  * secret lives in Vault only (0025 makes it) and the function asks the database whether a call carries it
