@@ -835,3 +835,34 @@ round engine of 0007; `supabase/tests/diagnostic_invariants.sql` (20 checks) pro
   17); pulses are milestone 15.
 - **What remains outside the database.** When the dispatcher exists, the mail provider will see who is
   reminded on which day, as API logs see the time of each submission (owner C3's residuals).
+
+## D-44 — An account without the scan, and the diagnostic's time to answer (owner, 14 October 2026)
+
+The owner's words: "build in a way to register WITHOUT taking the test … it won't work for people who want to
+test the system, mentors and others not part of the leadership group (HR for example)"; "time to answer, go
+with scientific validated time recommendation"; on D-43's removed members, "your decision is fine".
+
+- **`/sign-up` makes an account with an email link and no scan.** The sign-in page links to it ("No account
+  yet? Create an account"), beside the scan, which still makes an account when its result is saved. The link
+  may create the account (`intent: 'sign_up'`); the sign-in page's still never does, and still never says
+  whether an address has one. Auth's own limits on links apply.
+- **After the link, `/app/new` offers the ways in.** Making a group (the form, as before); joining one by its
+  leader's invitation (milestone 9); the Leader Profile, which is the person's own. Someone trying the product
+  makes a group of their own and may start its 14-day trial.
+- **No new role.** A mentor or HR person who joins a group by invitation is a member of it, with a member's
+  view: there is no observer role, and handoff 6.10 asks every current member in a round. An outside role is
+  not in the handoff, and a rating of a person by outsiders is never built (CLAUDE.md invariant 13).
+- **The diagnostic takes "about 10 minutes".** No peer-reviewed study gives a validated time per
+  agree–disagree item, so the figure is built from what is measured:
+  - The 72 statements hold 682 words (9.5 each). Adults read English non-fiction silently at 238 words a
+    minute on average, most between 175 and 300 (Brysbaert, 2019, *Journal of Memory and Language* 109,
+    104047; 190 studies, 18,573 readers). Reading takes 2.9 minutes, 3.9 at 175.
+  - An attentive answer takes at least about 2 seconds an item (Huang, Curran, Keeney, Poposki and DeShon,
+    2012, *Journal of Business and Psychology* 27, 99–114, the cut-off for insufficient effort). Answering
+    adds at least 2.4 minutes.
+  - So a careful reader at the slow end of the normal range needs at least about 6.5 minutes. Attitude
+    questions take longer than factual ones (Yan and Tourangeau, 2008, *Applied Cognitive Psychology* 22,
+    51–68), so the copy rounds up to "about 10 minutes". The figure is re-measured when pilot data exists.
+  - It shows on the questionnaire's intro, the leader's card that opens a round, and Home's row.
+- **D-43's removed members stand** as decided: the participation row stays, so the count never shows
+  whether a removed member had answered.

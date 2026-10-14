@@ -13,7 +13,7 @@ import { forgetSave, readSave, writeReplaceKey, type PendingSave } from '@/lib/s
 import { deviceStore, forget, readDraft } from '@/lib/scan/draft'
 import { isComplete, type Scan } from '@/lib/scan/model'
 import { submitScan } from '@/lib/scan/submit'
-import { ME_PATH, SIGN_IN_PATH, homePath, invitePath, joinInvitePath } from '@/lib/routes'
+import { ME_PATH, PROFILE_PATH, SIGN_IN_PATH, homePath, invitePath, joinInvitePath } from '@/lib/routes'
 import { readPending } from '@/lib/profile/device'
 import { readPendingJoin } from '@/lib/group/device'
 
@@ -28,6 +28,8 @@ const START_SIZE = 8
  * to that scan through `submit_scan` like any member's (owner C4), and the device keeps only its replace
  * key. Without a save, an invitation this device signed in for goes back to its page, which joins; a Leader
  * Profile kept by email goes to Me; otherwise the person's group opens at Home, or the form to make one shows.
+ * Someone who made an account without the scan (D-44) sees the other ways in beside the form: joining a group
+ * by its leader's invitation, and the Leader Profile.
  */
 export function NewGroup({ firstGroup, scan }: { firstGroup: string | null; scan: Scan | null }) {
   const t = useTranslations('newGroup')
@@ -106,50 +108,75 @@ export function NewGroup({ firstGroup, scan }: { firstGroup: string | null; scan
 
   const problem = state.problem
   return (
-    <section className="flex flex-col gap-4 rounded-card-lg border border-white bg-surface p-6 md:p-9">
-      <h1 className="m-0 font-display text-page-title max-md:text-[28px]">{t('heading')}</h1>
-      <p className="m-0 text-[15px] leading-[1.55] text-text-2">{t('lead')}</p>
-      {problem === 'signed_out' ? (
-        <p role="alert" className="m-0 text-[14px] font-semibold text-danger max-md:text-[15px]">
-          {t('signedOut')}{' '}
-          <Link href={SIGN_IN_PATH as Route} className="text-link text-ink underline underline-offset-2">
-            {t('signIn')}
+    <div className="flex flex-col gap-4">
+      <section className="flex flex-col gap-4 rounded-card-lg border border-white bg-surface p-6 md:p-9">
+        <h1 className="m-0 font-display text-page-title max-md:text-[28px]">{t('heading')}</h1>
+        <p className="m-0 text-[15px] leading-[1.55] text-text-2">{t('lead')}</p>
+        {problem === 'signed_out' ? (
+          <p role="alert" className="m-0 text-[14px] font-semibold text-danger max-md:text-[15px]">
+            {t('signedOut')}{' '}
+            <Link href={SIGN_IN_PATH as Route} className="text-link text-ink underline underline-offset-2">
+              {t('signIn')}
+            </Link>
+          </p>
+        ) : (
+          <form noValidate onSubmit={submit} className="flex flex-col gap-4">
+            <TextField
+              id="group-name"
+              name="group"
+              autoComplete="organization"
+              required
+              maxLength={120}
+              label={ts('nameLabel')}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              error={problem === 'name' ? ts('invalidName') : undefined}
+            />
+            <SizeStepper
+              id="group-size"
+              label={ts('sizeLabel')}
+              hint={ts('sizeHint')}
+              value={size}
+              min={GROUP_MIN}
+              max={GROUP_MAX}
+              onChange={setSize}
+              fewerLabel={ts('fewer')}
+              moreLabel={ts('more')}
+            />
+            {(problem === 'failed' || problem === 'unavailable') && (
+              <p role="alert" className="m-0 text-[14px] font-semibold text-danger max-md:text-[15px]">
+                {t(problem)}
+              </p>
+            )}
+            <Button type="submit" size="large" className="self-start">
+              {t('submit')}
+            </Button>
+          </form>
+        )}
+      </section>
+      <section aria-labelledby="other-ways" className="flex flex-col gap-3 rounded-card-lg border border-white bg-surface p-6 md:p-9">
+        <h2 id="other-ways" className="m-0 text-[17px] font-bold">
+          {t('otherTitle')}
+        </h2>
+        <div className="flex flex-col gap-1 border-t border-divider pt-3">
+          <h3 className="m-0 text-[14.5px] font-bold">{t('joinTitle')}</h3>
+          <p className="m-0 text-[14px] leading-[1.5] text-text-2 max-md:text-[15px]">{t('joinBody')}</p>
+        </div>
+        <div className="flex flex-col gap-1 border-t border-divider pt-3">
+          <h3 className="m-0 text-[14.5px] font-bold">{t('profileTitle')}</h3>
+          <p className="m-0 text-[14px] leading-[1.5] text-text-2 max-md:text-[15px]">{t('profileBody')}</p>
+          <Link
+            href={PROFILE_PATH as Route}
+            className="text-link self-start text-[14px] font-semibold text-ink underline underline-offset-2 max-md:inline-flex max-md:min-h-[44px] max-md:items-center max-md:text-[15px]"
+          >
+            {t('profileAction')}
           </Link>
-        </p>
-      ) : (
-        <form noValidate onSubmit={submit} className="flex flex-col gap-4">
-          <TextField
-            id="group-name"
-            name="group"
-            autoComplete="organization"
-            required
-            maxLength={120}
-            label={ts('nameLabel')}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            error={problem === 'name' ? ts('invalidName') : undefined}
-          />
-          <SizeStepper
-            id="group-size"
-            label={ts('sizeLabel')}
-            hint={ts('sizeHint')}
-            value={size}
-            min={GROUP_MIN}
-            max={GROUP_MAX}
-            onChange={setSize}
-            fewerLabel={ts('fewer')}
-            moreLabel={ts('more')}
-          />
-          {(problem === 'failed' || problem === 'unavailable') && (
-            <p role="alert" className="m-0 text-[14px] font-semibold text-danger max-md:text-[15px]">
-              {t(problem)}
-            </p>
-          )}
-          <Button type="submit" size="large" className="self-start">
-            {t('submit')}
-          </Button>
-        </form>
-      )}
-    </section>
+        </div>
+        <div className="flex flex-col gap-1 border-t border-divider pt-3">
+          <h3 className="m-0 text-[14.5px] font-bold">{t('tryTitle')}</h3>
+          <p className="m-0 text-[14px] leading-[1.5] text-text-2 max-md:text-[15px]">{t('tryBody')}</p>
+        </div>
+      </section>
+    </div>
   )
 }
