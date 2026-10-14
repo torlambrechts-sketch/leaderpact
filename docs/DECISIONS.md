@@ -777,3 +777,61 @@ Where the build chose:
   group's own.
 - **Nothing in 0014 deletes a row**: drafts, invitations and memberships keep theirs with a state and a
   date, and their group's removal takes them.
+
+## D-43 — The diagnostic round: open, invite, answer, remind, close (M10)
+
+Milestone 10 of handoff section 12: "Reminders go only to people who have not answered. Close computes scores
+once." `0015_diagnostic` adds the leader's way to open a round, the reminders and the scheduled close to the
+round engine of 0007; `supabase/tests/diagnostic_invariants.sql` (20 checks) proves both halves of the rule.
+
+- **The leader opens it, and needs the threshold.** `open_diagnostic` opens the published Full diagnostic for
+  the group's current leader alone, on the Team plan or its trial and not read-only (`team_plan_writable`
+  and `plan_allows(…, 'diagnostic')`), one round answering at a time. It refuses a group with fewer current
+  members than the organisation's threshold and says how many there are. REUSE 4.5 keeps 0073's rule that a
+  group asked fewer than k people gets no count, and such a round can never release; owner C10's warning
+  becomes a refusal for that reason. Every current member is invited by `open_round` (0007), with no picker.
+- **The window is the setting's default, 14 days.** `diagnostic_window_days` is a row with a group range of
+  7 to 30, but no table holds a group's own value yet, so every round takes the default. The rhythm (6
+  months) schedules nothing yet: the leader opens each round.
+- **A removed member keeps their place in the count** (owner C7, adapted). C7 says a leaver's participation
+  row goes. Here it stays: `submit_response` now answers only current members, so a removed member answers
+  no more, and the reminders pass them over. Removing the row would change the count, and so tell the group
+  whether that person had answered; it would also be a deletion the connector holds (D-22). The denominator
+  stays who was invited (C7). The cost: a round whose removed member never answered closes on its date
+  rather than at 100%.
+- **The questionnaire.** One question per screen in one mixed order per round, the same for every member and
+  never grouped by scale (handoff 6.11: md5 of the round and the item). The scan and the diagnostic share one
+  renderer, `components/respond/StatementFlow.tsx`, since they are one question kind (CLAUDE.md, Model as
+  data). Next moves on without an answer; the review page lists the gaps, leads from gap to gap and waits for
+  them before "Submit anonymously" (owner C8). Progress is kept on the device under a key for the round and
+  the person, for as long as a round can be open (37 days), and removed on submit.
+- **TODO(owner): the time to answer.** Handoff 6.11 asks the intro to say how long the 72 questions take. No
+  figure exists in the handoff or the item bank, so the intro says the number of questions and no time.
+- **Reminders without a person.** `round_reminder` holds one row per round and reminder day (`reminder_days`,
+  3, 7 and 12, inside the window): when it is due and whether it went, never to whom. Who is reminded is
+  decided when the dispatcher claims the row (`claim_reminders`, granted to `service_role` alone): the
+  invited people who are still members and have not answered. A round that has closed, or that everyone has
+  answered, is skipped. A sent reminder is audited with the round and the day only; a failure is claimed again
+  and given up after five tries.
+- **No reminder mail goes yet.** The dispatcher that sends it is the outbox's (milestone 16, D-26), with the
+  quiet hours of REUSE 4.8. Until then the rows wait, and a due one for a closed round is skipped at its
+  first claim. Nothing on screen promises a reminder. A reminder falls due at the opening's time of day.
+- **The close.** pg_cron runs `close_due_rounds` every five minutes, as 0010 does for scans; the last
+  answer still closes a round at once. `close_round` (0007) is unchanged: at or above k it writes the
+  snapshot once and reshuffles; below k one 7-day extension, then no result and the answers deleted (C9).
+- **The charter version in force is recorded on the round at its release,** by a trigger on
+  `assessment_round`, and never changes after. `factor_score.charter_version_id` stays empty: writing it would
+  mean redefining `close_round`, whose deletions the connector holds (D-22). The round's column is the
+  snapshot's, and the results of milestone 11 read it there.
+- **Reading.** `get_rounds` gives every current member the rounds with phase, dates and the count of
+  answers ("5 of 8 answered"), and the caller's own state; `get_round_form` gives the questions only while
+  the caller is asked and has yet to answer. Both read `participation` and join the firewall's reviewed list
+  (0015 redefines `anonymity_firewall` with them; the rules are unchanged).
+- **Assess and Home.** Assess is a plain list with four phases, the leader's "Open the Full diagnostic"
+  (asked once more, since a round cannot be cancelled) and "Answer now" for a member asked. A released round
+  says its result was computed at close; the results pages are milestone 11. Home's "Needs you" offers the
+  Full diagnostic while it asks the person.
+- **Not yet:** pilot groups' candidate items (owner D8) wait for Sentral's `modules.pilot` command (milestone
+  17); pulses are milestone 15.
+- **What remains outside the database.** When the dispatcher exists, the mail provider will see who is
+  reminded on which day, as API logs see the time of each submission (owner C3's residuals).

@@ -41,3 +41,7 @@ export const upgradePath = (group: string) => `/app/${group}/settings/upgrade`
 export const groupPath = (group: string) => `/app/${group}/group`
 /** An invitation to join a group: the token in the path is the capability (0014) */
 export const joinInvitePath = (token: string) => `/join/${token}`
+
+/** The group's rounds (handoff 6.10), and one round's questionnaire for a member who is asked (handoff 6.11) */
+export const assessPath = (group: string) => `/app/${group}/assess`
+export const roundPath = (group: string, round: string) => `/app/${group}/assess/${round}`

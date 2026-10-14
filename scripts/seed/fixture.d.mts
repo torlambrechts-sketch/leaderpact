@@ -17,3 +17,6 @@ export declare const GROUP_FLOW: Group & {
   member: { id: string; name: string; email: string }
   invitee: { id: string; name: string; email: string }
 }
+interface RoundPerson { id: string; name: string; email: string; role: 'leader' | 'member' }
+export declare const ROUND_FLOW: Group & { leader: RoundPerson; member: RoundPerson; people: RoundPerson[] }
+export declare const ROUND_STATES: Group & { rounds: Record<'released' | 'closed' | 'answering', string>; people: RoundPerson[] }

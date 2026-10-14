@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { answerSchema, type Answers, type Scan } from '@/lib/scan/model'
+import { answerSchema, type Answers } from '@/lib/scan/model'
 
 /**
  * The scan's answers on the visitor's device (handoff 6.2): they stay here until the last question, and
@@ -38,11 +38,20 @@ export interface Draft {
   position: number
 }
 
+/** What a draft is for: a version's questions. The scan, and a diagnostic round's form (lib/rounds/draft.ts). */
+export interface DraftForm {
+  versionId: string
+  items: readonly { id: string }[]
+}
+
 type ReadStore = Pick<Storage, 'getItem' | 'removeItem'>
 type WriteStore = Pick<Storage, 'setItem'>
 
-/** The saved draft for this version of the scan, or null: none, unreadable, expired or for another version */
-export function readDraft(store: ReadStore | null, scan: Scan, now: Date, key: string = DRAFT_KEY): Draft | null {
+/**
+ * The saved draft for this version, or null: none, unreadable, older than `days` since its last save, or for
+ * another version
+ */
+export function readDraft(store: ReadStore | null, scan: DraftForm, now: Date, key: string = DRAFT_KEY, days: number = DRAFT_DAYS): Draft | null {
   if (!store) return null
   let raw: string | null
   try {
@@ -60,7 +69,7 @@ export function readDraft(store: ReadStore | null, scan: Scan, now: Date, key: s
     parsed = null
   }
   const age = parsed ? now.getTime() - Date.parse(parsed.savedAt) : Infinity
-  if (!parsed || parsed.version !== scan.versionId || !(age >= 0 && age <= DRAFT_DAYS * DAY_MS)) {
+  if (!parsed || parsed.version !== scan.versionId || !(age >= 0 && age <= days * DAY_MS)) {
     forget(store, key)
     return null
   }
@@ -71,7 +80,7 @@ export function readDraft(store: ReadStore | null, scan: Scan, now: Date, key: s
 }
 
 /** Saves the draft; false when the device refuses (the scan goes on without resuming) */
-export function writeDraft(store: WriteStore | null, scan: Scan, draft: Draft, now: Date, key: string = DRAFT_KEY): boolean {
+export function writeDraft(store: WriteStore | null, scan: DraftForm, draft: Draft, now: Date, key: string = DRAFT_KEY): boolean {
   if (!store) return false
   const record = { v: 1 as const, version: scan.versionId, answers: draft.answers, position: draft.position, savedAt: now.toISOString() }
   try {
