@@ -1,5 +1,6 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
+import { axe } from './support/page'
 
 /**
  * The smoke: the root leads to the landing page, which renders, is accessible, does not scroll sideways
@@ -36,6 +37,25 @@ test('the security headers are sent', async ({ request }) => {
   expect(headers['referrer-policy']).toBe('no-referrer')
   expect(headers['content-security-policy']).toContain("frame-ancestors 'none'")
   expect(headers['x-powered-by']).toBeUndefined()
+})
+
+test('an address under no route answers 404 in the site, never sign-in, and the app stays behind it (D-49)', async ({ page, request, baseURL }) => {
+  for (const path of ['/blog/2019/hello-world', '/product/old-widget', '/sitemap_index.xml', '/articles/no-such-article']) {
+    const response = await request.get(path, { maxRedirects: 0 })
+    expect(response.status(), path).toBe(404)
+  }
+  // no spelling of the app's address gets past the session check
+  // absolute, so "//app" stays a path and is not read as a host
+  for (const path of ['/app/me', '/%61pp/me', '//app/me']) {
+    const response = await request.get(`${baseURL}${path}`, { maxRedirects: 0 })
+    expect([307, 308], path).toContain(response.status())
+  }
+  const response = await page.goto('/product/old-widget')
+  expect(response?.status()).toBe(404)
+  await expect(page.getByRole('heading', { level: 1, name: 'This page is not here' })).toBeVisible()
+  await expect(page.getByRole('main').getByRole('link', { name: /How it works/ })).toBeVisible()
+  expect(await page.locator('meta[name="robots"]').first().getAttribute('content')).toContain('noindex')
+  await axe(page)
 })
 
 test('a page behind sign-in sends an anonymous visitor to sign-in', async ({ request }) => {

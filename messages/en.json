@@ -1396,5 +1396,16 @@
     "isFocus": "This scale is one of the group's focus areas.",
     "seePlan": "See the plan",
     "fullForScale": "All {max} focus areas are taken. Close one on the Plan page to choose this scale."
+  },
+  "notFound": {
+    "metaTitle": "Page not found · {product}",
+    "kicker": "Page not found",
+    "title": "This page is not here",
+    "lead": "The address may be from an earlier site at this domain, or it may have changed. These pages are a good place to start.",
+    "start": "Start the scan",
+    "platformText": "What {product} does, from a three-minute scan to better meetings.",
+    "articlesText": "What the research says about making a leadership team work.",
+    "templatesText": "A charter and a meeting agenda for your own team, free.",
+    "signInText": "Your group, its results and its plan."
   }
 }

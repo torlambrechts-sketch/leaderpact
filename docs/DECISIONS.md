@@ -1017,3 +1017,21 @@ at the design's 1080 px, the pages at 1056 px inside 1120, and the footer at 129
   pages do. Four are new: a sealed ballot box (Anonymity), an open book with a chart (Research), fanned articles
   (Articles) and a template with its download (Templates).
 - The privacy and data-processing pages and the personal view sit in the same frame, at its left edge.
+
+## D-49 — An address under no route answers 404 (owner, 14 October 2026)
+
+The domain held an earlier site of some 5,000 pages, and Search Console still lists its sitemaps. Its old
+addresses reached the middleware, which denies by default, so every one of them went to sign-in: a redirect a
+search engine reads as "this page is now a sign-in page". The owner chose 404, so the old pages drop out.
+
+- **Three kinds of address.** A public path goes on as before. An address under no route at all, whose first
+  segment is no route the app has, goes on to Next with no session check, and Next answers 404. Every other
+  address needs a session, as before: today `/app`, and `/api` if API routes are added (`SESSION_PATHS`).
+- **Deny by default still holds for every route.** A unit test reads `app/` and fails if a top-level route is
+  neither in `PUBLIC_PATHS` nor in `SESSION_PATHS`, or if a dynamic top-level segment appears. So a new route is
+  named on purpose, and an unnamed one cannot slip through as "unknown".
+- **It fails closed.** The first segment is read decoded, with repeated slashes as one and without case, so
+  `/APP`, `//app` and `/%61pp` are session paths, not unknown. An address that cannot be decoded is not unknown.
+- **The not-found page** is the site's: header, footer, the way to the scan and four pages a visitor most likely
+  came for, `noindex`. A `notFound()` from a page (an article that does not exist) uses it too. The beacon is
+  left out, so an old address is not counted as a page view (D-39).
