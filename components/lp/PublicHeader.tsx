@@ -18,7 +18,8 @@ const ANONYMITY_PATH = '/anonymity'
 const TOOLS_PATH = '/leadership-team-assessment-tools'
 
 /**
- * The public site's header (design, `r.public`): a --bar pill up to 1080 px wide, padding 10 by 10 by 14,
+ * The public site's header (design, `r.public`): a --bar pill as wide as the site's frame (D-48: the design's
+ * 1080 px left every page narrower or wider than its header), padding 10 by 10 by 14,
  * gap 24, with the public logo, the menu in the middle (14 px, --text-2; the current section in ink, 600)
  * and "Start the scan" (ink, radius 10, 9 by 14, 14 / 600, a 15 px arrow). It is not sticky.
  *
@@ -45,8 +46,8 @@ export function PublicHeader({
   const inProfile = path === PROFILE_PATH || path.startsWith(`${PROFILE_PATH}/`)
   const inArticles = path === ARTICLES_PATH || path.startsWith(`${ARTICLES_PATH}/`)
   return (
-    <header className="flex justify-center px-4 pt-3 md:px-gutter md:pt-5">
-      <div className="relative flex w-full max-w-[1080px] items-center gap-6 rounded-pill border border-bar bg-bar py-2.5 pl-3.5 pr-2.5 max-md:gap-2">
+    <header className="mx-auto max-w-site px-4 pt-3 md:px-gutter md:pt-5">
+      <div className="relative flex w-full items-center gap-6 rounded-pill border border-bar bg-bar py-2.5 pl-3.5 pr-2.5 max-md:gap-2">
         <Link href={LANDING_PATH as Route} aria-label={labels.home} className="shrink-0 hover:text-ink max-md:inline-flex max-md:min-h-[44px] max-md:items-center">
           <Logo name={productName} variant="public" />
         </Link>
@@ -106,15 +107,20 @@ export function PublicHeader({
 }
 
 /**
- * The public footer: the product pages, the reading pages, the account and the legal pages (handoff 6.1),
- * in three lists. The header folds its menu away on phones, so the footer carries every page at every width.
+ * The public footer: the product pages, the platform's features, the reading pages, and the account and legal
+ * pages (handoff 6.1), each list under its name, beside a line on what the product is. It spans the site's frame
+ * like the header (D-48). The header folds its menu away on phones, so the footer carries every page at every
+ * width.
  */
 export function PublicFooter({
   labels,
   platform,
+  brand,
 }: {
   /** the platform's feature pages (D-47), a list of their own */
   platform?: { label: string; links: { href: string; label: string }[] }
+  /** the product's name and one line on what it is, at the footer's start (D-48) */
+  brand?: { name: string; home: string; about: string }
   labels: {
     menu: string
     profile: string
@@ -133,6 +139,7 @@ export function PublicFooter({
   }
 }) {
   const link = 'text-text-2 hover:text-ink max-md:inline-flex max-md:min-h-[44px] max-md:items-center'
+  const id = React.useId()
   const product: [string | undefined, string][] = [
     [labels.scan, LANDING_PATH],
     [labels.howItWorks, PLATFORM_PATH],
@@ -144,44 +151,54 @@ export function PublicFooter({
     [labels.articles, ARTICLES_PATH],
     [labels.templates, TEMPLATES_PATH],
   ]
-  const list = (items: [string | undefined, string][]) =>
-    items.flatMap(([label, href]) =>
-      label ? [
-        <li key={href}>
-          <Link href={href as Route} className={link}>
-            {label}
-          </Link>
-        </li>,
-      ] : [],
-    )
+  const account: [string | undefined, string][] = [
+    [labels.signIn, SIGN_IN_PATH],
+    [labels.profile, PROFILE_PATH],
+    [labels.privacy, PRIVACY_PATH],
+    [labels.dataProcessing, DATA_PROCESSING_PATH],
+  ]
+  const columns: { key: string; title: string; items: [string | undefined, string][] }[] = [
+    ...(labels.product && labels.scan ? [{ key: 'product', title: labels.product, items: product }] : []),
+    ...(platform ? [{ key: 'platform', title: platform.label, items: platform.links.map((l): [string, string] => [l.label, l.href]) }] : []),
+    ...(labels.learn && labels.articles ? [{ key: 'learn', title: labels.learn, items: learn }] : []),
+    { key: 'account', title: labels.menu, items: account },
+  ]
   return (
-    <footer className="mx-auto max-w-landing px-4 pb-10 pt-12 md:px-gutter md:pt-16">
-      <div className="flex flex-wrap gap-x-16 gap-y-6 text-[13px] text-text-2 max-md:text-[15px]">
-        {labels.product && labels.scan ? (
-          <nav aria-label={labels.product}>
-            <ul className="m-0 flex list-none flex-col gap-2 p-0">{list(product)}</ul>
-          </nav>
+    <footer className="mx-auto max-w-site px-4 pb-10 pt-12 md:px-gutter md:pt-16">
+      <div
+        className={cn(
+          'grid grid-cols-2 gap-x-8 gap-y-8 border-t border-bar pt-10 text-[13.5px] text-text-2 max-md:text-[15px]',
+          brand ? 'lg:grid-cols-[minmax(0,1.6fr)_repeat(4,minmax(0,1fr))]' : 'md:grid-cols-4',
+        )}
+      >
+        {brand ? (
+          <div className="col-span-2 flex flex-col gap-3 lg:col-span-1 lg:pr-10">
+            <Link href={LANDING_PATH as Route} aria-label={brand.home} className="self-start hover:text-ink max-md:inline-flex max-md:min-h-[44px] max-md:items-center">
+              <Logo name={brand.name} variant="public" />
+            </Link>
+            <p className="m-0 max-w-[380px] text-[14px] leading-[1.55] max-md:text-[15px]">{brand.about}</p>
+          </div>
         ) : null}
-        {platform ? (
-          <nav aria-label={platform.label}>
-            <ul className="m-0 flex list-none flex-col gap-2 p-0">{list(platform.links.map((l) => [l.label, l.href]))}</ul>
+        {columns.map((c) => (
+          <nav key={c.key} aria-labelledby={`${id}-${c.key}`}>
+            <p id={`${id}-${c.key}`} className="m-0 mb-3 text-[12px] font-bold uppercase tracking-[0.08em] text-ink">
+              {c.title}
+            </p>
+            <ul className="m-0 flex list-none flex-col gap-2 p-0">
+              {c.items.flatMap(([label, href]) =>
+                label
+                  ? [
+                      <li key={href}>
+                        <Link href={href as Route} className={link}>
+                          {label}
+                        </Link>
+                      </li>,
+                    ]
+                  : [],
+              )}
+            </ul>
           </nav>
-        ) : null}
-        {labels.learn && labels.articles ? (
-          <nav aria-label={labels.learn}>
-            <ul className="m-0 flex list-none flex-col gap-2 p-0">{list(learn)}</ul>
-          </nav>
-        ) : null}
-        <nav aria-label={labels.menu}>
-          <ul className="m-0 flex list-none flex-col gap-2 p-0">
-            {list([
-              [labels.signIn, SIGN_IN_PATH],
-              [labels.profile, PROFILE_PATH],
-              [labels.privacy, PRIVACY_PATH],
-              [labels.dataProcessing, DATA_PROCESSING_PATH],
-            ])}
-          </ul>
-        </nav>
+        ))}
       </div>
     </footer>
   )

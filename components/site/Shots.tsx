@@ -98,16 +98,17 @@ export function FeatureRow({ b, flip }: { b: Of<'feature'>; flip: boolean }) {
     <section
       className={cn(
         'my-4 grid items-center gap-8 md:gap-12',
+        // a phone stands on a panel as wide as a desktop picture's column, so its row fills the frame like the others (D-48)
         phone
           ? flip
-            ? 'md:grid-cols-[320px_minmax(0,1fr)]'
-            : 'md:grid-cols-[minmax(0,1fr)_320px]'
+            ? 'md:grid-cols-[320px_minmax(0,1fr)] lg:grid-cols-[minmax(0,8fr)_minmax(0,5fr)]'
+            : 'md:grid-cols-[minmax(0,1fr)_320px] lg:grid-cols-[minmax(0,5fr)_minmax(0,8fr)]'
           : flip
             ? 'lg:grid-cols-[minmax(0,8fr)_minmax(0,5fr)]'
             : 'lg:grid-cols-[minmax(0,5fr)_minmax(0,8fr)]',
       )}
     >
-      <div className={cn('flex min-w-0 flex-col gap-3', flip ? (phone ? 'md:order-last' : 'lg:order-last') : '')}>
+      <div className={cn('flex min-w-0 flex-col gap-3', flip ? (phone ? 'md:order-last' : 'lg:order-last') : '', phone ? 'lg:max-w-[560px]' : '')}>
         <h3 className="m-0 font-display text-[24px] font-medium leading-[1.2] tracking-[-0.02em] text-ink max-md:text-[21px]">
           <Rich text={b.title} />
         </h3>
@@ -129,7 +130,7 @@ export function FeatureRow({ b, flip }: { b: Of<'feature'>; flip: boolean }) {
           </ul>
         ) : null}
       </div>
-      <figure className="m-0 flex min-w-0 flex-col gap-3">
+      <figure className={cn('m-0 flex min-w-0 flex-col gap-3', phone ? 'lg:items-center lg:rounded-card-lg lg:bg-surface-sunk lg:px-8 lg:py-10 lg:text-center' : '')}>
         <ShotFrame id={b.shot} alt={b.alt} />
         <ShotCaption caption={b.caption} />
       </figure>

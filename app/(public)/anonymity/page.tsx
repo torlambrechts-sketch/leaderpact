@@ -13,5 +13,5 @@ export function generateMetadata(): Metadata {
 
 /** A product page (D-38); its words are data/pages, its frame components/site/ProductPage */
 export default function Page() {
-  return <ProductPage path={PAGE.path} content={loadPage('anonymity')} related={PAGE.related} />
+  return <ProductPage path={PAGE.path} art={PAGE.art} content={loadPage('anonymity')} related={PAGE.related} />
 }

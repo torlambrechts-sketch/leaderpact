@@ -4,7 +4,7 @@ import { chosenMeeting, missing, readiness, timeCheck } from '@/lib/meetings/bui
 import { agendaSchema, itemFieldsSchema, meetingInputSchema, meetingsSchema, proposeSchema, replySchema } from '@/lib/meetings/schema'
 
 /**
- * Milestone 13 (handoff 6.14; D-48): "An unmatched item is flagged and can be confirmed. Open actions appear on
+ * Milestone 13 (handoff 6.14; D-49): "An unmatched item is flagged and can be confirmed. Open actions appear on
  * the agenda." The database flags and confirms (supabase/tests/agenda_invariants.sql); here, the time check,
  * what an item needs to be ready, and the boundary that sends an item or a meeting.
  */

@@ -185,7 +185,8 @@
     "anonymityText": "What the database enforces, so no answer has a name.",
     "researchText": "The model's 21 scales and 3 outcomes, and their evidence.",
     "openMenu": "Open the menu",
-    "closeMenu": "Close the menu"
+    "closeMenu": "Close the menu",
+    "about": "{product} helps a leadership team of 4 to 15 see how it works, then improve it meeting by meeting."
   },
   "landing": {
     "free": "Free",

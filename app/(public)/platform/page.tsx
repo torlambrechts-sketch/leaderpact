@@ -28,5 +28,5 @@ export default async function Page() {
       />
     </section>
   )
-  return <ProductPage path={PAGE.path} content={loadPage('platform')} related={PAGE.related} features={features} />
+  return <ProductPage path={PAGE.path} art={PAGE.art} content={loadPage('platform')} related={PAGE.related} features={features} />
 }

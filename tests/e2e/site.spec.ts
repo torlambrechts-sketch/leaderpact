@@ -149,6 +149,25 @@ for (const [path, heading] of [
   })
 }
 
+test('one frame (D-48): the header, the page and the footer share their edges, and figures fill it', async ({ page }) => {
+  for (const path of ['/platform', '/platform/focus-areas', '/articles', '/articles/leadership-team-purpose', '/templates']) {
+    await page.goto(path)
+    const edges = async (selector: string) => {
+      const box = (await page.locator(selector).first().boundingBox())!
+      return [Math.round(box.x), Math.round(box.x + box.width)]
+    }
+    // each is the same box in the same gutters: the site's header, the page, the footer
+    const header = await edges('header')
+    expect(await edges('main > :first-child'), path).toEqual(header)
+    expect(await edges('footer'), path).toEqual(header)
+  }
+  // on a wide page the value block spans the frame, not the reading measure
+  await page.goto('/platform/focus-areas')
+  const frame = (await page.locator('header > div').first().boundingBox())!
+  const value = (await page.getByText('For the organisation', { exact: true }).locator('xpath=ancestor::ul[1]').boundingBox())!
+  if (frame.width > 1000) expect(value.width).toBeGreaterThan(frame.width - 40)
+})
+
 test('the research page reads the model: 21 scales and 3 outcomes with their evidence', async ({ page }) => {
   await page.goto('/research')
   await expect(page.getByRole('heading', { level: 2, name: '21 scales and 3 outcomes' })).toBeVisible()

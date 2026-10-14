@@ -62,6 +62,7 @@ export default async function PublicLayout({ children }: { children: React.React
           templates: t('templates'),
         }}
         platform={{ label: t('platform'), links: platform.features.map((f) => ({ href: f.href, label: f.label })) }}
+        brand={{ name: PRODUCT_NAME, home: t('home', { product: PRODUCT_NAME }), about: t('about', { product: PRODUCT_NAME }) }}
       />
     </>
   )

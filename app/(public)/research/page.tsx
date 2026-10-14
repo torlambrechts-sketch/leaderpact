@@ -73,5 +73,5 @@ export default async function ResearchPage() {
       })}
     </section>
   )
-  return <ProductPage path={PAGE.path} content={loadPage('research')} related={PAGE.related} extra={model} />
+  return <ProductPage path={PAGE.path} art={PAGE.art} content={loadPage('research')} related={PAGE.related} extra={model} />
 }

@@ -10,6 +10,7 @@ import { ArticleCards } from './ArticleCards'
 import { Blocks } from './Blocks'
 import { Breadcrumb } from './Breadcrumb'
 import { JsonLd } from './JsonLd'
+import { Questions } from './Questions'
 import { Rich } from './Rich'
 import { ArticleArt } from './art/ArticleArt'
 import type { ArtKind } from '@/lib/site/articles'
@@ -25,7 +26,7 @@ export async function FeaturePage({ slug, art, content: c, related }: { slug: Fe
   const path = featurePath(slug)
   const others = allFeatures().filter((f) => f.entry.slug !== slug)
   return (
-    <div className="mx-auto flex max-w-[1120px] flex-col px-4 pb-6 md:px-gutter">
+    <div className="mx-auto flex max-w-site flex-col px-4 pb-6 md:px-gutter">
       <JsonLd
         data={graph(
           organization(),
@@ -41,7 +42,7 @@ export async function FeaturePage({ slug, art, content: c, related }: { slug: Fe
           ...(c.faq?.length ? [faqPage(path, c.faq)] : []),
         )}
       />
-      <header className="grid items-center gap-8 pt-8 md:pt-12 lg:grid-cols-[minmax(0,1fr)_360px]">
+      <header className="grid items-center gap-8 pt-8 md:pt-12 lg:grid-cols-[minmax(0,1fr)_400px] xl:gap-16">
         <div className="flex max-w-[780px] flex-col gap-4">
           <Breadcrumb
             label={t('common.breadcrumb')}
@@ -63,34 +64,16 @@ export async function FeaturePage({ slug, art, content: c, related }: { slug: Fe
         <Blocks blocks={c.blocks} wide />
       </div>
 
-      {c.faq?.length ? (
-        <section aria-labelledby="questions" className="mt-14 max-w-[760px]">
-          <h2 id="questions" className="m-0 font-display text-[26px] font-medium tracking-[-0.02em]">
-            {t('common.questions')}
-          </h2>
-          <dl className="m-0 mt-4 flex flex-col gap-3">
-            {c.faq.map((f, i) => (
-              <div key={i} className="rounded-card bg-surface px-6 py-5">
-                <dt className="text-[16.5px] font-bold text-ink">
-                  <Rich text={f.q} />
-                </dt>
-                <dd className="m-0 mt-2 text-[15.5px] leading-[1.6] text-text-body">
-                  <Rich text={f.a} />
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-      ) : null}
+      {c.faq?.length ? <Questions title={t('common.questions')} faq={c.faq} className="mt-16" /> : null}
 
-      <section aria-labelledby="more-features" className="mt-14">
+      <section aria-labelledby="more-features" className="mt-16">
         <h2 id="more-features" className="m-0 font-display text-[24px] font-medium tracking-[-0.02em]">
           {t('features.more')}
         </h2>
         <FeatureCards items={others.map((f) => ({ slug: f.entry.slug, art: f.entry.art, nav: f.content.nav, summary: f.content.summary }))} className="mt-4" />
       </section>
 
-      <section aria-labelledby="read-next" className="mt-14">
+      <section aria-labelledby="read-next" className="mt-16">
         <h2 id="read-next" className="m-0 font-display text-[24px] font-medium tracking-[-0.02em]">
           {t('common.readNext')}
         </h2>

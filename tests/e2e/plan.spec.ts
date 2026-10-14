@@ -4,7 +4,7 @@ import { canSignIn, signInPerson } from './support/leader'
 import { axe, watch } from './support/page'
 
 /**
- * Milestones 12 and 13 (handoff 12; D-46, D-48). Milestone 12: "A third focus area is refused. An action without
+ * Milestones 12 and 13 (handoff 12; D-46, D-49). Milestone 12: "A third focus area is refused. An action without
  * an owner is refused." Milestone 13: "An unmatched item is flagged and can be confirmed. Open actions appear on
  * the agenda."
  * On the plan flow's group (scripts/seed/fixture.mjs, PLAN_FLOW), on its trial with one released round: the
