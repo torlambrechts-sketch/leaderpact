@@ -1376,6 +1376,8 @@ and 8 for it, the Group tab and the retention jobs; both are built (0026). Where
   inside a sentence excepted, WCAG 2.5.5); Tab reaches every control with the 2 px focus ring and is trapped
   nowhere; nothing drawn with a pointer cursor is left outside a control; a small coloured mark with no words is
   hidden as decoration beside its words, and every meter says its value in words. axe's own rules, contrast at
-  4.5 to 1 among them, stay on everywhere.
+  4.5 to 1 among them, stay on everywhere. The first run found controls under 44 px on phones, now fixed: the skip
+  link once shown, breadcrumbs, the footer's short links, the Leader Profile's start links, the copy-link field,
+  and the scale links on Results and Plan. Focus rings, keyboard reach and colour needed nothing.
 - **Hosted:** 0026 carries several `DELETE` statements in function bodies, so it goes through the owner's SQL
   editor (D-22), after 0024 and 0025.

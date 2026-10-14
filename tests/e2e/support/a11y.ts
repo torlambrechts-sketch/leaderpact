@@ -68,6 +68,9 @@ export async function tabWalk(page: Page): Promise<{ reached: Set<string>; ringl
     w.__a11y = []
     document.addEventListener('focusin', (e) => {
       const el = e.target as HTMLElement
+      // a group that hands focus straight to an item (Radix's radio groups and tabs) does so inside its own focus
+      // handler, before this one runs, so it is not a stop
+      if (document.activeElement !== el) return
       const s = getComputedStyle(el)
       const ring = (s.outlineStyle !== 'none' && parseFloat(s.outlineWidth) >= 2) || /\d+px \d+px 0px [2-9]/.test(s.boxShadow)
       const label = (el.getAttribute('aria-label') || el.innerText || el.getAttribute('name') || el.tagName).trim().replace(/\s+/g, ' ').slice(0, 50)
@@ -87,7 +90,9 @@ export async function tabWalk(page: Page): Promise<{ reached: Set<string>; ringl
   const log = await page.evaluate(() => (window as unknown as { __a11y: { key: string; label: string; ring: boolean }[] }).__a11y)
   const reached = new Set<string>()
   const ringless: string[] = []
-  for (const f of log) {
+  for (const [i, f] of log.entries()) {
+    // one element focused twice in a row (a re-render that restores focus) is one stop
+    if (i > 0 && f.key === log[i - 1]!.key) continue
     if (reached.has(f.key)) break
     reached.add(f.key)
     if (!f.ring) ringless.push(f.label)
