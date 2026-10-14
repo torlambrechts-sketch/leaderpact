@@ -23,6 +23,7 @@ receives it (D-36). Change the map and the pages together.
   - ten articles under `/articles`, each with at least eight checked sources (section 5);
   - two free Word templates behind an e-mail address under `/templates`;
   - four product pages: `/platform`, `/research`, `/anonymity` and `/leadership-team-assessment-tools`;
+  - five feature pages under `/platform/`, one per feature built, with screenshots of the real app (D-47);
   - a canonical address, Open Graph and Twitter cards on every public page, and a share card per page;
   - JSON-LD: Organization, WebSite and SoftwareApplication on the landing page; Article with `citation` on every
     article; FAQPage on the product pages; BreadcrumbList and CollectionPage where they apply;
@@ -72,6 +73,12 @@ keyword in Sentral.
 | leadership team platform; leadership team software | `/platform` | Product page, FAQ |
 | team effectiveness model; leadership team effectiveness research | `/research` | Product page, FAQ |
 | anonymous leadership team survey; anonymous team survey | `/anonymity` | Product page, FAQ |
+| leadership team scan; free leadership team assessment | `/platform/leadership-team-scan` | Feature page, screenshots, FAQ |
+| leadership team survey results; team survey agreement | `/platform/team-view` | Feature page, screenshots, FAQ |
+| leader personality profile; big five test for leaders | `/platform/leader-profile` | Feature page, screenshots, FAQ |
+| leadership team charter software; team decision rights | `/platform/team-charter` | Feature page, screenshots, FAQ |
+| leadership team diagnostic; team effectiveness diagnostic | `/platform/full-diagnostic` | Feature page, screenshots, FAQ |
+| leadership team action plan; team development plan; action plan after a team survey | `/platform/focus-areas` | Feature page, screenshots, FAQ |
 | leadership team effectiveness; high performing leadership team; how to build a high performing leadership team | `/articles/what-makes-a-leadership-team-effective` | Article (pillar) |
 | how to assess a leadership team; leadership team effectiveness survey questions; executive team effectiveness assessment | `/articles/how-to-assess-a-leadership-team` | Article |
 | five dysfunctions of a team; five dysfunctions of a team assessment; lencioni model research | `/articles/five-dysfunctions-of-a-team-and-the-research` | Article (comparison) |

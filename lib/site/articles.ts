@@ -16,7 +16,25 @@ export const ARTICLE_GROUPS = ['start', 'conditions', 'meetings', 'dynamics'] as
 export type ArticleGroup = (typeof ARTICLE_GROUPS)[number]
 
 /** The drawings beside an article's title and on its card (D-41, components/site/art/ArticleArt.tsx) */
-export const ART_KINDS = ['layers', 'assess', 'pyramid', 'compass', 'charter', 'network', 'agenda', 'voice', 'bridge', 'debate'] as const
+export const ART_KINDS = [
+  'layers',
+  'assess',
+  'pyramid',
+  'compass',
+  'charter',
+  'network',
+  'agenda',
+  'voice',
+  'bridge',
+  'debate',
+  // the platform's pages (D-47)
+  'scan',
+  'teamview',
+  'profile',
+  'diagnostic',
+  'focus',
+  'loop',
+] as const
 export type ArtKind = (typeof ART_KINDS)[number]
 
 export type ArticleEntry = {

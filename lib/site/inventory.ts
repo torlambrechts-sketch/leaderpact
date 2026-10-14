@@ -4,6 +4,7 @@ import messages from '@/messages/en.json'
 import { ARTICLES, articlePath } from './articles'
 import { loadArticle } from './article-load'
 import { SITE_HOST } from './config'
+import { allFeatures, featurePath } from './features'
 import { loadPage, PRODUCT_PAGES, type ProductPageKey } from './pages'
 import { loadTemplate } from './template-load'
 import { TEMPLATES, templatePath } from './templates'
@@ -48,6 +49,14 @@ export function contentInventory(): { site: string; items: InventoryItem[]; keyw
       kind: 'page' as const,
       title: loadPage(k).title,
       queries: [...PRODUCT_PAGES[k].queries],
+      status: 'published' as const,
+    })),
+    // the platform's feature pages (D-47)
+    ...allFeatures().map(({ entry, content }) => ({
+      path: featurePath(entry.slug),
+      kind: 'page' as const,
+      title: content.title,
+      queries: [...entry.queries],
       status: 'published' as const,
     })),
     ...ARTICLES.map((a) => ({

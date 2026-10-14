@@ -34,6 +34,14 @@
  *    its second deadline), and round 4 answering at 3 of 5.
  * 8. **The plan flow's group** (`--e2e`, milestone 12), on its trial with five people of its own: one round of
  *    the Full diagnostic released at 4 of 5, and no focus area or action, which the flow makes.
+ * 9. **The product screenshots' groups** (`--shots`, D-47): the Lumio leadership group as the public site
+ *    pictures it, with the design's names, in its own organisation and accounts so no flow shares a row. Kari
+ *    Nordmann leads it on its trial: its scan released from eight answers, its charter at version 2, a Full
+ *    diagnostic released from all eight and a second one answering at 5 of 8, and her Leader Profile shared
+ *    with the group at the level of domains.
+ *    Beside it, the sales leadership group, led by Ingrid Berg, with its scan open at 3 of 7. Every answer
+ *    goes through its write path, as each person where the path needs one. `scripts/shots/capture.mjs` takes
+ *    the pictures from these rows.
  * 9. **Deterministic, and local only.** Fixed ids, link codes and a known password, so a reset gives the
  *    same rows and a test can name them. That is why the script refuses any database that is not on
  *    127.0.0.1 or localhost (REUSE 4.12: Orgpuls's fixture did not, and its tokens are derivable).
@@ -184,12 +192,92 @@ export const PLAN_FLOW = {
   people: PLAN_PEOPLE,
 }
 
+/**
+ * The product screenshots' groups (--shots, D-47): the Lumio leadership group of 8, with the design's names, in
+ * accounts of its own, and the sales leadership group beside it with its scan still open.
+ */
+const SHOT_NAMES = ['Kari Nordmann', 'Ola Hansen', 'Ingrid Berg', 'Lars Johansen', 'Sofie Lie', 'Erik Dahl', 'Maja Strand', 'Henrik Bakke']
+const SHOT_PEOPLE = SHOT_NAMES.map((name, i) => ({
+  id: id('4c0e0000', 951 + i),
+  name,
+  email: `${name.toLowerCase().replace(' ', '.')}@shots.lumio.example`,
+  role: i === 0 ? 'leader' : 'member',
+}))
+export const SHOTS = {
+  org: { id: id('0a000000', 701), name: 'Lumio AS' },
+  group: { id: id('0b000000', 701), name: 'Lumio leadership group' },
+  scan: { id: id('0c000000', 701), code: 'lumioShotsLeadershipScan1', size: 8 },
+  round: id('0d000000', 701),
+  /** the round before it, released from all eight, whose results the screenshots show */
+  released: id('0d000000', 702),
+  people: SHOT_PEOPLE,
+  /** who has answered the round: Kari and four members; Erik, Maja and Henrik have not */
+  answered: [0, 1, 2, 3, 4],
+  sales: {
+    group: { id: id('0b000000', 702), name: 'Lumio sales leadership group' },
+    scan: { id: id('0c000000', 702), code: 'lumioShotsSalesScan000001', size: 7 },
+    // Ingrid leads it; six of the others are its members
+    people: [{ ...SHOT_PEOPLE[2], role: 'leader' }, ...[1, 3, 4, 5, 6, 7].map((i) => ({ ...SHOT_PEOPLE[i], role: 'member' }))],
+    answers: 3,
+  },
+}
+
+/**
+ * The leadership group's eight answer sets, in the scan's item order (two items per theme): a group that agrees on
+ * purpose and results, sits low on working as one team, half agrees on safety and trust, and differs on meetings,
+ * so the team view shows each agreement label and the standing they lead to.
+ */
+const SHOT_ANSWERS = [
+  [4, 4, 1, 1, 3, 3, 2, 3, 2, 3, 4, 4],
+  [5, 4, 4, 5, 3, 4, 3, 3, 4, 5, 4, 5],
+  [4, 4, 2, 2, 4, 3, 2, 2, 3, 3, 4, 4],
+  [4, 5, 4, 4, 3, 3, 3, 2, 4, 5, 5, 4],
+  [4, 4, 1, 2, 2, 2, 2, 3, 2, 2, 4, 4],
+  [5, 5, 5, 4, 3, 3, 3, 3, 4, 4, 4, 4],
+  [4, 3, 2, 2, 4, 4, 2, 2, 3, 4, 3, 4],
+  [4, 4, 4, 3, 3, 4, 2, 3, 5, 4, 4, 4],
+]
+
+/** The charter the screenshots show, agreed twice: version 2 adds the last working agreement */
+const SHOT_CHARTER = {
+  purpose:
+    'We set the direction for Lumio and decide the few things that need all of us: priorities, how resources are split between units, and the changes that cross them.',
+  tasks: [
+    { title: 'Annual priorities and how the budget is split between units', right: 'decide' },
+    { title: 'Initiatives that cross two or more units', right: 'decide' },
+    { title: 'Key appointments in the units', right: 'advise' },
+    { title: 'Major changes to customers, prices or products', right: 'advise' },
+    { title: 'Quarterly results and the main risks', right: 'inform' },
+  ],
+  agreements: [
+    'We read the papers before we meet.',
+    'Every item states the outcome it needs.',
+    'We disagree in the room, not afterwards.',
+    'Once we decide, we explain the decision as one team.',
+  ],
+  added: 'We end each meeting by reading back who does what by when.',
+}
+
+/**
+ * The plan the screenshots show: one focus area, Preparation, a priority in round 1, with four actions. Kari's is
+ * done. One place stays open, so the Plan page also shows the scales to consider. Days are from today.
+ */
+const SHOT_PLAN = {
+  scale: 'preparation',
+  actions: [
+    { title: 'State the decision each item needs on the agenda', owner: 0, due: 7, done: true },
+    { title: 'Send the papers three working days before each meeting', owner: 1, due: 12 },
+    { title: 'Keep a 30-minute reading slot the day before each meeting', owner: 2, due: 21 },
+    { title: 'Check after three meetings whether the papers came in time', owner: 4, due: 45 },
+  ],
+}
+
 const q = (s) => `'${String(s).replace(/'/g, "''")}'`
 const answersOf = (values) => `(select jsonb_agg(jsonb_build_object('item', vi.item_id, 'value', (${q(JSON.stringify(values))}::jsonb ->> (vi.ordinal - 1))::int) order by vi.ordinal)
     from app.scan_session ss join app.instrument_version_item vi on vi.instrument_version_id = ss.instrument_version_id where ss.code = c)`
 
 /** The SQL, as one script: remove the fixture's own rows, then write them again */
-export function render({ e2e = false } = {}) {
+export function render({ e2e = false, shots = false } = {}) {
   const leads = [{ ...FLOW_LEADER, role: 'leader' }]
   // opened two weeks ago, so a closing date moved back to now is still after the opening (0006)
   const states = Object.values(TEAM_STATES).map((g) => ({ ...g, people: leads, demo: false, opened: "now() - interval '14 days'" }))
@@ -197,12 +285,22 @@ export function render({ e2e = false } = {}) {
   const charter = { ...GROUP_FLOW, demo: false, trial: true, people: [{ ...GROUP_FLOW.leader, role: 'leader' }, { ...GROUP_FLOW.member, role: 'member' }] }
   // members since before the oldest round the fixture opens
   const rounds = [ROUND_FLOW, ROUND_STATES, PLAN_FLOW].map((g) => ({ ...g, demo: false, trial: true, since: "now() - interval '120 days'" }))
-  const groups = [{ ...LUMIO, demo: true }, ...(e2e ? [...E2E_GROUPS.map((g) => ({ ...g, people: [], demo: false })), ...states, billing, charter, ...rounds] : [])]
+  // the screenshots' two groups share one organisation, so the second carries no organisation row of its own
+  const shotGroups = [
+    { ...SHOTS, demo: false, trial: true, since: "now() - interval '200 days'", opened: "now() - interval '30 days'" },
+    { ...SHOTS.sales, org: SHOTS.org, sameOrg: true, demo: false, since: "now() - interval '200 days'", opened: "now() - interval '4 days'" },
+  ]
+  const groups = [
+    { ...LUMIO, demo: true },
+    ...(e2e ? [...E2E_GROUPS.map((g) => ({ ...g, people: [], demo: false })), ...states, billing, charter, ...rounds] : []),
+    ...(shots ? shotGroups : []),
+  ]
   const accounts = [
     ...LUMIO.people,
     ...(e2e ? [FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, NO_GROUP] : []),
+    ...(shots ? SHOT_PEOPLE : []),
   ]
-  const orgIds = groups.map((g) => q(g.org.id)).join(', ')
+  const orgIds = [...new Set(groups.map((g) => g.org.id))].map(q).join(', ')
   const peopleIds = accounts.map((p) => q(p.id)).join(', ')
   const lines = []
   lines.push(`-- generated by scripts/seed/fixture.mjs; local databases only`)
@@ -210,7 +308,7 @@ export function render({ e2e = false } = {}) {
   // and the groups the flow leader made in an earlier run, which a reset would otherwise leave behind
   lines.push(`delete from app.organisation where id in (select m.org_id from app.membership m where m.person_id = ${q(FLOW_LEADER.id)});`)
   lines.push(
-    `delete from auth.users where id in (${[...LUMIO.people, FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, NO_GROUP].map((p) => q(p.id)).join(', ')});`,
+    `delete from auth.users where id in (${[...LUMIO.people, FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, NO_GROUP, ...SHOT_PEOPLE].map((p) => q(p.id)).join(', ')});`,
   )
   // a local database completes checkouts with the development adapter (0013): it succeeds or fails on demand
   lines.push(`update app.payment_adapter set adapter = 'development';`)
@@ -244,7 +342,7 @@ end $$;`)
   )
 
   for (const g of groups) {
-    lines.push(`insert into app.organisation (id, name, is_demo) values (${q(g.org.id)}, ${q(g.org.name)}, ${g.demo});`)
+    if (!g.sameOrg) lines.push(`insert into app.organisation (id, name, is_demo) values (${q(g.org.id)}, ${q(g.org.name)}, ${g.demo});`)
     lines.push(`insert into app.team (id, org_id, name) values (${q(g.group.id)}, ${q(g.org.id)}, ${q(g.group.name)});`)
     for (const p of g.people) {
       lines.push(
@@ -303,7 +401,106 @@ end $$;`)
     lines.push(roundStates())
     lines.push(planFlow())
   }
+  if (shots) lines.push(shotStates())
   return lines.join('\n') + '\n'
+}
+
+/** Runs one statement as a person, the way a signed-in call does: their id in the request's claims */
+const as = (person, statement) => `  perform set_config('request.jwt.claims', json_build_object('sub', ${q(person.id)}, 'role', 'authenticated')::text, true);
+  v_reply := ${statement};
+  if not (v_reply ->> 'ok')::boolean then raise exception 'fixture: shots refused % (%)', ${q(statement.slice(0, 40))}, v_reply ->> 'reason'; end if;`
+
+/**
+ * The screenshots' states (--shots, D-47), each through its write path: the leadership group's scan released by
+ * its eighth answer; its charter drafted and agreed as Kari, twice; round 1 of the Full diagnostic released from
+ * all eight; a focus area from it with four actions; round 2 opened three days ago and answered by five; Kari's
+ * Leader Profile, shared with the group at the level of domains; and the sales group's scan, open at 3 of 7.
+ */
+function shotStates() {
+  const g = SHOTS
+  const kari = g.people[0]
+  const v1 = { purpose: SHOT_CHARTER.purpose, tasks: SHOT_CHARTER.tasks, agreements: SHOT_CHARTER.agreements }
+  const v2 = { ...v1, agreements: [...SHOT_CHARTER.agreements, SHOT_CHARTER.added] }
+  const charter = (c) =>
+    `app.save_charter_draft(${q(g.group.id)}, ${q(c.purpose)}, ${q(JSON.stringify(c.tasks))}::jsonb, ${q(JSON.stringify(c.agreements))}::jsonb)`
+  return `do $$
+declare c text := ${q(g.scan.code)}; v_reply jsonb; v_answers jsonb;
+begin
+${SHOT_ANSWERS.map((values) => `  v_reply := app.submit_scan(c, ${answersOf(values)}, null);
+  if not (v_reply ->> 'ok')::boolean then raise exception 'fixture: a shots answer was refused (%)', v_reply ->> 'reason'; end if;`).join('\n')}
+  if (select phase from app.scan_session where code = c) <> 'released' then raise exception 'fixture: the shots group did not release'; end if;
+
+  c := ${q(g.sales.scan.code)};
+${SHOT_ANSWERS.slice(0, g.sales.answers).map((values) => `  v_reply := app.submit_scan(c, ${answersOf(values)}, null);
+  if not (v_reply ->> 'ok')::boolean then raise exception 'fixture: a sales answer was refused (%)', v_reply ->> 'reason'; end if;`).join('\n')}
+
+${as(kari, charter(v1))}
+${as(kari, `app.agree_charter(${q(g.group.id)})`)}
+${as(kari, charter(v2))}
+${as(kari, `app.agree_charter(${q(g.group.id)})`)}
+
+  -- the first round, all eight answering. Each scale gets a level and a spread of its own, from its code, and each
+  -- person a steady lean on it, so the results show strengths, priorities, medium agreement and views that differ:
+  -- base 4 or 2 that all share, base 3 or 4 with a lean of a point, base 3 with a lean of two; a few statements a
+  -- point higher or lower, so a level is not a round number
+  insert into app.assessment_round (id, org_id, team_id, kind, instrument_version_id, window_days, opens_at)
+  values (${q(g.released)}, ${q(g.org.id)}, ${q(g.group.id)}, 'diagnostic', app.diagnostic_version(), 14, now() - interval '60 days');
+  if app.open_round(${q(g.released)}) <> ${g.people.length} then raise exception 'fixture: the shots round 1 did not invite everyone'; end if;
+${g.people
+  .map(
+    (_, i) => `  select jsonb_agg(jsonb_build_object('item', x.item_id, 'value', greatest(1, least(5, x.base + x.spread * ((x.h + ${i}) % 3 - 1) + x.nudge))) order by x.ordinal)
+    into v_answers
+  from (
+    select vi.item_id, vi.ordinal, abs(hashtext(split_part(it.code, '.', 1))) as h,
+           (array[4, 3, 2, 3, 4])[1 + abs(hashtext(split_part(it.code, '.', 1))) % 5] as base,
+           (array[0, 1, 0, 2, 1])[1 + abs(hashtext(split_part(it.code, '.', 1))) % 5] as spread,
+           case when vi.ordinal % 4 = 0 then 1 when vi.ordinal % 5 = 0 then -1 else 0 end as nudge
+    from app.instrument_version_item vi join app.item it on it.id = vi.item_id
+    where vi.instrument_version_id = app.diagnostic_version()
+  ) x;
+${as(g.people[i], `app.submit_response(${q(g.released)}, v_answers)`)}`,
+  )
+  .join('\n')}
+  perform set_config('request.jwt.claims', '', true);
+end $$;
+alter table app.assessment_round disable trigger assessment_round_fixed;
+update app.assessment_round set closes_at = opens_at + interval '14 days' where id = ${q(g.released)} and phase = 'answering';
+alter table app.assessment_round enable trigger assessment_round_fixed;
+select app.close_round(${q(g.released)}) where (select phase from app.assessment_round where id = ${q(g.released)}) = 'answering';
+do $$
+declare v_reply jsonb; v_answers jsonb; v_focus uuid; v_action uuid;
+begin
+  if (select phase from app.assessment_round where id = ${q(g.released)}) <> 'released' then raise exception 'fixture: the shots round 1 is not released'; end if;
+
+  insert into app.assessment_round (id, org_id, team_id, kind, instrument_version_id, window_days, opens_at)
+  values (${q(g.round)}, ${q(g.org.id)}, ${q(g.group.id)}, 'diagnostic', app.diagnostic_version(), 14, now() - interval '3 days');
+  if app.open_round(${q(g.round)}) <> ${g.people.length} then raise exception 'fixture: the shots round did not invite everyone'; end if;
+${g.answered
+  .map(
+    (i) => `  select jsonb_agg(jsonb_build_object('item', vi.item_id, 'value', 2 + (vi.ordinal + ${i}) % 4) order by vi.ordinal) into v_answers
+  from app.instrument_version_item vi where vi.instrument_version_id = app.diagnostic_version();
+${as(g.people[i], `app.submit_response(${q(g.round)}, v_answers)`)}`,
+  )
+  .join('\n')}
+
+${as(kari, `app.make_focus_area(${q(g.group.id)}, ${q(g.released)}, ${q(SHOT_PLAN.scale)})`)}
+  v_focus := (v_reply ->> 'focus_area')::uuid;
+${SHOT_PLAN.actions
+  .map((a) => {
+    const add = as(kari, `app.add_action(${q(g.group.id)}, v_focus, ${q(a.title)}, ${q(g.people[a.owner].id)}, current_date + ${a.due})`)
+    if (!a.done) return add
+    return `${add}
+  select a.id into v_action from app.action a where a.focus_area_id = v_focus and a.title = ${q(a.title)};
+${as(g.people[a.owner], `app.set_action_done(${q(g.group.id)}, v_action, true)`)}`
+  })
+  .join('\n')}
+
+  select jsonb_object_agg(i.id::text, 1 + (i.ordinal * 7) % 5) into v_answers
+  from app.profile_item i join app.profile_test t on t.id = i.test_id where t.key = 'quick' and t.status = 'published';
+${as(kari, `app.save_profile('quick', v_answers)`)}
+${as(kari, `app.set_profile_share(${q(g.group.id)}, 'domains')`)}
+  perform set_config('request.jwt.claims', '', true);
+end $$;`
 }
 
 /**
@@ -389,9 +586,13 @@ function main(argv) {
     console.error('fixture: refused. The fixture writes known passwords and fixed codes, so it runs on 127.0.0.1 or localhost only.')
     process.exit(2)
   }
-  execFileSync('psql', [db, '-X', '-q', '-1', '-v', 'ON_ERROR_STOP=1'], { input: render({ e2e: argv.includes('--e2e') }), stdio: ['pipe', 'inherit', 'inherit'] })
+  execFileSync('psql', [db, '-X', '-q', '-1', '-v', 'ON_ERROR_STOP=1'], {
+    input: render({ e2e: argv.includes('--e2e'), shots: argv.includes('--shots') }),
+    stdio: ['pipe', 'inherit', 'inherit'],
+  })
   console.log(`fixture: ${LUMIO.org.name}, ${LUMIO.group.name} (${LUMIO.people.length}), scan /j/${LUMIO.scan.code}`)
   if (argv.includes('--e2e')) for (const g of E2E_GROUPS) console.log(`fixture: ${g.group.name} for ${g.project}, scan /j/${g.scan.code}`)
+  if (argv.includes('--shots')) console.log(`fixture: ${SHOTS.group.name} and ${SHOTS.sales.group.name}, for the product screenshots`)
 }
 
 // run as a script, not when the flows import its constants (Playwright loads this file without import.meta)

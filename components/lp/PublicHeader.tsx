@@ -9,6 +9,7 @@ import { cn } from '@/lib/cn'
 import { DATA_PROCESSING_PATH, LANDING_PATH, PRIVACY_PATH, PROFILE_PATH, SCAN_PATH, SIGN_IN_PATH } from '@/lib/routes'
 import { ARTICLES_PATH } from '@/lib/site/articles'
 import { TEMPLATES_PATH } from '@/lib/site/templates'
+import { MobileMenu, PlatformMenu, type PlatformNav } from './PlatformMenu'
 
 /** The product pages and the reading pages (D-38), in the order the footer lists them */
 const PLATFORM_PATH = '/platform'
@@ -26,22 +27,26 @@ const TOOLS_PATH = '/leadership-team-assessment-tools'
  * no link ever led nowhere (D-24). Sign in sits beside the button, where the design puts it
  * (14 px, --text-2). Below 768 px it folds away with the menu, leaving the logo, which also leads to the
  * landing page, and the button: the three do not fit in 360 px. The footer carries Sign in at every width.
+ *
+ * The Platform menu (D-47) replaces "How it works": a button that opens the platform's pages, the overview
+ * among them. Under 768 px a menu button beside "Start the scan" opens the same pages and the header's links.
  */
 export function PublicHeader({
   productName,
   labels,
+  platform,
 }: {
   productName: string
-  labels: { menu: string; scan: string; profile: string; start: string; home: string; signIn: string; howItWorks: string; articles: string }
+  labels: { menu: string; scan: string; profile: string; start: string; home: string; signIn: string; articles: string; open: string; close: string }
+  platform: PlatformNav
 }) {
   const path = usePathname()
   const inScan = path === LANDING_PATH || path === SCAN_PATH || path.startsWith(`${SCAN_PATH}/`)
   const inProfile = path === PROFILE_PATH || path.startsWith(`${PROFILE_PATH}/`)
-  const inPlatform = path === PLATFORM_PATH
   const inArticles = path === ARTICLES_PATH || path.startsWith(`${ARTICLES_PATH}/`)
   return (
     <header className="flex justify-center px-4 pt-3 md:px-gutter md:pt-5">
-      <div className="flex w-full max-w-[1080px] items-center gap-6 rounded-pill border border-bar bg-bar py-2.5 pl-3.5 pr-2.5">
+      <div className="relative flex w-full max-w-[1080px] items-center gap-6 rounded-pill border border-bar bg-bar py-2.5 pl-3.5 pr-2.5 max-md:gap-2">
         <Link href={LANDING_PATH as Route} aria-label={labels.home} className="shrink-0 hover:text-ink max-md:inline-flex max-md:min-h-[44px] max-md:items-center">
           <Logo name={productName} variant="public" />
         </Link>
@@ -60,14 +65,7 @@ export function PublicHeader({
           >
             {labels.profile}
           </Link>
-          {/* from 1024 px: four items and the button do not fit beside the logo at 768 (D-38) */}
-          <Link
-            href={PLATFORM_PATH as Route}
-            aria-current={inPlatform ? 'page' : undefined}
-            className={cn('hidden lg:inline', inPlatform ? 'font-semibold text-ink hover:text-ink' : 'text-text-2 hover:text-ink')}
-          >
-            {labels.howItWorks}
-          </Link>
+          <PlatformMenu nav={platform} />
           <Link
             href={ARTICLES_PATH as Route}
             aria-current={path === ARTICLES_PATH ? 'page' : undefined}
@@ -76,7 +74,7 @@ export function PublicHeader({
             {labels.articles}
           </Link>
         </nav>
-        <div className="ml-auto flex items-center gap-6 md:ml-0">
+        <div className="ml-auto flex items-center gap-6 max-md:gap-2 md:ml-0">
           <Link
             href={SIGN_IN_PATH as Route}
             aria-current={path === SIGN_IN_PATH ? 'page' : undefined}
@@ -91,6 +89,16 @@ export function PublicHeader({
             {labels.start}
             <ArrowRight aria-hidden size={15} />
           </Link>
+          <MobileMenu
+            nav={platform}
+            labels={{ open: labels.open, close: labels.close }}
+            links={[
+              { href: LANDING_PATH, label: labels.scan },
+              { href: PROFILE_PATH, label: labels.profile },
+              { href: ARTICLES_PATH, label: labels.articles },
+              { href: SIGN_IN_PATH, label: labels.signIn },
+            ]}
+          />
         </div>
       </div>
     </header>
@@ -103,7 +111,10 @@ export function PublicHeader({
  */
 export function PublicFooter({
   labels,
+  platform,
 }: {
+  /** the platform's feature pages (D-47), a list of their own */
+  platform?: { label: string; links: { href: string; label: string }[] }
   labels: {
     menu: string
     profile: string
@@ -149,6 +160,11 @@ export function PublicFooter({
         {labels.product && labels.scan ? (
           <nav aria-label={labels.product}>
             <ul className="m-0 flex list-none flex-col gap-2 p-0">{list(product)}</ul>
+          </nav>
+        ) : null}
+        {platform ? (
+          <nav aria-label={platform.label}>
+            <ul className="m-0 flex list-none flex-col gap-2 p-0">{list(platform.links.map((l) => [l.label, l.href]))}</ul>
           </nav>
         ) : null}
         {labels.learn && labels.articles ? (
