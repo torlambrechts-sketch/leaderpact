@@ -23,10 +23,13 @@
  * 5. **The billing flow's group** (`--e2e`, milestone 8), with a leader and a member of its own, and the
  *    development payment adapter (0013), so a local checkout succeeds or fails on demand. A hosted database
  *    keeps the adapter `none`: it is never seeded.
- * 6. **Deterministic, and local only.** Fixed ids, link codes and a known password, so a reset gives the
+ * 6. **The charter and members flow's group** (`--e2e`, milestone 9), on its 14-day trial so the Team plan's
+ *    group page is real (0013, 0014): a leader and a member, and an invitee with an account and no group, whom
+ *    the flow invites and lets join.
+ * 7. **Deterministic, and local only.** Fixed ids, link codes and a known password, so a reset gives the
  *    same rows and a test can name them. That is why the script refuses any database that is not on
  *    127.0.0.1 or localhost (REUSE 4.12: Orgpuls's fixture did not, and its tokens are derivable).
- * 7. **Idempotent.** It removes its own rows first, by their fixed ids, in one transaction.
+ * 8. **Idempotent.** It removes its own rows first, by their fixed ids, in one transaction.
  *
  * Kari's id is chosen so her avatar takes the first pair, as the design draws her (D-12).
  */
@@ -112,6 +115,16 @@ export const BILLING = {
   member: { id: id('4c0e0000', 903), name: 'Billing member', email: 'billing.member@lumio.example' },
 }
 
+/** The charter and members flow's group (milestone 9): on its trial, with an invitee who has no group yet */
+export const GROUP_FLOW = {
+  org: { id: id('0a000000', 401), name: 'Flow charter group' },
+  group: { id: id('0b000000', 401), name: 'Flow charter group' },
+  scan: { id: id('0c000000', 401), code: 'flowCharterScanCode000001', size: 4 },
+  leader: { id: id('4c0e0000', 904), name: 'Charter leader', email: 'charter.leader@lumio.example' },
+  member: { id: id('4c0e0000', 905), name: 'Charter member', email: 'charter.member@lumio.example' },
+  invitee: { id: id('4c0e0000', 906), name: 'Charter invitee', email: 'charter.invitee@lumio.example' },
+}
+
 const q = (s) => `'${String(s).replace(/'/g, "''")}'`
 const answersOf = (values) => `(select jsonb_agg(jsonb_build_object('item', vi.item_id, 'value', (${q(JSON.stringify(values))}::jsonb ->> (vi.ordinal - 1))::int) order by vi.ordinal)
     from app.scan_session ss join app.instrument_version_item vi on vi.instrument_version_id = ss.instrument_version_id where ss.code = c)`
@@ -122,8 +135,9 @@ export function render({ e2e = false } = {}) {
   // opened two weeks ago, so a closing date moved back to now is still after the opening (0006)
   const states = Object.values(TEAM_STATES).map((g) => ({ ...g, people: leads, demo: false, opened: "now() - interval '14 days'" }))
   const billing = { ...BILLING, demo: false, people: [{ ...BILLING.leader, role: 'leader' }, { ...BILLING.member, role: 'member' }] }
-  const groups = [{ ...LUMIO, demo: true }, ...(e2e ? [...E2E_GROUPS.map((g) => ({ ...g, people: [], demo: false })), ...states, billing] : [])]
-  const accounts = [...LUMIO.people, ...(e2e ? [FLOW_LEADER, BILLING.leader, BILLING.member] : [])]
+  const charter = { ...GROUP_FLOW, demo: false, trial: true, people: [{ ...GROUP_FLOW.leader, role: 'leader' }, { ...GROUP_FLOW.member, role: 'member' }] }
+  const groups = [{ ...LUMIO, demo: true }, ...(e2e ? [...E2E_GROUPS.map((g) => ({ ...g, people: [], demo: false })), ...states, billing, charter] : [])]
+  const accounts = [...LUMIO.people, ...(e2e ? [FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee] : [])]
   const orgIds = groups.map((g) => q(g.org.id)).join(', ')
   const peopleIds = accounts.map((p) => q(p.id)).join(', ')
   const lines = []
@@ -131,7 +145,7 @@ export function render({ e2e = false } = {}) {
   lines.push(`delete from app.organisation where id in (${orgIds});`)
   // and the groups the flow leader made in an earlier run, which a reset would otherwise leave behind
   lines.push(`delete from app.organisation where id in (select m.org_id from app.membership m where m.person_id = ${q(FLOW_LEADER.id)});`)
-  lines.push(`delete from auth.users where id in (${[...LUMIO.people, FLOW_LEADER, BILLING.leader, BILLING.member].map((p) => q(p.id)).join(', ')});`)
+  lines.push(`delete from auth.users where id in (${[...LUMIO.people, FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee].map((p) => q(p.id)).join(', ')});`)
   // a local database completes checkouts with the development adapter (0013): it succeeds or fails on demand
   lines.push(`update app.payment_adapter set adapter = 'development';`)
 
@@ -169,6 +183,8 @@ end $$;`)
     for (const p of g.people) {
       lines.push(`insert into app.membership (org_id, team_id, person_id, role) values (${q(g.org.id)}, ${q(g.group.id)}, ${q(p.id)}, ${q(p.role)});`)
     }
+    // the Team plan's trial, 14 days from now (0013)
+    if (g.trial) lines.push(`insert into app.trial (team_id, org_id, ends_at) values (${q(g.group.id)}, ${q(g.org.id)}, now() + make_interval(days => app.setting_int('trial_days')));`)
     lines.push(`insert into app.scan_session (id, org_id, team_id, instrument_version_id, code, member_count, k, window_days, opens_at, closes_at)
 select ${q(g.scan.id)}, ${q(g.org.id)}, ${q(g.group.id)}, v.id, ${q(g.scan.code)}, ${g.scan.size}, app.k_threshold(${q(g.org.id)}),
        app.setting_int('scan_window_days'), ${g.opened ?? 'now()'}, now() + make_interval(days => app.setting_int('scan_window_days'))

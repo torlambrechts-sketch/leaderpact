@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { FLOW_LEADER } from '../../scripts/seed/fixture.mjs'
+import { FLOW_LEADER, TEAM_STATES } from '../../scripts/seed/fixture.mjs'
 import { canReadMail } from './support/mail'
 import { axe, watch } from './support/page'
 import { canMintSession, signInAs } from './support/session'
@@ -54,9 +54,10 @@ test('the pages behind sign-in send an anonymous visitor to sign in', async ({ r
 test('a signed-in person signs out, and the pages behind sign-in close again', async ({ page, baseURL }) => {
   test.skip(!canMintSession(), 'a minted session needs the local API (D-27); CI signs in by email in leader.spec.ts')
   await signInAs(page.context(), FLOW_LEADER, baseURL!)
-  await page.goto('/app/new')
-  await expect(page.getByRole('button', { name: 'Sign out' })).toBeVisible()
-  await page.getByRole('button', { name: 'Sign out' }).click()
+  // the flow leader leads groups, so /app/new would move on to Home: sign out from Home's account menu
+  await page.goto(`/app/${TEAM_STATES.released.group.id}/home`)
+  await page.getByRole('button', { name: 'Your account' }).click()
+  await page.getByRole('menuitem', { name: 'Sign out' }).click()
   await expect(page).toHaveURL(/\/leadership-team-assessment$/)
   await page.goto('/app')
   await expect(page).toHaveURL(/\/sign-in$/)
