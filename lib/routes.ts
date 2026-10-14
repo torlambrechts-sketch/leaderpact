@@ -10,6 +10,8 @@ export const DATA_PROCESSING_PATH = '/data-processing'
 
 /** Sign-in by email link (handoff section 8, Authentication) */
 export const SIGN_IN_PATH = '/sign-in'
+/** An account without the scan: for someone trying the product, a mentor or HR, who then makes or joins a group */
+export const SIGN_UP_PATH = '/sign-up'
 /** Where the email link lands: a button that signs in, so a mail scanner opening the link uses nothing */
 export const CONFIRM_PATH = '/auth/confirm'
 /** After sign-in: the group the device's saved scan asked for, or the person's group, or a new one */

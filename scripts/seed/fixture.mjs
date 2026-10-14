@@ -130,6 +130,9 @@ export const GROUP_FLOW = {
   invitee: { id: id('4c0e0000', 906), name: 'Charter invitee', email: 'charter.invitee@lumio.example' },
 }
 
+/** An account with no group, as an account made without the scan leaves it (D-44; tests/e2e/sign-in.spec.ts) */
+export const NO_GROUP = { id: id('4c0e0000', 912), name: 'No group person', email: 'no.group@lumio.example' }
+
 /** The diagnostic round's people (milestone 10): a leader and four members, in both round groups */
 const ROUND_PEOPLE = [
   { id: id('4c0e0000', 907), name: 'Round leader', email: 'round.leader@lumio.example', role: 'leader' },
@@ -174,7 +177,7 @@ export function render({ e2e = false } = {}) {
   const groups = [{ ...LUMIO, demo: true }, ...(e2e ? [...E2E_GROUPS.map((g) => ({ ...g, people: [], demo: false })), ...states, billing, charter, ...rounds] : [])]
   const accounts = [
     ...LUMIO.people,
-    ...(e2e ? [FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE] : []),
+    ...(e2e ? [FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, NO_GROUP] : []),
   ]
   const orgIds = groups.map((g) => q(g.org.id)).join(', ')
   const peopleIds = accounts.map((p) => q(p.id)).join(', ')
@@ -184,7 +187,7 @@ export function render({ e2e = false } = {}) {
   // and the groups the flow leader made in an earlier run, which a reset would otherwise leave behind
   lines.push(`delete from app.organisation where id in (select m.org_id from app.membership m where m.person_id = ${q(FLOW_LEADER.id)});`)
   lines.push(
-    `delete from auth.users where id in (${[...LUMIO.people, FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE].map((p) => q(p.id)).join(', ')});`,
+    `delete from auth.users where id in (${[...LUMIO.people, FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, NO_GROUP].map((p) => q(p.id)).join(', ')});`,
   )
   // a local database completes checkouts with the development adapter (0013): it succeeds or fails on demand
   lines.push(`update app.payment_adapter set adapter = 'development';`)

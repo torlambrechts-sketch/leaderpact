@@ -49,7 +49,7 @@ test('the diagnostic round: the leader opens it, everyone is asked, answers come
   await expect(lp.getByRole('heading', { level: 1, name: 'Assess' })).toBeVisible()
   await expect(lp.getByText('Sample', { exact: true })).toHaveCount(0)
   await expect(lp.getByText(/^No rounds yet\./)).toBeVisible()
-  await expect(lp.getByText(`${QUESTIONS} questions on how the group works. Every current member is asked: 5 people. It stays open for 14 days.`)).toBeVisible()
+  await expect(lp.getByText(`${QUESTIONS} questions on how the group works, about 10 minutes each. Every current member is asked: 5 people. It stays open for 14 days.`)).toBeVisible()
   await axe(lp)
   await mp.goto(assess(ROUND_FLOW.group.id))
   await expect(mp.getByText('No rounds yet. Your team leader opens the Full diagnostic, and everyone in the group is asked at once.')).toBeVisible()
@@ -70,7 +70,7 @@ test('the diagnostic round: the leader opens it, everyone is asked, answers come
   // the leader answers: the intro, a gap left on question 2, progress kept over a reload
   await rounds.getByRole('link', { name: 'Answer now' }).click()
   await expect(lp.getByRole('heading', { level: 1, name: 'Full diagnostic' })).toBeVisible()
-  await expect(lp.getByText(`${QUESTIONS} statements, one per screen, in mixed order. Choose how much you agree with each.`)).toBeVisible()
+  await expect(lp.getByText(`${QUESTIONS} statements, one per screen, in mixed order. It takes about 10 minutes.`)).toBeVisible()
   await expect(lp.getByText('They are stored with a random ID, never with your name.')).toBeVisible()
   await axe(lp)
   await lp.getByRole('button', { name: 'Start' }).click()

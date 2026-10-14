@@ -20,3 +20,4 @@ export declare const GROUP_FLOW: Group & {
 interface RoundPerson { id: string; name: string; email: string; role: 'leader' | 'member' }
 export declare const ROUND_FLOW: Group & { leader: RoundPerson; member: RoundPerson; people: RoundPerson[] }
 export declare const ROUND_STATES: Group & { rounds: Record<'released' | 'closed' | 'answering', string>; people: RoundPerson[] }
+export declare const NO_GROUP: { id: string; name: string; email: string }
