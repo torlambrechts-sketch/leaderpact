@@ -1,24 +1,26 @@
 import * as React from 'react'
-import { headingIds, plain, type Block } from '@/lib/site/blocks'
+import { headingIds, plain, type Block, type Source } from '@/lib/site/blocks'
+import { Bars, Cards, Compare, Cycle, Flow, Fork, Matrix, Pillars, Pyramid, Rings, Specimen, Spread, Stats, Steps, Timebar } from './Figures'
 import { Rich } from './Rich'
 
 /**
  * One renderer per block kind (lib/site/blocks.ts): the articles, the template pages and the product pages
  * all draw their long text with it. Body text is 17 px at 1.7 on the page, 15 px on a phone at the least
- * (handoff section 4); headings are Poppins, the display face.
+ * (handoff section 4); headings are Poppins, the display face. The figures (D-41) are drawn by Figures.tsx;
+ * `sources` is the article's list, which a figure cites by number.
  */
-export function Blocks({ blocks }: { blocks: Block[] }) {
+export function Blocks({ blocks, sources = [] }: { blocks: Block[]; sources?: readonly Source[] }) {
   const ids = headingIds(blocks)
   return (
     <div className="flex flex-col gap-5 text-[17px] leading-[1.7] text-text-body">
       {blocks.map((b, i) => (
-        <BlockView key={i} block={b} id={ids.get(i)} />
+        <BlockView key={i} block={b} id={ids.get(i)} sources={sources} />
       ))}
     </div>
   )
 }
 
-function BlockView({ block: b, id }: { block: Block; id?: string }) {
+function BlockView({ block: b, id, sources }: { block: Block; id?: string; sources: readonly Source[] }) {
   switch (b.t) {
     case 'h2':
       return (
@@ -70,20 +72,7 @@ function BlockView({ block: b, id }: { block: Block; id?: string }) {
         </aside>
       )
     case 'cards':
-      return (
-        <ul className="m-0 grid list-none gap-3 p-0 sm:grid-cols-2">
-          {b.items.map((item, i) => (
-            <li key={i} className="flex flex-col gap-1.5 rounded-card bg-surface px-5 py-4">
-              <p className="m-0 text-[16px] font-bold text-ink">
-                <Rich text={item.title} />
-              </p>
-              <p className="m-0 text-[15px] leading-[1.6] text-text-2">
-                <Rich text={item.text} />
-              </p>
-            </li>
-          ))}
-        </ul>
-      )
+      return <Cards b={b} sources={sources} />
     case 'table':
       return (
         // a table wider than a phone scrolls inside its box, which takes focus so a keyboard can scroll it
@@ -118,5 +107,33 @@ function BlockView({ block: b, id }: { block: Block; id?: string }) {
           </table>
         </div>
       )
+    case 'steps':
+      return <Steps b={b} />
+    case 'flow':
+      return <Flow b={b} sources={sources} />
+    case 'pyramid':
+      return <Pyramid b={b} sources={sources} />
+    case 'pillars':
+      return <Pillars b={b} sources={sources} />
+    case 'matrix':
+      return <Matrix b={b} sources={sources} />
+    case 'compare':
+      return <Compare b={b} sources={sources} />
+    case 'fork':
+      return <Fork b={b} sources={sources} />
+    case 'rings':
+      return <Rings b={b} />
+    case 'cycle':
+      return <Cycle b={b} />
+    case 'stats':
+      return <Stats b={b} sources={sources} />
+    case 'bars':
+      return <Bars b={b} sources={sources} />
+    case 'timebar':
+      return <Timebar b={b} />
+    case 'spread':
+      return <Spread b={b} />
+    case 'specimen':
+      return <Specimen b={b} />
   }
 }

@@ -15,9 +15,15 @@
 export const ARTICLE_GROUPS = ['start', 'conditions', 'meetings', 'dynamics'] as const
 export type ArticleGroup = (typeof ARTICLE_GROUPS)[number]
 
+/** The drawings beside an article's title and on its card (D-41, components/site/art/ArticleArt.tsx) */
+export const ART_KINDS = ['layers', 'assess', 'pyramid', 'compass', 'charter', 'network', 'agenda', 'voice', 'bridge', 'debate'] as const
+export type ArtKind = (typeof ART_KINDS)[number]
+
 export type ArticleEntry = {
   slug: string
   group: ArticleGroup
+  /** its drawing; a published article has one */
+  art?: ArtKind
   /** the search the article is the one answer to (one page per intent), then the others in its cluster */
   queries: [string, ...string[]]
   status: 'published' | 'planned'
@@ -35,30 +41,33 @@ export const ARTICLES: ArticleEntry[] = [
   // where to start
   {
     slug: 'what-makes-a-leadership-team-effective',
+    art: 'layers',
     group: 'start',
     queries: ['leadership team effectiveness', 'high performing leadership team', 'how to build a high performing leadership team'],
     status: 'published',
     published: '2026-10-13',
-    modified: '2026-10-13',
+    modified: '2026-10-14',
     related: ['leadership-team-purpose', 'how-to-assess-a-leadership-team'],
     template: 'leadership-team-charter-template',
   },
   {
     slug: 'how-to-assess-a-leadership-team',
+    art: 'assess',
     group: 'start',
     queries: ['how to assess a leadership team', 'leadership team effectiveness survey questions', 'executive team effectiveness assessment'],
     status: 'published',
     published: '2026-10-13',
-    modified: '2026-10-13',
+    modified: '2026-10-14',
     related: ['what-makes-a-leadership-team-effective', 'five-dysfunctions-of-a-team-and-the-research'],
   },
   {
     slug: 'five-dysfunctions-of-a-team-and-the-research',
+    art: 'pyramid',
     group: 'start',
     queries: ['five dysfunctions of a team', 'five dysfunctions of a team assessment', 'lencioni model research'],
     status: 'published',
     published: '2026-10-13',
-    modified: '2026-10-13',
+    modified: '2026-10-14',
     related: ['how-to-build-trust-in-a-leadership-team', 'task-conflict-and-relationship-conflict'],
   },
   { slug: 'direction-alignment-and-commitment', group: 'start', queries: ['direction alignment commitment', 'leadership outcomes DAC'], status: 'planned' },
@@ -68,31 +77,34 @@ export const ARTICLES: ArticleEntry[] = [
   // purpose, tasks and membership
   {
     slug: 'leadership-team-purpose',
+    art: 'compass',
     group: 'conditions',
     queries: ['purpose of a leadership team', 'role of a leadership team', 'what is a leadership team for'],
     status: 'published',
     published: '2026-10-13',
-    modified: '2026-10-13',
+    modified: '2026-10-14',
     related: ['leadership-team-charter', 'how-big-should-a-leadership-team-be'],
     template: 'leadership-team-charter-template',
   },
   {
     slug: 'leadership-team-charter',
+    art: 'charter',
     group: 'conditions',
     queries: ['leadership team charter', 'team charter template', 'how to write a team charter'],
     status: 'published',
     published: '2026-10-13',
-    modified: '2026-10-13',
+    modified: '2026-10-14',
     related: ['leadership-team-purpose', 'leadership-team-meeting-agenda'],
     template: 'leadership-team-charter-template',
   },
   {
     slug: 'how-big-should-a-leadership-team-be',
+    art: 'network',
     group: 'conditions',
     queries: ['leadership team size', 'how big should a leadership team be', 'optimal team size'],
     status: 'published',
     published: '2026-10-13',
-    modified: '2026-10-13',
+    modified: '2026-10-14',
     related: ['leadership-team-purpose', 'what-makes-a-leadership-team-effective'],
     template: 'leadership-team-charter-template',
   },
@@ -102,11 +114,12 @@ export const ARTICLES: ArticleEntry[] = [
   // meetings and decisions
   {
     slug: 'leadership-team-meeting-agenda',
+    art: 'agenda',
     group: 'meetings',
     queries: ['leadership team meeting agenda', 'leadership team meeting agenda template', 'leadership team meeting topics'],
     status: 'published',
     published: '2026-10-13',
-    modified: '2026-10-13',
+    modified: '2026-10-14',
     related: ['leadership-team-charter', 'task-conflict-and-relationship-conflict'],
     template: 'leadership-team-meeting-agenda-template',
   },
@@ -116,29 +129,32 @@ export const ARTICLES: ArticleEntry[] = [
   // how the team works together
   {
     slug: 'psychological-safety-in-leadership-teams',
+    art: 'voice',
     group: 'dynamics',
     queries: ['psychological safety in leadership teams', 'psychological safety', 'psychological safety at the top'],
     status: 'published',
     published: '2026-10-13',
-    modified: '2026-10-13',
+    modified: '2026-10-14',
     related: ['how-to-build-trust-in-a-leadership-team', 'task-conflict-and-relationship-conflict'],
   },
   {
     slug: 'how-to-build-trust-in-a-leadership-team',
+    art: 'bridge',
     group: 'dynamics',
     queries: ['how to build trust in a leadership team', 'trust in leadership teams', 'building trust in a senior team'],
     status: 'published',
     published: '2026-10-13',
-    modified: '2026-10-13',
+    modified: '2026-10-14',
     related: ['psychological-safety-in-leadership-teams', 'five-dysfunctions-of-a-team-and-the-research'],
   },
   {
     slug: 'task-conflict-and-relationship-conflict',
+    art: 'debate',
     group: 'dynamics',
     queries: ['task conflict and relationship conflict', 'task conflict', 'conflict in leadership teams'],
     status: 'published',
     published: '2026-10-13',
-    modified: '2026-10-13',
+    modified: '2026-10-14',
     related: ['psychological-safety-in-leadership-teams', 'leadership-team-meeting-agenda'],
     template: 'leadership-team-meeting-agenda-template',
   },

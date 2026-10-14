@@ -32,7 +32,7 @@ type Link = { name: string; email: string; link: string } | null
 /**
  * Members (handoff 6.8, design `group` members tab): who is in the group, with role and start date and no
  * counts per person (section 11). The leader invites by name and address, and copies the link to send: no
- * invitation mail exists until the outbox (milestone 16, D-26), so the leader sends it (D-41). The leader
+ * invitation mail exists until the outbox (milestone 16, D-26), so the leader sends it (D-42). The leader
  * withdraws an invitation, removes a member (access ends at once) and names another leader. Up to 15,
  * invitations counted.
  */

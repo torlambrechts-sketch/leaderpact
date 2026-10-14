@@ -52,6 +52,26 @@
       "text": "A larger meta-analysis followed. Frank de Wit, Lindred Greer and Karen Jehn pooled 116 studies covering 8,880 groups (de Wit, Greer and Jehn, 2012). Relationship conflict and process conflict again showed stable negative links with group outcomes. But task conflict showed no strong negative link with performance."
     },
     {
+      "t": "stats",
+      "items": [
+        {
+          "value": "105",
+          "label": "work groups and management teams in the study that separated the two kinds of conflict",
+          "source": 1
+        },
+        {
+          "value": "8,880",
+          "label": "groups in 116 studies, where task conflict showed no strong negative link with performance",
+          "source": 4
+        },
+        {
+          "value": "117",
+          "label": "project teams, where task conflict went with better performance when psychological safety was high",
+          "source": 7
+        }
+      ]
+    },
+    {
       "t": "p",
       "text": "Their moderators matter most for a leadership team. Task conflict related more positively to performance in three situations (de Wit, Greer and Jehn, 2012):"
     },
@@ -82,6 +102,26 @@
       "text": "The best-supported explanation was misattribution. When members do not trust each other, they read a disagreement as a personal attack or a hidden agenda. High trust within the team weakened the link between task and relationship conflict. Harsh debating tactics also played a part, though that effect was weak (Simons and Peterson, 2000)."
     },
     {
+      "t": "fork",
+      "from": {
+        "title": "A disagreement about the work",
+        "text": "For example, a finance director questions a sales forecast on the numbers."
+      },
+      "items": [
+        {
+          "when": "When trust is high",
+          "title": "It stays about the work",
+          "text": "The challenge is heard as a view on the forecast, and the team can get the benefit of the debate."
+        },
+        {
+          "when": "When trust is low",
+          "title": "It turns personal",
+          "text": "The challenge is read as an attack or a hidden agenda. The debate becomes a contest between two people."
+        }
+      ],
+      "source": 5
+    },
+    {
       "t": "p",
       "text": "For example, a finance director may question a sales forecast purely on the numbers. If trust is low, the sales director may hear an attack on the division and answer in kind. The debate about the forecast has become a contest between two people."
     },
@@ -99,15 +139,35 @@
       "text": "Kathleen Eisenhardt, Jean Kahwajy and L. J. Bourgeois drew on their research into conflict, politics and decision speed in management teams. They described six tactics that high-performing teams used to keep conflict over issues from turning personal (Eisenhardt, Kahwajy and Bourgeois, 1997):"
     },
     {
-      "t": "ul",
+      "t": "cards",
+      "numbered": true,
       "items": [
-        "work from more information, not less, so the debate is about facts",
-        "develop several alternatives, which moves the debate beyond for or against",
-        "establish common goals, so members argue about how to succeed together",
-        "use humour to ease tension",
-        "keep a balanced power structure",
-        "resolve issues without forcing consensus"
-      ]
+        {
+          "title": "More information",
+          "text": "Work from more information, not less, so the debate is about facts."
+        },
+        {
+          "title": "Several alternatives",
+          "text": "Develop several alternatives, which moves the debate beyond for or against."
+        },
+        {
+          "title": "Common goals",
+          "text": "Establish common goals, so members argue about how to succeed together."
+        },
+        {
+          "title": "Humour",
+          "text": "Use humour to ease tension."
+        },
+        {
+          "title": "Balanced power",
+          "text": "Keep a balanced power structure."
+        },
+        {
+          "title": "No forced consensus",
+          "text": "Resolve issues without forcing consensus."
+        }
+      ],
+      "source": 8
     },
     {
       "t": "p",

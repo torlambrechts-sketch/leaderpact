@@ -106,13 +106,28 @@
       "text": "Write it with the whole team, in one or two sessions. A charter the leader writes alone tells members what to do. A charter they write together is one they have agreed to."
     },
     {
-      "t": "ol",
+      "t": "steps",
       "items": [
-        "**Draft alone.** Before the session, each member answers the questions in the table above in a few lines.",
-        "**Compare.** Put the drafts side by side. Mark where answers differ, especially on purpose, team tasks and membership.",
-        "**Discuss the differences.** Start with purpose, then team tasks and decision rights. Leave working agreements until those are settled.",
-        "**Agree and write.** One person holds the pen and drafts a single page during the session or straight after it.",
-        "**Test it.** Use it for the next two or three meetings, then adjust what does not work."
+        {
+          "title": "Draft alone",
+          "text": "Before the session, each member answers the questions in the table above in a few lines."
+        },
+        {
+          "title": "Compare",
+          "text": "Put the drafts side by side. Mark where answers differ, especially on purpose, team tasks and membership."
+        },
+        {
+          "title": "Discuss the differences",
+          "text": "Start with purpose, then team tasks and decision rights. Leave working agreements until those are settled."
+        },
+        {
+          "title": "Agree and write",
+          "text": "One person holds the pen and drafts a single page during the session or straight after it."
+        },
+        {
+          "title": "Test it",
+          "text": "Use it for the next two or three meetings, then adjust what does not work."
+        }
       ]
     },
     {
@@ -133,15 +148,38 @@
       "text": "The outline below is an illustration, not a real team's charter. Replace each line with your team's own words."
     },
     {
-      "t": "ul",
-      "items": [
-        "**Purpose.** This team exists to … (two or three sentences on what it must produce together).",
-        "**Team tasks and decision rights.** We decide: annual priorities and how resources are split between units. We coordinate: initiatives that cross units. We advise: decisions one member owns. We inform: only what everyone needs.",
-        "**Membership.** Core: the leader and the heads of the main units. Extended: named specialists, who join for specific items.",
-        "**Working agreements.** We read papers before we meet. Each item states the outcome it needs. We disagree in the room, not afterwards. Once we decide, we explain the decision as one team.",
-        "**Support.** The data we need for each decision, how shared results count in members' goals, and one development session a year.",
-        "**Key stakeholders.** The board, the owners and employee representatives, and when each hears from us.",
-        "**Review.** We review this charter every six months, and whenever a member joins or leaves."
+      "t": "specimen",
+      "mark": "sample",
+      "title": "Leadership team charter",
+      "parts": [
+        {
+          "label": "Purpose",
+          "text": "This team exists to … (two or three sentences on what it must produce together)."
+        },
+        {
+          "label": "Team tasks and decision rights",
+          "text": "We decide: annual priorities and how resources are split between units. We coordinate: initiatives that cross units. We advise: decisions one member owns. We inform: only what everyone needs."
+        },
+        {
+          "label": "Membership",
+          "text": "Core: the leader and the heads of the main units. Extended: named specialists, who join for specific items."
+        },
+        {
+          "label": "Working agreements",
+          "text": "We read papers before we meet. Each item states the outcome it needs. We disagree in the room, not afterwards. Once we decide, we explain the decision as one team."
+        },
+        {
+          "label": "Support",
+          "text": "The data we need for each decision, how shared results count in members' goals, and one development session a year."
+        },
+        {
+          "label": "Key stakeholders",
+          "text": "The board, the owners and employee representatives, and when each hears from us."
+        },
+        {
+          "label": "Review",
+          "text": "We review this charter every six months, and whenever a member joins or leaves."
+        }
       ]
     },
     { "t": "h2", "text": "How do you keep a team charter alive?" },

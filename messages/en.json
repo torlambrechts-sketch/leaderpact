@@ -1093,6 +1093,17 @@
         "descriptive": "A fact, no target",
         "conditional": "Read with relationship conflict"
       }
+    },
+    "figures": {
+      "source": "Source:",
+      "arithmetic": "Arithmetic:",
+      "example": "Example",
+      "sample": "Sample",
+      "exampleNote": "An example to show the idea, not data from a real team.",
+      "minutes": "{n} min",
+      "totalMinutes": "{n} minutes in all",
+      "average": "Average {value}",
+      "answers": "Answers: {list}"
     }
   }
 }

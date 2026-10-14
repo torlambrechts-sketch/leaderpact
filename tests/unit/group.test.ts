@@ -3,7 +3,7 @@ import { draftSchema, inviteSchema, joinRequestSchema, replySchema, tokenSchema 
 import { JOIN_KEY, forgetPendingJoin, readPendingJoin, writePendingJoin } from '@/lib/group/device'
 
 /**
- * The group (handoff 6.8; milestone 9; D-41): what crosses the boundary for the charter and the members, and
+ * The group (handoff 6.8; milestone 9; D-42): what crosses the boundary for the charter and the members, and
  * the invitation waiting for its sign-in on the device. The database checks everything again
  * (supabase/tests/charter_members_invariants.sql).
  */
