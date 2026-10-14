@@ -6,18 +6,22 @@ import { getTranslations } from 'next-intl/server'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { AppPage, PageProblem, PageTitle } from '@/components/app/AppPage'
 import { Card } from '@/components/lp/Card'
+import { ClientMessages } from '@/components/lp/ClientMessages'
 import { EvidenceChip } from '@/components/lp/EvidenceChip'
 import { StandingLabel } from '@/components/lp/StandingLabel'
 import { levelText, levelWidth } from '@/components/lp/level'
+import { MakeFocus } from '@/components/plan/MakeFocus'
 import { resultLabels } from '@/components/results/labels'
 import { PRODUCT_NAME } from '@/lib/brand'
 import { currentUser } from '@/lib/auth/session'
 import { loadGroupPlan } from '@/lib/billing/load'
 import { loadShell } from '@/lib/groups/load'
+import { focusPlace } from '@/lib/plan/build'
+import { loadPlan } from '@/lib/plan/load'
 import { changeFor, guidanceFor } from '@/lib/results/build'
 import { loadComparable, loadCutoffsAt, loadDefinition, loadScaleResults } from '@/lib/results/load'
 import { loadRounds } from '@/lib/rounds/load'
-import { SIGN_IN_PATH, resultsPath, scaleItemsPath } from '@/lib/routes'
+import { SIGN_IN_PATH, planPath, resultsPath, scaleItemsPath } from '@/lib/routes'
 
 export const dynamic = 'force-dynamic'
 
@@ -29,8 +33,8 @@ export async function generateMetadata(): Promise<Metadata> {
 /**
  * One scale of a released round (handoff 6.12, the second depth): its definition, level, agreement label,
  * standing, change since the round before, the evidence behind it, and the guidance, whose tone follows the
- * scale's own evidence rating (handoff 7, Guidance wording). Its questions are the third depth. "Make this a
- * focus area" comes with the focus areas (milestone 12).
+ * scale's own evidence rating (handoff 7, Guidance wording). Its questions are the third depth. The leader
+ * makes it a focus area here while a place is open (milestone 12); once it is one, everyone reads so.
  */
 export default async function ScalePage({ params, searchParams }: { params: Promise<{ group: string; scale: string }>; searchParams: Promise<{ round?: string }> }) {
   const { group, scale } = await params
@@ -52,20 +56,22 @@ export default async function ScalePage({ params, searchParams }: { params: Prom
   const previous = released[released.indexOf(chosen) + 1] ?? null
   const at = chosen.closes_at && Date.parse(chosen.closes_at) < Date.now() ? chosen.closes_at : new Date().toISOString()
 
-  const [current, before, cutoffs, comparable, definition] = await Promise.all([
+  const [current, before, cutoffs, comparable, definition, focus] = await Promise.all([
     loadScaleResults(chosen.id),
     previous ? loadScaleResults(previous.id) : undefined,
     loadCutoffsAt(at),
     previous ? loadComparable(chosen.id, previous.id) : undefined,
     loadDefinition(scale),
+    loadPlan(group),
   ])
-  if (current === null || before === null || cutoffs === null || comparable === null) return <PageProblem title={t('readFailed')} />
+  if (current === null || before === null || cutoffs === null || comparable === null || focus === null) return <PageProblem title={t('readFailed')} />
   const s = current.find((r) => r.key === scale)
   if (!s) return notFound
 
   const levelTenths = Math.round(s.level * 10)
   const shift = changeFor(s.key, levelTenths, before ? new Map(before.map((b) => [b.key, b.level])) : null, !comparable || comparable.all ? null : comparable.keys, cutoffs)
   const guidance = guidanceFor(s)
+  const place = focus === 'none' ? ({ kind: 'none' } as const) : focusPlace(focus, s.key, s.layer === 'outcomes')
   const back = resultsPath(group, chosen.id)
   const field = 'flex flex-col gap-1.5 border-t border-divider pt-3'
   const name = 'm-0 text-[12px] font-bold uppercase tracking-[0.04em] text-muted'
@@ -119,6 +125,17 @@ export default async function ScalePage({ params, searchParams }: { params: Prom
             <h2 className="m-0 text-[16px] font-bold">{t('guidanceTitle')}</h2>
             <p className="m-0 text-[14px] leading-[1.55] text-text-2 max-md:text-[15px]">{t(`guide_${guidance}`, { scale: s.name, level: levelText(s.level) })}</p>
           </Card>
+          <ClientMessages namespaces={['plan']}>
+            <MakeFocus
+              group={group}
+              round={chosen.id}
+              scale={s.key}
+              name={s.name}
+              place={place}
+              max={focus === 'none' ? 0 : focus.max}
+              planHref={planPath(group)}
+            />
+          </ClientMessages>
           <Card large className="flex flex-col gap-2">
             <h2 className="m-0 text-[16px] font-bold">{t('evidenceTitle')}</h2>
             <EvidenceChip

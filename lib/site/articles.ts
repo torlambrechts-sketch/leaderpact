@@ -27,7 +27,7 @@ export const ART_KINDS = [
   'voice',
   'bridge',
   'debate',
-  // the platform's pages (D-46)
+  // the platform's pages (D-47)
   'scan',
   'teamview',
   'profile',

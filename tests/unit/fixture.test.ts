@@ -31,7 +31,7 @@ describe('the fixture', () => {
     expect(render({ e2e: true })).not.toMatch(/insert into app\.(scan_response|scan_theme_score)|update app\.scan_session set (phase|answered|extended)/)
   })
 
-  it('stages the product screenshots (--shots, D-46) through the write paths, with invented people only', () => {
+  it('stages the product screenshots (--shots, D-47) through the write paths, with invented people only', () => {
     const shots = render({ shots: true })
     expect(shots).toBe(render({ shots: true }))
     // nothing of the screenshots' rows without the flag

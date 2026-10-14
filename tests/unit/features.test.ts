@@ -6,7 +6,7 @@ import { allFeatures, FEATURES, featurePath } from '@/lib/site/features'
 import { SHOTS } from '@/lib/site/shots'
 
 /**
- * The platform's feature pages (D-46): one per feature built today, each with screenshots of the real app, what
+ * The platform's feature pages (D-47): one per feature built today, each with screenshots of the real app, what
  * it brings to the person, the group and the organisation, and nothing that sells.
  */
 const features = allFeatures()

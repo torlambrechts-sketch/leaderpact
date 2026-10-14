@@ -18,7 +18,7 @@ export function SectionHeader({
   /** read by a screen reader instead of the bare number, e.g. "4 items" */
   countLabel?: string
   meta?: React.ReactNode
-  as?: 'h2' | 'h3'
+  as?: 'h2' | 'h3' | 'h4'
   className?: string
 }) {
   return (

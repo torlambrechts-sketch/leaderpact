@@ -10,7 +10,7 @@ import charter from '@/data/features/team-charter.json'
 import diagnostic from '@/data/features/full-diagnostic.json'
 
 /**
- * The platform's feature pages (D-46): one page per feature the product has today, under /platform, each with
+ * The platform's feature pages (D-47): one page per feature the product has today, under /platform, each with
  * screenshots of the real app (lib/site/shots.ts) and what the feature brings to the person, the leadership
  * group and the organisation. They describe and sell nothing: no price, no offer (D-38). A feature that is
  * not built has no page; the overview lists it as in development. The order is the loop's (handoff 1).

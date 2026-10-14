@@ -19,9 +19,11 @@ import { loadBillingRules, loadGroupPlan } from '@/lib/billing/load'
 import { loadGroupTeamView } from '@/lib/groups/load'
 import { dateFormat } from '@/lib/i18n/dates'
 import { formatPrice, loadTeamPrice } from '@/lib/plans/load'
+import { myOpenActions } from '@/lib/plan/build'
+import { loadPlan } from '@/lib/plan/load'
 import { loadMyProfile } from '@/lib/profile/load'
 import { loadRounds } from '@/lib/rounds/load'
-import { SIGN_IN_PATH, joinPath, planBillingPath, profileTestPath, roundPath, teamPath, upgradePath } from '@/lib/routes'
+import { SIGN_IN_PATH, joinPath, planBillingPath, planPath, profileTestPath, roundPath, teamPath, upgradePath } from '@/lib/routes'
 import { HomeHero } from './HomeHero'
 import { NeedsYou } from './NeedsYou'
 
@@ -41,7 +43,8 @@ export async function generateMetadata(): Promise<Metadata> {
  * Section 11's corrections: no "Assessment schedule" button; no countdown to 4 and no "the team view opens
  * at 4"; the closing date is said once, in the scan card. On the Free plan the leader sees the price,
  * Upgrade and, while the group has had none, the trial; a member is asked to ask their team leader (D-30,
- * D-33). With the Team plan or its trial the card is gone and the status line names the plan.
+ * D-33). With the Team plan or its trial the card is gone and the status line names the plan, and Home shows
+ * the person's own open actions in "Needs you" and the group's active focus areas (milestone 12).
  */
 export default async function HomePage({ params }: { params: Promise<{ group: string }> }) {
   const { group } = await params
@@ -64,9 +67,13 @@ export default async function HomePage({ params }: { params: Promise<{ group: st
   const known = plan !== null && plan !== 'none' ? plan : null
   const free = known?.access === 'free'
   const leader = data.role === 'leader'
-  // the Full diagnostic asking this person, with the Team plan or its trial (milestone 10)
-  const rounds = known && !free ? await loadRounds(group) : null
+  // the Full diagnostic asking this person, and the plan's focus areas and their own actions, with the Team
+  // plan or its trial (milestones 10 and 12)
+  const [rounds, focus] = known && !free ? await Promise.all([loadRounds(group), loadPlan(group)]) : [null, null]
   const asking = rounds && rounds !== 'none' ? rounds.rounds.find((r) => r.phase === 'answering' && r.me === 'to_answer') : undefined
+  const ownPlan = focus && focus !== 'none' ? focus : null
+  const mine = ownPlan ? myOpenActions(ownPlan) : 0
+  const focusAreas = ownPlan ? ownPlan.focus_areas.filter((f) => f.status === 'active') : null
   const [price, rules] = leader && free ? await Promise.all([loadTeamPrice(), known.trialAvailable ? loadBillingRules() : null]) : [null, null]
   const date = (iso: string) => dateFormat({ locale: 'en', timeZone: 'UTC' }, { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date(iso))
   const status = !known
@@ -97,17 +104,22 @@ export default async function HomePage({ params }: { params: Promise<{ group: st
       <div className="grid items-start gap-5 min-[900px]:grid-cols-[minmax(0,1fr)_minmax(0,462px)]">
         <NeedsYou
           roundHref={asking ? roundPath(group, asking.id) : null}
+          actionsHref={mine > 0 ? planPath(group) : null}
           code={open}
           link={link}
           profileHref={profile === 'none' ? profileTestPath('quick') : null}
           labels={{
             title: t('needsTitle'),
-            counts: [0, 1, 2, 3, 4].map((count) => t('needsCount', { count })),
+            counts: [0, 1, 2, 3, 4, 5].map((count) => t('needsCount', { count })),
             empty: t('needsEmpty'),
             kindRound: t('kindRound'),
             roundTitle: t('roundTitle'),
             roundMeta: asking?.closes_at ? t('roundMeta', { date: date(asking.closes_at) }) : '',
             roundAction: t('roundAction'),
+            kindAction: t('kindAction'),
+            actionsTitle: t('actionsTitle', { count: mine }),
+            actionsMeta: t('actionsMeta'),
+            actionsAction: t('actionsAction'),
             kindScan: t('kindScan'),
             answerTitle: t('answerTitle'),
             answerMeta: t('answerMeta'),
@@ -165,6 +177,28 @@ export default async function HomePage({ params }: { params: Promise<{ group: st
             </>
           )}
         </Card>
+
+        {focusAreas && (
+          <Card large className="flex flex-col gap-3">
+            <SectionHeader title={t('focusTitle')} meta={t('focusMeta', { count: focusAreas.length, max: ownPlan!.max })} className="mb-0" />
+            {focusAreas.length === 0 ? (
+              <p className="m-0 text-[14px] text-text-2 max-md:text-[15px]">{t('focusEmpty')}</p>
+            ) : (
+              <ul aria-label={t('focusTitle')} className="m-0 list-none p-0">
+                {focusAreas.map((f) => (
+                  <li key={f.id} className="flex items-center gap-3 border-t border-divider py-2.5 first:border-t-0">
+                    <Target aria-hidden size={17} className="shrink-0 text-accent-strong" />
+                    <span className="text-[14.5px] font-bold max-md:text-[15px]">{f.name}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <Link href={planPath(group) as Route} className="inline-flex items-center gap-1.5 self-start text-[14px] font-bold text-ink underline underline-offset-2 max-md:min-h-[44px] max-md:text-[15px]">
+              {t('focusLink')}
+              <ArrowRight aria-hidden size={15} />
+            </Link>
+          </Card>
+        )}
 
         {data.view && (
           <Card large className="flex flex-col gap-4">

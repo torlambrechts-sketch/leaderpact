@@ -1,5 +1,5 @@
 /**
- * The product screenshots on the public site (D-46), taken from the real app with the fixture's screenshot groups.
+ * The product screenshots on the public site (D-47), taken from the real app with the fixture's screenshot groups.
  *
  *   eval "$(bash scripts/qa/local-pg.sh)" && eval "$(bash scripts/qa/local-api.sh)"
  *   node scripts/seed/fixture.mjs --db "$DATABASE_URL" --e2e --shots

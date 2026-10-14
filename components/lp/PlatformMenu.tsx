@@ -7,7 +7,7 @@ import { BarChart3, BookOpen, ChevronDown, ClipboardCheck, ListChecks, Menu, Rou
 import { cn } from '@/lib/cn'
 
 /**
- * The Platform menu and the phone's menu (D-46). A disclosure, not an application menu: a button that shows
+ * The Platform menu and the phone's menu (D-47). A disclosure, not an application menu: a button that shows
  * and hides a list of links, which Tab moves through like any other links (WAI-ARIA's disclosure navigation).
  * It closes on Escape, which returns focus to its button, on a click outside, when focus leaves it, and when
  * the page changes. The panel exists only while it is open.

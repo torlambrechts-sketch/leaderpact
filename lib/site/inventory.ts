@@ -51,7 +51,7 @@ export function contentInventory(): { site: string; items: InventoryItem[]; keyw
       queries: [...PRODUCT_PAGES[k].queries],
       status: 'published' as const,
     })),
-    // the platform's feature pages (D-46)
+    // the platform's feature pages (D-47)
     ...allFeatures().map(({ entry, content }) => ({
       path: featurePath(entry.slug),
       kind: 'page' as const,

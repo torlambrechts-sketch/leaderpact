@@ -901,7 +901,49 @@ element appears." `supabase/tests/results_invariants.sql` (8 checks) proves it i
 - **The fixture** adds a second released round to the round states' group, half its questions answered as in
   the first, so the overview shows both change and no change.
 
-## D-46 — The platform's pages: every built feature, in screenshots of the real app (owner, 14 October 2026)
+## D-46 — The plan: focus areas and actions (M12)
+
+Handoff 6.13; milestone 12: "A third focus area is refused. An action without an owner is refused."
+`supabase/tests/plan_invariants.sql` (17 checks) proves both in the database, a direct write included, and
+`tests/e2e/plan.spec.ts` on the screens. Where the build chose:
+
+- **At most `active_focus_areas` active, in the database.** The setting (2, platform, fixed) is read by
+  `make_focus_area` and by a trigger on `focus_area` that counts under the group's lock, so neither a second
+  path nor two saves at once make a third. A scale is active once at most. A closed focus area stays closed
+  and keeps its row; choosing the scale again makes a new one.
+- **A focus area is one of the 21 scales** of a released round of the group's Full diagnostic, never an
+  outcome: the outcomes are what the scales explain. Descriptive scales may be chosen from their own page, but
+  the Plan page's "Scales to consider" leaves them out, as the design does. That list is the newest released
+  round's scales by standing (priority, views differ, watch, read with, strength), then by level read the way
+  the scale reads, six at most. Each focus area names the round it came from, with the scale's level and
+  agreement label there. A focus area holds no number of its own: no target on a survey score.
+- **The owner is never empty.** `action.owner_id` is not null, and every write path checks that the owner is
+  a current member. A person's removal takes the actions they own, so an action is never left without one.
+  An owner whose membership ends keeps the action, shown as no longer in the group, until its owner or the
+  leader gives it to someone else.
+- **A due date is required,** from yesterday (a reader ahead of UTC) to two years on. A date already saved may
+  stay when an action is changed, though it has passed.
+- **Who.** The leader records the group's choice of focus areas and closes them, as with the charter (handoff
+  2: "Choose focus areas and actions · Group"). Any member adds an action to an active focus area, for any
+  current member. The action's owner or the leader marks it done, reopens it, or changes its title, owner and
+  date. Every action added now belongs to a focus area; the column allows none for the live meeting's actions
+  (milestone 14).
+- **No count per person.** The plan's reader returns each action with its owner, as the design's list does,
+  and nothing that adds them up by person (section 11). Home counts the reader's own open actions for them
+  alone, in "Needs you", and lists the active focus areas (handoff 6.7). Me lists what waits for the person
+  in each of their groups (handoff 6.17): their open actions, and the Full diagnostic while it asks them,
+  read through each group's `get_plan` and `get_rounds`, so no new function reads who answered.
+- **The Team plan's.** Everything is written only while the group's plan includes `focus_areas` and it is not
+  read-only (`plan_writable`); the suite checks from the catalogue that every client function writing either
+  table asks it. A read-only group reads its plan. On the Free plan the Plan page stays the sample.
+- **Not yet said on screen:** "Each open action appears on the next agenda." The agenda is milestone 13, and
+  the sentence joins the Plan page with it, so the page claims nothing that is not true yet.
+- **Nothing in 0017 deletes a row.** Closed focus areas and done actions keep their rows with a state and a
+  date; their group's removal takes them. Neither is audited: the handoff's audit list names neither.
+- **The fixture** adds the plan flow's group: five people of its own and one released round, no focus area
+  and no action, which the flow makes.
+
+## D-47 — The platform's pages: every built feature, in screenshots of the real app (owner, 14 October 2026)
 
 The owner asked for detailed platform pages in the articles' style: real features in screenshots, what each
 brings to the user, the leadership group and the organisation, illustrations and visuals, nothing commercial,

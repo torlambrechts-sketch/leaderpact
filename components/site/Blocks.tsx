@@ -19,7 +19,7 @@ export function Blocks({ blocks, sources = [], wide = false }: { blocks: Block[]
       {blocks.map((b, i) => {
         row = b.t === 'feature' ? row + 1 : 0
         const view = <BlockView key={i} block={b} id={ids.get(i)} sources={sources} flip={row % 2 === 0} />
-        // on a product page the figures take the full width, and text keeps the reading measure (D-46)
+        // on a product page the figures take the full width, and text keeps the reading measure (D-47)
         return wide && !WIDE.has(b.t) ? (
           <div key={i} className="max-w-[760px]">
             {view}

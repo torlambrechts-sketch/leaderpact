@@ -15,7 +15,7 @@ import { ArticleArt } from './art/ArticleArt'
 import type { ArtKind } from '@/lib/site/articles'
 
 /**
- * A feature page (D-46): what one feature of the platform does, shown in screenshots of the real app, with what
+ * A feature page (D-47): what one feature of the platform does, shown in screenshots of the real app, with what
  * it brings to the person, the leadership group and the organisation. It informs and sells nothing (D-38): no
  * price and no offer beside the text, so the header and footer are the way into the product. Its questions are
  * repeated word for word as FAQPage data; the other features follow, then two articles.

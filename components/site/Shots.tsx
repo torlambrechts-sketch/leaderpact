@@ -7,7 +7,7 @@ import { shotById } from '@/lib/site/shots'
 import { Rich } from './Rich'
 
 /**
- * The product pages' pictures and the value they describe (D-46). A screenshot is the real app, taken by
+ * The product pages' pictures and the value they describe (D-47). A screenshot is the real app, taken by
  * scripts/shots/capture.mjs from a fictional demo group, so every one carries the "Sample data" mark and a
  * note that the names and answers are invented (CLAUDE.md: sample content is always marked Sample). The
  * picture's description is its `alt`; the frame around it is drawing only.

@@ -28,7 +28,7 @@ const TOOLS_PATH = '/leadership-team-assessment-tools'
  * (14 px, --text-2). Below 768 px it folds away with the menu, leaving the logo, which also leads to the
  * landing page, and the button: the three do not fit in 360 px. The footer carries Sign in at every width.
  *
- * The Platform menu (D-46) replaces "How it works": a button that opens the platform's pages, the overview
+ * The Platform menu (D-47) replaces "How it works": a button that opens the platform's pages, the overview
  * among them. Under 768 px a menu button beside "Start the scan" opens the same pages and the header's links.
  */
 export function PublicHeader({
@@ -113,7 +113,7 @@ export function PublicFooter({
   labels,
   platform,
 }: {
-  /** the platform's feature pages (D-46), a list of their own */
+  /** the platform's feature pages (D-47), a list of their own */
   platform?: { label: string; links: { href: string; label: string }[] }
   labels: {
     menu: string

@@ -2,7 +2,7 @@ import { z } from 'zod'
 import manifest from '@/data/shots.json'
 
 /**
- * The product screenshots (D-46): pictures of the real app, taken by scripts/shots/capture.mjs from the
+ * The product screenshots (D-47): pictures of the real app, taken by scripts/shots/capture.mjs from the
  * fixture's screenshot groups (scripts/seed/fixture.mjs --shots), a fictional demo organisation. The capture
  * writes data/shots.json; this reads it. A page names a picture by its id, and the words that go with it, its
  * description and caption, are the page's own data.
