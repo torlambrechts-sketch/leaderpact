@@ -77,6 +77,21 @@ test('the research page reads the model: 21 scales and 3 outcomes with their evi
   await expect(page.getByText('States · 4 scales')).toBeVisible()
 })
 
+test('indexing (D-40): the public pages may be indexed, the private ones never, and only on the production host', async ({ page, request }) => {
+  const robots = async (path: string) => {
+    await page.goto(path)
+    return page.locator('meta[name="robots"]').getAttribute('content')
+  }
+  for (const path of ['/leadership-team-assessment', '/articles', '/articles/leadership-team-purpose', '/platform', '/templates']) {
+    expect(await robots(path), path).toBe('index, follow')
+  }
+  for (const path of ['/scan', '/scan/result', '/sign-in', '/privacy']) {
+    expect(await robots(path), path).toBe('noindex, nofollow')
+  }
+  // this server is not www.leaderpact.com, so it says noindex in a header, as a preview does
+  expect((await request.get('/articles')).headers()['x-robots-tag']).toBe('noindex')
+})
+
 test('what search engines read: the sitemap, robots.txt and llms.txt', async ({ request }) => {
   const sitemap = await (await request.get('/sitemap.xml')).text()
   expect(sitemap).toContain('https://www.leaderpact.com/articles/leadership-team-purpose')
