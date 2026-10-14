@@ -1,0 +1,55 @@
+{
+  "title": "Leadership team charter template (free, Word)",
+  "description": "A free, editable charter template for a leadership team: purpose, team tasks, decision rights, members, working agreements and a review date.",
+  "crumb": "Charter template",
+  "kicker": "Free template",
+  "h1": "Leadership team charter template",
+  "lead": "A two-page charter a leadership team writes together. It says why the team exists, which issues belong to it, who is in it and how members agree to work. It is a Word file you can change as you like.",
+  "teaser": "Seven sections with questions to answer alone first, then agree together: purpose, team tasks and decision rights, members, working agreements, support, stakeholders and review.",
+  "files": {
+    "leadership-team-charter-template.docx": "Leadership team charter (Word)"
+  },
+  "blocks": [
+    {
+      "t": "h2",
+      "text": "What is in the template?"
+    },
+    {
+      "t": "ol",
+      "items": [
+        "**Purpose.** Why the team exists, and which of six common purposes matter most now.",
+        "**Team tasks and decision rights.** The issues that need the whole team, and who decides each.",
+        "**Members.** Who is in the core team, who joins for some items, and why.",
+        "**Working agreements.** Four to six promises about how the team works, each with a sign that shows whether it holds.",
+        "**What the team needs.** Information, time, recognition and support, and the gaps to close.",
+        "**Stakeholders.** The people and groups the team depends on, and who owns each relationship.",
+        "**Review.** Who agreed the charter, when, and when the team will look at it again."
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "How do you use it?"
+    },
+    {
+      "t": "p",
+      "text": "Send the template to every member before a working session. Ask each to answer the purpose and task questions alone. Answers written alone show where views differ; a discussion that starts with the leader's draft tends to hide it."
+    },
+    {
+      "t": "p",
+      "text": "In the session, compare the answers section by section. Agree one wording for each part, and keep the whole charter to two pages. A charter nobody can recall in a meeting does no work."
+    },
+    {
+      "t": "box",
+      "title": "A rule of thumb",
+      "text": "Use the task list to test every agenda item. If an issue matches no team task, it probably belongs in a one-to-one, a smaller group or a written update."
+    },
+    {
+      "t": "h2",
+      "text": "Why is it built this way?"
+    },
+    {
+      "t": "p",
+      "text": "The sections follow what research on leadership teams puts first: a clear purpose, tasks that need the whole team, and the right members. The reasons, with sources, are in [what a leadership team charter is](/articles/leadership-team-charter) and [the purpose of a leadership team](/articles/leadership-team-purpose)."
+    }
+  ]
+}

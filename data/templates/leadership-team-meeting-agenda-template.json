@@ -1,0 +1,87 @@
+{
+  "title": "Leadership team meeting agenda template (free, Word)",
+  "description": "A free, editable agenda template for leadership team meetings: item types, desired outcomes, owners, time boxes, pre-reads and a short close.",
+  "crumb": "Agenda template",
+  "kicker": "Free template",
+  "h1": "Leadership team meeting agenda template",
+  "lead": "An agenda that says, for every item, what kind of item it is and what the owner wants from the team. It has a check to run before an item goes on, and a close that records decisions and actions. It is a Word file you can change as you like.",
+  "teaser": "An agenda with a type and a desired outcome for every item, and a check before an item goes on. Its close records decisions, actions and how the meeting went.",
+  "files": {
+    "leadership-team-meeting-agenda-template.docx": "Leadership team meeting agenda (Word)"
+  },
+  "blocks": [
+    {
+      "t": "h2",
+      "text": "What is in the template?"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "**The meeting's frame:** date, chair, note-taker, the purpose of this meeting and the deadline for papers.",
+        "**The agenda table:** each item's type, the outcome the owner wants, the team task it serves, the owner, the time box and the pre-read.",
+        "**Four example items,** marked as examples, one of each type.",
+        "**A check before an item goes on:** four questions that keep issues off the agenda when they do not need the whole team.",
+        "**The close:** decisions and actions with owners and dates, parked items, and three short questions on how the meeting went."
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "What are the four item types?"
+    },
+    {
+      "t": "table",
+      "head": [
+        "Type",
+        "What the owner wants",
+        "A good desired outcome"
+      ],
+      "rows": [
+        [
+          "Information",
+          "The team knows something, with time for questions",
+          "Everyone knows the main findings and has asked their questions."
+        ],
+        [
+          "Discussion",
+          "Views and options, with no decision today",
+          "We understand the consequences for each unit before we decide next month."
+        ],
+        [
+          "Decision",
+          "A choice the team makes in the meeting",
+          "We agree the three priorities for the next quarter."
+        ],
+        [
+          "Follow-up",
+          "A check that earlier decisions are carried out",
+          "Each open action is on track, or has a new date."
+        ]
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "How do you use it?"
+    },
+    {
+      "t": "p",
+      "text": "Ask item owners to fill in their rows before a set deadline, with the pre-read attached. The chair then runs the check, and moves items that fail it to a better place."
+    },
+    {
+      "t": "p",
+      "text": "In the meeting, read each item's type and desired outcome aloud before the discussion starts. It takes seconds, and it tells everyone what the item is for."
+    },
+    {
+      "t": "box",
+      "title": "A rule of thumb",
+      "text": "If an owner cannot write the desired outcome in one sentence, the item is not ready for the meeting."
+    },
+    {
+      "t": "h2",
+      "text": "Why is it built this way?"
+    },
+    {
+      "t": "p",
+      "text": "Research on top management meetings links clear goals for each item and focused discussion with better results. The reasons, with sources, are in [the leadership team meeting agenda](/articles/leadership-team-meeting-agenda) and [task conflict and relationship conflict](/articles/task-conflict-and-relationship-conflict)."
+    }
+  ]
+}

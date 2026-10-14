@@ -1,0 +1,300 @@
+{
+  "title": "Five dysfunctions of a team: what the research says",
+  "description": "Lencioni's five dysfunctions of a team, described fairly, and what research on trust, conflict, commitment and accountability adds to each part.",
+  "h1": "The five dysfunctions of a team: what does the research say?",
+  "lead": "The five dysfunctions of a team are absence of trust, fear of conflict, lack of commitment, avoidance of accountability and inattention to results. Patrick Lencioni stacks them in a pyramid, each resting on the one below, and research supports several of these ideas taken one by one. But the book presents the model as a fable rather than as research. So treat the pyramid's order as a useful frame, not an established finding.",
+  "takeaways": [
+    "Lencioni's pyramid runs from trust at the base, through conflict, commitment and accountability, to results at the top.",
+    "Research on trust and team performance, and on trust and conflict in top teams, fits the weight the model puts on trust.",
+    "Research on conflict is more mixed than the model suggests: debate about the work goes with better results only under some conditions.",
+    "Research-based models start from the team's conditions, such as a shared purpose, real shared work and the right members.",
+    "Use the five dysfunctions as a shared language, and check the conditions underneath them."
+  ],
+  "blocks": [
+    { "t": "h2", "text": "What are the five dysfunctions of a team?" },
+    {
+      "t": "p",
+      "text": "Patrick Lencioni set out the model in **The Five Dysfunctions of a Team: A Leadership Fable** (Lencioni, 2002). The book combines the story of a fictional chief executive and her struggling executive team with the model and practical advice for each part."
+    },
+    {
+      "t": "p",
+      "text": "The five dysfunctions sit in a pyramid. In Lencioni's account each one grows out of the one beneath it, so a team works on them from the bottom up."
+    },
+    {
+      "t": "ol",
+      "items": [
+        "**Absence of trust.** Members are unwilling to be vulnerable with one another. They hide their mistakes, their weaknesses and their need for help.",
+        "**Fear of conflict.** Without trust, people avoid open debate about ideas and keep an artificial harmony. Disagreement moves into side conversations.",
+        "**Lack of commitment.** Without real debate, people do not buy into decisions, and it stays unclear what was agreed.",
+        "**Avoidance of accountability.** Without clear commitments, peers hesitate to challenge each other on behaviour that hurts the team.",
+        "**Inattention to results.** When nobody is held to account, members put their needs, such as ego, career development or recognition, ahead of the team's collective goals."
+      ]
+    },
+    { "t": "h3", "text": "What does Lencioni mean by vulnerability-based trust?" },
+    {
+      "t": "p",
+      "text": "Trust sits at the base, and Lencioni means a particular kind of it. Members are willing to admit their mistakes, their weaknesses and their need for help to each other (Lencioni, 2002). He calls this vulnerability-based trust."
+    },
+    {
+      "t": "p",
+      "text": "This is close to how researchers define trust. It is a willingness to be vulnerable to another person's actions, regardless of any ability to monitor or control them (Mayer et al., 1995). On this point the fable and the research use much the same idea."
+    },
+    { "t": "h2", "text": "Is the Lencioni model based on research?" },
+    {
+      "t": "p",
+      "text": "The book presents the model as a fable rather than as research (Lencioni, 2002). Lencioni and his firm advise leaders and teams, and the book is written for practitioners: a story with a model attached."
+    },
+    {
+      "t": "p",
+      "text": "That does not make it wrong. It means each part is a claim to set against other evidence, and the order of the pyramid is a frame to try. The sections below take the parts one at a time."
+    },
+    { "t": "h2", "text": "What does research say about trust in teams?" },
+    {
+      "t": "p",
+      "text": "Across 112 studies covering 7,763 teams, trust within a team was positively related to team performance (De Jong et al., 2016). The link held after accounting for trust in the team leader and for the team's past performance."
+    },
+    {
+      "t": "p",
+      "text": "The link also depended on the work. It was weaker where members could do their tasks alone, and mattered more where they depended on each other (De Jong et al., 2016). These are correlations, so they show that trust and performance go together, not which causes which."
+    },
+    {
+      "t": "p",
+      "text": "Research also widens the idea of trust. Colleagues judge each other on ability, benevolence and integrity (Mayer et al., 1995). Admitting weakness speaks to benevolence, but a team also needs to see members deliver and keep their word."
+    },
+    { "t": "h2", "text": "Is conflict good for a team?" },
+    {
+      "t": "p",
+      "text": "Lencioni asks teams to welcome open debate about ideas and to stop protecting an artificial harmony. Research separates task conflict, about the work, from relationship conflict, about the people."
+    },
+    {
+      "t": "p",
+      "text": "Relationship conflict is consistently bad news. Two meta-analyses found it negatively related to team performance and to members' satisfaction (De Dreu and Weingart, 2003; de Wit et al., 2012)."
+    },
+    {
+      "t": "p",
+      "text": "Task conflict is less simple. An earlier meta-analysis found it negatively related to team performance too, contrary to what textbooks had suggested (De Dreu and Weingart, 2003). A later one, of 116 studies, found no strong negative link overall (de Wit et al., 2012)."
+    },
+    {
+      "t": "p",
+      "text": "In that later analysis, task conflict was more positively related to performance in some settings (de Wit et al., 2012). They included top management teams, and teams where task conflict and relationship conflict were only weakly linked. It also looked better when performance meant decision quality or financial results."
+    },
+    {
+      "t": "p",
+      "text": "Trust seems to decide which way debate goes. In a study of 70 top management teams, trust weakened the link between task conflict and relationship conflict (Simons and Peterson, 2000). That fits Lencioni's order: trust first, then open debate. For more on the difference, see [task conflict and relationship conflict](/articles/task-conflict-and-relationship-conflict)."
+    },
+    { "t": "h2", "text": "What does research say about commitment?" },
+    {
+      "t": "p",
+      "text": "In the model, a team that avoids debate struggles to commit, because people have not bought in and ambiguity lingers (Lencioni, 2002). Research on fair process points the same way."
+    },
+    {
+      "t": "p",
+      "text": "Korsgaard et al. (1995) ran an experiment with intact management teams. Members saw the process as fairer when their input was considered and they had some influence. That went with stronger commitment to the decision, attachment to the team and trust in its leader."
+    },
+    {
+      "t": "p",
+      "text": "Research also separates what the model folds together. Drath et al. (2008) describe three outcomes of leadership: direction, or agreement on goals; alignment, or coordinated work; and commitment to the collective's success. Keeping them apart helps a team see which one is missing."
+    },
+    { "t": "h2", "text": "What does research say about accountability and results?" },
+    {
+      "t": "p",
+      "text": "Lencioni wants peers to hold each other to account, rather than leave it all to the leader. Katzenbach and Smith (1993) made mutual accountability part of their definition of a team."
+    },
+    {
+      "t": "p",
+      "text": "They also drew a line between a working group and a team. In a working group, members answer for their own results. A team also produces work together and answers for it together (Katzenbach and Smith, 1993)."
+    },
+    {
+      "t": "p",
+      "text": "Mutual accountability, they argued, cannot be ordered into being. It grows as a team works out its purpose, goals and approach together."
+    },
+    {
+      "t": "p",
+      "text": "Results show a similar pattern. Senior executives often focus more on their own roles than on the top team's shared work (Wageman et al., 2008). Inattention to results can be ego, as the model says. It can also mean the team has no clear collective work to be accountable for."
+    },
+    { "t": "h2", "text": "How does each dysfunction compare with the research?" },
+    {
+      "t": "table",
+      "head": ["The dysfunction", "What the model says", "What research adds"],
+      "rows": [
+        [
+          "Absence of trust",
+          "Members will not be vulnerable, so they hide mistakes and needs.",
+          "Trust goes with team performance across 112 studies. It rests on ability and integrity too, not only on openness."
+        ],
+        [
+          "Fear of conflict",
+          "Teams keep an artificial harmony and avoid debate about ideas.",
+          "Debate about the work goes with better results only under some conditions. Trust helps keep it from turning personal."
+        ],
+        [
+          "Lack of commitment",
+          "Without debate, people do not buy in and decisions stay vague.",
+          "A fair process, where input is considered, goes with stronger commitment. Commitment is distinct from agreeing on direction."
+        ],
+        [
+          "Avoidance of accountability",
+          "Peers do not challenge each other on behaviour that hurts the team.",
+          "Mutual accountability needs shared goals and work done together. It cannot be ordered."
+        ],
+        [
+          "Inattention to results",
+          "Members put status and ego ahead of collective goals.",
+          "Senior executives often favour their own roles. A clear shared purpose and real shared work come first."
+        ]
+      ]
+    },
+    { "t": "h2", "text": "How do research-based models of team effectiveness differ?" },
+    {
+      "t": "p",
+      "text": "Research-based models tend to start further upstream, with the conditions a team works in. Hackman (2002) argued that how well a team is designed and supported matters more than the leader's personal style."
+    },
+    {
+      "t": "p",
+      "text": "He named five conditions: a real team, a compelling direction, an enabling structure, a supportive organisational context and competent coaching (Hackman, 2002). Wageman et al. (2008) applied similar conditions to senior leadership teams, drawing on a study of more than 100 top teams."
+    },
+    {
+      "t": "cards",
+      "items": [
+        {
+          "title": "Starting from behaviour",
+          "text": "The five dysfunctions describe how members treat each other: openness, debate, buy-in, challenge and focus. They name symptoms a team can recognise quickly."
+        },
+        {
+          "title": "Starting from conditions",
+          "text": "Research-based models ask first whether the team has a shared purpose, work only it can do and the right members. Behaviour then grows inside that frame."
+        }
+      ]
+    },
+    {
+      "t": "p",
+      "text": "The two views fit together. If a team has unclear membership or little shared work, Hackman's view suggests that work on behaviour alone may not hold. For the wider picture, see [leadership team effectiveness](/articles/what-makes-a-leadership-team-effective)."
+    },
+    { "t": "h2", "text": "Is there a five dysfunctions of a team assessment?" },
+    {
+      "t": "p",
+      "text": "Yes. Commercial questionnaires built on the model exist, and they can give a team a shared language. Ask the same questions of them as of any team survey:"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "What evidence does the publisher give that the scales measure what they claim to measure?",
+        "Does it cover the team's conditions, such as purpose and membership, or only behaviour?",
+        "How are answers kept anonymous in a team of six or eight people?",
+        "Will the team see its own results and decide together what to do with them?"
+      ]
+    },
+    {
+      "t": "p",
+      "text": "For methods and good questions, see [how to assess a leadership team](/articles/how-to-assess-a-leadership-team)."
+    },
+    { "t": "h2", "text": "How can you use the model well?" },
+    {
+      "t": "ul",
+      "items": [
+        "**Use it as a language, not a verdict.** The five words help a team name what it sees, without claiming to measure it.",
+        "**Build trust through the work too.** Keeping commitments and sharing information give colleagues evidence of integrity and goodwill, not only of openness (Mayer et al., 1995).",
+        "**Watch whether debate turns personal.** If arguments about the work start to feel like attacks, slow down and rebuild trust (Simons and Peterson, 2000).",
+        "**Check the conditions first.** If members share little real work, settle the team's purpose before working on behaviour (Wageman et al., 2008)."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Two articles go deeper on the base of the pyramid: [how to build trust in a leadership team](/articles/how-to-build-trust-in-a-leadership-team) and [psychological safety in leadership teams](/articles/psychological-safety-in-leadership-teams)."
+    },
+    { "t": "h2", "text": "What can you do this month?" },
+    {
+      "t": "ol",
+      "items": [
+        "Ask each member which of the five dysfunctions they see most often in the team, with one example from the last month. Collect the answers anonymously if the team is new to this.",
+        "In your next meeting, pick one real decision. Before closing it, ask each person whether their view was heard, and what they are now committing to.",
+        "End the meeting by reading back who will do what by when. Open the next one by checking it.",
+        "Ask the team which of its goals no single member could reach alone. If the answer is none, start with the [purpose of a leadership team](/articles/leadership-team-purpose) before behaviour."
+      ]
+    },
+    {
+      "t": "box",
+      "title": "A question for your team",
+      "text": "Think of our disagreements last quarter. Which stayed about the work, and which became personal? What made the difference?"
+    }
+  ],
+  "sources": [
+    {
+      "authors": "Lencioni, P.",
+      "year": 2002,
+      "title": "The five dysfunctions of a team: A leadership fable",
+      "venue": "Jossey-Bass",
+      "url": "https://www.wiley.com/en-us/The+Five+Dysfunctions+of+a+Team%3A+A+Leadership+Fable-p-9780787960759"
+    },
+    {
+      "authors": "De Jong, B. A., Dirks, K. T., & Gillespie, N.",
+      "year": 2016,
+      "title": "Trust and team performance: A meta-analysis of main effects, moderators, and covariates",
+      "venue": "Journal of Applied Psychology, 101(8), 1134–1150",
+      "url": "https://doi.org/10.1037/apl0000110"
+    },
+    {
+      "authors": "Mayer, R. C., Davis, J. H., & Schoorman, F. D.",
+      "year": 1995,
+      "title": "An integrative model of organizational trust",
+      "venue": "Academy of Management Review, 20(3), 709–734",
+      "url": "https://doi.org/10.2307/258792"
+    },
+    {
+      "authors": "De Dreu, C. K. W., & Weingart, L. R.",
+      "year": 2003,
+      "title": "Task versus relationship conflict, team performance, and team member satisfaction: A meta-analysis",
+      "venue": "Journal of Applied Psychology, 88(4), 741–749",
+      "url": "https://doi.org/10.1037/0021-9010.88.4.741"
+    },
+    {
+      "authors": "de Wit, F. R. C., Greer, L. L., & Jehn, K. A.",
+      "year": 2012,
+      "title": "The paradox of intragroup conflict: A meta-analysis",
+      "venue": "Journal of Applied Psychology, 97(2), 360–390",
+      "url": "https://doi.org/10.1037/a0024844"
+    },
+    {
+      "authors": "Simons, T. L., & Peterson, R. S.",
+      "year": 2000,
+      "title": "Task conflict and relationship conflict in top management teams: The pivotal role of intragroup trust",
+      "venue": "Journal of Applied Psychology, 85(1), 102–111",
+      "url": "https://doi.org/10.1037/0021-9010.85.1.102"
+    },
+    {
+      "authors": "Korsgaard, M. A., Schweiger, D. M., & Sapienza, H. J.",
+      "year": 1995,
+      "title": "Building commitment, attachment, and trust in strategic decision-making teams: The role of procedural justice",
+      "venue": "Academy of Management Journal, 38(1), 60–84",
+      "url": "https://doi.org/10.2307/256728"
+    },
+    {
+      "authors": "Drath, W. H., McCauley, C. D., Palus, C. J., Van Velsor, E., O'Connor, P. M. G., & McGuire, J. B.",
+      "year": 2008,
+      "title": "Direction, alignment, commitment: Toward a more integrative ontology of leadership",
+      "venue": "The Leadership Quarterly, 19(6), 635–653",
+      "url": "https://doi.org/10.1016/j.leaqua.2008.09.003"
+    },
+    {
+      "authors": "Katzenbach, J. R., & Smith, D. K.",
+      "year": 1993,
+      "title": "The discipline of teams",
+      "venue": "Harvard Business Review, 71(2), 111–120",
+      "url": "https://hbr.org/1993/03/the-discipline-of-teams-2"
+    },
+    {
+      "authors": "Wageman, R., Nunes, D. A., Burruss, J. A., & Hackman, J. R.",
+      "year": 2008,
+      "title": "Senior leadership teams: What it takes to make them great",
+      "venue": "Harvard Business School Press",
+      "url": "https://books.google.com/books/about/Senior_Leadership_Teams.html?id=WZDLwAEACAAJ"
+    },
+    {
+      "authors": "Hackman, J. R.",
+      "year": 2002,
+      "title": "Leading teams: Setting the stage for great performances",
+      "venue": "Harvard Business School Press",
+      "url": "https://books.google.com/books/about/Leading_Teams.html?id=snfoCQAAQBAJ"
+    }
+  ]
+}

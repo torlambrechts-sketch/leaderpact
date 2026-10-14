@@ -2,11 +2,12 @@ import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { ClientMessages } from '@/components/lp/ClientMessages'
 import { PRODUCT_NAME } from '@/lib/brand'
+import { NOINDEX } from '@/lib/site/meta'
 import { SignInForm } from './SignInForm'
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('meta')
-  return { title: t('signInTitle', { product: PRODUCT_NAME }) }
+  return { title: t('signInTitle', { product: PRODUCT_NAME }), robots: NOINDEX }
 }
 
 /** Sign-in by email link (handoff section 5, `/sign-in`; section 8, Authentication). The design draws none. */

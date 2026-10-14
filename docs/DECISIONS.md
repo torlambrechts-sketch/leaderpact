@@ -587,7 +587,115 @@ Handoff 1, 3, 6.18, 6.19 and 11; REUSE 4.9; owner D1, D2a, D2b, D2c. Where the b
 - **Hosted:** 0013 has no `DELETE` or `DROP` statement, so it goes through `apply_migration`. If the
   connector holds it, the owner's script follows D-22.
 
-## D-35 — The group: charter versions and members (M9)
+## D-34 — The public site: articles, search and answer engines (owner, 13 October 2026)
+
+The owner asked for SEO and GEO, "a large set of relevant articles", free downloads behind an e-mail address
+and pages that describe the platform, to Orgpuls's standard. Handoff section 2 had the public site's Research,
+Templates and comparison pages in Phase 2; the owner's request brings them forward. The plan, the keyword map
+and the article list are `docs/marketing/seo-geo-strategy.md`; the editorial standard is
+`docs/marketing/editorial-brief.md`.
+
+- **Twenty articles planned, ten published** under `/articles`. They inform and sell nothing (Orgpuls D-235):
+  no product, price, offer or sign-up, and links in the text only to other articles. The rules are code
+  (`lib/site/article-content.ts`) and the unit tests hold every article to them, with the copy rules of
+  handoff section 10. Five writers wrote them, each source checked against Crossref or the publisher;
+  independent fact-checkers then checked every claim against its source.
+- **Words are data, not messages.** An article is `data/articles/<slug>.json`, parsed by Zod, as the sample
+  content is (D-30): long prose in an ICU catalogue is fragile. The sources are bibliographic records written
+  as the source writes itself, so they are not held to British spelling.
+- **Search plumbing:** a canonical address, Open Graph and Twitter data and a share card for every public
+  page (`scripts/seo/og-images.mjs`); JSON-LD (Organization, WebSite, SoftwareApplication, Article with
+  `citation`, FAQPage, BreadcrumbList, CollectionPage); `/sitemap.xml`, `/robots.txt` and `/llms.txt` from the
+  registries. The menu gains How it works and Articles from 1024 px; the footer lists every page.
+- **Not indexed yet.** Every page still says `noindex` (D-09): the name is not cleared (handoff section 0).
+  Switching indexing on is the owner's decision, made in one line (`app/layout.tsx`). With it come an
+  `X-Robots-Tag: noindex` on every host but `www.leaderpact.com` and an IndexNow key. An attempt to make both
+  changes in this session was stopped by the session's safety check and left for the owner.
+- **The questionnaires, the result, sign-in, the invite link and the app** say `noindex` themselves, so the
+  switch can never index them.
+
+## D-35 — Sentral by API: one door for every product (owner's E2)
+
+LeaderPact sends Sentral two kinds of event now, before milestone 17 brings the lifecycle events:
+`template.requested` (a reader's request for a free template) and `content.inventory` (the public site's
+pages and the searches they answer). Neither carries product data, an answer or a respondent.
+
+- **The door is Sentral's `product-events`** (its 0090), built for any product as the owner chose in E2: the
+  body names the product, the headers are `x-platform-product`, `x-platform-timestamp` and
+  `x-platform-signature` (HMAC-SHA256 of `<timestamp>.<body>` under the product's own webhook secret), and the
+  signature is checked before the body is read.
+- **The builder refuses any field its kind does not list** (`lib/platform/sentral.ts`, invariant 12), and a
+  unit test proves no answer, score, standing, comment, profile or participation can leave.
+- **LeaderPact holds one shared secret, `PLATFORM_WEBHOOK_SECRET`, in the server's environment**, and no key to
+  Sentral's database; Sentral holds none to LeaderPact's. CLAUDE.md's "never touch those projects from this
+  repository" is about database credentials and the MCP; this signed API is the connection handoff A.3 asks
+  for. With no secret set, development sends nothing and says so; production treats that as a failure.
+
+## D-36 — The content inventory in Sentral's Growth › SEO
+
+`lib/site/inventory.ts` builds the keyword map as data: every public page, its searches (the first is the one
+it answers; the tests refuse a search that is the first of two pages) and whether it is live or planned.
+`scripts/platform/publish-content.mjs` sends it, and `.github/workflows/content.yml` runs that on every push to
+main that changes the site's content, once the owner adds the repository secrets `PLATFORM_EVENTS_URL` and
+`PLATFORM_WEBHOOK_SECRET`. Sentral files each page's first search as a content-plan row (an idea while
+planned, published with its path once live), tracks every search as a keyword, and logs a page's first
+publication. It never moves a stage back and never deletes.
+
+## D-37 — Free templates behind an e-mail address (after Orgpuls D-241)
+
+Two Word templates, a leadership team charter and a meeting agenda, built by `scripts/templates/build.py` from
+what the articles say, kept in `private/templates` and served only to a browser whose cookie names the template.
+A soft gate, on purpose: the point is the address the person chose to give.
+
+- **The form:** name and address, organisation and role if wanted, an unticked box for e-mail about new
+  templates and articles, and a field only bots fill (it answers as if it worked and sends nothing).
+- **The request goes to Sentral** as `template.requested` and becomes a Sales ticket and a CRM lead there.
+  LeaderPact stores nothing but the cookie. Sentral takes five requests an hour from one address and two
+  hundred from the product; above that the form says to try again later.
+- **TODO(owner): the privacy page** must describe template requests (what is kept, where, how long, the legal
+  basis and the e-mail consent). The legal text is the owner's; Orgpuls's statement has a section to adapt.
+
+## D-38 — Product pages: only what is true today
+
+`/platform`, `/research`, `/anonymity` and `/leadership-team-assessment-tools` describe the product. They may
+name it and offer the scan; every claim is one the product enforces today or is marked "In development".
+
+- **How it works** lists the loop's nine steps. Four are available (the scan, the invite, the team view, the
+  Leader Profile); five carry "In development" until their milestones ship, and a test holds the list.
+- **No prices.** The Team plan and its trial exist (D-33), but the hosted payment adapter is `none`, so it
+  cannot be paid for and its areas are still samples. No public page states a price, the SoftwareApplication
+  data carries no offer, and the pages say the Team plan's areas are in development.
+- **Research reads the published bank** (`data/instrument/bank.v1.json`): every scale's layer, how it is read
+  and its evidence rating, never an item. "Research-based, not yet validated" stands on it.
+- **Anonymity states what the database enforces** and was checked against the migrations: no person or time on
+  an answer set, no reading rights for any role, the threshold of 4, nothing before close, the reshuffle at
+  close, the cap and the deleted replace key on the open scan link.
+- **The company behind the product** is not named in the Organization data until the owner gives its legal
+  name and registration (`PUBLISHER`, `TODO(owner)`).
+
+## D-39 — The public site's visits are counted in Sentral (owner, 14 October 2026)
+
+The owner registered the site with Google and asked for its visits to go to Sentral. They are counted the way
+Orgpuls's are (its D-248): a cookieless beacon (`lib/site/beacon.ts`, `components/site/SiteBeacon.tsx`) posts to
+Sentral's `web-collect`, which knows leaderpact.com as a registered site (its 0090), drops bots, hashes the
+address and the browser string with a key that changes every day, and stores neither.
+
+- **What is sent:** a page view (the path, the five utm_ campaign tags of the address, and the referring host once
+  per page load), a press on a link to the scan (`start-scan`), and a template asked for (`template`). Never a
+  query string, a name, an address or an answer (invariant 10).
+- **Never counted:** the scan and its result, the invite link (/j), the Leader Profile's tests, sign-in and its
+  confirmation, the app, a template's file. Nothing about an answer leaves for Sentral (invariant 12), not even
+  that someone was answering. Also never from a browser that sends Global Privacy Control or Do Not Track, or
+  from a host other than leaderpact.com and www.leaderpact.com. The unit tests hold every path.
+- **Nothing is stored on the device**, so there is nothing to ask consent for under the cookie rules; the
+  `connect-src` of the CSP names Sentral's origin for it.
+- **TODO(owner): the privacy page** should say that visits are counted this way, alongside the template
+  requests (D-37).
+- **Search Console:** Sentral imports a site's figures once its service account can read the property. Add
+  `orgpuls-search-console@orgpuls-seo.iam.gserviceaccount.com` as a user (restricted is enough) on the
+  leaderpact.com property; the nightly import then finds it.
+
+## D-40 — The group: charter versions and members (M9)
 
 Handoff 6.8, 8 and 9; milestone 9: "A draft does not change the version in force until the group agrees."
 Where the build chose:

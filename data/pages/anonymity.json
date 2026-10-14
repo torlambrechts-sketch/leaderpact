@@ -1,0 +1,107 @@
+{
+  "title": "Anonymous leadership team survey: how answers stay anonymous",
+  "description": "In {product}, an answer is never stored with a person. Nobody can read raw answers, and results open only at close, with at least four answers.",
+  "crumb": "Anonymity",
+  "kicker": "Anonymity",
+  "h1": "Anonymous by construction",
+  "lead": "In {product}, an answer is never stored with a person, and nobody can read raw answers, staff included. A result shows only after the round closes, and only with at least four answers.",
+  "blocks": [
+    {
+      "t": "h2",
+      "text": "Why is anonymity hard in a small team?"
+    },
+    {
+      "t": "p",
+      "text": "In a group of four to fifteen, people know each other well. A lowest score, a spread of answers or a result for two members can point to one person, even when no name is shown. So the safeguards have to sit in what is stored and shown, not only in a promise."
+    },
+    {
+      "t": "h2",
+      "text": "What does the database enforce?"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "**No link between a person and an answer.** A set of answers holds its group, its round and the questionnaire version. It holds no person and no time.",
+        "**Nobody can read the answers.** No member, no leader and no member of staff can select them. Results come only from functions that return nothing below the threshold.",
+        "**A threshold of four answers.** A group can raise it to eight. It can never be lowered.",
+        "**Nothing before close.** While a round is open, every page shows a count, never a score. A result is computed once, at close, and never changes.",
+        "**No order to follow.** At close, the answers are stored again in random order with new identifiers, so the order they arrived in links them to no one."
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "What does a result show, and what does it never show?"
+    },
+    {
+      "t": "table",
+      "head": [
+        "Shown",
+        "Never shown"
+      ],
+      "rows": [
+        [
+          "The level of each theme or scale: the mean, to one decimal",
+          "The lowest, highest or median answer"
+        ],
+        [
+          "How much members agree, as a label",
+          "The agreement number, a spread or a confidence band"
+        ],
+        [
+          "One standing per scale, in words",
+          "A mark, a dot or a bar per member"
+        ],
+        [
+          "How many have answered",
+          "Who has answered, or results for part of the group"
+        ]
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "What about the shared scan link?"
+    },
+    {
+      "t": "p",
+      "text": "The free scan uses one link for the whole group, so it cannot check who answers. It accepts no more answers than the group has members. A browser can replace its own answers until the scan closes, and the key that allows it is deleted at close."
+    },
+    {
+      "t": "p",
+      "text": "The full diagnostic and the pulses, which are in development, are answered by signed-in members, one answer each."
+    },
+    {
+      "t": "h2",
+      "text": "Is my Leader Profile shared?"
+    },
+    {
+      "t": "p",
+      "text": "Only if you share it. Your Leader Profile is readable by you alone. You choose whether your group sees nothing, your broad results, or more detail. When you take it again, sharing starts again from nothing, and you can delete it at any time."
+    },
+    {
+      "t": "h2",
+      "text": "Where is the data kept?"
+    },
+    {
+      "t": "p",
+      "text": "In the EU. The database and the application run in Frankfurt. Nothing about an answer is sent to any other system, including the company's own customer records."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Can the team leader see who answered?",
+      "a": "No. The leader sees how many have answered, never who, and never anyone's answers."
+    },
+    {
+      "q": "Can {product} staff read my answers?",
+      "a": "No. The answer tables have no reading rights for any role, staff included. Results come only from functions that apply the threshold."
+    },
+    {
+      "q": "What happens if fewer than four people answer?",
+      "a": "No result is shown. The scan gets one seven-day extension; if it still has fewer than four answers, there is no team view."
+    },
+    {
+      "q": "Can results be split by role or department?",
+      "a": "No. There is no subgroup view. In a small team, a result for part of the group can point to one person."
+    }
+  ]
+}

@@ -1,0 +1,251 @@
+{
+  "title": "Purpose of a leadership team: what it is for, and what it is not",
+  "description": "What a leadership team is for, which issues need the whole team, and how to agree on your team's purpose together.",
+  "h1": "What is the purpose of a leadership team?",
+  "lead": "A leadership team exists to do the work that only its members can do together. That means setting direction, making the decisions that cut across units, getting them carried out as one, leading change and developing leaders. Everything else belongs elsewhere: in a one-to-one, a smaller group or a written update.",
+  "takeaways": [
+    "A leadership team earns its time on work that needs several members at once: direction, cross-unit decisions, carrying them out, change and developing leaders.",
+    "A group of direct reports is not a team by default. Much of what senior leaders do does not need a team at all.",
+    "Sharing information, giving advice, coordinating and deciding are all legitimate uses of a leadership team. Trouble starts when nobody knows which one an item is.",
+    "Test every agenda item: does it need the whole team? If not, move it to a one-to-one, a smaller group or a written update.",
+    "Agree on purpose by having each member answer privately first, then compare the answers and settle on a few plain sentences."
+  ],
+  "blocks": [
+    { "t": "h2", "text": "What is a leadership team for?" },
+    {
+      "t": "p",
+      "text": "A leadership team is for the work that needs several of its members at the same time. In their research-based model of effective management teams, Bang and Midelfart (2021) describe what such teams typically do."
+    },
+    {
+      "t": "p",
+      "text": "They set overall goals, strategies and priorities, and they make vital decisions. They discuss issues, solve problems and give advice. And they make sure that units and processes are aligned and work well together. The same authors note that research suggests management teams are largely underused and less effective than they could be."
+    },
+    {
+      "t": "p",
+      "text": "Drawn together, this research points to six jobs for a leadership team. The table shows what each one looks like when the team meets."
+    },
+    {
+      "t": "table",
+      "head": ["Purpose", "What it looks like on the agenda"],
+      "rows": [
+        ["Set direction", "Goals, strategy and priorities for the whole organisation, including what you will stop doing."],
+        ["Make better decisions", "Choices that affect several units, brought with options and a clear question for the team."],
+        ["Get decisions carried out", "Follow-up of earlier decisions: who does what by when, and what members tell their own units."],
+        ["Work as one across units", "Trade-offs between units, shared resources and hand-overs where one unit's work depends on another's."],
+        ["Lead change", "Major change efforts: progress, obstacles and what the team must do to keep them moving."],
+        ["Develop leaders", "Members asking each other for advice, succession, and how the team itself is working."]
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Notice what is missing. A round in which each member reports on their own unit fits none of the six. Nor does an item that concerns only one or two people around the table."
+    },
+    { "t": "h2", "text": "Is a leadership team a real team or just the leader's direct reports?" },
+    {
+      "t": "p",
+      "text": "Often it is the second. Katzenbach (1997) argued that even in strong companies the group at the top seldom works as a real team. In his definition, a real team is a small group with complementary skills. Its members commit to a common purpose, shared goals and a way of working, and hold each other accountable."
+    },
+    {
+      "t": "p",
+      "text": "Katzenbach also warned chief executives against treating their direct reports as a team simply because they report to the same person. Most of what senior leaders do together, he wrote, is not a real team opportunity. A working group with one leader is often faster for that work. Good leadership means telling the two kinds of work apart."
+    },
+    {
+      "t": "p",
+      "text": "The research behind the book Senior Leadership Teams covered more than 120 top teams around the world (Wageman et al., 2008). The authors name three essentials: a real team with clear membership, a compelling direction and the right people. Membership was often fuzzy. When members were asked to describe their team, fewer than 10% agreed on who was on it (Coutu, 2009)."
+    },
+    {
+      "t": "p",
+      "text": "Hackman, one of the authors, added a warning about size. A very large senior team, say one with all the chief executive's direct reports, may be worse than no team (Coutu, 2009). For what the research says about numbers, see [leadership team size](/articles/how-big-should-a-leadership-team-be)."
+    },
+    { "t": "h2", "text": "What kinds of leadership team are there?" },
+    {
+      "t": "p",
+      "text": "Ruth Wageman, drawing on her research on leadership teams, describes four kinds (Wageman, 2020). They run from the least to the most interdependent."
+    },
+    {
+      "t": "cards",
+      "items": [
+        { "title": "Information-sharing team", "text": "Leaders keep each other informed so that each can lead their own part better. They decide nothing together, and such a team can be large." },
+        { "title": "Consultative team", "text": "Members advise each other, or advise the chief executive. The person who owns the decision still makes it." },
+        { "title": "Coordinating team", "text": "Members share responsibility for carrying out a major initiative, so that the parts fit, are well timed and are done well." },
+        { "title": "Decision-making team", "text": "Members reach decisions together, for example on the organisation's strategic priorities." }
+      ]
+    },
+    {
+      "t": "p",
+      "text": "In Wageman's account, all four are legitimate uses of a leadership team. Trouble starts when nobody is clear which kind the team is being at a given moment. It also starts when it is unclear that a smaller group decides on behalf of the larger one."
+    },
+    {
+      "t": "p",
+      "text": "She adds two observations worth testing in your own meetings. She found that most information-sharing teams mainly serve the chief executive, who gathers news that matters little to anyone else in the room. Consultation, by contrast, is underused. Members who advise each other become invested in each other's success."
+    },
+    {
+      "t": "p",
+      "text": "Bang (2018) offers a similar list for Norwegian management teams. In his view, a management team is especially well suited to six roles:"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "A governing body that takes overall responsibility for the organisation.",
+        "An information body that keeps members well informed about what matters.",
+        "A decision-making body that tests, anchors and makes well-founded decisions, and helps carry them out.",
+        "A coordinating body for processes and tasks that cut across units.",
+        "A body for change and development that finds what to improve and makes sure it happens.",
+        "A source of advice and support, where members give and receive advice and back each other."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "His question to a team is which of these it should become more of. Wageman (2020) makes a related point: problems arise when one group tries to do all four kinds of work at once."
+    },
+    { "t": "h2", "text": "Which issues need the whole leadership team?" },
+    {
+      "t": "p",
+      "text": "An issue needs the whole team when members depend on each other to resolve it. Katzenbach (1997) put this in terms of collective work: something the members must produce together. Bang (2018) gives a similar test for the agenda. An item should be important, fit the team's purpose and need the whole team to be solved."
+    },
+    { "t": "p", "text": "Four questions help you sort an item before it reaches the agenda:" },
+    {
+      "t": "ul",
+      "items": [
+        "**Does it cross units?** If the decision changes what two or more units do, it probably belongs to the team.",
+        "**Does it need knowledge spread around the table?** If one member already has all the facts, a one-to-one may do.",
+        "**Will members have to carry it out together?** Items that need the same message in every unit belong in the room.",
+        "**Is it worth the team's time?** A routine matter can go to a smaller group or a written update."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Time at the top is scarce, and strategy tends to lose out. Mankins (2004) reported that the senior executives of a typical company spent only about three hours a month in meetings on strategy."
+    },
+    {
+      "t": "p",
+      "text": "Clarity about each item matters too. A study followed eight top management groups through 56 agenda items (Bang et al., 2010). Clear goals for an item went with more focused discussion and better team effectiveness. For how to build that into your meetings, see [leadership team meeting agenda](/articles/leadership-team-meeting-agenda)."
+    },
+    {
+      "t": "box",
+      "title": "A rule of thumb",
+      "text": "If an item concerns only you and one colleague, take it outside the meeting. If it only informs, send it in writing. Keep the room for work that needs everyone."
+    },
+    { "t": "h2", "text": "Why does the team need to agree on its purpose?" },
+    {
+      "t": "p",
+      "text": "Because members often do not. An interview with the team researcher Richard Hackman summed up his findings bluntly. More often than not, members disagree about what their team is for (Coutu, 2009). Getting that agreement, in his view, is the leader's job."
+    },
+    {
+      "t": "p",
+      "text": "A clear purpose also tells each member which role to play. Bang (2018) describes members as wearing two hats. One is responsibility for their own unit's results. The other is shared responsibility for the whole and for how the units work together. In the leadership team, he argues, the second hat comes first."
+    },
+    {
+      "t": "p",
+      "text": "Bang and Midelfart (2021) treat a clear team purpose and appropriate team tasks as separate factors in their model. A team can agree on why it exists and still fill its meetings with the wrong items. Both need attention."
+    },
+    { "t": "h2", "text": "How do you agree on a leadership team's purpose?" },
+    {
+      "t": "p",
+      "text": "Do it in one working session, with time to prepare. Bang (2018) suggests setting aside one to two hours of a meeting for two questions. What is the team for, and what should it produce? And which issues deserve more time, and which can leave the meeting?"
+    },
+    {
+      "t": "ol",
+      "items": [
+        "**Answer alone first.** Each member writes short answers before the meeting: what the team is for, which issues belong to it and which do not.",
+        "**Compare the answers.** Put them side by side, without names if that helps people speak plainly. Look for where you differ, not only where you agree.",
+        "**Discuss the gaps.** Spend most of the time on the differences. They show where members expect different things from the team.",
+        "**Agree on a few sentences.** Write the purpose in two or three plain sentences, and list the kinds of issues that belong to the team.",
+        "**Test it for a quarter.** Hold the next agendas against it, and adjust what does not work."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Why alone first? In brainstorming experiments, groups talking together produced fewer ideas than the same number of people working alone. The main cause was that members had to wait their turn to speak (Diehl and Stroebe, 1987). Private answers also put every member's view on the table before the discussion starts."
+    },
+    {
+      "t": "p",
+      "text": "Then write the result down where the team will see it again. A [leadership team charter](/articles/leadership-team-charter) holds the purpose together with the team's tasks, membership and working agreements."
+    },
+    {
+      "t": "box",
+      "title": "A question for your team",
+      "text": "What should this team produce that none of us could produce alone? Ask each member to write an answer before the meeting, then read the answers out together."
+    },
+    { "t": "h2", "text": "What can you do this month?" },
+    {
+      "t": "ul",
+      "items": [
+        "Ask each member, privately, to list who is on the leadership team. Compare the lists before you discuss anything else.",
+        "Sort the last three months of agenda items into the six purposes in the table above. Note what fits none of them.",
+        "For each item on your next agenda, say which kind of team you need: informing, advising, coordinating or deciding.",
+        "Move one standing information item into a written update, and give the time saved to strategy.",
+        "Hold a session of one to two hours on what the team is for, with answers written alone first."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Purpose is the first condition, not the only one. For the others, see [leadership team effectiveness](/articles/what-makes-a-leadership-team-effective)."
+    }
+  ],
+  "sources": [
+    {
+      "authors": "Bang, H., & Midelfart, T. N.",
+      "year": 2021,
+      "title": "Effective management teams and organizational behavior: A research-based model for team development",
+      "venue": "Routledge",
+      "url": "https://doi.org/10.4324/9781003053552"
+    },
+    {
+      "authors": "Bang, H.",
+      "year": 2018,
+      "title": "7 tips til hvordan dere kan utvikle dere til en mer effektiv og velfungerende ledergruppe [Presentation, 12 June 2018]",
+      "venue": "Partnerforum seminar for the Ministry of Health and Care Services, University of Oslo",
+      "url": "https://www.uio.no/om/samarbeid/samfunn-og-naringsliv/partnerforum/arrangementer/partnerseminar/2018/hvordan-kan-vi-utvikle-oss-som-ledergruppe.pdf"
+    },
+    {
+      "authors": "Bang, H., Fuglesang, S. L., Ovesen, M. R., & Eilertsen, D. E.",
+      "year": 2010,
+      "title": "Effectiveness in top management group meetings: The role of goal clarity, focused communication, and learning behavior",
+      "venue": "Scandinavian Journal of Psychology, 51(3), 253–261",
+      "url": "https://doi.org/10.1111/j.1467-9450.2009.00769.x"
+    },
+    {
+      "authors": "Coutu, D.",
+      "year": 2009,
+      "title": "Why teams don't work (an interview with J. Richard Hackman)",
+      "venue": "Harvard Business Review, 87(5), 98–105",
+      "url": "https://hbr.org/2009/05/why-teams-dont-work"
+    },
+    {
+      "authors": "Diehl, M., & Stroebe, W.",
+      "year": 1987,
+      "title": "Productivity loss in brainstorming groups: Toward the solution of a riddle",
+      "venue": "Journal of Personality and Social Psychology, 53(3), 497–509",
+      "url": "https://doi.org/10.1037/0022-3514.53.3.497"
+    },
+    {
+      "authors": "Katzenbach, J. R.",
+      "year": 1997,
+      "title": "The myth of the top management team",
+      "venue": "Harvard Business Review, 75(6), 82–91",
+      "url": "https://hbr.org/1997/11/the-myth-of-the-top-management-team"
+    },
+    {
+      "authors": "Mankins, M. C.",
+      "year": 2004,
+      "title": "Stop wasting valuable time",
+      "venue": "Harvard Business Review, 82(9), 58–65",
+      "url": "https://hbr.org/2004/09/stop-wasting-valuable-time"
+    },
+    {
+      "authors": "Wageman, R.",
+      "year": 2020,
+      "title": "Four kinds of leadership teams [Video lecture, recorded 2013]",
+      "venue": "The Business & Management Collection, Henry Stewart Talks",
+      "url": "https://doi.org/10.69645/HBBJ4880"
+    },
+    {
+      "authors": "Wageman, R., Nunes, D. A., Burruss, J. A., & Hackman, J. R.",
+      "year": 2008,
+      "title": "Senior leadership teams: What it takes to make them great",
+      "venue": "Harvard Business School Press",
+      "url": "https://books.google.com/books/about/Senior_Leadership_Teams.html?id=WZDLwAEACAAJ"
+    }
+  ]
+}

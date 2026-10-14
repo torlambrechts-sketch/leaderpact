@@ -14,7 +14,7 @@
 --   11  no candidate item is in any version
 --   12  cut-off version 1 holds the values of handoff 7
 --   13  the version in force is 1 (app.cutoff_version())
---   14  the settings of handoff 8, with defaults, units and ranges, the trial's 14 days (owner D2a) and an invitation's 14 days (D-35)
+--   14  the settings of handoff 8, with defaults, units and ranges, the trial's 14 days (owner D2a) and an invitation's 14 days (D-40)
 --   15  the threshold row is 4, set by the organisation, within app.k_floor() to app.k_max()
 --   16  plans Free and Team, 1 group of up to 15 members each (handoff 1)
 --   17  their features
