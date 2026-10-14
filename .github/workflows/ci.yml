@@ -136,9 +136,17 @@ jobs:
           echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=$ANON_KEY" >> "$GITHUB_ENV"
           echo "MAILPIT_URL=${MAILPIT_URL:-${INBUCKET_URL:-http://127.0.0.1:54324}}" >> "$GITHUB_ENV"
           NEXT_PUBLIC_SUPABASE_URL="$API_URL" NEXT_PUBLIC_SUPABASE_ANON_KEY="$ANON_KEY" npx next build
-          if grep -rlE 'service_role|sb_secret_' .next/static 2>/dev/null; then
+          # A key, not the word: supabase-js, in the browser since the live meeting (milestone 14), tests
+          # whether a key starts with "sb_secret_", so the bare prefix is no finding. The prefix followed by
+          # key characters is, and so is the value of either local secret key. File names only, never a key.
+          if grep -rlE 'service_role|sb_secret_[A-Za-z0-9]' .next/static 2>/dev/null; then
             echo "a service-role reference in the browser bundle"; exit 1
           fi
+          for secret in "${SERVICE_ROLE_KEY:-}" "${SECRET_KEY:-}"; do
+            if [ -n "$secret" ] && grep -rlF -- "$secret" .next/static 2>/dev/null; then
+              echo "a secret key in the browser bundle"; exit 1
+            fi
+          done
 
       # The one source of fixture rows: Lumio AS, and each Playwright project's own group (local only)
       - name: Seed the fixture

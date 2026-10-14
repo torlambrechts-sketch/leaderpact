@@ -1111,3 +1111,7 @@ meeting in one browser, and `tests/e2e/live-sync.spec.ts` four browsers over Rea
 - **Numbered D-50**, after the platform's pages (#19) and the public site's frame (#22) took D-47 and D-48;
   0019's header still names it D-48, as the owner's script carried it.
 - **The live and sync groups take ids 801 and 802**: the screenshots' groups (#19) hold 701 and 702.
+- **CI's bundle check looks for a key, not the word.** supabase-js, now in the browser, tests whether a key
+  starts with "sb_secret_", which the old pattern took for a key. The check now fails on the prefix followed by
+  key characters, on "service_role", and on the exact value of either local secret key, printing file names
+  only. Every key the old pattern caught, the new one catches.
