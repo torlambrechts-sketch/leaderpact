@@ -1,16 +1,25 @@
 import type { Metadata } from 'next'
+import { redirect } from 'next/navigation'
+import type { Route } from 'next'
 import { getTranslations } from 'next-intl/server'
-import { CheckCircle2, Circle, Target } from 'lucide-react'
-import { PageTitle } from '@/components/app/AppPage'
-import { Avatar } from '@/components/lp/Avatar'
-import { Card } from '@/components/lp/Card'
-import { IconTile } from '@/components/lp/IconTile'
-import { SectionHeader } from '@/components/lp/SectionHeader'
-import { SamplePage } from '@/components/sample/SamplePage'
-import { sampleAvatarId, sampleDay } from '@/components/sample/format'
+import { AppPage, PageProblem, PageTitle } from '@/components/app/AppPage'
+import { ClientMessages } from '@/components/lp/ClientMessages'
+import { levelText } from '@/components/lp/level'
+import { PlanArea, type CandidateView, type FocusAreaView } from '@/components/plan/PlanArea'
+import { resultLabels } from '@/components/results/labels'
+import { SamplePlan } from '@/components/sample/SamplePlan'
 import { PRODUCT_NAME } from '@/lib/brand'
-import { cn } from '@/lib/cn'
-import { SAMPLE, SAMPLE_RESULTS, samplePerson } from '@/lib/sample/load'
+import { currentUser } from '@/lib/auth/session'
+import { loadGroupPlan } from '@/lib/billing/load'
+import { loadShell } from '@/lib/groups/load'
+import { dateFormat } from '@/lib/i18n/dates'
+import { candidates } from '@/lib/plan/build'
+import { loadPlan } from '@/lib/plan/load'
+import type { FocusArea } from '@/lib/plan/schema'
+import type { ScaleResult } from '@/lib/results/build'
+import { loadScaleResults } from '@/lib/results/load'
+import { loadRounds } from '@/lib/rounds/load'
+import { SIGN_IN_PATH, assessPath, scalePath } from '@/lib/routes'
 
 export const dynamic = 'force-dynamic'
 
@@ -20,67 +29,99 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * Plan on the Free plan (handoff 6.13 and 6.19, design `develop`): the sample's focus areas and their
- * actions, each with an owner and a due date. Section 11's corrections: focus areas and actions only, so no
- * initiatives, milestones, timeline, business measure, linked practices or practices tab, and no target on
- * a survey score. Focus areas and actions are built in milestone 12.
+ * Plan (handoff 6.13, design `develop`): on the Free plan the sample (handoff 6.19); with the Team plan or its
+ * trial, the group's own focus areas and actions (0017). Each focus area says the round it was chosen from,
+ * with the scale's level and agreement label there; the scales to consider come from the newest released
+ * round. A read-only group shows its plan and changes nothing.
  */
 export default async function PlanPage({ params }: { params: Promise<{ group: string }> }) {
   const { group } = await params
-  const t = await getTranslations('sample')
-  const scales = Object.values(SAMPLE_RESULTS).flat()
-  const scaleName = (key: string) => scales.find((s) => s.key === key)?.name ?? key
-  const { focus } = SAMPLE.plan
+  const user = await currentUser()
+  if (!user) redirect(SIGN_IN_PATH as Route)
+  const access = await loadGroupPlan(group)
+  if (access === null || access === 'none' || access.access === 'free') return <SamplePlan group={group} />
+
+  const [t, tInvite, { rows: labels }] = await Promise.all([getTranslations('plan'), getTranslations('invite'), resultLabels()])
+  const [shell, plan, rounds] = await Promise.all([loadShell(group, user.id), loadPlan(group), loadRounds(group)])
+  if (shell === null || plan === null || rounds === null) return <PageProblem title={tInvite('readFailed')} />
+  if (shell === 'none' || plan === 'none' || rounds === 'none') return <PageProblem title={tInvite('notFoundTitle')} body={tInvite('notFoundBody')} />
+
+  const released = rounds.rounds.filter((r) => r.kind === 'diagnostic' && r.phase === 'released')
+  const newest = released[0] ?? null
+  // each round a focus area was chosen from, and the newest, read once
+  const roundIds = [...new Set([...plan.focus_areas.map((f) => f.round), ...(newest ? [newest.id] : [])])].filter((id) => released.some((r) => r.id === id))
+  const results = new Map<string, ScaleResult[]>()
+  for (const [id, rows] of await Promise.all(roundIds.map(async (id) => [id, await loadScaleResults(id)] as const))) {
+    if (rows === null) return <PageProblem title={tInvite('readFailed')} />
+    results.set(id, rows)
+  }
+
+  const day = (iso: string) => dateFormat({ locale: 'en', timeZone: 'UTC' }, { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(iso))
+  const view = (f: FocusArea): FocusAreaView => {
+    const round = released.find((r) => r.id === f.round)
+    const s = results.get(f.round)?.find((r) => r.key === f.scale)
+    return {
+      id: f.id,
+      scale: f.scale,
+      name: f.name,
+      from: !round
+        ? t('fromUnknown')
+        : s
+          ? t('fromResult', { number: round.number, level: levelText(s.level), agreement: labels.agreement[s.agreement] })
+          : t('from', { number: round.number }),
+      href: round && s ? scalePath(group, f.scale, round.id) : null,
+      closed: f.closed_at ? day(f.closed_at) : null,
+      actions: f.actions.map((a) => ({
+        id: a.id,
+        title: a.title,
+        owner: a.owner,
+        ownerName: a.owner_name,
+        ownerCurrent: a.owner_current,
+        dueOn: a.due_on,
+        due: day(`${a.due_on}T00:00:00Z`),
+        done: a.status === 'done',
+        canEdit: a.can_edit,
+      })),
+    }
+  }
+  const active = plan.focus_areas.filter((f) => f.status === 'active')
+  const offered = newest
+    ? {
+        round: newest.id,
+        number: newest.number,
+        scales: candidates(results.get(newest.id) ?? [], new Set(active.map((f) => f.scale))).map(
+          (s): CandidateView => ({
+            key: s.key,
+            name: s.name,
+            level: levelText(s.level),
+            levelWords: labels.levelWords(levelText(s.level)),
+            agreement: labels.agreement[s.agreement],
+            standing: s.standing,
+            standingLabel: labels.standing[s.standing],
+            evidence: s.evidence === 'strong' ? 'strong' : s.evidence === 'moderate' ? 'moderate' : 'other',
+            evidenceLabel: labels.evidence(s.evidence),
+            href: scalePath(group, s.key, newest.id),
+          }),
+        ),
+      }
+    : null
+
   return (
-    <SamplePage group={group}>
-      <PageTitle eyebrow={t('eyebrow', { group: SAMPLE.group })} title={t('plan.title')} />
-      <div className="grid items-start gap-5 min-[960px]:grid-cols-[minmax(0,1fr)_320px]">
-        <div className="flex flex-col gap-4">
-          {/* on the page's cream, the meta takes --text-2: --muted fails there (4.04:1) */}
-          <SectionHeader title={t('plan.focusTitle')} meta={<span className="text-text-2">{t('plan.focusMeta', { count: focus.length })}</span>} className="mb-0" />
-          {focus.map((area) => {
-            const open = area.actions.filter((a) => !a.done).length
-            return (
-              <Card large key={area.scale} className="flex flex-col gap-3">
-                <div className="flex items-start gap-3">
-                  <IconTile icon={Target} />
-                  <div className="flex min-w-0 flex-col gap-0.5">
-                    <h2 className="m-0 text-[17px] font-bold">{scaleName(area.scale)}</h2>
-                    <p className="m-0 text-[13px] text-muted max-md:text-[15px]">
-                      {t('plan.focusFrom', { round: t('results.roundName', { number: SAMPLE.results.round }), scale: scaleName(area.scale) })}
-                    </p>
-                  </div>
-                </div>
-                <SectionHeader as="h3" title={t('plan.actions')} meta={t('plan.actionsMeta', { open, done: area.actions.length - open })} className="mb-0 mt-1" />
-                <ul className="m-0 list-none p-0">
-                  {area.actions.map((action) => {
-                    const owner = samplePerson(action.owner)
-                    const Icon = action.done ? CheckCircle2 : Circle
-                    return (
-                      <li key={action.title} className="flex flex-wrap items-center gap-3 border-t border-divider py-3">
-                        <Icon aria-hidden size={18} className={cn('shrink-0', action.done ? 'text-ink' : 'text-muted')} />
-                        <span className="sr-only">{action.done ? t('plan.done') : t('plan.open')}</span>
-                        <span className={cn('min-w-0 flex-1 text-[14px] max-md:text-[15px]', action.done && 'text-text-2 line-through')}>{action.title}</span>
-                        <span className="flex items-center gap-2">
-                          <Avatar personId={sampleAvatarId(owner.key)} name={owner.name} size={26} className="text-[10.5px]" />
-                          <span className="sr-only">{t('plan.ownerWords', { name: owner.name })}</span>
-                          <span className="w-[104px] text-[12.5px] text-muted max-md:text-[14px]">{t('plan.due', { date: sampleDay(action.due) })}</span>
-                        </span>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </Card>
-            )
-          })}
-        </div>
-        <Card large className="flex flex-col gap-2.5">
-          <h2 className="m-0 text-[16px] font-bold">{t('plan.rulesTitle')}</h2>
-          <p className="m-0 text-[13.5px] leading-[1.5] text-text-2 max-md:text-[15px]">{t('plan.focusRule')}</p>
-          <p className="m-0 text-[13.5px] leading-[1.5] text-text-2 max-md:text-[15px]">{t('plan.nextAgenda')}</p>
-          <p className="m-0 text-[13.5px] leading-[1.5] text-text-2 max-md:text-[15px]">{t('plan.noTarget')}</p>
-        </Card>
-      </div>
-    </SamplePage>
+    <ClientMessages namespaces={['plan']}>
+      <AppPage>
+        <PageTitle eyebrow={shell.current.name} title={t('title')} />
+        <PlanArea
+          group={group}
+          max={plan.max}
+          canEdit={plan.can_edit}
+          canChoose={plan.can_choose}
+          members={plan.members}
+          active={active.map(view)}
+          closed={plan.focus_areas.filter((f) => f.status === 'closed').map(view)}
+          candidates={offered}
+          assessHref={assessPath(group)}
+        />
+      </AppPage>
+    </ClientMessages>
   )
 }

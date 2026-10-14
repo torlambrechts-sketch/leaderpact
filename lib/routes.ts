@@ -52,3 +52,6 @@ export const roundPath = (group: string, round: string) => `/app/${group}/assess
 export const resultsPath = (group: string, round?: string) => `/app/${group}/results${round ? `?round=${round}` : ''}`
 export const scalePath = (group: string, scale: string, round: string) => `/app/${group}/results/${scale}?round=${round}`
 export const scaleItemsPath = (group: string, scale: string, round: string) => `/app/${group}/results/${scale}/items?round=${round}`
+
+/** The group's focus areas and actions (handoff 6.13) */
+export const planPath = (group: string) => `/app/${group}/plan`
