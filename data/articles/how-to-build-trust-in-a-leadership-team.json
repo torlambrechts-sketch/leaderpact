@@ -24,12 +24,26 @@
       "text": "Mayer et al. (1995) argued that this willingness rests on three judgements about the other person:"
     },
     {
-      "t": "ul",
+      "t": "pillars",
+      "roof": {
+        "title": "Trust",
+        "text": "A willingness to be vulnerable to a colleague's actions, when you cannot monitor or control them."
+      },
       "items": [
-        "**Ability:** are they competent in the area where you rely on them? Trust is specific to a domain, so you may trust a colleague's analysis but not their handling of a key client.",
-        "**Benevolence:** do they want to do right by you, beyond their own interest?",
-        "**Integrity:** do they keep to principles you accept? People judge this partly by whether past actions are consistent and whether actions match words."
-      ]
+        {
+          "title": "Ability",
+          "text": "Are they competent in the area where you rely on them? Trust is specific to a domain, so you may trust a colleague's analysis but not their handling of a key client."
+        },
+        {
+          "title": "Benevolence",
+          "text": "Do they want to do right by you, beyond their own interest?"
+        },
+        {
+          "title": "Integrity",
+          "text": "Do they keep to principles you accept? People judge this partly by whether past actions are consistent and whether actions match words."
+        }
+      ],
+      "source": 1
     },
     {
       "t": "p",
@@ -38,6 +52,26 @@
     {
       "t": "p",
       "text": "In his data, managers felt more affect-based trust in peers who showed care beyond their role, and in peers they met often. Cognition-based trust was strongly related to affect-based trust, and he argued that some reliability has to come first (McAllister, 1995)."
+    },
+    {
+      "t": "compare",
+      "items": [
+        {
+          "title": "Cognition-based trust",
+          "points": [
+            "Rests on beliefs about a colleague's reliability and dependability",
+            "Some of it has to come first, in McAllister's argument"
+          ]
+        },
+        {
+          "title": "Affect-based trust",
+          "points": [
+            "Rests on care and concern that runs both ways",
+            "Was greater with peers who showed care beyond their role, and with peers met often"
+          ]
+        }
+      ],
+      "source": 2
     },
     {
       "t": "table",
@@ -83,6 +117,26 @@
     {
       "t": "p",
       "text": "Their reading was that people in low-trust teams tend to take a challenge to their idea as an attack on themselves. With trust, a team can get the benefits of debate with less of the cost. For more, see [task conflict and relationship conflict](/articles/task-conflict-and-relationship-conflict)."
+    },
+    {
+      "t": "stats",
+      "items": [
+        {
+          "value": "7,763",
+          "label": "teams in 112 studies, where trust went with team performance",
+          "source": 3
+        },
+        {
+          "value": "72",
+          "label": "studies linking information sharing with performance, cohesion and satisfaction with decisions",
+          "source": 6
+        },
+        {
+          "value": "70",
+          "label": "top management teams, where trust weakened the link from task to relationship conflict",
+          "source": 4
+        }
+      ]
     },
     {
       "t": "p",
@@ -182,12 +236,24 @@
       "text": "But the facts mattered. Apologising worked better when later evidence showed guilt, and denying worked better when later evidence showed innocence (Kim et al., 2004). For a leadership team, the lesson is to tell the truth, not to pick a tactic."
     },
     {
-      "t": "ol",
+      "t": "steps",
       "items": [
-        "**Name it soon,** in the meeting or with the person, before it travels into side conversations.",
-        "**Say what happened and what it cost,** without explaining it away.",
-        "**Match the repair to the breach.** For a failure of competence, apologise and show what you will do differently. When your integrity is in question, set out the facts plainly.",
-        "**Then show it.** Repaired trust rests on the same evidence as new trust: consistent action over the following weeks."
+        {
+          "title": "Name it soon",
+          "text": "Raise it in the meeting or with the person, before it travels into side conversations."
+        },
+        {
+          "title": "Say what happened and what it cost",
+          "text": "Say it plainly, without explaining it away."
+        },
+        {
+          "title": "Match the repair to the breach",
+          "text": "For a failure of competence, apologise and show what you will do differently. When your integrity is in question, set out the facts plainly."
+        },
+        {
+          "title": "Then show it",
+          "text": "Repaired trust rests on the same evidence as new trust: consistent action over the following weeks."
+        }
       ]
     },
     {

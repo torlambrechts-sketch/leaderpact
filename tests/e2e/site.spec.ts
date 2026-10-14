@@ -19,10 +19,35 @@ test('the articles: the index by section, and an article with its answer, source
   await expect(page.getByRole('heading', { level: 2, name: 'In short' })).toBeVisible()
   await expect(page.getByRole('heading', { level: 2, name: 'Sources' })).toBeVisible()
   await expect(page.getByRole('heading', { level: 2, name: 'Read next' })).toBeVisible()
-  await expect(page.getByText(/^Updated 13 October 2026 · \d+ min read$/)).toBeVisible()
+  await expect(page.getByText(/^Updated 14 October 2026 · \d+ min read$/)).toBeVisible()
   const ld = await page.locator('script[type="application/ld+json"]').first().textContent()
   expect(ld).toContain('"@type":"Article"')
   expect(ld).toContain('"citation"')
+  await axe(page)
+  expect(problems).toEqual([])
+})
+
+test('the figures (D-41): drawn, cited to the source list, accessible at every width', async ({ page }) => {
+  const problems = watch(page)
+  await page.goto('/articles/psychological-safety-in-leadership-teams')
+  // the 2 by 2: each cell says where it sits, for a reader who cannot see the grid
+  await expect(page.getByRole('listitem').filter({ hasText: 'Learning zone' })).toContainText('High, High')
+  // a figure's source is a link to that source in the numbered list
+  const cite = page.getByRole('link', { name: 'Edmondson (2018)' })
+  await expect(cite).toHaveAttribute('href', /^#source-\d+$/)
+  const target = (await cite.getAttribute('href'))!.slice(1)
+  await expect(page.locator(`#${target}`)).toContainText('The fearless organization')
+  await expect(page.getByText('22,000+')).toBeVisible()
+  await axe(page)
+
+  await page.goto('/articles/leadership-team-meeting-agenda')
+  // an example is marked as one, and the time bar's minutes are read from the list, not the drawing
+  await expect(page.getByText('110 minutes in all')).toBeVisible()
+  await expect(page.getByText('An example to show the idea, not data from a real team.').first()).toBeVisible()
+  await axe(page)
+
+  await page.goto('/articles/how-big-should-a-leadership-team-be')
+  await expect(page.getByText('A team of n members has n × (n − 1) ÷ 2 pairs.')).toBeVisible()
   await axe(page)
   expect(problems).toEqual([])
 })

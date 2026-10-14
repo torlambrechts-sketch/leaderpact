@@ -129,6 +129,40 @@
       "text": "Take a team of six that averages 3.0 on “Each item in our meetings has a clear goal”. Everyone may have answered 3. Or three may have answered 1, and three answered 5. The second team needs a different conversation."
     },
     {
+      "t": "spread",
+      "scale": {
+        "low": "1 Strongly disagree",
+        "high": "5 Strongly agree"
+      },
+      "rows": [
+        {
+          "label": "Team A: everyone answered 3",
+          "values": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        },
+        {
+          "label": "Team B: three answered 1 and three answered 5",
+          "values": [
+            1,
+            1,
+            1,
+            5,
+            5,
+            5
+          ]
+        }
+      ],
+      "basis": {
+        "example": true
+      }
+    },
+    {
       "t": "p",
       "text": "In practice, read three things. Is the level high or low? Do members agree? Where they do not, what might explain the split? In a team of four to eight, treat agreement as a prompt for discussion, not a verdict."
     },
@@ -136,6 +170,24 @@
     {
       "t": "p",
       "text": "Anonymity matters because people say more when an answer cannot be traced to them. One study looked at students known to have cheated (Ong and Weiss, 2000). Under anonymity, 74 per cent admitted it, against 25 per cent under confidentiality. The setting was not a workplace, but it shows how much traceability can matter."
+    },
+    {
+      "t": "bars",
+      "title": "Students known to have cheated who admitted it",
+      "items": [
+        {
+          "label": "Anonymous",
+          "value": 74
+        },
+        {
+          "label": "Confidential",
+          "value": 25
+        }
+      ],
+      "percent": true,
+      "basis": {
+        "source": 14
+      }
     },
     {
       "t": "p",
@@ -176,6 +228,28 @@
     {
       "t": "p",
       "text": "Space the pulses so that the team has time to act between them. Measuring again before anything has changed adds little."
+    },
+    {
+      "t": "cycle",
+      "center": "One change at a time",
+      "items": [
+        {
+          "title": "Measure",
+          "text": "A baseline first, then short pulses with the same questions."
+        },
+        {
+          "title": "Discuss",
+          "text": "Start with the statements where members disagree most."
+        },
+        {
+          "title": "Change",
+          "text": "Agree one or two changes after each round."
+        },
+        {
+          "title": "Give it time",
+          "text": "Space the pulses so the team can act between them."
+        }
+      ]
     },
     { "t": "h2", "text": "What mistakes should you avoid when assessing a leadership team?" },
     {

@@ -21,6 +21,28 @@
       "text": "It helps to read a leadership team in four layers. Conditions are how the team is set up. Processes are how it works, mostly in meetings. States are what builds up between members over time. Outcomes are what the team produces and what it leaves behind."
     },
     {
+      "t": "flow",
+      "items": [
+        {
+          "title": "Conditions",
+          "text": "How the team is set up: membership, purpose, tasks, size and support."
+        },
+        {
+          "title": "Processes",
+          "text": "How it works, mostly in meetings: goals, focus, dialogue and decisions."
+        },
+        {
+          "title": "States",
+          "text": "What builds up between members over time: safety, trust and cohesion."
+        },
+        {
+          "title": "Outcomes",
+          "text": "What the team produces, and what it leaves behind."
+        }
+      ],
+      "source": 2
+    },
+    {
       "t": "table",
       "head": ["Layer", "What it covers", "Research to start with"],
       "rows": [
@@ -34,6 +56,28 @@
     {
       "t": "p",
       "text": "Hackman proposed three tests for any team (Haas and Mortensen, 2016). First, does its output satisfy the people who receive it? Second, does the way it works keep it able to work well together? Third, do its members learn and develop through being part of it?"
+    },
+    {
+      "t": "pillars",
+      "roof": {
+        "title": "Team effectiveness",
+        "text": "Hackman proposed three tests for any team."
+      },
+      "items": [
+        {
+          "title": "Output",
+          "text": "Its work satisfies the people who receive it."
+        },
+        {
+          "title": "Ability to work together",
+          "text": "The way it works keeps it able to work well together."
+        },
+        {
+          "title": "Growth",
+          "text": "Its members learn and develop through being part of it."
+        }
+      ],
+      "source": 6
     },
     {
       "t": "p",
@@ -99,6 +143,21 @@
       "text": "A broader study videotaped 92 regular team meetings (Kauffeld and Lehmann-Willenbrock, 2012). Teams with more problem-solving talk and action planning were more satisfied with their meetings, and better meetings went with higher team productivity. Criticising and complaining showed negative links that were stronger than the positive ones. For a practical format, see [leadership team meeting agenda](/articles/leadership-team-meeting-agenda)."
     },
     {
+      "t": "stats",
+      "items": [
+        {
+          "value": "56",
+          "label": "agenda items in eight top management groups, where clear goals went with effectiveness",
+          "source": 9
+        },
+        {
+          "value": "92",
+          "label": "videotaped team meetings, where better meetings went with higher productivity",
+          "source": 10
+        }
+      ]
+    },
+    {
       "t": "p",
       "text": "Meetings also need room for people to speak. Bang interviewed 21 executives from seven top teams about why they stayed silent when a meeting lost its way (Bang, 2012). Their silence rested mainly on a belief that speaking up would be seen as negative and bring unwelcome consequences."
     },
@@ -139,15 +198,36 @@
       "text": "Work through the layers in order. The steps below turn the research into practice; adapt them to your team."
     },
     {
-      "t": "ol",
+      "t": "steps",
       "items": [
-        "**Decide where you need a team.** List the decisions and work that need everyone, and send the rest to individuals or smaller groups.",
-        "**Settle who is on it.** Name the members, and check that every member would give the same list.",
-        "**Agree the purpose together.** A [leadership team charter](/articles/leadership-team-charter) is one way to record purpose, members and ways of working.",
-        "**Give every meeting item a stated goal.** Say whether it is for information, discussion or decision, and keep the discussion on that goal.",
-        "**Make disagreement about the work normal.** Ask for the strongest case against a proposal before you decide.",
-        "**Review how you work.** Spend ten minutes at the end of a meeting on what helped and what got in the way.",
-        "**Measure, then talk.** A short anonymous survey of every member gives a starting point; see [how to assess a leadership team](/articles/how-to-assess-a-leadership-team)."
+        {
+          "title": "Decide where you need a team",
+          "text": "List the decisions and work that need everyone, and send the rest to individuals or smaller groups."
+        },
+        {
+          "title": "Settle who is on it",
+          "text": "Name the members, and check that every member would give the same list."
+        },
+        {
+          "title": "Agree the purpose together",
+          "text": "A [leadership team charter](/articles/leadership-team-charter) is one way to record purpose, members and ways of working."
+        },
+        {
+          "title": "Give every meeting item a stated goal",
+          "text": "Say whether it is for information, discussion or decision, and keep the discussion on that goal."
+        },
+        {
+          "title": "Make disagreement about the work normal",
+          "text": "Ask for the strongest case against a proposal before you decide."
+        },
+        {
+          "title": "Review how you work",
+          "text": "Spend ten minutes at the end of a meeting on what helped and what got in the way."
+        },
+        {
+          "title": "Measure, then talk",
+          "text": "A short anonymous survey of every member gives a starting point; see [how to assess a leadership team](/articles/how-to-assess-a-leadership-team)."
+        }
       ]
     },
     { "t": "h2", "text": "What can you do this month?" },

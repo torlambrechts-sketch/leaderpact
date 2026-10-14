@@ -35,6 +35,39 @@
       "text": "Richard Hackman pointed to the links between members. As a team grows, the number of relationships to manage rises far faster than the headcount (Coutu, 2009). The arithmetic is simple: a team of 8 has 28 pairs of members, and a team of 15 has 105."
     },
     {
+      "t": "bars",
+      "title": "Pairs of members, by team size",
+      "items": [
+        {
+          "label": "4 members",
+          "value": 6
+        },
+        {
+          "label": "6 members",
+          "value": 15
+        },
+        {
+          "label": "8 members",
+          "value": 28
+        },
+        {
+          "label": "10 members",
+          "value": 45
+        },
+        {
+          "label": "12 members",
+          "value": 66
+        },
+        {
+          "label": "15 members",
+          "value": 105
+        }
+      ],
+      "basis": {
+        "arithmetic": "A team of n members has n × (n − 1) ÷ 2 pairs."
+      }
+    },
+    {
       "t": "p",
       "text": "Size shows in meetings too. In two survey studies of workplace meetings, larger meetings went with lower involvement from the people attending (Leach et al., 2009). Involvement, in turn, was a key link between how a meeting was designed and how effective people judged it."
     },
@@ -96,7 +129,7 @@
       "text": "One practical answer to the size problem is two circles. It is an arrangement, not a research finding, but it follows from the costs described above."
     },
     {
-      "t": "cards",
+      "t": "rings",
       "items": [
         {
           "title": "The core team",
@@ -170,13 +203,28 @@
       "text": "Hackman's view was that forming a team calls for hard decisions about membership. Not everyone who wants a seat should have one (Coutu, 2009). Hard decisions go better with clear criteria and a fair process."
     },
     {
-      "t": "ol",
+      "t": "steps",
       "items": [
-        "**Name the team's shared tasks.** Write down the few things that only this team can do together.",
-        "**Set membership criteria from those tasks.** A member is someone whose work those tasks need, not someone with a given title.",
-        "**Design the extended group.** Decide what information it receives, how often it meets and how it gives input.",
-        "**Talk to each person who leaves the core.** Explain the criteria, what they will still receive and how they can raise an issue.",
-        "**Review membership once a year.** When the tasks change, the right members may change too."
+        {
+          "title": "Name the team's shared tasks",
+          "text": "Write down the few things that only this team can do together."
+        },
+        {
+          "title": "Set membership criteria from those tasks",
+          "text": "A member is someone whose work those tasks need, not someone with a given title."
+        },
+        {
+          "title": "Design the extended group",
+          "text": "Decide what information it receives, how often it meets and how it gives input."
+        },
+        {
+          "title": "Talk to each person who leaves the core",
+          "text": "Explain the criteria, what they will still receive and how they can raise an issue."
+        },
+        {
+          "title": "Review membership once a year",
+          "text": "When the tasks change, the right members may change too."
+        }
       ]
     },
     {

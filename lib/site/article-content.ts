@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { blockText, Blocks, Copy, linksIn, plain, Source, wordCount, type Block } from './blocks'
+import { blockProblems, blockText, Blocks, Copy, isFigure, linksIn, plain, Source, wordCount, type Block } from './blocks'
 import { ARTICLES, ARTICLES_PATH } from './articles'
 
 /**
@@ -14,6 +14,8 @@ import { ARTICLES, ARTICLES_PATH } from './articles'
  *    nothing "proven" or "validated".
  * 5. **Fit for search:** a title of at most 65 characters, a description of at most 155, a heading per
  *    question, and enough text to answer it.
+ * 6. **The argument drawn** (D-41): at least two figures, and every figure that rests on a source cites one in
+ *    the article's own list.
  */
 export const ArticleContent = z.object({
   /** the <title>, at most 65 characters, opening with the words of the search it answers */
@@ -37,7 +39,7 @@ export const articleWords = (a: ArticleContent) =>
 /** The product and the offer, which an article never names (rule 2) */
 const SELLING = /leaderpact|leadership team scan|leader profile|sign up|sign-up|free trial|subscribe|our (?:platform|product|tool)|\$\s?\d|£\s?\d|€\s?\d/i
 
-export const LIMITS = { title: 65, description: 155, minWords: 1100, maxWords: 2600, minH2: 4 } as const
+export const LIMITS = { title: 65, description: 155, minWords: 1100, maxWords: 2600, minH2: 4, minFigures: 2 } as const
 
 /** Every rule an article's words break, as readable lines; empty means it keeps them all */
 export function articleProblems(slug: string, data: unknown): string[] {
@@ -55,6 +57,11 @@ export function articleProblems(slug: string, data: unknown): string[] {
   const h2 = a.blocks.filter((b: Block) => b.t === 'h2').length
   if (h2 < LIMITS.minH2) out.push(`${h2} h2 headings; at least ${LIMITS.minH2}`)
   if (a.blocks[0]?.t === 'h3') out.push('the first block is an h3; an h3 follows an h2')
+  const figures = a.blocks.filter(isFigure).length
+  if (figures < LIMITS.minFigures) out.push(`${figures} figures; draw at least ${LIMITS.minFigures}`)
+  a.blocks.forEach((b, i) => {
+    for (const p of blockProblems(b, a.sources.length)) out.push(`blocks.${i}: ${p}`)
+  })
 
   const text = [a.title, a.description, a.h1, a.lead, ...a.takeaways, ...blockText(a.blocks)]
   for (const t of text) if (SELLING.test(plain(t))) out.push(`sells or names the product: "${plain(t).match(SELLING)?.[0]}"`)

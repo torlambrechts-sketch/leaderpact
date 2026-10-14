@@ -63,13 +63,30 @@
       "text": "Ruth Wageman, drawing on her research on leadership teams, describes four kinds (Wageman, 2020). They run from the least to the most interdependent."
     },
     {
-      "t": "cards",
+      "t": "flow",
+      "axis": {
+        "from": "Least interdependent",
+        "to": "Most interdependent"
+      },
       "items": [
-        { "title": "Information-sharing team", "text": "Leaders keep each other informed so that each can lead their own part better. They decide nothing together, and such a team can be large." },
-        { "title": "Consultative team", "text": "Members advise each other, or advise the chief executive. The person who owns the decision still makes it." },
-        { "title": "Coordinating team", "text": "Members share responsibility for carrying out a major initiative, so that the parts fit, are well timed and are done well." },
-        { "title": "Decision-making team", "text": "Members reach decisions together, for example on the organisation's strategic priorities." }
-      ]
+        {
+          "title": "Information-sharing team",
+          "text": "Leaders keep each other informed so that each can lead their own part better. They decide nothing together, and such a team can be large."
+        },
+        {
+          "title": "Consultative team",
+          "text": "Members advise each other, or advise the chief executive. The person who owns the decision still makes it."
+        },
+        {
+          "title": "Coordinating team",
+          "text": "Members share responsibility for carrying out a major initiative, so that the parts fit, are well timed and are done well."
+        },
+        {
+          "title": "Decision-making team",
+          "text": "Members reach decisions together, for example on the organisation's strategic priorities."
+        }
+      ],
+      "source": 8
     },
     {
       "t": "p",
@@ -145,13 +162,28 @@
       "text": "Do it in one working session, with time to prepare. Bang (2018) suggests setting aside one to two hours of a meeting for two questions. What is the team for, and what should it produce? And which issues deserve more time, and which can leave the meeting?"
     },
     {
-      "t": "ol",
+      "t": "steps",
       "items": [
-        "**Answer alone first.** Each member writes short answers before the meeting: what the team is for, which issues belong to it and which do not.",
-        "**Compare the answers.** Put them side by side, without names if that helps people speak plainly. Look for where you differ, not only where you agree.",
-        "**Discuss the gaps.** Spend most of the time on the differences. They show where members expect different things from the team.",
-        "**Agree on a few sentences.** Write the purpose in two or three plain sentences, and list the kinds of issues that belong to the team.",
-        "**Test it for a quarter.** Hold the next agendas against it, and adjust what does not work."
+        {
+          "title": "Answer alone first",
+          "text": "Each member writes short answers before the meeting: what the team is for, which issues belong to it and which do not."
+        },
+        {
+          "title": "Compare the answers",
+          "text": "Put them side by side, without names if that helps people speak plainly. Look for where you differ, not only where you agree."
+        },
+        {
+          "title": "Discuss the gaps",
+          "text": "Spend most of the time on the differences. They show where members expect different things from the team."
+        },
+        {
+          "title": "Agree on a few sentences",
+          "text": "Write the purpose in two or three plain sentences, and list the kinds of issues that belong to the team."
+        },
+        {
+          "title": "Test it for a quarter",
+          "text": "Hold the next agendas against it, and adjust what does not work."
+        }
       ]
     },
     {
