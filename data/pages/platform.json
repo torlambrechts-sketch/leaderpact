@@ -37,9 +37,9 @@
       "text": "72 questions across 21 scales and 3 outcomes, answered anonymously. Every scale shows level, agreement and one standing."
     },
     {
-      "status": "development",
+      "status": "available",
       "title": "Choose focus areas",
-      "text": "At most two at a time, each with actions that have an owner."
+      "text": "At most two at a time, each with actions that have an owner and a due date."
     },
     {
       "status": "development",
@@ -104,7 +104,7 @@
       "items": [
         {
           "title": "From results to meetings",
-          "text": "The loop is built to link assessment and meetings, so a focus area becomes actions on the next agenda. Meetings are in development."
+          "text": "The loop links assessment and meetings. A focus area becomes actions with owners now, and the next agenda will carry them. Meetings are in development."
         },
         {
           "title": "The evidence is shown",
@@ -134,7 +134,7 @@
     },
     {
       "t": "p",
-      "text": "The Leadership Team Scan, the team view and the Leader Profile are free, for one group. The charter, members and the Full diagnostic are part of the Team plan, which a group’s leader can try for 14 days. Focus areas, meetings and pulses are in development."
+      "text": "The Leadership Team Scan, the team view and the Leader Profile are free, for one group. The charter, members, the Full diagnostic and focus areas are part of the Team plan. A group’s leader can try it for 14 days. Meetings and pulses are in development."
     },
     {
       "t": "h2",
@@ -148,7 +148,7 @@
   "faq": [
     {
       "q": "Is {product} free?",
-      "a": "The Leadership Team Scan, the team view and the Leader Profile are free, for one group. The charter and the Full diagnostic are part of the Team plan, which a group’s leader can try for 14 days."
+      "a": "The Leadership Team Scan, the team view and the Leader Profile are free, for one group. The charter, the Full diagnostic and focus areas are part of the Team plan, which a group’s leader can try for 14 days."
     },
     {
       "q": "How long does the scan take?",

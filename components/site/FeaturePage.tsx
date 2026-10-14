@@ -104,7 +104,7 @@ export async function FeaturePage({ slug, art, content: c, related }: { slug: Fe
 export async function FeatureCards({ items, className }: { items: { slug: string; art: ArtKind; nav: string; summary: string }[]; className?: string }) {
   const t = await getTranslations('site.features')
   return (
-    <ul className={`m-0 grid list-none gap-4 p-0 sm:grid-cols-2 ${items.length === 5 ? 'lg:grid-cols-3 xl:grid-cols-5' : 'lg:grid-cols-4'} ${className ?? ''}`}>
+    <ul className={`m-0 grid list-none gap-4 p-0 sm:grid-cols-2 ${items.length === 5 ? 'lg:grid-cols-3 xl:grid-cols-5' : items.length % 3 === 0 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'} ${className ?? ''}`}>
       {items.map((f) => (
         <li key={f.slug}>
           <Link

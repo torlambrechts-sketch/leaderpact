@@ -8,6 +8,7 @@ import teamView from '@/data/features/team-view.json'
 import profile from '@/data/features/leader-profile.json'
 import charter from '@/data/features/team-charter.json'
 import diagnostic from '@/data/features/full-diagnostic.json'
+import focus from '@/data/features/focus-areas.json'
 
 /**
  * The platform's feature pages (D-47): one page per feature the product has today, under /platform, each with
@@ -55,6 +56,14 @@ export const FEATURES = [
     icon: 'diagnostic',
     queries: ['leadership team diagnostic', 'team effectiveness diagnostic', 'leadership team effectiveness assessment'],
     related: ['how-to-assess-a-leadership-team', 'what-makes-a-leadership-team-effective'],
+  },
+  {
+    slug: 'focus-areas',
+    file: focus,
+    art: 'focus',
+    icon: 'plan',
+    queries: ['leadership team action plan', 'team development plan', 'action plan after a team survey'],
+    related: ['how-to-assess-a-leadership-team', 'leadership-team-meeting-agenda'],
   },
 ] as const satisfies readonly {
   slug: string

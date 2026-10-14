@@ -26,7 +26,7 @@
   "home": {
     "file": "/shots/home.webp",
     "width": 1600,
-    "height": 1089,
+    "height": 1147,
     "device": "desktop"
   },
   "invite-counter": {
@@ -44,7 +44,7 @@
   "leader-profile": {
     "file": "/shots/leader-profile.webp",
     "width": 1600,
-    "height": 1280,
+    "height": 1451,
     "device": "desktop"
   },
   "leader-profile-question": {
@@ -63,6 +63,24 @@
     "file": "/shots/people.webp",
     "width": 1600,
     "height": 1313,
+    "device": "desktop"
+  },
+  "plan": {
+    "file": "/shots/plan.webp",
+    "width": 1600,
+    "height": 868,
+    "device": "desktop"
+  },
+  "plan-add-action": {
+    "file": "/shots/plan-add-action.webp",
+    "width": 780,
+    "height": 1688,
+    "device": "phone"
+  },
+  "plan-candidates": {
+    "file": "/shots/plan-candidates.webp",
+    "width": 1576,
+    "height": 940,
     "device": "desktop"
   },
   "results": {

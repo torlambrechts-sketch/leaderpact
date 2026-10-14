@@ -1,0 +1,150 @@
+{
+  "title": "Leadership team action plan: focus areas, owners and due dates",
+  "description": "Turn the Full diagnostic into work. At most two focus areas at a time, with actions that each have an owner and a due date. No target on a score.",
+  "crumb": "Focus areas and actions",
+  "kicker": "Available now · part of the Team plan",
+  "h1": "Focus areas and actions",
+  "lead": "Results matter only when something changes. The group picks at most two scales from its results and agrees actions for each. Every action has an owner and a due date, and nobody sets a target on a survey score.",
+  "nav": "Focus areas and actions",
+  "summary": "Two scales at a time, with actions that have an owner and a date.",
+  "blocks": [
+    {
+      "t": "h2",
+      "text": "What it brings"
+    },
+    {
+      "t": "value",
+      "items": [
+        {
+          "who": "you",
+          "title": "Clear about what is yours",
+          "points": [
+            "Your open actions wait for you on Home and on Me.",
+            "Each action has a due date, so nothing drifts without notice.",
+            "You mark your own actions done, on a phone too."
+          ]
+        },
+        {
+          "who": "group",
+          "title": "Two things at a time",
+          "points": [
+            "At most two focus areas, so effort is not spread thin.",
+            "Each one names the round, level and agreement it came from.",
+            "Any member can add an action, and give it to any member."
+          ]
+        },
+        {
+          "who": "organisation",
+          "title": "Results that lead to change",
+          "points": [
+            "A written record of what the leadership group chose to work on.",
+            "Actions with owners and dates, not good intentions.",
+            "No target on a survey score, so answers stay honest."
+          ]
+        }
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "How it works"
+    },
+    {
+      "t": "feature",
+      "title": "Focus areas from the results",
+      "text": "The group chooses which scales to work on, and the leader records the choice. At most two are active at once. Each focus area says which round it came from, with the scale’s level and agreement there.",
+      "points": [
+        "A focus area is one of the 21 scales, never an outcome.",
+        "Closing one opens a place for the next. Its actions stay."
+      ],
+      "shot": "plan",
+      "alt": "The Plan page with one focus area, Preparation, chosen from round 1 at level 2.3. It has four actions with owners and due dates, one done.",
+      "caption": "One focus area active, one place open."
+    },
+    {
+      "t": "feature",
+      "title": "Scales to consider",
+      "text": "While a place is open, the Plan page lists scales from the newest released round. Priorities come first, then the scales where views differ, then those to watch.",
+      "points": [
+        "Up to six scales, each with its level, agreement and standing.",
+        "Each shows how strong the research behind that scale is."
+      ],
+      "shot": "plan-candidates",
+      "alt": "Scales to consider, from round 1. Rewards, Dialogue, Political behaviour and Norms are marked Priority; views differ on Trust and Clear purpose. Each has a button to make it a focus area.",
+      "caption": "The list the leader records the group’s choice from."
+    },
+    {
+      "t": "feature",
+      "title": "Actions with an owner and a date",
+      "text": "Any member adds an action to an active focus area. It needs what will be done, an owner who is in the group, and a due date. Without an owner, it cannot be saved.",
+      "points": [
+        "The owner or the leader marks it done, or changes it.",
+        "Done actions stay on the page, struck through, as a record."
+      ],
+      "shot": "plan-add-action",
+      "alt": "On a phone, a member adds an action to Preparation. The form asks what will be done, the owner and a due date.",
+      "caption": "A member adds an action on a phone."
+    },
+    {
+      "t": "h2",
+      "text": "From results to change"
+    },
+    {
+      "t": "cycle",
+      "center": "Two focus areas at a time",
+      "items": [
+        {
+          "title": "Measure",
+          "text": "The Full diagnostic gives each scale a level, an agreement label and a standing."
+        },
+        {
+          "title": "Choose",
+          "text": "The group picks up to two scales to work on."
+        },
+        {
+          "title": "Act",
+          "text": "Actions with owners and dates turn the choice into work."
+        },
+        {
+          "title": "Measure again",
+          "text": "The next round shows whether the scale has moved."
+        }
+      ]
+    },
+    {
+      "t": "box",
+      "title": "No target on a survey score",
+      "text": "A focus area holds no number to reach. A target would reward answering higher, not working better. The next round shows the change, and the group judges what it means."
+    },
+    {
+      "t": "p",
+      "text": "Reading results together comes before choosing what to work on. The article on [how to assess a leadership team](/articles/how-to-assess-a-leadership-team) covers how to do it."
+    },
+    {
+      "t": "box",
+      "title": "In development",
+      "text": "Agendas that carry the open actions, and the live meeting view, are being built. Until then, the group takes its actions into its own agenda."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Why at most two focus areas?",
+      "a": "Two at a time keeps the group’s effort on what it chose, not spread across many scales. Closing one opens a place for another."
+    },
+    {
+      "q": "Who chooses a focus area?",
+      "a": "The group chooses together, and the team leader records it. Any member can add actions to an active focus area."
+    },
+    {
+      "q": "Can an action have no owner?",
+      "a": "No. Every action has an owner who is a current member of the group, and a due date. An action without an owner cannot be saved."
+    },
+    {
+      "q": "Does a focus area set a target score?",
+      "a": "No. A focus area holds no number of its own. The next round of the Full diagnostic shows how the scale has changed."
+    },
+    {
+      "q": "How does a group get focus areas?",
+      "a": "Focus areas and actions are part of the Team plan, with the Full diagnostic. A group’s leader can start a 14-day trial in the app, with no billing details."
+    }
+  ]
+}

@@ -77,7 +77,7 @@
         "The same order for every member of the round."
       ],
       "shot": "diagnostic-question",
-      "alt": "A statement on a phone: 1 of 72, “I learn from the other members of this team.”, with Agree chosen.",
+      "alt": "A statement on a phone: 1 of 72, “Our units work towards the same goals.”, with Agree chosen.",
       "caption": "The first of 72 statements, on a phone."
     },
     {
@@ -159,7 +159,7 @@
     {
       "t": "box",
       "title": "In development",
-      "text": "Reminder emails to those who have not answered, focus areas with their actions, agendas and pulses are being built. They will follow from the results, not replace them."
+      "text": "Reminder emails to those who have not answered, agendas and pulses are being built. They will follow from the results, not replace them."
     }
   ],
   "faq": [

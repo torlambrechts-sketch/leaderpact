@@ -104,7 +104,7 @@ test('the Platform menu (D-47): opens, lists every feature, closes on Escape and
   await button.click()
   const opened = phone ? page.getByRole('button', { name: 'Close the menu' }) : button
   await expect(opened).toHaveAttribute('aria-expanded', 'true')
-  for (const name of ['Leadership Team Scan', 'Team view', 'Leader Profile', 'Charter and members', 'Full diagnostic', 'How it works', 'Anonymity', 'Research']) {
+  for (const name of ['Leadership Team Scan', 'Team view', 'Leader Profile', 'Charter and members', 'Full diagnostic', 'Focus areas and actions', 'How it works', 'Anonymity', 'Research']) {
     await expect(page.getByRole('banner').getByRole('link', { name: new RegExp(`^${name}`) }).first()).toBeVisible()
   }
   await axe(page)
@@ -126,6 +126,7 @@ for (const [path, heading] of [
   ['/platform/leader-profile', 'The Leader Profile'],
   ['/platform/team-charter', 'The group’s charter'],
   ['/platform/full-diagnostic', 'The Full diagnostic'],
+  ['/platform/focus-areas', 'Focus areas and actions'],
 ] as const) {
   test(`the feature page ${path}: screenshots of the real app, marked, and what it brings`, async ({ page }) => {
     const problems = watch(page)

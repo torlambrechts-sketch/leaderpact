@@ -258,6 +258,20 @@ const SHOT_CHARTER = {
   added: 'We end each meeting by reading back who does what by when.',
 }
 
+/**
+ * The plan the screenshots show: one focus area, Preparation, a priority in round 1, with four actions. Kari's is
+ * done. One place stays open, so the Plan page also shows the scales to consider. Days are from today.
+ */
+const SHOT_PLAN = {
+  scale: 'preparation',
+  actions: [
+    { title: 'State the decision each item needs on the agenda', owner: 0, due: 7, done: true },
+    { title: 'Send the papers three working days before each meeting', owner: 1, due: 12 },
+    { title: 'Keep a 30-minute reading slot the day before each meeting', owner: 2, due: 21 },
+    { title: 'Check after three meetings whether the papers came in time', owner: 4, due: 45 },
+  ],
+}
+
 const q = (s) => `'${String(s).replace(/'/g, "''")}'`
 const answersOf = (values) => `(select jsonb_agg(jsonb_build_object('item', vi.item_id, 'value', (${q(JSON.stringify(values))}::jsonb ->> (vi.ordinal - 1))::int) order by vi.ordinal)
     from app.scan_session ss join app.instrument_version_item vi on vi.instrument_version_id = ss.instrument_version_id where ss.code = c)`
@@ -398,9 +412,9 @@ const as = (person, statement) => `  perform set_config('request.jwt.claims', js
 
 /**
  * The screenshots' states (--shots, D-47), each through its write path: the leadership group's scan released by
- * its eighth answer; its charter drafted and agreed as Kari, twice; a Full diagnostic opened three days ago and
- * answered by five; Kari's Leader Profile, shared with the group at the level of domains; and the sales group's
- * scan, open at 3 of 7.
+ * its eighth answer; its charter drafted and agreed as Kari, twice; round 1 of the Full diagnostic released from
+ * all eight; a focus area from it with four actions; round 2 opened three days ago and answered by five; Kari's
+ * Leader Profile, shared with the group at the level of domains; and the sales group's scan, open at 3 of 7.
  */
 function shotStates() {
   const g = SHOTS
@@ -454,7 +468,7 @@ update app.assessment_round set closes_at = opens_at + interval '14 days' where 
 alter table app.assessment_round enable trigger assessment_round_fixed;
 select app.close_round(${q(g.released)}) where (select phase from app.assessment_round where id = ${q(g.released)}) = 'answering';
 do $$
-declare v_reply jsonb; v_answers jsonb;
+declare v_reply jsonb; v_answers jsonb; v_focus uuid; v_action uuid;
 begin
   if (select phase from app.assessment_round where id = ${q(g.released)}) <> 'released' then raise exception 'fixture: the shots round 1 is not released'; end if;
 
@@ -467,6 +481,18 @@ ${g.answered
   from app.instrument_version_item vi where vi.instrument_version_id = app.diagnostic_version();
 ${as(g.people[i], `app.submit_response(${q(g.round)}, v_answers)`)}`,
   )
+  .join('\n')}
+
+${as(kari, `app.make_focus_area(${q(g.group.id)}, ${q(g.released)}, ${q(SHOT_PLAN.scale)})`)}
+  v_focus := (v_reply ->> 'focus_area')::uuid;
+${SHOT_PLAN.actions
+  .map((a) => {
+    const add = as(kari, `app.add_action(${q(g.group.id)}, v_focus, ${q(a.title)}, ${q(g.people[a.owner].id)}, current_date + ${a.due})`)
+    if (!a.done) return add
+    return `${add}
+  select a.id into v_action from app.action a where a.focus_area_id = v_focus and a.title = ${q(a.title)};
+${as(g.people[a.owner], `app.set_action_done(${q(g.group.id)}, v_action, true)`)}`
+  })
   .join('\n')}
 
   select jsonb_object_agg(i.id::text, 1 + (i.ordinal * 7) % 5) into v_answers

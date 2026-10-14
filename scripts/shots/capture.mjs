@@ -13,7 +13,8 @@
  *
  * A picture keeps the whole screen, the whole page (`full`), its top `clip` CSS pixels, where the rest is a
  * footer or a form the page is not about, or one `region` of it: an app page's content without the top bar,
- * cut at `maxHeight` where the page runs long.
+ * cut at `maxHeight` where the page runs long. A phone picture can instead keep the screen with one element (`view`)
+ * scrolled to its middle, as the phone shows it, its tab bar in place.
  *
  * Writes public/shots/<id>.webp and data/shots.json (each picture's file, size and device), which
  * lib/site/shots.ts reads. Local only: it refuses an API that is not on 127.0.0.1 or localhost.
@@ -37,7 +38,7 @@ if (!SECRET || !API || !localOnly(API) || !localOnly(BASE)) {
 
 const G = SHOTS.group.id
 const SALES = SHOTS.sales.group.id
-const [kari, , ingrid] = SHOTS.people
+const [kari, ola, ingrid] = SHOTS.people
 const henrik = SHOTS.people[7]
 const OPTION = ['', 'Strongly disagree', 'Disagree', 'Neither agree nor disagree', 'Agree', 'Strongly agree']
 /** A personal view with some spread: the scan's twelve answers, two per theme */
@@ -121,6 +122,24 @@ const PICTURES = [
     region: CONTENT,
     maxHeight: 600,
   },
+  // the focus area and its actions; then the scales to consider, which round 1's results offer for the open place
+  { id: 'plan', as: kari, at: DESKTOP, path: `/app/${G}/plan`, region: CONTENT, maxHeight: 640 },
+  { id: 'plan-candidates', as: kari, at: DESKTOP, path: `/app/${G}/plan`, region: 'main section:has(> ul[aria-label="Scales to consider"])', maxHeight: 470 },
+  {
+    // a member adds an action on a phone: what will be done, an owner and a due date
+    id: 'plan-add-action',
+    as: ola,
+    at: PHONE,
+    path: `/app/${G}/plan`,
+    steps: async (page) => {
+      await page.getByRole('button', { name: /^Add an action/ }).first().click()
+      await page.getByLabel('What will be done').fill('Agree a template for decision papers')
+      await page.getByLabel('Owner').selectOption({ label: 'Ola Hansen (you)' })
+      await page.getByLabel('Due date').fill(new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10))
+      await page.evaluate(() => document.activeElement?.blur?.())
+    },
+    view: 'main form',
+  },
   { id: 'leader-profile', as: kari, at: DESKTOP, path: '/app/me', region: CONTENT },
   {
     id: 'leader-profile-question',
@@ -165,7 +184,8 @@ const manifest = (() => {
 })()
 mkdirSync('public/shots', { recursive: true })
 
-const browser = await chromium.launch({ executablePath: process.env.PLAYWRIGHT_CHROMIUM || '/opt/pw-browsers/chromium' })
+// British English for what the browser draws itself, such as a date field
+const browser = await chromium.launch({ executablePath: process.env.PLAYWRIGHT_CHROMIUM || '/opt/pw-browsers/chromium', args: ['--lang=en-GB'], env: { ...process.env, LANG: 'en_GB.UTF-8', LANGUAGE: 'en_GB' } })
 for (const p of PICTURES.filter((p) => !only.length || only.includes(p.id))) {
   const context = await browser.newContext({
     viewport: { width: p.at.width, height: p.at.height },
@@ -173,6 +193,7 @@ for (const p of PICTURES.filter((p) => !only.length || only.includes(p.id))) {
     // the production host, so a link the page builds names the site, not this server (lib/auth/origin.ts)
     extraHTTPHeaders: { 'x-forwarded-host': 'www.leaderpact.com', 'x-forwarded-proto': 'https' },
     reducedMotion: 'reduce',
+    locale: 'en-GB',
   })
   if (p.as) await signInAs(context, p.as)
   const page = await context.newPage()
@@ -180,6 +201,7 @@ for (const p of PICTURES.filter((p) => !only.length || only.includes(p.id))) {
   if (p.steps) await p.steps(page)
   await page.waitForLoadState('networkidle')
   await page.evaluate(() => document.fonts.ready)
+  if (p.view) await page.locator(p.view).first().evaluate((el) => el.scrollIntoView({ block: 'center' }))
   // measured from the top of the page: a page reached by a link may open scrolled
   if (p.region) await page.evaluate(() => window.scrollTo(0, 0))
   const box = p.region ? await page.locator(p.region).first().boundingBox() : null

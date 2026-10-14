@@ -37,11 +37,11 @@ describe('the fixture', () => {
     // nothing of the screenshots' rows without the flag
     expect(render()).not.toContain(SHOTS.group.id)
     expect(render({ e2e: true })).not.toContain(SHOTS.group.id)
-    // every answer, charter and profile through the function a person's own call uses
-    for (const fn of ['app.submit_scan(', 'app.save_charter_draft(', 'app.agree_charter(', 'app.open_round(', 'app.submit_response(', 'app.save_profile(', 'app.set_profile_share(']) {
+    // every answer, charter, plan and profile through the function a person's own call uses
+    for (const fn of ['app.submit_scan(', 'app.save_charter_draft(', 'app.agree_charter(', 'app.open_round(', 'app.submit_response(', 'app.make_focus_area(', 'app.add_action(', 'app.set_action_done(', 'app.save_profile(', 'app.set_profile_share(']) {
       expect(shots).toContain(fn)
     }
-    expect(shots).not.toMatch(/insert into app\.(scan_response|response|charter_version|personality_profile|profile_share|participation)\b/)
+    expect(shots).not.toMatch(/insert into app\.(scan_response|response|charter_version|personality_profile|profile_share|participation|focus_area|action)\b/)
     for (const p of [...SHOTS.people, ...SHOTS.sales.people]) expect(p.email).toMatch(/@shots\.lumio\.example$/)
     expect(SHOTS.people.filter((p) => p.role === 'leader').map((p) => p.name)).toEqual(['Kari Nordmann'])
     expect(SHOTS.sales.people.filter((p) => p.role === 'leader').map((p) => p.name)).toEqual(['Ingrid Berg'])

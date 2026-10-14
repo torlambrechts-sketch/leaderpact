@@ -406,6 +406,41 @@ function Diagnostic() {
   )
 }
 
+/** a focus area's card and its actions: each with a box to tick, an owner and a day, one already done */
+function Focus() {
+  const rows = [
+    { y: 150, done: true, owner: TEAL, w: 92 },
+    { y: 196, done: false, owner: YELLOW, w: 108 },
+    { y: 242, done: false, owner: LAV_MID, w: 80 },
+  ]
+  return (
+    <>
+      <rect x="120" y="34" width="232" height="250" rx="20" fill={LAV} {...line} />
+      <rect x="92" y="62" width="244" height="256" rx="20" fill={PAPER} {...line} />
+      <rect x="114" y="86" width="150" height="30" rx="15" fill={YELLOW} {...line} />
+      <circle cx="132" cy="101" r="5" fill={INK} />
+      <rect x="146" y="97" width="96" height="8" rx="4" fill={INK} />
+      {rows.map((r, i) => (
+        <g key={i}>
+          <rect x="114" y={r.y - 12} width="24" height="24" rx="7" fill={r.done ? TEAL : PAPER} {...line} />
+          {r.done ? <path d={`M119 ${r.y} l4 4 l8 -9`} fill="none" {...line} /> : null}
+          <Text x={150} y={r.y - 9} w={r.w} fill={r.done ? BAR : INK} />
+          <Text x={150} y={r.y + 4} w={r.w - 30} />
+          <circle cx="286" cy={r.y} r="13" fill={r.owner} {...line} />
+          <circle cx="286" cy={r.y - 3} r="4" fill={INK} />
+          <path d={`M279 ${r.y + 8} C280 ${r.y + 2} ${292} ${r.y + 2} ${293} ${r.y + 8}`} fill={INK} />
+        </g>
+      ))}
+      <g transform="rotate(8 360 250)">
+        <rect x="318" y="208" width="84" height="86" rx="14" fill={PAPER} {...line} />
+        <path d="M318 236 V222 a14 14 0 0 1 14 -14 h56 a14 14 0 0 1 14 14 V236 Z" fill={ORANGE} {...line} />
+        <path d="M338 200 v14 M382 200 v14" {...line} />
+        {[0, 1, 2].flatMap((c) => [0, 1].map((r) => <circle key={`${c}-${r}`} cx={340 + c * 20} cy={254 + r * 20} r="4" fill={c === 1 && r === 0 ? INK : BAR} />))}
+      </g>
+    </>
+  )
+}
+
 /** the loop: scan, team view, charter, diagnostic, back round, around the group */
 function Loop() {
   const steps = [
@@ -455,6 +490,7 @@ const DRAWINGS: Record<ArtKind, () => React.ReactNode> = {
   teamview: TeamView,
   profile: Profile,
   diagnostic: Diagnostic,
+  focus: Focus,
   loop: Loop,
 }
 

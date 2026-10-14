@@ -3,7 +3,7 @@ import * as React from 'react'
 import Link from 'next/link'
 import type { Route } from 'next'
 import { usePathname } from 'next/navigation'
-import { BarChart3, BookOpen, ChevronDown, ClipboardCheck, ListChecks, Menu, Route as RouteIcon, ScrollText, ShieldCheck, UserRound, X } from 'lucide-react'
+import { BarChart3, BookOpen, ChevronDown, ClipboardCheck, Kanban, ListChecks, Menu, Route as RouteIcon, ScrollText, ShieldCheck, UserRound, X } from 'lucide-react'
 import { cn } from '@/lib/cn'
 
 /**
@@ -18,6 +18,7 @@ const ICONS = {
   profile: UserRound,
   charter: ScrollText,
   diagnostic: ListChecks,
+  plan: Kanban,
   overview: RouteIcon,
   anonymity: ShieldCheck,
   research: BookOpen,

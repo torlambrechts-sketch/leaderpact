@@ -32,6 +32,7 @@ export const ART_KINDS = [
   'teamview',
   'profile',
   'diagnostic',
+  'focus',
   'loop',
 ] as const
 export type ArtKind = (typeof ART_KINDS)[number]
