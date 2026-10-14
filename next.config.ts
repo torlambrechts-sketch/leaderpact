@@ -2,6 +2,7 @@ import type { NextConfig } from 'next'
 import createNextIntlPlugin from 'next-intl/plugin'
 import { foreignProject } from './lib/supabase/project'
 import { COLLECT_ORIGIN } from './lib/site/collect'
+import { SITE_HOST } from './lib/site/config'
 
 const withNextIntl = createNextIntlPlugin('./lib/i18n/request.ts')
 
@@ -64,7 +65,11 @@ const nextConfig: NextConfig = {
   // the free templates' files, read from private/ by their route only (D-37), travel with that route's function
   outputFileTracingIncludes: { '/templates/file/[file]': ['./private/templates/**'] },
   async headers() {
-    return [{ source: '/:path*', headers: securityHeaders }]
+    return [
+      { source: '/:path*', headers: securityHeaders },
+      // only the production address is indexed (D-40): a preview, leaderpact.vercel.app or a local server is not
+      { source: '/:path*', missing: [{ type: 'host', value: SITE_HOST }], headers: [{ key: 'X-Robots-Tag', value: 'noindex' }] },
+    ]
   },
   devIndicators: false,
 }

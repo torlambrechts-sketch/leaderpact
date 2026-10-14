@@ -2,8 +2,8 @@
  * The public site's address and who publishes it (D-34). Imports nothing.
  *
  * Every canonical address, sitemap entry and JSON-LD id names the production address; `leaderpact.com`
- * redirects to `www` at Vercel. The pages still say noindex until the owner switches indexing on (D-34);
- * with it comes an `X-Robots-Tag: noindex` from every other host (leaderpact.vercel.app, a preview).
+ * redirects to `www` at Vercel. Only this host is indexed (D-40): every other host (leaderpact.vercel.app, a
+ * preview, a local server) answers with `X-Robots-Tag: noindex` (next.config.ts).
  */
 export const SITE_HOST = 'www.leaderpact.com'
 export const SITE_URL = `https://${SITE_HOST}`
