@@ -168,8 +168,9 @@ The site cannot do these itself. In rough order of value per hour:
    the article it comes from.
 4. **Vendor profiles** that answer engines read for "best tool" questions (G2, Capterra), with the same name,
    description and address everywhere, once the product is ready to be listed.
-5. **Bing Webmaster Tools and Google Search Console** for `leaderpact.com`, the day indexing is switched on.
-   Give Sentral's service account read access to the Search Console property, so its nightly import runs.
+5. **Google Search Console** is registered (14 October 2026). Give Sentral's service account,
+   `orgpuls-search-console@orgpuls-seo.iam.gserviceaccount.com`, read access to the property so its nightly
+   import runs. Bing Webmaster Tools can import the Google property in one step.
 6. **Reviews** from customers, once there are customers. Never written by us.
 
 ## 8. Measurement
@@ -205,7 +206,6 @@ for real data, must keep the threshold across groups, and is the owner's decisio
 2. **The privacy page** must describe template requests (what is kept, where, for how long, the legal basis and
    the e-mail consent) before the form collects addresses at scale. Orgpuls's privacy statement has such a
    section to adapt. The legal text is the owner's (`TODO(owner)` in the page).
-3. **The site's own visit counting** in Sentral (the `web-collect` beacon Orgpuls uses) is not switched on: it
-   needs the privacy text above, and a decision that public pages may be counted. It would never run on the scan,
-   the invite link or the app.
+3. **The site's own visit counting** in Sentral is on since 14 October 2026 (D-39), on the owner's word. It never
+   runs on the scan, the invite link, the Leader Profile's tests or the app. The privacy page should say so.
 4. **The entity** (section 7, item 1).

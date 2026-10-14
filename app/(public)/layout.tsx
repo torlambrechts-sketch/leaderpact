@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 import { PRODUCT_NAME } from '@/lib/brand'
 import { PublicFooter, PublicHeader } from '@/components/lp/PublicHeader'
+import { SiteBeacon } from '@/components/site/SiteBeacon'
 
 /**
  * The public site: the landing page, the scan, the personal view, the Leader Profile and the legal pages
@@ -25,6 +26,7 @@ export default async function PublicLayout({ children }: { children: React.React
           articles: t('articles'),
         }}
       />
+      <SiteBeacon />
       <main id="main">{children}</main>
       <PublicFooter
         labels={{

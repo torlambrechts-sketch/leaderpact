@@ -1,6 +1,7 @@
 import type { NextConfig } from 'next'
 import createNextIntlPlugin from 'next-intl/plugin'
 import { foreignProject } from './lib/supabase/project'
+import { COLLECT_ORIGIN } from './lib/site/collect'
 
 const withNextIntl = createNextIntlPlugin('./lib/i18n/request.ts')
 
@@ -36,7 +37,8 @@ function csp() {
     "style-src 'self' 'unsafe-inline'",
     "font-src 'self'",
     "img-src 'self' data:",
-    `connect-src 'self' ${supabase} ${realtime}`.replace(/\s+/g, ' ').trim(),
+    // Sentral's web-collect, where the public site's visits are counted (D-39)
+    `connect-src 'self' ${supabase} ${realtime} ${COLLECT_ORIGIN}`.replace(/\s+/g, ' ').trim(),
     "form-action 'self'",
     "frame-ancestors 'none'",
     "base-uri 'self'",

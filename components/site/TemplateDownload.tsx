@@ -5,6 +5,7 @@ import { Download } from 'lucide-react'
 import { TextField } from '@/components/lp/TextField'
 import { Button } from '@/components/ui/button'
 import { requestTemplate } from '@/app/(public)/templates/actions'
+import { sendBeacon } from '@/lib/site/beacon'
 import { templateFilePath } from '@/lib/site/templates'
 import { Rich } from './Rich'
 
@@ -75,7 +76,11 @@ export function TemplateDownload({ slug, files, ready: readyAtFirst }: { slug: s
         if (!name.trim() || !/.+@.+\..+/.test(mail)) return setProblem('invalid')
         startSending(async () => {
           const r = await requestTemplate({ slug, name, mail, org, role, consent, trap }).catch(() => null)
-          if (r?.ok) setReady(true)
+          if (r?.ok) {
+            setReady(true)
+            // a code only: which template, and who asked, never leave in a count (D-39)
+            sendBeacon({ k: 'cta', l: 'template' })
+          }
           else setProblem(r?.problem ?? 'failed')
         })
       }}

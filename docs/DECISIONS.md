@@ -672,3 +672,25 @@ name it and offer the scan; every claim is one the product enforces today or is 
   close, the cap and the deleted replace key on the open scan link.
 - **The company behind the product** is not named in the Organization data until the owner gives its legal
   name and registration (`PUBLISHER`, `TODO(owner)`).
+
+## D-39 — The public site's visits are counted in Sentral (owner, 14 October 2026)
+
+The owner registered the site with Google and asked for its visits to go to Sentral. They are counted the way
+Orgpuls's are (its D-248): a cookieless beacon (`lib/site/beacon.ts`, `components/site/SiteBeacon.tsx`) posts to
+Sentral's `web-collect`, which knows leaderpact.com as a registered site (its 0090), drops bots, hashes the
+address and the browser string with a key that changes every day, and stores neither.
+
+- **What is sent:** a page view (the path, the five utm_ campaign tags of the address, and the referring host once
+  per page load), a press on a link to the scan (`start-scan`), and a template asked for (`template`). Never a
+  query string, a name, an address or an answer (invariant 10).
+- **Never counted:** the scan and its result, the invite link (/j), the Leader Profile's tests, sign-in and its
+  confirmation, the app, a template's file. Nothing about an answer leaves for Sentral (invariant 12), not even
+  that someone was answering. Also never from a browser that sends Global Privacy Control or Do Not Track, or
+  from a host other than leaderpact.com and www.leaderpact.com. The unit tests hold every path.
+- **Nothing is stored on the device**, so there is nothing to ask consent for under the cookie rules; the
+  `connect-src` of the CSP names Sentral's origin for it.
+- **TODO(owner): the privacy page** should say that visits are counted this way, alongside the template
+  requests (D-37).
+- **Search Console:** Sentral imports a site's figures once its service account can read the property. Add
+  `orgpuls-search-console@orgpuls-seo.iam.gserviceaccount.com` as a user (restricted is enough) on the
+  leaderpact.com property; the nightly import then finds it.
