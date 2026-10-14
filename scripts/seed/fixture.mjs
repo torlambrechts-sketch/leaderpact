@@ -32,8 +32,9 @@
  *    as each person: rounds 1 and 2 released at 4 of 5 (half of round 2's questions answered as in round 1,
  *    so the results show change and no change), round 3 closed with no result at 2 of 5 (its extension, then
  *    its second deadline), and round 4 answering at 3 of 5.
- * 8. **The plan flow's group** (`--e2e`, milestone 12), on its trial with five people of its own: one round of
- *    the Full diagnostic released at 4 of 5, and no focus area or action, which the flow makes.
+ * 8. **The plan flow's group** (`--e2e`, milestones 12 and 13), on its trial with five people of its own: one
+ *    round of the Full diagnostic released at 4 of 5, a charter in force with two team tasks, and no focus
+ *    area, action or meeting, which the flow makes.
  * 9. **The product screenshots' groups** (`--shots`, D-47): the Lumio leadership group as the public site
  *    pictures it, with the design's names, in its own organisation and accounts so no flow shares a row. Kari
  *    Nordmann leads it on its trial: its scan released from eight answers, its charter at version 2, a Full
@@ -42,10 +43,10 @@
  *    Beside it, the sales leadership group, led by Ingrid Berg, with its scan open at 3 of 7. Every answer
  *    goes through its write path, as each person where the path needs one. `scripts/shots/capture.mjs` takes
  *    the pictures from these rows.
- * 9. **Deterministic, and local only.** Fixed ids, link codes and a known password, so a reset gives the
+ * 10. **Deterministic, and local only.** Fixed ids, link codes and a known password, so a reset gives the
  *    same rows and a test can name them. That is why the script refuses any database that is not on
  *    127.0.0.1 or localhost (REUSE 4.12: Orgpuls's fixture did not, and its tokens are derivable).
- * 10. **Idempotent.** It removes its own rows first, by their fixed ids, in one transaction.
+ * 11. **Idempotent.** It removes its own rows first, by their fixed ids, in one transaction.
  *
  * Kari's id is chosen so her avatar takes the first pair, as the design draws her (D-12).
  */
@@ -187,6 +188,8 @@ export const PLAN_FLOW = {
   group: { id: id('0b000000', 601), name: 'Flow plan group' },
   scan: { id: id('0c000000', 601), code: 'flowPlanScanCode000000001', size: 5 },
   rounds: { released: id('0d000000', 601) },
+  // the charter's team tasks, which the agenda's items name (milestone 13)
+  tasks: ['Set strategy and yearly priorities', 'Coordinate priorities across the units'],
   leader: PLAN_PEOPLE[0],
   member: PLAN_PEOPLE[1],
   people: PLAN_PEOPLE,
@@ -524,10 +527,26 @@ function roundStates() {
   ])
 }
 
-/** The plan flow's group: one round, 4 of 5 answered, released; no focus area and no action, which the flow adds */
+/**
+ * The plan flow's group: one round, 4 of 5 answered, released; no focus area and no action, which the flow adds.
+ * A charter in force with two team tasks, drafted and agreed by the leader through the write paths, so the
+ * agenda's task match is on (milestone 13); no meeting, which the flow plans.
+ */
 function planFlow() {
   const g = PLAN_FLOW
-  return roundsOf(g, [{ round: g.rounds.released, opened: 60, answer: [1, 2, 3, 4], value: same, deadlines: 1, phase: 'released' }])
+  const tasks = JSON.stringify(PLAN_FLOW.tasks.map((title, i) => ({ title, right: i === 0 ? 'decide' : 'advise' })))
+  return `${roundsOf(g, [{ round: g.rounds.released, opened: 60, answer: [1, 2, 3, 4], value: same, deadlines: 1, phase: 'released' }])}
+do $$
+declare v_reply jsonb;
+begin
+  perform set_config('request.jwt.claims', json_build_object('sub', ${q(g.leader.id)}, 'role', 'authenticated')::text, true);
+  v_reply := app.save_charter_draft(${q(g.group.id)}, 'We set the direction and decide what only this group can decide.', ${q(tasks)}::jsonb,
+                                    '["Every agenda item states its desired outcome."]'::jsonb);
+  if not (v_reply ->> 'ok')::boolean then raise exception 'fixture: the plan group''s charter draft was refused (%)', v_reply ->> 'reason'; end if;
+  v_reply := app.agree_charter(${q(g.group.id)});
+  if not (v_reply ->> 'ok')::boolean then raise exception 'fixture: the plan group''s charter was not agreed (%)', v_reply ->> 'reason'; end if;
+  perform set_config('request.jwt.claims', '', true);
+end $$;`
 }
 
 /** Rounds of a group's Full diagnostic, each opened, answered as each person and closed through the write paths */
