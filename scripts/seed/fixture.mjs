@@ -32,10 +32,12 @@
  *    as each person: rounds 1 and 2 released at 4 of 5 (half of round 2's questions answered as in round 1,
  *    so the results show change and no change), round 3 closed with no result at 2 of 5 (its extension, then
  *    its second deadline), and round 4 answering at 3 of 5.
- * 8. **Deterministic, and local only.** Fixed ids, link codes and a known password, so a reset gives the
+ * 8. **The plan flow's group** (`--e2e`, milestone 12), on its trial with five people of its own: one round of
+ *    the Full diagnostic released at 4 of 5, and no focus area or action, which the flow makes.
+ * 9. **Deterministic, and local only.** Fixed ids, link codes and a known password, so a reset gives the
  *    same rows and a test can name them. That is why the script refuses any database that is not on
  *    127.0.0.1 or localhost (REUSE 4.12: Orgpuls's fixture did not, and its tokens are derivable).
- * 9. **Idempotent.** It removes its own rows first, by their fixed ids, in one transaction.
+ * 10. **Idempotent.** It removes its own rows first, by their fixed ids, in one transaction.
  *
  * Kari's id is chosen so her avatar takes the first pair, as the design draws her (D-12).
  */
@@ -162,6 +164,26 @@ export const ROUND_STATES = {
   people: ROUND_PEOPLE,
 }
 
+/** The plan flow's people (milestone 12): a leader and four members, who answered one released round */
+const PLAN_PEOPLE = [
+  { id: id('4c0e0000', 913), name: 'Plan leader', email: 'plan.leader@lumio.example', role: 'leader' },
+  { id: id('4c0e0000', 914), name: 'Plan member', email: 'plan.member@lumio.example', role: 'member' },
+  { id: id('4c0e0000', 915), name: 'Plan member two', email: 'plan.member2@lumio.example', role: 'member' },
+  { id: id('4c0e0000', 916), name: 'Plan member three', email: 'plan.member3@lumio.example', role: 'member' },
+  { id: id('4c0e0000', 917), name: 'Plan member four', email: 'plan.member4@lumio.example', role: 'member' },
+]
+
+/** The group where the flow chooses focus areas and adds actions (tests/e2e/plan.spec.ts): one released round, no focus area yet */
+export const PLAN_FLOW = {
+  org: { id: id('0a000000', 601), name: 'Flow plan group' },
+  group: { id: id('0b000000', 601), name: 'Flow plan group' },
+  scan: { id: id('0c000000', 601), code: 'flowPlanScanCode000000001', size: 5 },
+  rounds: { released: id('0d000000', 601) },
+  leader: PLAN_PEOPLE[0],
+  member: PLAN_PEOPLE[1],
+  people: PLAN_PEOPLE,
+}
+
 const q = (s) => `'${String(s).replace(/'/g, "''")}'`
 const answersOf = (values) => `(select jsonb_agg(jsonb_build_object('item', vi.item_id, 'value', (${q(JSON.stringify(values))}::jsonb ->> (vi.ordinal - 1))::int) order by vi.ordinal)
     from app.scan_session ss join app.instrument_version_item vi on vi.instrument_version_id = ss.instrument_version_id where ss.code = c)`
@@ -174,11 +196,11 @@ export function render({ e2e = false } = {}) {
   const billing = { ...BILLING, demo: false, people: [{ ...BILLING.leader, role: 'leader' }, { ...BILLING.member, role: 'member' }] }
   const charter = { ...GROUP_FLOW, demo: false, trial: true, people: [{ ...GROUP_FLOW.leader, role: 'leader' }, { ...GROUP_FLOW.member, role: 'member' }] }
   // members since before the oldest round the fixture opens
-  const rounds = [ROUND_FLOW, ROUND_STATES].map((g) => ({ ...g, demo: false, trial: true, since: "now() - interval '120 days'" }))
+  const rounds = [ROUND_FLOW, ROUND_STATES, PLAN_FLOW].map((g) => ({ ...g, demo: false, trial: true, since: "now() - interval '120 days'" }))
   const groups = [{ ...LUMIO, demo: true }, ...(e2e ? [...E2E_GROUPS.map((g) => ({ ...g, people: [], demo: false })), ...states, billing, charter, ...rounds] : [])]
   const accounts = [
     ...LUMIO.people,
-    ...(e2e ? [FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, NO_GROUP] : []),
+    ...(e2e ? [FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, NO_GROUP] : []),
   ]
   const orgIds = groups.map((g) => q(g.org.id)).join(', ')
   const peopleIds = accounts.map((p) => q(p.id)).join(', ')
@@ -188,7 +210,7 @@ export function render({ e2e = false } = {}) {
   // and the groups the flow leader made in an earlier run, which a reset would otherwise leave behind
   lines.push(`delete from app.organisation where id in (select m.org_id from app.membership m where m.person_id = ${q(FLOW_LEADER.id)});`)
   lines.push(
-    `delete from auth.users where id in (${[...LUMIO.people, FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, NO_GROUP].map((p) => q(p.id)).join(', ')});`,
+    `delete from auth.users where id in (${[...LUMIO.people, FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, NO_GROUP].map((p) => q(p.id)).join(', ')});`,
   )
   // a local database completes checkouts with the development adapter (0013): it succeeds or fails on demand
   lines.push(`update app.payment_adapter set adapter = 'development';`)
@@ -279,6 +301,7 @@ select app.close_scan(${q(scan.id)});`)
 end $$;`)
     }
     lines.push(roundStates())
+    lines.push(planFlow())
   }
   return lines.join('\n') + '\n'
 }
@@ -290,17 +313,28 @@ end $$;`)
  * questions answered as in round 1. Round 3: 2 of 5, extended at its first date, closed with no result at its
  * second. Round 4: 3 of 5, answering.
  */
+const same = (i) => `1 + (vi.ordinal + ${i}) % 5`
+
 function roundStates() {
   const g = ROUND_STATES
   // the first 36 questions answered alike in rounds 1 and 2, the other 36 all 5 in round 2: half the scales
   // show no change, half a change well past the margin
-  const same = (i) => `1 + (vi.ordinal + ${i}) % 5`
-  const plan = [
+  return roundsOf(g, [
     { round: g.rounds.released, opened: 90, answer: [1, 2, 3, 4], value: same, deadlines: 1, phase: 'released' },
     { round: g.rounds.again, opened: 60, answer: [1, 2, 3, 4], value: (i) => `case when vi.ordinal <= 36 then ${same(i)} else 5 end`, deadlines: 1, phase: 'released' },
     { round: g.rounds.closed, opened: 40, answer: [1, 2], value: same, deadlines: 2, phase: 'closed' },
     { round: g.rounds.answering, opened: 2, answer: [2, 3, 4], value: same, deadlines: 0, phase: 'answering' },
-  ]
+  ])
+}
+
+/** The plan flow's group: one round, 4 of 5 answered, released; no focus area and no action, which the flow adds */
+function planFlow() {
+  const g = PLAN_FLOW
+  return roundsOf(g, [{ round: g.rounds.released, opened: 60, answer: [1, 2, 3, 4], value: same, deadlines: 1, phase: 'released' }])
+}
+
+/** Rounds of a group's Full diagnostic, each opened, answered as each person and closed through the write paths */
+function roundsOf(g, plan) {
   return plan
     .map(
       (r) => `do $$

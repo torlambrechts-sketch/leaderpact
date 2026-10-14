@@ -3,17 +3,22 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import type { Route } from 'next'
 import { getTranslations } from 'next-intl/server'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, ClipboardList, SquareCheck } from 'lucide-react'
 import { AppPage, PageProblem, PageTitle } from '@/components/app/AppPage'
 import { Card } from '@/components/lp/Card'
 import { ClientMessages } from '@/components/lp/ClientMessages'
+import { ListRow } from '@/components/lp/ListRow'
+import { SectionHeader } from '@/components/lp/SectionHeader'
 import { TraitBars, type TraitLabels } from '@/components/profile/TraitBars'
 import { buttonVariants } from '@/components/ui/button'
 import { PRODUCT_NAME } from '@/lib/brand'
 import { currentUser } from '@/lib/auth/session'
+import { loadMyGroups } from '@/lib/groups/load'
 import { dateFormat } from '@/lib/i18n/dates'
+import { loadPlan } from '@/lib/plan/load'
 import { loadMyProfile, loadMyShares, loadPersonName } from '@/lib/profile/load'
-import { SIGN_IN_PATH, profileTestPath } from '@/lib/routes'
+import { loadRounds } from '@/lib/rounds/load'
+import { SIGN_IN_PATH, planPath, profileTestPath, roundPath } from '@/lib/routes'
 import { DeleteProfile, PendingProfile, ShareChoice } from './MeActions'
 
 export const dynamic = 'force-dynamic'
@@ -27,8 +32,9 @@ export async function generateMetadata(): Promise<Metadata> {
  * Me (handoff 6.17, design `me`): the person's Leader Profile, private to them; what each of their groups
  * sees of it, which applies at once; a retake; and delete. With section 11 and the MVP in mind it leaves
  * out the design's team map, conversation prompt, modules and contribution feedback, and the per-domain
- * descriptions, which no source supplies. The person's actions and open questionnaires join Me when they
- * exist (milestones 10 and 12, D-32).
+ * descriptions, which no source supplies. Above it, what waits for the person in each of their groups: the
+ * Full diagnostic while it asks them, and their own open actions (handoff 6.17; D-46), read through each
+ * group's own readers, so nothing new reads who answered.
  */
 export default async function MePage() {
   const user = await currentUser()
@@ -41,6 +47,20 @@ export default async function MePage() {
     loadPersonName(user.id),
   ])
   if (profile === null) return <PageProblem title={t('readFailed')} />
+  const day = (iso: string) => dateFormat({ locale: 'en', timeZone: 'UTC' }, { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(iso))
+
+  // what waits for the person: per group, the round asking them and their own open actions
+  const groups = await loadMyGroups(user.id)
+  const reads = groups ? await Promise.all(groups.map(async (g) => ({ g, rounds: await loadRounds(g.id), plan: await loadPlan(g.id) }))) : null
+  const workFailed = !reads || reads.some((r) => r.rounds === null || r.plan === null)
+  const work = (reads ?? []).flatMap(({ g, rounds, plan }) => [
+    ...(rounds && rounds !== 'none' ? rounds.rounds : [])
+      .filter((r) => r.phase === 'answering' && r.me === 'to_answer')
+      .map((r) => ({ key: r.id, kind: 'round' as const, title: t('workRound'), meta: t('workRoundMeta', { group: g.name, date: r.closes_at ? day(r.closes_at) : '' }), href: roundPath(g.id, r.id) })),
+    ...(plan && plan !== 'none' ? plan.focus_areas.flatMap((f) => f.actions) : [])
+      .filter((a) => a.mine && a.status === 'open')
+      .map((a) => ({ key: a.id, kind: 'action' as const, title: a.title, meta: t('workActionMeta', { group: g.name, date: day(`${a.due_on}T00:00:00Z`) }), href: planPath(g.id) })),
+  ])
 
   const labels: TraitLabels = {
     bands: { lower: tp('result.band_lower'), middle: tp('result.band_middle'), higher: tp('result.band_higher') },
@@ -66,6 +86,37 @@ export default async function MePage() {
       <AppPage>
         <PendingProfile />
         <PageTitle eyebrow={t('eyebrow')} title={name ?? t('title')} />
+
+        {groups && groups.length > 0 && (
+          <Card large>
+            <SectionHeader title={t('workTitle')} />
+            {workFailed ? (
+              <p role="alert" className="m-0 border-t border-divider pt-3 text-[14px] max-md:text-[15px]">
+                {t('workFailed')}
+              </p>
+            ) : work.length === 0 ? (
+              <p className="m-0 border-t border-divider pt-3 text-[14px] text-text-2 max-md:text-[15px]">{t('workEmpty')}</p>
+            ) : (
+              <ul aria-label={t('workTitle')} className="m-0 list-none p-0">
+                {work.map((w) => (
+                  <ListRow
+                    key={w.key}
+                    icon={w.kind === 'round' ? ClipboardList : SquareCheck}
+                    kind={w.kind === 'round' ? t('workKindRound') : t('workKindAction')}
+                    kindTone={w.kind === 'round' ? 'strong' : 'other'}
+                    title={w.title}
+                    meta={w.meta}
+                    action={
+                      <Link href={w.href as Route} className={buttonVariants({ size: 'xsmall' })}>
+                        {w.kind === 'round' ? t('workAnswer') : t('workOpen')}
+                      </Link>
+                    }
+                  />
+                ))}
+              </ul>
+            )}
+          </Card>
+        )}
 
         {profile === 'none' ? (
           <Card large className="flex flex-col gap-3">

@@ -2,7 +2,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 import type { Route } from 'next'
-import { ClipboardList, ListChecks, Link2, UserRound } from 'lucide-react'
+import { ClipboardList, ListChecks, Link2, SquareCheck, UserRound } from 'lucide-react'
 import { Card } from '@/components/lp/Card'
 import { ListRow } from '@/components/lp/ListRow'
 import { SectionHeader } from '@/components/lp/SectionHeader'
@@ -13,13 +13,17 @@ import { joinPath } from '@/lib/routes'
 
 export interface NeedsYouLabels {
   title: string
-  /** "# things need you", for 0 to 4 rows */
+  /** "# things need you", for 0 to 5 rows */
   counts: readonly string[]
   empty: string
   kindRound: string
   roundTitle: string
   roundMeta: string
   roundAction: string
+  kindAction: string
+  actionsTitle: string
+  actionsMeta: string
+  actionsAction: string
   kindScan: string
   answerTitle: string
   answerMeta: string
@@ -37,7 +41,8 @@ export interface NeedsYouLabels {
 
 /**
  * Home's "Needs you" (handoff 6.7): answer the Full diagnostic while a round asks this person and they have
- * yet to answer (milestone 10; their own state, from the server), answer the scan and share the link, while
+ * yet to answer (milestone 10; their own state, from the server), their own open actions (milestone 12; a
+ * count for them alone, never for anyone else), answer the scan and share the link, while
  * the scan is open, and take the Leader Profile while the person has none (milestone 7). Whether this person has
  * answered the scan is known only to their device, by the replace key the link left there (C2): nothing
  * on the server says who answered. A person who answered on another device sees the row; the link's page
@@ -45,12 +50,14 @@ export interface NeedsYouLabels {
  */
 export function NeedsYou({
   roundHref,
+  actionsHref,
   code,
   link,
   profileHref,
   labels,
 }: {
   roundHref: string | null
+  actionsHref: string | null
   code: string | null
   link: string | null
   profileHref: string | null
@@ -81,6 +88,23 @@ export function NeedsYou({
         action={
           <Link href={roundHref as Route} className={buttonVariants({ size: 'xsmall' })}>
             {labels.roundAction}
+          </Link>
+        }
+      />,
+    )
+  }
+  if (actionsHref) {
+    rows.push(
+      <ListRow
+        key="actions"
+        icon={SquareCheck}
+        kind={labels.kindAction}
+        kindTone="other"
+        title={labels.actionsTitle}
+        meta={labels.actionsMeta}
+        action={
+          <Link href={actionsHref as Route} className={buttonVariants({ size: 'xsmall' })}>
+            {labels.actionsAction}
           </Link>
         }
       />,
