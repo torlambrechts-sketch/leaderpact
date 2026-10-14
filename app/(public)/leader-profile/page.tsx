@@ -4,14 +4,16 @@ import type { Route } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { ArrowRight, BookOpen, Lock } from 'lucide-react'
 import { PRODUCT_NAME } from '@/lib/brand'
+import { pageCard } from '@/lib/site/cards'
+import { pageMeta } from '@/lib/site/meta'
 import { loadProfileTest } from '@/lib/profile/load'
-import { profileTestPath } from '@/lib/routes'
+import { PROFILE_PATH, profileTestPath } from '@/lib/routes'
 
 export const dynamic = 'force-dynamic'
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('meta')
-  return { title: t('profileTitle', { product: PRODUCT_NAME }) }
+  return pageMeta({ title: t('profileTitle', { product: PRODUCT_NAME }), description: t('profileDescription'), path: PROFILE_PATH, image: pageCard('leader-profile') })
 }
 
 /**

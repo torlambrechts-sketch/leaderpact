@@ -6,7 +6,11 @@ import { ArrowRight, BookOpen, Eye, ListChecks, ShieldCheck, Users, type LucideI
 import { PRODUCT_NAME } from '@/lib/brand'
 import { LevelBar } from '@/components/lp/LevelBar'
 import { cn } from '@/lib/cn'
-import { SCAN_PATH } from '@/lib/routes'
+import { LANDING_PATH, SCAN_PATH } from '@/lib/routes'
+import { pageCard } from '@/lib/site/cards'
+import { pageMeta } from '@/lib/site/meta'
+import { graph, organization, software, website } from '@/lib/site/schema'
+import { JsonLd } from '@/components/site/JsonLd'
 import { loadScan } from '@/lib/scan/load'
 
 /** The scan is read on each request, from a ten-minute cache (lib/scan/load.ts) */
@@ -14,7 +18,7 @@ export const dynamic = 'force-dynamic'
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('meta')
-  return { title: t('landingTitle', { product: PRODUCT_NAME }) }
+  return pageMeta({ title: t('landingTitle', { product: PRODUCT_NAME }), description: t('landingDescription'), path: LANDING_PATH, image: pageCard('leadership-team-assessment') })
 }
 
 /**
@@ -39,7 +43,7 @@ const SAMPLE = {
  * and first heading say "leadership team assessment" (handoff section 5), as the heading's first line.
  */
 export default async function LandingPage() {
-  const [t, tAgreement, scan] = await Promise.all([getTranslations('landing'), getTranslations('agreement'), loadScan()])
+  const [t, tAgreement, tMeta, scan] = await Promise.all([getTranslations('landing'), getTranslations('agreement'), getTranslations('meta'), loadScan()])
   const themes = new Map(scan?.themes.map((theme) => [theme.key, theme.name]))
   const sampleRows = SAMPLE.rows.flatMap((row) => {
     const name = themes.get(row.theme)
@@ -49,6 +53,7 @@ export default async function LandingPage() {
 
   return (
     <div className="mx-auto mt-4 flex max-w-landing flex-col gap-6 px-4 md:mt-6 md:px-gutter">
+      <JsonLd data={graph(organization(), website(tMeta('description', { product: PRODUCT_NAME })), software(tMeta('landingDescription')))} />
       <section className="grid items-center gap-10 overflow-hidden rounded-hero border border-bar bg-hero px-5 py-8 md:min-h-[580px] md:px-16 md:py-14 min-[900px]:grid-cols-[minmax(0,500px)_minmax(0,1fr)] min-[900px]:gap-14">
         <div className="flex flex-col gap-6">
           <p className="inline-flex items-center gap-2 self-start rounded-pill border border-bar bg-white-veil py-[5px] pl-1.5 pr-3 text-[13px] font-semibold text-landing-pill-ink">

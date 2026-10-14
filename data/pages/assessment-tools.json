@@ -1,0 +1,52 @@
+{
+  "title": "Leadership team assessment tools: what to look for",
+  "description": "Eight checks for choosing a leadership team assessment tool, and how {product} meets each: anonymity, timing, agreement, evidence and action.",
+  "crumb": "Choosing a tool",
+  "kicker": "Choosing a tool",
+  "h1": "How to choose a leadership team assessment tool",
+  "lead": "{product} is a research-based tool for assessing and improving a leadership team of 4 to 15 people, starting with a free three-minute scan. Whichever tool you choose, check the eight points below before you ask your team to answer.",
+  "blocks": [
+    { "t": "h2", "text": "Eight things to check" },
+    {
+      "t": "table",
+      "head": ["Check", "Why it matters", "How {product} does it"],
+      "rows": [
+        ["It measures the team, not individuals", "When a team survey rates people, members answer to protect themselves.", "Questions ask about the team, and no result is shown per person."],
+        ["Anonymity is enforced, not promised", "In a group of four to fifteen, a promise is easy to break by accident.", "A threshold of four answers, held in the database and never lowered. Counts only, never names."],
+        ["Nothing shows before the close", "Early results shape later answers, and show who answered when.", "Results open when the round closes, and are computed once."],
+        ["It shows agreement, not only averages", "A middling average can hide a team that is split.", "Every theme shows its level and an agreement label."],
+        ["The research is visible", "Research-based should be something you can check.", "Each scale names its layer and its evidence rating."],
+        ["It is honest about its own evidence", "Evidence for the ideas is not evidence for the questionnaire.", "Every score says Research-based, not yet validated."],
+        ["It leads to action", "Results that stay in a report change little.", "Focus areas with actions that appear on the next agenda, in development."],
+        ["You can start alone", "A first reading should not wait for a workshop.", "The scan is free, takes about three minutes and needs no account."]
+      ]
+    },
+    { "t": "h2", "text": "Questions to ask any vendor" },
+    {
+      "t": "ul",
+      "items": [
+        "Who can see individual answers, including your own staff?",
+        "What is the smallest number of answers a result needs, and who can change it?",
+        "Can results be filtered by role, location or tenure? In a small team, that can identify someone.",
+        "What evidence is there for the questionnaire itself, not only for the ideas behind it?",
+        "Where is the data kept, and what leaves the tool?"
+      ]
+    },
+    { "t": "h2", "text": "When does a facilitator help?" },
+    {
+      "t": "p",
+      "text": "A tool gives the team a shared picture. Some teams read it together without help; others benefit from a coach or facilitator, especially when views differ sharply or trust is low. A good tool makes either way possible."
+    },
+    { "t": "h2", "text": "What should you read before you choose?" },
+    {
+      "t": "p",
+      "text": "Start with [how to assess a leadership team](/articles/how-to-assess-a-leadership-team), which covers methods, questions and pitfalls. Then read [what makes a leadership team effective](/articles/what-makes-a-leadership-team-effective) for the research behind the questions."
+    }
+  ],
+  "faq": [
+    { "q": "What is a leadership team assessment?", "a": "A structured way to see how a leadership team works: its conditions, how it meets and decides, and the trust and safety between members. Usually every member answers the same questions anonymously." },
+    { "q": "How many members need to answer?", "a": "In {product}, at least four. Below that, no team result is shown, because a result for three or fewer can point to one person." },
+    { "q": "How often should a leadership team be assessed?", "a": "A full reading once or twice a year, with short pulses between, works for most teams. In {product}, the pulses and the full diagnostic are in development." },
+    { "q": "Is the {product} scan free?", "a": "Yes. The Leadership Team Scan, the team view and the Leader Profile are free, for one group." }
+  ]
+}

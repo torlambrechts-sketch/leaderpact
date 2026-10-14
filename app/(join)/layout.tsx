@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import type { Route } from 'next'
 import { getTranslations } from 'next-intl/server'
@@ -5,6 +6,10 @@ import { Logo } from '@/components/lp/Logo'
 import { PublicFooter } from '@/components/lp/PublicHeader'
 import { PRODUCT_NAME } from '@/lib/brand'
 import { LANDING_PATH } from '@/lib/routes'
+import { NOINDEX } from '@/lib/site/meta'
+
+/** The invite link carries a capability in its path: never indexed (D-34) */
+export const metadata: Metadata = { robots: NOINDEX }
 
 /**
  * The invite link's pages (handoff 6.5). A member came for their group's scan, so the bar holds the logo

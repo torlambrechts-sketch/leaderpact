@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 import { PRODUCT_NAME } from '@/lib/brand'
 import { PublicFooter, PublicHeader } from '@/components/lp/PublicHeader'
+import { SiteBeacon } from '@/components/site/SiteBeacon'
 
 /**
  * The public site: the landing page, the scan, the personal view, the Leader Profile and the legal pages
@@ -12,9 +13,39 @@ export default async function PublicLayout({ children }: { children: React.React
   const t = await getTranslations('publicNav')
   return (
     <>
-      <PublicHeader productName={PRODUCT_NAME} labels={{ menu: t('menu'), scan: t('scan'), profile: t('profile'), start: t('start'), home: t('home', { product: PRODUCT_NAME }), signIn: t('signIn') }} />
+      <PublicHeader
+        productName={PRODUCT_NAME}
+        labels={{
+          menu: t('menu'),
+          scan: t('scan'),
+          profile: t('profile'),
+          start: t('start'),
+          home: t('home', { product: PRODUCT_NAME }),
+          signIn: t('signIn'),
+          howItWorks: t('howItWorks'),
+          articles: t('articles'),
+        }}
+      />
+      <SiteBeacon />
       <main id="main">{children}</main>
-      <PublicFooter labels={{ menu: t('footer'), profile: t('profile'), privacy: t('privacy'), dataProcessing: t('dataProcessing'), signIn: t('signIn') }} />
+      <PublicFooter
+        labels={{
+          menu: t('footer'),
+          profile: t('profile'),
+          privacy: t('privacy'),
+          dataProcessing: t('dataProcessing'),
+          signIn: t('signIn'),
+          product: t('product'),
+          learn: t('learn'),
+          scan: t('scan'),
+          howItWorks: t('howItWorks'),
+          research: t('research'),
+          anonymity: t('anonymity'),
+          tools: t('tools'),
+          articles: t('articles'),
+          templates: t('templates'),
+        }}
+      />
     </>
   )
 }

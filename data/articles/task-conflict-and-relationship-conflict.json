@@ -1,0 +1,235 @@
+{
+  "title": "Task conflict and relationship conflict in leadership teams",
+  "description": "When disagreement about the work improves a leadership team's decisions, when personal friction harms them, and how to keep debate on ideas.",
+  "h1": "Task conflict and relationship conflict: when disagreement helps",
+  "lead": "Disagreement about the work, task conflict, can improve a leadership team's decisions when trust and safety are high and debate stays on ideas. Personal friction, relationship conflict, consistently goes with worse performance and satisfaction. So the aim is not less conflict, but conflict about the right things.",
+  "takeaways": [
+    "Task conflict is disagreement about the work. Relationship conflict is personal friction (Jehn, 1995).",
+    "Across meta-analyses, relationship conflict goes with lower performance and satisfaction.",
+    "Task conflict is neither reliably good nor reliably bad. It looks more useful in top management teams and when it stays apart from personal friction.",
+    "Where trust is high, debate about ideas is less tied to personal friction. Where psychological safety is high, task conflict goes with better performance.",
+    "Structure helps: explore several options, test assumptions and agree how you will decide before the debate starts."
+  ],
+  "blocks": [
+    { "t": "h2", "text": "What is the difference between task conflict and relationship conflict?" },
+    {
+      "t": "p",
+      "text": "Karen Jehn studied 105 work groups and management teams and separated two kinds of conflict (Jehn, 1995). Task conflict is disagreement about the content of the work: different views, ideas and opinions. Relationship conflict is a sense of personal incompatibility, with tension, annoyance and animosity between members."
+    },
+    {
+      "t": "p",
+      "text": "Research on top management teams drew the same line. Allen Amason studied strategic decisions in two samples of top teams (Amason, 1996). He separated cognitive conflict, about the issues, from affective conflict, which is personal. He treats the first as functional and the second as dysfunctional: one tends to help strategic decisions, the other to harm them."
+    },
+    {
+      "t": "p",
+      "text": "Later research added a third kind, process conflict, about how the work should be done and who does what. Like relationship conflict, it tends to go with worse group outcomes (de Wit, Greer and Jehn, 2012)."
+    },
+    {
+      "t": "p",
+      "text": "Jehn's own results were more nuanced than the labels suggest. Both kinds of conflict went with lower satisfaction and less wish to stay in the group. But on non-routine tasks, disagreement about the work did no harm, and sometimes helped (Jehn, 1995). Most of what a leadership team decides is non-routine."
+    },
+    {
+      "t": "table",
+      "head": ["Question", "Task conflict", "Relationship conflict"],
+      "rows": [
+        ["What it is about", "The work: facts, options, priorities and how to read them", "The people: personal friction, tension and dislike"],
+        ["What it can sound like (examples)", "\"I read these numbers differently.\" \"What would have to be true for this to work?\"", "\"You always do this.\" \"That is typical of your division.\""],
+        ["What it does", "Mixed. It can improve decisions when trust is high and it stays apart from personal friction", "It goes with lower performance and satisfaction across studies"],
+        ["What to do", "Invite it, give it structure and keep it on the issue", "Notice it early, raise it in private and repair the relationship"]
+      ]
+    },
+    { "t": "h2", "text": "Does task conflict help or harm a leadership team?" },
+    {
+      "t": "p",
+      "text": "The answer has shifted as the evidence has built up. Carsten De Dreu and Laurie Weingart pooled earlier studies in a meta-analysis (De Dreu and Weingart, 2003). Relationship conflict showed strong negative correlations with both team performance and member satisfaction. That much was expected."
+    },
+    {
+      "t": "p",
+      "text": "The surprise was task conflict. It also correlated negatively with performance and satisfaction, against what textbooks had taught. For both kinds of conflict, the negative link with performance was stronger in complex work, such as decision making. The link for task conflict was weaker where task and relationship conflict were only loosely related (De Dreu and Weingart, 2003)."
+    },
+    {
+      "t": "p",
+      "text": "A larger meta-analysis followed. Frank de Wit, Lindred Greer and Karen Jehn pooled 116 studies covering 8,880 groups (de Wit, Greer and Jehn, 2012). Relationship conflict and process conflict again showed stable negative links with group outcomes. But task conflict showed no strong negative link with performance."
+    },
+    {
+      "t": "p",
+      "text": "Their moderators matter most for a leadership team. Task conflict related more positively to performance in three situations (de Wit, Greer and Jehn, 2012):"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "where task conflict and relationship conflict were only weakly related",
+        "in top management teams, compared with other teams",
+        "where performance meant financial results or decision quality, rather than overall performance"
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Psychological safety shapes the effect too. In 117 project teams, task conflict went with better performance when psychological safety was high (Bradley et al., 2012). For more on that condition, see [psychological safety in leadership teams](/articles/psychological-safety-in-leadership-teams)."
+    },
+    {
+      "t": "box",
+      "title": "A rule of thumb",
+      "text": "Disagreement about the work is worth having while it stays about the work. Once it turns personal, the benefit tends to disappear."
+    },
+    { "t": "h2", "text": "How does task conflict turn into relationship conflict?" },
+    {
+      "t": "p",
+      "text": "In ongoing groups the two kinds tend to travel together. Tony Simons and Randall Peterson studied 70 top management teams to find out why (Simons and Peterson, 2000)."
+    },
+    {
+      "t": "p",
+      "text": "The best-supported explanation was misattribution. When members do not trust each other, they read a disagreement as a personal attack or a hidden agenda. High trust within the team weakened the link between task and relationship conflict. Harsh debating tactics also played a part, though that effect was weak (Simons and Peterson, 2000)."
+    },
+    {
+      "t": "p",
+      "text": "For example, a finance director may question a sales forecast purely on the numbers. If trust is low, the sales director may hear an attack on the division and answer in kind. The debate about the forecast has become a contest between two people."
+    },
+    {
+      "t": "p",
+      "text": "A later study found evidence that cognitive conflict can itself feed affective conflict. Behavioural integration, how far a top team shares information, collaborates and decides jointly, appeared to reduce that tendency (Mooney, Holahan and Amason, 2007)."
+    },
+    {
+      "t": "p",
+      "text": "Jehn found something else worth knowing. Norms that encouraged open discussion of conflict went with more relationship conflict, without helping members handle it well (Jehn, 1995). Telling a team to be open is not enough. Openness needs trust and structure around it. If trust is thin, start with [how to build trust in a leadership team](/articles/how-to-build-trust-in-a-leadership-team)."
+    },
+    { "t": "h2", "text": "How can a management team have a good fight?" },
+    {
+      "t": "p",
+      "text": "Kathleen Eisenhardt, Jean Kahwajy and L. J. Bourgeois drew on their research into conflict, politics and decision speed in management teams. They described six tactics that high-performing teams used to keep conflict over issues from turning personal (Eisenhardt, Kahwajy and Bourgeois, 1997):"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "work from more information, not less, so the debate is about facts",
+        "develop several alternatives, which moves the debate beyond for or against",
+        "establish common goals, so members argue about how to succeed together",
+        "use humour to ease tension",
+        "keep a balanced power structure",
+        "resolve issues without forcing consensus"
+      ]
+    },
+    {
+      "t": "p",
+      "text": "The authors argue that these tactics keep conflict on the issues, make relations collaborative rather than competitive and create a sense of fairness. They also warn that a team without conflict is seldom in agreement. More often it is apathetic and disengaged."
+    },
+    { "t": "h2", "text": "Do devil's advocacy and dialectical inquiry work?" },
+    {
+      "t": "p",
+      "text": "Two structured methods build dissent into a decision. In devil's advocacy, someone tests the facts and assumptions behind a single proposal. In dialectical inquiry, the group debates competing proposals built on different assumptions."
+    },
+    {
+      "t": "p",
+      "text": "David Schweiger, William Sandberg and James Ragan compared both with plain consensus in a laboratory study (Schweiger, Sandberg and Ragan, 1986). Both methods produced better recommendations and assumptions than consensus. Dialectical inquiry also surfaced better assumptions than devil's advocacy."
+    },
+    {
+      "t": "p",
+      "text": "There was a cost. Consensus groups were more satisfied, keener to keep working together and more accepting of their decisions. Structured dissent sharpens the thinking, so it needs care for the relationships around it."
+    },
+    { "t": "h2", "text": "What can a leadership team do differently?" },
+    {
+      "t": "ol",
+      "items": [
+        "**Explore before you advocate.** Ask for facts, options and reasoning before anyone argues for a position.",
+        "**Separate the idea from the person.** Talk about the proposal, not about whose proposal it is. Question assumptions, not motives.",
+        "**Make options explicit.** Put at least two real alternatives on the table for every major decision, and write down what each one assumes.",
+        "**Agree how you will decide before you debate.** Say who decides, by when, and what happens if you do not agree. A team can resolve issues without forcing consensus (Eisenhardt, Kahwajy and Bourgeois, 1997).",
+        "**Assign the challenge.** For big decisions, name a devil's advocate, or ask a pair to build the strongest alternative. Rotate the role so that it does not stick to one person.",
+        "**Check in on relationships.** After a hard debate, ask how it felt and whether anything needs repair. Catch personal friction while it is still small."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Build these habits into your [leadership team meeting agenda](/articles/leadership-team-meeting-agenda). Mark decision items as decisions, and give them enough time for options to be explored before anyone argues for one."
+    },
+    {
+      "t": "p",
+      "text": "For example, a team weighing a new market might ask one pair to make the case for entering, and another the case for waiting. The team then debates the assumptions behind each case before anyone states a preference. That is a simple form of dialectical inquiry."
+    },
+    { "t": "h2", "text": "What can you do this month?" },
+    {
+      "t": "box",
+      "title": "A question for your team",
+      "text": "Which of our recent disagreements made our decisions better, and which made us worse as a team? Ask each member to name one of each, then talk about the difference."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "**Pick one decision** on the next agenda and ask for two written options before the meeting.",
+        "**Name the decision rule** at the start of that item: who decides, and how.",
+        "**Appoint a challenger** for that item, and thank them afterwards in front of the team.",
+        "**Close the meeting** by asking whether any disagreement felt personal. Follow up one to one if it did.",
+        "**Review one past decision** on which the team disagreed. Ask whether the disagreement improved the decision, and what made it useful or harmful."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Repeat this for a month. If disagreement grows but stays on the work, the team is moving in the right direction."
+    }
+  ],
+  "sources": [
+    {
+      "authors": "Jehn, K. A.",
+      "year": 1995,
+      "title": "A multimethod examination of the benefits and detriments of intragroup conflict",
+      "venue": "Administrative Science Quarterly, 40(2), 256–282",
+      "url": "https://doi.org/10.2307/2393638"
+    },
+    {
+      "authors": "Amason, A. C.",
+      "year": 1996,
+      "title": "Distinguishing the effects of functional and dysfunctional conflict on strategic decision making: Resolving a paradox for top management teams",
+      "venue": "Academy of Management Journal, 39(1), 123–148",
+      "url": "https://doi.org/10.2307/256633"
+    },
+    {
+      "authors": "De Dreu, C. K. W., & Weingart, L. R.",
+      "year": 2003,
+      "title": "Task versus relationship conflict, team performance, and team member satisfaction: A meta-analysis",
+      "venue": "Journal of Applied Psychology, 88(4), 741–749",
+      "url": "https://doi.org/10.1037/0021-9010.88.4.741"
+    },
+    {
+      "authors": "de Wit, F. R. C., Greer, L. L., & Jehn, K. A.",
+      "year": 2012,
+      "title": "The paradox of intragroup conflict: A meta-analysis",
+      "venue": "Journal of Applied Psychology, 97(2), 360–390",
+      "url": "https://doi.org/10.1037/a0024844"
+    },
+    {
+      "authors": "Simons, T. L., & Peterson, R. S.",
+      "year": 2000,
+      "title": "Task conflict and relationship conflict in top management teams: The pivotal role of intragroup trust",
+      "venue": "Journal of Applied Psychology, 85(1), 102–111",
+      "url": "https://doi.org/10.1037/0021-9010.85.1.102"
+    },
+    {
+      "authors": "Mooney, A. C., Holahan, P. J., & Amason, A. C.",
+      "year": 2007,
+      "title": "Don't take it personally: Exploring cognitive conflict as a mediator of affective conflict",
+      "venue": "Journal of Management Studies, 44(5), 733–758",
+      "url": "https://doi.org/10.1111/j.1467-6486.2006.00674.x"
+    },
+    {
+      "authors": "Bradley, B. H., Postlethwaite, B. E., Klotz, A. C., Hamdani, M. R., & Brown, K. G.",
+      "year": 2012,
+      "title": "Reaping the benefits of task conflict in teams: The critical role of team psychological safety climate",
+      "venue": "Journal of Applied Psychology, 97(1), 151–158",
+      "url": "https://doi.org/10.1037/a0024200"
+    },
+    {
+      "authors": "Eisenhardt, K. M., Kahwajy, J. L., & Bourgeois, L. J.",
+      "year": 1997,
+      "title": "How management teams can have a good fight",
+      "venue": "Harvard Business Review, 75(4), 77–85",
+      "url": "https://hbr.org/1997/07/how-management-teams-can-have-a-good-fight"
+    },
+    {
+      "authors": "Schweiger, D. M., Sandberg, W. R., & Ragan, J. W.",
+      "year": 1986,
+      "title": "Group approaches for improving strategic decision making: A comparative analysis of dialectical inquiry, devil's advocacy, and consensus",
+      "venue": "Academy of Management Journal, 29(1), 51–71",
+      "url": "https://doi.org/10.2307/255859"
+    }
+  ]
+}
