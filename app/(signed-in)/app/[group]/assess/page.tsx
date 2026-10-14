@@ -4,7 +4,9 @@ import type { Route } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { Lock } from 'lucide-react'
 import { AppPage, PageProblem, PageTitle } from '@/components/app/AppPage'
+import { NextPulse } from '@/components/assess/NextPulse'
 import { OpenRound } from '@/components/assess/OpenRound'
+import { PulseRhythm } from '@/components/assess/PulseRhythm'
 import { RoundList } from '@/components/assess/RoundList'
 import { Card } from '@/components/lp/Card'
 import { ClientMessages } from '@/components/lp/ClientMessages'
@@ -15,6 +17,7 @@ import { currentUser } from '@/lib/auth/session'
 import { loadGroupPlan } from '@/lib/billing/load'
 import { loadShell } from '@/lib/groups/load'
 import { dateFormat } from '@/lib/i18n/dates'
+import { loadPulses } from '@/lib/pulses/load'
 import { loadRounds } from '@/lib/rounds/load'
 import { SIGN_IN_PATH, groupPath, resultsPath, roundPath } from '@/lib/routes'
 
@@ -28,7 +31,8 @@ export async function generateMetadata(): Promise<Metadata> {
 /**
  * Assess (handoff 6.10, design `assess`). On the Free plan it is the sample page (handoff 6.19); with the
  * Team plan or its trial, the group's own rounds: a plain list with phase, dates and the count of answers,
- * and for the leader the Full diagnostic to open. Every current member is asked; there is no picker.
+ * and for the leader the Full diagnostic to open. Every current member is asked; there is no picker. Pulses
+ * (handoff 6.16) share the list; beside it, the pulse rhythm and what the next pulse asks, in its order.
  * Section 11's corrections: no overview tiles, library, schedule or coverage tabs, and no "release results".
  */
 export default async function AssessPage({ params }: { params: Promise<{ group: string }> }) {
@@ -39,9 +43,9 @@ export default async function AssessPage({ params }: { params: Promise<{ group: 
   if (plan === null || plan === 'none' || plan.access === 'free') return <SampleAssess group={group} />
 
   const [t, tInvite] = await Promise.all([getTranslations('assess'), getTranslations('invite')])
-  const [shell, data] = await Promise.all([loadShell(group, user.id), loadRounds(group)])
-  if (shell === null || data === null) return <PageProblem title={tInvite('readFailed')} />
-  if (shell === 'none' || data === 'none') return <PageProblem title={tInvite('notFoundTitle')} body={tInvite('notFoundBody')} />
+  const [shell, data, pulses] = await Promise.all([loadShell(group, user.id), loadRounds(group), loadPulses(group)])
+  if (shell === null || data === null || pulses === null) return <PageProblem title={tInvite('readFailed')} />
+  if (shell === 'none' || data === 'none' || pulses === 'none') return <PageProblem title={tInvite('notFoundTitle')} body={tInvite('notFoundBody')} />
 
   const day = (iso: string) => dateFormat({ locale: 'en', timeZone: 'UTC' }, { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(iso))
   const rounds = data.rounds.map((r) => ({
@@ -49,12 +53,12 @@ export default async function AssessPage({ params }: { params: Promise<{ group: 
     from: day(r.opens_at),
     to: r.closes_at ? day(r.closes_at) : null,
     answerHref: r.phase === 'answering' && r.me === 'to_answer' ? roundPath(group, r.id) : null,
-    resultsHref: r.phase === 'released' && r.kind === 'diagnostic' ? resultsPath(group, r.id) : null,
+    resultsHref: r.phase === 'released' ? resultsPath(group, r.id) : null,
   }))
   const open = data.rounds.some((r) => r.phase === 'answering')
 
   return (
-    <ClientMessages namespaces={['assess']}>
+    <ClientMessages namespaces={['assess', 'pulses']}>
       <AppPage>
         <PageTitle eyebrow={shell.current.name} title={t('title')} />
         <div className="grid items-start gap-5 min-[960px]:grid-cols-[minmax(0,1fr)_380px]">
@@ -84,6 +88,22 @@ export default async function AssessPage({ params }: { params: Promise<{ group: 
                 {t('openRefusedPlan')}
               </p>
             ) : null}
+            <PulseRhythm
+              group={group}
+              running={pulses.running}
+              next={pulses.running && pulses.next_at ? day(pulses.next_at) : null}
+              weeks={pulses.weeks}
+              days={pulses.days}
+              weeksRange={[pulses.weeks_min, pulses.weeks_max]}
+              daysRange={[pulses.days_min, pulses.days_max]}
+              canManage={pulses.can_manage}
+              leader={pulses.leader}
+              members={data.members}
+              k={data.k}
+              open={open}
+              membersHref={`${groupPath(group)}?tab=members`}
+            />
+            <NextPulse pulses={pulses} />
             <Card large className="flex flex-col gap-2">
               <h2 className="m-0 text-[16px] font-bold">{t('howTitle')}</h2>
               <ul className="m-0 flex list-disc flex-col gap-1.5 pl-5 text-[13.5px] leading-[1.5] text-text-2 max-md:text-[15px]">

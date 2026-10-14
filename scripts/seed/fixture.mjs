@@ -48,10 +48,15 @@
  *    meeting planned for today with two items and the closing item, through the write paths: one for the
  *    single-browser flow, one for the four-browser sync flow. With `--live-off` the live_meeting flag is off,
  *    for a local database that has no Realtime: the meeting runs without sync (D-51).
- * 11. **Deterministic, and local only.** Fixed ids, link codes and a known password, so a reset gives the
+ * 11. **The pulses' groups** (`--e2e`, milestone 15), each on its trial with five people of its own, a round of the
+ *    Full diagnostic released at 4 of 5, two focus areas from it and a charter in force, through the write paths.
+ *    In one the flow starts the pulses. In the other the leader has started them: pulse 1 released at 4 of 5,
+ *    pulse 2 released at 5 of 5 (one focus scale up 1.0, the other 0.5, one agreement up 0.6), pulse 3 missed at
+ *    2 of 5. Each later pulse opens through the scheduled job, its dates moved back as the suites do (D-52).
+ * 12. **Deterministic, and local only.** Fixed ids, link codes and a known password, so a reset gives the
  *    same rows and a test can name them. That is why the script refuses any database that is not on
  *    127.0.0.1 or localhost (REUSE 4.12: Orgpuls's fixture did not, and its tokens are derivable).
- * 12. **Idempotent.** It removes its own rows first, by their fixed ids, in one transaction.
+ * 13. **Idempotent.** It removes its own rows first, by their fixed ids, in one transaction.
  *
  * Kari's id is chosen so her avatar takes the first pair, as the design draws her (D-12).
  */
@@ -311,6 +316,36 @@ export const SYNC_FLOW = {
   people: SYNC_PEOPLE,
 }
 
+/** The pulses' people (milestone 15): one group where the flow starts pulses, one with pulses in each state */
+const PULSE_PEOPLE = livePeople(928, 'Pulse')
+const RHYTHM_PEOPLE = livePeople(933, 'Rhythm')
+
+/** The pulse flow's group (tests/e2e/pulse.spec.ts): a released round, two focus areas, three agreements; no pulse yet */
+export const PULSE_FLOW = {
+  org: { id: id('0a000000', 901), name: 'Flow pulse group' },
+  group: { id: id('0b000000', 901), name: 'Flow pulse group' },
+  scan: { id: id('0c000000', 901), code: 'flowPulseScanCode00000001', size: 5 },
+  rounds: { released: id('0d000000', 901) },
+  focus: ['clear_purpose', 'trust'],
+  agreements: ['Every agenda item states its desired outcome.', 'We start and end on time.', 'Decisions are written down before we leave.'],
+  leader: PULSE_PEOPLE[0],
+  member: PULSE_PEOPLE[1],
+  people: PULSE_PEOPLE,
+}
+
+/** The pulses' states (tests/e2e/pulse.spec.ts): two released pulses, the second showing change, and a missed one */
+export const PULSE_STATES = {
+  org: { id: id('0a000000', 902), name: 'Flow pulse states group' },
+  group: { id: id('0b000000', 902), name: 'Flow pulse states group' },
+  scan: { id: id('0c000000', 902), code: 'flowPulseStatesScan000001', size: 5 },
+  rounds: { released: id('0d000000', 902) },
+  focus: ['clear_purpose', 'trust'],
+  agreements: ['We start and end on time.', 'Decisions are written down before we leave.'],
+  leader: RHYTHM_PEOPLE[0],
+  member: RHYTHM_PEOPLE[2],
+  people: RHYTHM_PEOPLE,
+}
+
 const q = (s) => `'${String(s).replace(/'/g, "''")}'`
 const answersOf = (values) => `(select jsonb_agg(jsonb_build_object('item', vi.item_id, 'value', (${q(JSON.stringify(values))}::jsonb ->> (vi.ordinal - 1))::int) order by vi.ordinal)
     from app.scan_session ss join app.instrument_version_item vi on vi.instrument_version_id = ss.instrument_version_id where ss.code = c)`
@@ -323,7 +358,7 @@ export function render({ e2e = false, shots = false, liveOff = false } = {}) {
   const billing = { ...BILLING, demo: false, people: [{ ...BILLING.leader, role: 'leader' }, { ...BILLING.member, role: 'member' }] }
   const charter = { ...GROUP_FLOW, demo: false, trial: true, people: [{ ...GROUP_FLOW.leader, role: 'leader' }, { ...GROUP_FLOW.member, role: 'member' }] }
   // members since before the oldest round the fixture opens
-  const rounds = [ROUND_FLOW, ROUND_STATES, PLAN_FLOW, LIVE_FLOW, SYNC_FLOW].map((g) => ({ ...g, demo: false, trial: true, since: "now() - interval '120 days'" }))
+  const rounds = [ROUND_FLOW, ROUND_STATES, PLAN_FLOW, LIVE_FLOW, SYNC_FLOW, PULSE_FLOW, PULSE_STATES].map((g) => ({ ...g, demo: false, trial: true, since: "now() - interval '120 days'" }))
   // the screenshots' two groups share one organisation, so the second carries no organisation row of its own
   const shotGroups = [
     { ...SHOTS, demo: false, trial: true, since: "now() - interval '200 days'", opened: "now() - interval '30 days'" },
@@ -336,7 +371,7 @@ export function render({ e2e = false, shots = false, liveOff = false } = {}) {
   ]
   const accounts = [
     ...LUMIO.people,
-    ...(e2e ? [FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, ...LIVE_PEOPLE, ...SYNC_PEOPLE, NO_GROUP] : []),
+    ...(e2e ? [FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, ...LIVE_PEOPLE, ...SYNC_PEOPLE, ...PULSE_PEOPLE, ...RHYTHM_PEOPLE, NO_GROUP] : []),
     ...(shots ? SHOT_PEOPLE : []),
   ]
   const orgIds = [...new Set(groups.map((g) => g.org.id))].map(q).join(', ')
@@ -347,7 +382,7 @@ export function render({ e2e = false, shots = false, liveOff = false } = {}) {
   // and the groups the flow leader made in an earlier run, which a reset would otherwise leave behind
   lines.push(`delete from app.organisation where id in (select m.org_id from app.membership m where m.person_id = ${q(FLOW_LEADER.id)});`)
   lines.push(
-    `delete from auth.users where id in (${[...LUMIO.people, FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, ...LIVE_PEOPLE, ...SYNC_PEOPLE, NO_GROUP, ...SHOT_PEOPLE].map((p) => q(p.id)).join(', ')});`,
+    `delete from auth.users where id in (${[...LUMIO.people, FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, ...LIVE_PEOPLE, ...SYNC_PEOPLE, ...PULSE_PEOPLE, ...RHYTHM_PEOPLE, NO_GROUP, ...SHOT_PEOPLE].map((p) => q(p.id)).join(', ')});`,
   )
   // a local database completes checkouts with the development adapter (0013): it succeeds or fails on demand
   lines.push(`update app.payment_adapter set adapter = 'development';`)
@@ -440,6 +475,7 @@ end $$;`)
     lines.push(roundStates())
     lines.push(planFlow())
     lines.push(liveMeeting(LIVE_FLOW), liveMeeting(SYNC_FLOW))
+    lines.push(pulseGroup(PULSE_FLOW), pulseGroup(PULSE_STATES), pulseStates())
     // a database with no Realtime (a cloud session's local stack) runs the live meeting without sync (D-51)
     if (liveOff) lines.push(`update app.feature_flag set "on" = false where key = 'live_meeting';`)
   }
@@ -604,6 +640,82 @@ ${g.meeting.items
   )
   .join('\n')}
   perform set_config('request.jwt.claims', '', true);
+end $$;`
+}
+
+/**
+ * A pulses group's start (milestone 15): one round of the Full diagnostic released at 4 of 5; then, as the leader,
+ * a charter in force with the group's agreements and its two focus areas from that round, through the write paths.
+ */
+function pulseGroup(g) {
+  const tasks = JSON.stringify([{ title: 'Set strategy and yearly priorities', right: 'decide' }])
+  return `${roundsOf(g, [{ round: g.rounds.released, opened: 120, answer: [1, 2, 3, 4], value: same, deadlines: 1, phase: 'released' }])}
+do $$
+declare v_reply jsonb;
+begin
+  perform set_config('request.jwt.claims', json_build_object('sub', ${q(g.leader.id)}, 'role', 'authenticated')::text, true);
+  v_reply := app.save_charter_draft(${q(g.group.id)}, 'We set the direction and decide what only this group can decide.', ${q(tasks)}::jsonb,
+                                    ${q(JSON.stringify(g.agreements))}::jsonb);
+  if not (v_reply ->> 'ok')::boolean then raise exception 'fixture: a pulses group''s charter draft was refused (%)', v_reply ->> 'reason'; end if;
+  v_reply := app.agree_charter(${q(g.group.id)});
+  if not (v_reply ->> 'ok')::boolean then raise exception 'fixture: a pulses group''s charter was not agreed (%)', v_reply ->> 'reason'; end if;
+${g.focus
+  .map(
+    (scale) => `  v_reply := app.make_focus_area(${q(g.group.id)}, ${q(g.rounds.released)}, ${q(scale)});
+  if not (v_reply ->> 'ok')::boolean then raise exception 'fixture: a pulses group''s focus area was refused (%)', v_reply ->> 'reason'; end if;`,
+  )
+  .join('\n')}
+  perform set_config('request.jwt.claims', '', true);
+end $$;`
+}
+
+/**
+ * The pulses' states: the leader starts the rhythm, which opens pulse 1; four answer every question 3 and it closes
+ * on its date. Pulse 2 opens through the scheduled job and all five answer, so it closes at once: clear purpose 4
+ * (up 1.0), trust 52 points over 15 answers (3.5, up 0.5, within normal variation), the first agreement 3, 3, 4, 4,
+ * 4 (3.6, up 0.6), everything else 3. Pulse 3 opens the same way and closes missed at 2 of 5. Each pulse's dates
+ * are moved back, with the round's guard off for that statement, so they follow one another in time.
+ */
+function pulseStates() {
+  const g = PULSE_STATES
+  const dates = (opened, closed) => `  alter table app.assessment_round disable trigger assessment_round_fixed;
+  update app.assessment_round set opens_at = now() - interval '${opened} days'${closed === null ? '' : `, closes_at = now() - interval '${closed} days'`} where id = v_round;
+  alter table app.assessment_round enable trigger assessment_round_fixed;`
+  const answer = (i, value) => `  select jsonb_agg(jsonb_build_object('item', coalesce(x.item_id, x.agreement_id), 'value', ${value}) order by x.ordinal) into v_answers
+  from (select pq.*, row_number() over (partition by pq.factor_id order by pq.ordinal) as pos from app.pulse_question pq where pq.round_id = v_round) x
+  left join app.factor f on f.id = x.factor_id
+  left join app.working_agreement a on a.id = x.agreement_id;
+  perform set_config('request.jwt.claims', json_build_object('sub', ${q(g.people[i].id)}, 'role', 'authenticated')::text, true);
+  v_reply := app.submit_response(v_round, v_answers);
+  if not (v_reply ->> 'ok')::boolean then raise exception 'fixture: a pulse answer was refused (%)', v_reply ->> 'reason'; end if;
+  perform set_config('request.jwt.claims', '', true);`
+  const change = (j) =>
+    `case when f.key = 'clear_purpose' then 4 when f.key = 'trust' then ${j <= 2 ? 3 : j >= 5 ? 4 : 'case when x.pos = 3 then 3 else 4 end'} when a.ordinal = 1 then ${j <= 2 ? 3 : 4} else 3 end`
+  const next = `  update app.pulse_schedule set next_at = now() - interval '1 minute' where team_id = ${q(g.group.id)};
+  if app.open_due_pulses() <> 1 then raise exception 'fixture: the next pulse did not open'; end if;
+  select r.id into v_round from app.assessment_round r where r.team_id = ${q(g.group.id)} and r.kind = 'pulse' and r.phase = 'answering';`
+  return `do $$
+declare v_reply jsonb; v_answers jsonb; v_round uuid;
+begin
+  perform set_config('request.jwt.claims', json_build_object('sub', ${q(g.leader.id)}, 'role', 'authenticated')::text, true);
+  v_reply := app.start_pulses(${q(g.group.id)}, 4, 7);
+  if not (v_reply ->> 'ok')::boolean then raise exception 'fixture: the pulses did not start (%)', v_reply ->> 'reason'; end if;
+  v_round := (v_reply ->> 'round')::uuid;
+  perform set_config('request.jwt.claims', '', true);
+${[0, 1, 2, 3].map((i) => answer(i, '3')).join('\n')}
+${dates(60, 53)}
+  if app.close_round(v_round) <> 'released' then raise exception 'fixture: pulse 1 is not released'; end if;
+
+${next}
+${dates(30, null)}
+${[0, 1, 2, 3, 4].map((i) => answer(i, change(i + 1))).join('\n')}
+  if (select phase from app.assessment_round where id = v_round) <> 'released' then raise exception 'fixture: pulse 2 is not released'; end if;
+${dates(30, 23)}
+
+${next}
+${[0, 1].map((i) => answer(i, '3')).join('\n')}
+${dates(10, 3)}
+  if app.close_round(v_round) <> 'closed' then raise exception 'fixture: pulse 3 is not missed'; end if;
 end $$;`
 }
 

@@ -58,10 +58,17 @@ export default async function MePage() {
   const work = (reads ?? []).flatMap(({ g, rounds, plan, fromMeetings }) => [
     ...(rounds && rounds !== 'none' ? rounds.rounds : [])
       .filter((r) => r.phase === 'answering' && r.me === 'to_answer')
-      .map((r) => ({ key: r.id, kind: 'round' as const, title: t('workRound'), meta: t('workRoundMeta', { group: g.name, date: r.closes_at ? day(r.closes_at) : '' }), href: roundPath(g.id, r.id) })),
+      .map((r) => ({
+        key: r.id,
+        kind: 'round' as const,
+        pulse: r.kind === 'pulse',
+        title: r.kind === 'pulse' ? t('workPulse', { number: r.number }) : t('workRound'),
+        meta: t('workRoundMeta', { group: g.name, date: r.closes_at ? day(r.closes_at) : '' }),
+        href: roundPath(g.id, r.id),
+      })),
     ...[...(plan && plan !== 'none' ? plan.focus_areas.flatMap((f) => f.actions) : []), ...(Array.isArray(fromMeetings) ? fromMeetings : [])]
       .filter((a) => a.mine && a.status === 'open')
-      .map((a) => ({ key: a.id, kind: 'action' as const, title: a.title, meta: t('workActionMeta', { group: g.name, date: day(`${a.due_on}T00:00:00Z`) }), href: planPath(g.id) })),
+      .map((a) => ({ key: a.id, kind: 'action' as const, pulse: false, title: a.title, meta: t('workActionMeta', { group: g.name, date: day(`${a.due_on}T00:00:00Z`) }), href: planPath(g.id) })),
   ])
 
   const labels: TraitLabels = {
@@ -104,7 +111,7 @@ export default async function MePage() {
                   <ListRow
                     key={w.key}
                     icon={w.kind === 'round' ? ClipboardList : SquareCheck}
-                    kind={w.kind === 'round' ? t('workKindRound') : t('workKindAction')}
+                    kind={w.kind === 'round' ? (w.pulse ? t('workKindPulse') : t('workKindRound')) : t('workKindAction')}
                     kindTone={w.kind === 'round' ? 'strong' : 'other'}
                     title={w.title}
                     meta={w.meta}

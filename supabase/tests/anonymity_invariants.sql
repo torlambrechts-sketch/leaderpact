@@ -24,7 +24,7 @@
 --     26  a member of group B reads nothing of group A
 --     27  a result carries labels only: the agreement number is not a column a reader returns
 --     28  a diagnostic with 3 answers: one extension, then no result, answers deleted (owner C9)
---     29  a pulse with 3 answers closes as missed, without an extension
+--     29  a pulse with 3 answers closes as missed, without an extension, its agreement answers gone with it
 --     30  nothing written by this suite survives
 --
 -- Every row must read pass = true; the file raises if any does not. The suite builds its own two
@@ -41,7 +41,8 @@ do $$
 declare
   v_rows jsonb := '[]'::jsonb;
   v_answer constant text[] := array['response_set', 'response', 'participation', 'factor_score', 'item_score',
-                                    'scan_response_set', 'scan_response', 'scan_replace_key', 'scan_theme_score'];
+                                    'scan_response_set', 'scan_response', 'scan_replace_key', 'scan_theme_score',
+                                    'agreement_response', 'agreement_score'];
   v_t text;
   v_n int;
   v_links int;
@@ -69,6 +70,8 @@ declare
   v_round uuid := gen_random_uuid();
   v_round2 uuid := gen_random_uuid();
   v_pulse uuid := gen_random_uuid();
+  v_charter uuid := gen_random_uuid();
+  v_agreement uuid := gen_random_uuid();
   v_scan_answers jsonb[] := '{}';
   v_diag_answers jsonb[] := '{}';
   v_replace text[] := '{}';
@@ -391,24 +394,41 @@ begin
       'pass', v_txt = 'answering, extended true, then closed' and v_n = 0 and v_m = 0);
 
     -- 29 --------------------------------------------------------- a pulse with 3 answers
+    -- its questions written before it opens (0020): three items and one agreement of a charter in force
     insert into app.assessment_round (id, org_id, team_id, kind, instrument_version_id, window_days, opens_at)
     values (v_pulse, v_org_a, v_team_a, 'pulse', v_diag_ver, 7, now() - interval '1 minute');
+    insert into app.charter_version (id, org_id, team_id, status, version, template_version, purpose, agreed_at)
+    values (v_charter, v_org_a, v_team_a, 'in_force', 1, 1, 'Test purpose', now());
+    insert into app.working_agreement (id, org_id, version_id, ordinal, text) values (v_agreement, v_org_a, v_charter, 1, 'Test agreement');
+    insert into app.pulse_question (round_id, org_id, ordinal, source, item_id, factor_id)
+    select v_pulse, v_org_a, vi.ordinal, 'rotating', vi.item_id, i.factor_id
+    from app.instrument_version_item vi join app.item i on i.id = vi.item_id
+    where vi.instrument_version_id = v_diag_ver and vi.ordinal <= 3;
+    insert into app.pulse_question (round_id, org_id, ordinal, source, agreement_id, text)
+    values (v_pulse, v_org_a, 4, 'agreement', v_agreement, '{"en": "Test agreement question"}');
     perform app.open_round(v_pulse);
     for v_n in 1..3 loop
+      select jsonb_agg(jsonb_build_object('item', coalesce(q.item_id, q.agreement_id), 'value', 1 + (v_n + q.ordinal) % 5))
+        into v_json from app.pulse_question q where q.round_id = v_pulse;
       perform set_config('request.jwt.claims', json_build_object('sub', v_a[v_n], 'role', 'authenticated')::text, true);
       set local role authenticated;
-      perform app.submit_response(v_pulse, v_diag_answers[v_n]);
+      v_txt := app.submit_response(v_pulse, v_json) ->> 'ok';
       reset role;
+      if v_txt is distinct from 'true' then raise exception 'anonymity: a pulse answer was refused'; end if;
     end loop;
+    v_m := (select count(*) from app.agreement_response a join app.response_set rs on rs.id = a.response_set_id where rs.round_id = v_pulse);
     alter table app.assessment_round disable trigger assessment_round_fixed;
     update app.assessment_round set closes_at = now() - interval '1 second' where id = v_pulse;
     alter table app.assessment_round enable trigger assessment_round_fixed;
     v_txt := app.close_round(v_pulse);
-    v_rows := v_rows || jsonb_build_object('seq', 29, 'name', 'a pulse with 3 answers closes as missed, without an extension',
-      'expected', 'closed, not extended, 0 sets', 'actual', v_txt || ', extended ' || (select extended from app.assessment_round where id = v_pulse)
-        || ', ' || (select count(*) from app.response_set where round_id = v_pulse) || ' sets',
-      'pass', v_txt = 'closed' and not (select extended from app.assessment_round where id = v_pulse)
-              and (select count(*) from app.response_set where round_id = v_pulse) = 0);
+    v_rows := v_rows || jsonb_build_object('seq', 29, 'name', 'a pulse with 3 answers closes as missed, without an extension, its agreement answers gone with it',
+      'expected', '3 agreement answers; closed, not extended, 0 sets, 0 agreement answers',
+      'actual', v_m || ' agreement answers; ' || v_txt || ', extended ' || (select extended from app.assessment_round where id = v_pulse)
+        || ', ' || (select count(*) from app.response_set where round_id = v_pulse) || ' sets, '
+        || (select count(*) from app.agreement_response where agreement_id = v_agreement) || ' agreement answers',
+      'pass', v_m = 3 and v_txt = 'closed' and not (select extended from app.assessment_round where id = v_pulse)
+              and (select count(*) from app.response_set where round_id = v_pulse) = 0
+              and (select count(*) from app.agreement_response where agreement_id = v_agreement) = 0);
 
     raise exception 'rollback' using errcode = 'P0001';
   exception when sqlstate 'P0001' then

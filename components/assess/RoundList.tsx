@@ -24,6 +24,7 @@ export interface RoundRow extends Round {
  * phase, dates and the count of answers. Section 11's corrections: four phases, not six; no cancel, no
  * "advance" and no "release results", because results open at close; no simulated answers. While a round
  * is open it shows "5 of 8 answered", never a score and never a name; the reader sees only their own state.
+ * A pulse with fewer answers than its threshold reads as missed (handoff 6.16).
  */
 export async function RoundList({ rounds }: { rounds: RoundRow[] }) {
   const t = await getTranslations('assess')
@@ -81,7 +82,9 @@ export async function RoundList({ rounds }: { rounds: RoundRow[] }) {
             )}
             {round.phase === 'answering' && round.me === null && <p className="m-0 text-[13px] text-text-2 max-md:text-[15px]">{t('notAsked')}</p>}
             {round.phase === 'answering' && round.extended && round.k !== null && <p className="m-0 text-[13px] text-text-2 max-md:text-[15px]">{t('extended', { k: round.k })}</p>}
-            {round.phase === 'closed' && round.k !== null && <p className="m-0 text-[13px] text-text-2 max-md:text-[15px]">{t('noResult', { k: round.k })}</p>}
+            {round.phase === 'closed' && round.k !== null && (
+              <p className="m-0 text-[13px] text-text-2 max-md:text-[15px]">{round.kind === 'pulse' ? t('missed', { k: round.k }) : t('noResult', { k: round.k })}</p>
+            )}
             {round.phase === 'released' && (
               <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
                 <p className="m-0 text-[13px] text-text-2 max-md:text-[15px]">{t('released')}</p>

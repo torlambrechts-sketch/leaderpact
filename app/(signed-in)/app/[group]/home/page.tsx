@@ -69,7 +69,7 @@ export default async function HomePage({ params }: { params: Promise<{ group: st
   const known = plan !== null && plan !== 'none' ? plan : null
   const free = known?.access === 'free'
   const leader = data.role === 'leader'
-  // the Full diagnostic asking this person, the plan's focus areas and their own actions, and the next meeting,
+  // the Full diagnostic or a pulse asking this person, the plan's focus areas and their own actions, and the next meeting,
   // with the Team plan or its trial (milestones 10, 12 and 13)
   const [rounds, focus, meetings, fromMeetings] =
     known && !free ? await Promise.all([loadRounds(group), loadPlan(group), loadMeetings(group), loadMeetingActions(group)]) : [null, null, null, null]
@@ -117,9 +117,9 @@ export default async function HomePage({ params }: { params: Promise<{ group: st
             title: t('needsTitle'),
             counts: [0, 1, 2, 3, 4, 5].map((count) => t('needsCount', { count })),
             empty: t('needsEmpty'),
-            kindRound: t('kindRound'),
-            roundTitle: t('roundTitle'),
-            roundMeta: asking?.closes_at ? t('roundMeta', { date: date(asking.closes_at) }) : '',
+            kindRound: asking?.kind === 'pulse' ? t('kindPulse') : t('kindRound'),
+            roundTitle: asking?.kind === 'pulse' ? t('pulseTitle', { number: asking.number }) : t('roundTitle'),
+            roundMeta: asking?.closes_at ? t(asking.kind === 'pulse' ? 'pulseMeta' : 'roundMeta', { date: date(asking.closes_at) }) : '',
             roundAction: t('roundAction'),
             kindAction: t('kindAction'),
             actionsTitle: t('actionsTitle', { count: mine }),
