@@ -34,6 +34,8 @@ export const PUBLIC_PATHS = [
   '/scan',
   // the group's invite link: a capability in the path, opened by people with no account (6.5)
   '/j',
+  // an invitation to join a group: a capability in the path, opened before the invitee has signed in (6.8)
+  '/join',
   '/leader-profile',
   '/sign-in',
   // the email link's confirmation and the OAuth callback

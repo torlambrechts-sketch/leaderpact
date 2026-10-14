@@ -6,7 +6,7 @@ import { isPublic } from '@/lib/supabase/middleware'
  * public surface, and everything else needs a session.
  */
 describe('isPublic', () => {
-  it.each(['/', '/scan', '/scan/result', '/j/abc123', '/j/lumioLeadershipScan00001', '/sign-in', '/auth/confirm', '/privacy', '/leadership-team-assessment', '/specimens'])(
+  it.each(['/', '/scan', '/scan/result', '/j/abc123', '/j/lumioLeadershipScan00001', '/join/AbCdEfGhIjKlMnOpQrStUv', '/sign-in', '/auth/confirm', '/privacy', '/leadership-team-assessment', '/specimens'])(
     '%s is public',
     (path) => expect(isPublic(path)).toBe(true),
   )

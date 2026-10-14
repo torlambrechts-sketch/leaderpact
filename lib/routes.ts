@@ -36,3 +36,8 @@ export const ME_PATH = '/app/me'
 export const settingsPath = (group: string) => `/app/${group}/settings`
 export const planBillingPath = (group: string) => `/app/${group}/settings/plan`
 export const upgradePath = (group: string) => `/app/${group}/settings/upgrade`
+
+/** The group's charter and members (handoff 6.8) */
+export const groupPath = (group: string) => `/app/${group}/group`
+/** An invitation to join a group: the token in the path is the capability (0014) */
+export const joinInvitePath = (token: string) => `/join/${token}`

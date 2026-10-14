@@ -586,3 +586,44 @@ Handoff 1, 3, 6.18, 6.19 and 11; REUSE 4.9; owner D1, D2a, D2b, D2c. Where the b
   built step says what carried over.
 - **Hosted:** 0013 has no `DELETE` or `DROP` statement, so it goes through `apply_migration`. If the
   connector holds it, the owner's script follows D-22.
+
+## D-35 — The group: charter versions and members (M9)
+
+Handoff 6.8, 8 and 9; milestone 9: "A draft does not change the version in force until the group agrees."
+Where the build chose:
+
+- **The draft is stored, not kept in the browser.** The design says "The draft stays in your browser until
+  the group agrees it". A stored draft survives a closed tab, and the group can read it before it agrees,
+  which the agreement needs. It never touches the version in force: the suite proves it for the leader and
+  a member (check 8), and so does the e2e flow.
+- **"The group agrees · put in force" is the leader's.** The leader records that the group agreed
+  (handoff 6.8: "The leader drafts"); there is no vote. The draft becomes the next numbered version, the one
+  before is superseded, and the event is audited with ids only. All three parts are needed: a purpose, a team
+  task and a working agreement.
+- **An agreed version never changes**, nor do its tasks and agreements, and versions move forward only.
+  Earlier versions open read-only at `?version=n`. A discarded draft keeps its row, marked discarded.
+- **Decision rights are Decide, Advise and Inform**, the design's three. Tasks carry no owner: the handoff
+  does not ask for one and the design's editor has none. The design's agenda time per task waits for the
+  task match (milestone 13).
+- **The template holds the three parts' limits** (version 1: 12 tasks, 12 agreements, a purpose of 600
+  characters and 200 per item), as a versioned row. The limits are this build's choice; the handoff gives
+  none, and it gives no template wording, so a first draft starts with empty parts.
+- **Members join by an invitation link.** No product mail exists until the outbox (milestone 16, D-26), so
+  "Add and invite" gives the leader a link to send. It works once, for the one address the leader entered,
+  for `invitation_days` (14, this build's choice). Only the token's SHA-256 is kept. The link's page never
+  shows the address; a sign-in link that may make an account goes only to the address the invitation names
+  (`invitation_matches`), and joining checks the signed-in address again. A person new to the product is
+  named as the leader invited them. Someone already in the group who opens the link goes to its Home.
+- **Up to 15, invitations counted**, so a group cannot be overfilled by open links. A second invitation to
+  the same address replaces the first, with a new link ("New link").
+- **Removing a member and naming a leader are always open**, on any plan and when read-only: they take
+  access away or hand it on. The charter and invitations are the Team plan's and stop when read-only
+  (`team_plan_writable`); the suite checks from the catalogue that every client function writing them asks
+  it. Naming a leader ends both memberships and starts new ones, so each keeps its dates.
+- **Members see who is in the group; only the leader sees the open invitations.** No counts of tasks or
+  actions per person (section 11). Invitations and membership changes are not audited: the handoff's audit
+  list names neither, and `audit_event`'s kinds are fixed.
+- **On the Free plan the Group page stays the sample** (handoff 6.19). The trial or the Team plan opens the
+  group's own.
+- **Nothing in 0014 deletes a row**: drafts, invitations and memberships keep theirs with a state and a
+  date, and their group's removal takes them.

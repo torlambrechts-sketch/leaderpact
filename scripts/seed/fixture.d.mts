@@ -12,3 +12,8 @@ export declare const TEAM_VIEW_ANSWERS: number[][]
 export declare const TEAM_VIEW_FIGURES: { theme: string; level: string; agreement: 'high' | 'medium' | 'low' }[]
 export declare const TEAM_STATES: Record<'released' | 'extended' | 'closed', Group>
 export declare const BILLING: Group & { leader: { id: string; name: string; email: string }; member: { id: string; name: string; email: string } }
+export declare const GROUP_FLOW: Group & {
+  leader: { id: string; name: string; email: string }
+  member: { id: string; name: string; email: string }
+  invitee: { id: string; name: string; email: string }
+}

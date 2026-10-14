@@ -14,7 +14,7 @@
 --   11  no candidate item is in any version
 --   12  cut-off version 1 holds the values of handoff 7
 --   13  the version in force is 1 (app.cutoff_version())
---   14  the settings of handoff 8, with defaults, units and ranges, and the trial's 14 days (owner D2a)
+--   14  the settings of handoff 8, with defaults, units and ranges, the trial's 14 days (owner D2a) and an invitation's 14 days (D-35)
 --   15  the threshold row is 4, set by the organisation, within app.k_floor() to app.k_max()
 --   16  plans Free and Team, 1 group of up to 15 members each (handoff 1)
 --   17  their features
@@ -156,11 +156,11 @@ begin
     into v_txt from app.setting;
   v_exp := 'platform active_focus_areas=2 count - fixed; organisation anonymity_threshold=4 count 4..8; '
     || 'group diagnostic_rhythm_months=6 months 3..12; group diagnostic_window_days=14 days 7..30; '
-    || 'platform extension_days=7 days - fixed; platform members_per_group=15 count - fixed; '
+    || 'platform extension_days=7 days - fixed; platform invitation_days=14 days - fixed; platform members_per_group=15 count - fixed; '
     || 'group pulse_rhythm_weeks=4 weeks 2..8; group pulse_window_days=7 days 3..14; '
     || 'group reminder_days=[3, 7, 12] days 1..30; organisation retention_after_cancel_days=90 days 30..365; '
     || 'group scan_window_days=7 days 2..14; platform trial_days=14 days - fixed';
-  v_rows := v_rows || jsonb_build_object('seq', 14, 'name', 'the settings of handoff 8 and the 14-day trial, with defaults, units and ranges',
+  v_rows := v_rows || jsonb_build_object('seq', 14, 'name', 'the settings of handoff 8, the trial and the invitation, with defaults, units and ranges',
     'expected', v_exp, 'actual', coalesce(v_txt, ''), 'pass', v_txt = v_exp);
 
   -- 15
