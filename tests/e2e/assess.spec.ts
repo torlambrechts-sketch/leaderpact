@@ -124,10 +124,11 @@ test('the diagnostic round: the leader opens it, everyone is asked, answers come
   // the other phases, on the round states' group: released, closed with no result, answering with a count
   await lp.goto(assess(ROUND_STATES.group.id))
   const states = lp.getByRole('list', { name: 'Rounds' })
-  await expect(states.getByRole('listitem').filter({ has: lp.getByRole('heading', { name: /^Full diagnostic · round/ }) })).toHaveCount(3)
+  await expect(states.getByRole('listitem').filter({ has: lp.getByRole('heading', { name: /^Full diagnostic · round/ }) })).toHaveCount(4)
   await expect(states.getByText('3 of 5 answered')).toBeVisible()
   await expect(states.getByText('Fewer than 4 answered, so no result was made and the answers were deleted.')).toBeVisible()
-  await expect(states.getByText('The result was computed once, when the round closed.')).toBeVisible()
+  await expect(states.getByText('The result was computed once, when the round closed.')).toHaveCount(2)
+  await expect(states.getByRole('link', { name: 'See the results' })).toHaveCount(2)
   await expect(lp.getByRole('button', { name: 'Open the Full diagnostic' })).toHaveCount(0)
   await axe(lp)
 
