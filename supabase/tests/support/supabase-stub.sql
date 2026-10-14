@@ -16,6 +16,8 @@ grant usage on schema extensions to anon, authenticated, service_role;
 create schema if not exists auth;
 grant usage on schema auth to anon, authenticated, service_role;
 create table if not exists auth.users (id uuid primary key, email text);
+-- the last sign-in Auth records, which the retention job of 0026 reads
+alter table auth.users add column if not exists last_sign_in_at timestamptz;
 create or replace function auth.uid() returns uuid language sql stable as $$
   select coalesce(nullif(current_setting('request.jwt.claim.sub', true), ''),
                   (nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'sub'))::uuid
