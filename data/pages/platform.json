@@ -27,14 +27,14 @@
       "text": "A personality profile for leaders, in a quick and a full length. It is private to you until you choose to share it."
     },
     {
-      "status": "development",
+      "status": "available",
       "title": "Agree a charter",
-      "text": "Purpose, team tasks and working agreements. The leader drafts it, and the group agrees it."
+      "text": "Purpose, team tasks and working agreements, in numbered versions. The leader drafts it, and the group agrees it."
     },
     {
-      "status": "development",
+      "status": "available",
       "title": "Run the full diagnostic",
-      "text": "72 questions across 21 scales and 3 outcomes. Every scale shows level, agreement and one standing."
+      "text": "72 questions across 21 scales and 3 outcomes, answered anonymously. The results pages are in development."
     },
     {
       "status": "development",
@@ -55,6 +55,48 @@
   "blocks": [
     {
       "t": "h2",
+      "text": "What it brings"
+    },
+    {
+      "t": "value",
+      "items": [
+        {
+          "who": "you",
+          "title": "A clear picture, quickly",
+          "points": [
+            "Your own reading of the team in three minutes.",
+            "Your answers never carry your name.",
+            "A private Leader Profile, shared only if you choose."
+          ]
+        },
+        {
+          "who": "group",
+          "title": "One shared picture",
+          "points": [
+            "Level and agreement per theme, for everyone at once.",
+            "A charter the group agrees and keeps up to date.",
+            "A fuller diagnostic when the scan shows where to look."
+          ]
+        },
+        {
+          "who": "organisation",
+          "title": "A leadership group that works as one",
+          "points": [
+            "Clarity on what the group is for and which issues it takes.",
+            "Signals from the group’s own answers, with no one exposed.",
+            "Research-based, not yet validated, and every score says so."
+          ]
+        }
+      ]
+    },
+    {
+      "t": "shot",
+      "id": "team-view",
+      "alt": "The team view for a group of eight: six themes with a level and an agreement label each. Meetings is marked views differ.",
+      "caption": "The team view, when the scan has closed."
+    },
+    {
+      "t": "h2",
       "text": "What sets it apart?"
     },
     {
@@ -62,7 +104,7 @@
       "items": [
         {
           "title": "From results to meetings",
-          "text": "Assessment and meetings sit in one place, so a focus area becomes actions on the next agenda, not a report in a drawer."
+          "text": "The loop is built to link assessment and meetings, so a focus area becomes actions on the next agenda. Meetings are in development."
         },
         {
           "title": "The evidence is shown",
@@ -92,7 +134,7 @@
     },
     {
       "t": "p",
-      "text": "The Leadership Team Scan, the team view and the Leader Profile are free, for one group. The Team plan's areas, the charter, the full diagnostic, focus areas, meetings and pulses, are in development."
+      "text": "The Leadership Team Scan, the team view and the Leader Profile are free, for one group. The charter, members and the Full diagnostic are part of the Team plan, which a group’s leader can try for 14 days. Focus areas, meetings and pulses are in development."
     },
     {
       "t": "h2",
@@ -106,7 +148,7 @@
   "faq": [
     {
       "q": "Is {product} free?",
-      "a": "The Leadership Team Scan, the team view and the Leader Profile are free, for one group. The Team plan's areas are in development."
+      "a": "The Leadership Team Scan, the team view and the Leader Profile are free, for one group. The charter and the Full diagnostic are part of the Team plan, which a group’s leader can try for 14 days."
     },
     {
       "q": "How long does the scan take?",

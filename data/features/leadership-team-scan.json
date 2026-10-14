@@ -1,0 +1,149 @@
+{
+  "title": "Leadership team scan: 12 questions, 3 minutes, no account",
+  "description": "Twelve research-based questions on how your leadership team works, a personal view at once, and one link to invite your group. No account needed.",
+  "crumb": "Leadership Team Scan",
+  "kicker": "Available now · no account needed",
+  "h1": "The Leadership Team Scan",
+  "lead": "Twelve questions, one per screen, about how your leadership team works. It takes about three minutes and needs no account. Your personal view appears the moment you finish, and one link invites the rest of your group.",
+  "nav": "Leadership Team Scan",
+  "summary": "Twelve questions in three minutes, and one link for the group.",
+  "blocks": [
+    {
+      "t": "h2",
+      "text": "What it brings"
+    },
+    {
+      "t": "value",
+      "items": [
+        {
+          "who": "you",
+          "title": "A first reading in three minutes",
+          "points": [
+            "Your own view of six themes, the moment you finish.",
+            "No account, and nothing leaves your device before the last answer.",
+            "A quick way to see whether a fuller look is worth the time."
+          ]
+        },
+        {
+          "who": "group",
+          "title": "A shared starting point",
+          "points": [
+            "Everyone answers the same twelve questions, on their own device.",
+            "The group sees how many have answered, never who.",
+            "A team view that shows where you agree and where views differ."
+          ]
+        },
+        {
+          "who": "organisation",
+          "title": "A light first step",
+          "points": [
+            "About three minutes for each member, with nothing to set up.",
+            "It points to the themes worth a conversation, from the group’s own answers.",
+            "Answers are kept without names, so people can be candid."
+          ]
+        }
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "How it works"
+    },
+    {
+      "t": "feature",
+      "title": "One question per screen",
+      "text": "Twelve statements, two for each of six themes: purpose and priorities, meetings, dialogue and conflict, working as one team, safety and trust, and results. Each has five options, from strongly disagree to strongly agree.",
+      "points": [
+        "Answers stay on your device until the last question.",
+        "An unfinished scan waits on the same device for seven days.",
+        "Built for a phone first."
+      ],
+      "shot": "scan-question",
+      "alt": "The scan on a phone: question 5 of 12, “We explore an issue before we take positions”, with Agree chosen.",
+      "caption": "The fifth of twelve questions, on a phone."
+    },
+    {
+      "t": "feature",
+      "title": "Your personal view, at once",
+      "text": "When you finish, your view of the six themes appears straight away. It is labelled one person’s view, and each score is called indicative: it is the mean of two questions.",
+      "points": [
+        "Research-based, not yet validated, and it says so.",
+        "The team view opens only when the scan closes."
+      ],
+      "shot": "scan-personal-view",
+      "alt": "The personal view on a phone: six themes with a bar and a score each, from 2.0 to 4.5.",
+      "caption": "One person’s view, straight after the last answer."
+    },
+    {
+      "t": "feature",
+      "title": "One link for the group",
+      "text": "Name your group and say how many it has, and you get one link to share. Each member answers on their own device, with no account, and sees their own view.",
+      "points": [
+        "Answers are capped at the size you set, from 4 to 15.",
+        "The page says how answers are kept before anyone starts."
+      ],
+      "shot": "join-link",
+      "alt": "The page a member opens from the link: the scan’s name, how answers are kept, and “3 of 7 have answered. Counts only, never names.”",
+      "caption": "What a member sees when they open the link."
+    },
+    {
+      "t": "feature",
+      "title": "Counts, never names",
+      "text": "While the scan is open, the leader sees how many have answered and when it closes. Never a score, and never who has answered.",
+      "points": [
+        "It closes when everyone has answered, or after seven days.",
+        "Nobody can close it early, the leader included."
+      ],
+      "shot": "invite-counter",
+      "alt": "The invite page: the group’s link, “3 of 7 have answered. Counts only, never names.”, and the closing date.",
+      "caption": "The leader’s view while the scan is open."
+    },
+    {
+      "t": "h2",
+      "text": "What happens to the answers"
+    },
+    {
+      "t": "steps",
+      "items": [
+        {
+          "title": "You answer",
+          "text": "Your answers stay on your device until the last question."
+        },
+        {
+          "title": "You submit anonymously",
+          "text": "The answer set is stored without your name or any account."
+        },
+        {
+          "title": "The scan closes",
+          "text": "When everyone has answered, or after seven days."
+        },
+        {
+          "title": "The team view opens",
+          "text": "For the whole group at the same moment, when at least four have answered."
+        }
+      ]
+    },
+    {
+      "t": "box",
+      "title": "What the scan is not",
+      "text": "It is a first look, not a diagnosis. Twelve questions give six indicative scores. The [Full diagnostic](/platform/full-diagnostic) asks 72 questions across 21 scales and 3 outcomes."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Does anyone need an account to answer?",
+      "a": "No. Members answer through the group’s link, on their own device. Only the person who sets up the group signs in, by an email link."
+    },
+    {
+      "q": "Can the leader see who has answered?",
+      "a": "No. The leader sees how many have answered, never who, and never a score while the scan is open."
+    },
+    {
+      "q": "What if fewer than four people answer?",
+      "a": "The scan gets one extension of seven days. If there are still fewer than four answers, no team view is made and the answers are deleted."
+    },
+    {
+      "q": "How sound are the questions?",
+      "a": "They draw on the research on leadership teams, and every score says it is research-based, not yet validated. The [research page](/research) sets out the model."
+    }
+  ]
+}

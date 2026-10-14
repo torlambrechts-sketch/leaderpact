@@ -1,6 +1,7 @@
 // Origin: Orgpuls lib/marketing/blocks.ts @ d9b1c52 (adapted: LeaderPact's block kinds, research sources, the copy rules).
 import { z } from 'zod'
 import { copyFindings } from '@/lib/i18n/copy-rules'
+import { shotById } from './shots'
 
 /**
  * The blocks the public site's long text is written in: the articles (data/articles), the template pages
@@ -142,22 +143,70 @@ export const Block = z.discriminatedUnion('t', [
     title: Copy,
     parts: z.array(z.object({ label: Copy, text: Copy })).min(3).max(8),
   }),
+
+  // the product pages' pictures (D-44): a screenshot of the real app, from lib/site/shots.ts, always marked as
+  // a fictional demo group; its description (`alt`) and caption are the page's words
+  /** one screenshot, with what it shows */
+  z.object({ t: z.literal('shot'), id: z.string(), alt: Copy, caption: Copy }),
+  /** a feature beside its screenshot: what it is, the points that matter, and the picture */
+  z.object({
+    t: z.literal('feature'),
+    title: Copy,
+    text: Copy,
+    points: z.array(Copy).max(4).optional(),
+    shot: z.string(),
+    alt: Copy,
+    caption: Copy.optional(),
+  }),
+  /** what a feature brings, to the person, to the leadership group and to the organisation, in that order */
+  z.object({
+    t: z.literal('value'),
+    items: z.tuple([
+      z.object({ who: z.literal('you'), title: Copy, points: z.array(Copy).min(1).max(4) }),
+      z.object({ who: z.literal('group'), title: Copy, points: z.array(Copy).min(1).max(4) }),
+      z.object({ who: z.literal('organisation'), title: Copy, points: z.array(Copy).min(1).max(4) }),
+    ]),
+  }),
 ])
 export type Block = z.infer<typeof Block>
 
 /** The block kinds that are figures, for the editorial rule that an article draws its argument (D-41) */
-export const FIGURES = ['steps', 'flow', 'pyramid', 'pillars', 'matrix', 'compare', 'fork', 'rings', 'cycle', 'stats', 'bars', 'timebar', 'spread', 'specimen'] as const
+export const FIGURES = [
+  'steps',
+  'flow',
+  'pyramid',
+  'pillars',
+  'matrix',
+  'compare',
+  'fork',
+  'rings',
+  'cycle',
+  'stats',
+  'bars',
+  'timebar',
+  'spread',
+  'specimen',
+  'shot',
+  'feature',
+  'value',
+] as const
+
+/** The blocks that take the page's full width on a product page; text keeps the reading measure */
+export const WIDE = new Set<Block['t']>(['feature', 'value', 'shot', 'flow', 'stats', 'compare', 'cycle', 'steps'])
 export const isFigure = (b: Block) => (FIGURES as readonly string[]).includes(b.t)
 
 /**
- * What a block's schema cannot say on its own (D-41): every source it cites is in the page's list (a page with
- * no list may cite none), a time bar's kind names one of its kinds, and a percentage is at most 100.
+ * What a block's schema cannot say on its own (D-41, D-44): every source it cites is in the page's list (a page
+ * with no list may cite none), a time bar's kind names one of its kinds, a percentage is at most 100, and a
+ * screenshot is one the capture has taken.
  */
 export function blockProblems(b: Block, sourceCount: number): string[] {
   const out: string[] = []
   for (const n of sourceRefs(b)) if (n > sourceCount) out.push(`${b.t} cites source ${n}; the list has ${sourceCount}`)
   if (b.t === 'timebar') for (const i of b.items) if (i.kind >= b.kinds.length) out.push(`timebar: "${i.label}" has kind ${i.kind}; there are ${b.kinds.length}`)
   if (b.t === 'bars' && b.percent) for (const i of b.items) if (i.value > 100) out.push(`bars: "${i.label}" is ${i.value} per cent`)
+  const shot = b.t === 'shot' ? b.id : b.t === 'feature' ? b.shot : null
+  if (shot !== null && !shotById(shot)) out.push(`${b.t}: no screenshot "${shot}" in data/shots.json`)
   return out
 }
 
@@ -264,6 +313,12 @@ export function blockText(blocks: Block[]): string[] {
         return [b.scale.low, b.scale.high, ...b.rows.map((r) => r.label)]
       case 'specimen':
         return [b.title, ...b.parts.flatMap((p) => [p.label, p.text])]
+      case 'shot':
+        return [b.alt, b.caption]
+      case 'feature':
+        return [b.title, b.text, ...(b.points ?? []), b.alt, ...(b.caption ? [b.caption] : [])]
+      case 'value':
+        return b.items.flatMap((i) => [i.title, ...i.points])
     }
   })
 }

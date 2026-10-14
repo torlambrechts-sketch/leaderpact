@@ -1,7 +1,8 @@
 import * as React from 'react'
-import { headingIds, plain, type Block, type Source } from '@/lib/site/blocks'
+import { headingIds, plain, WIDE, type Block, type Source } from '@/lib/site/blocks'
 import { Bars, Cards, Compare, Cycle, Flow, Fork, Matrix, Pillars, Pyramid, Rings, Specimen, Spread, Stats, Steps, Timebar } from './Figures'
 import { Rich } from './Rich'
+import { FeatureRow, ShotBlock, Value } from './Shots'
 
 /**
  * One renderer per block kind (lib/site/blocks.ts): the articles, the template pages and the product pages
@@ -9,18 +10,29 @@ import { Rich } from './Rich'
  * (handoff section 4); headings are Poppins, the display face. The figures (D-41) are drawn by Figures.tsx;
  * `sources` is the article's list, which a figure cites by number.
  */
-export function Blocks({ blocks, sources = [] }: { blocks: Block[]; sources?: readonly Source[] }) {
+export function Blocks({ blocks, sources = [], wide = false }: { blocks: Block[]; sources?: readonly Source[]; wide?: boolean }) {
   const ids = headingIds(blocks)
+  // feature rows alternate sides, counted per run so each section starts the same way
+  let row = 0
   return (
     <div className="flex flex-col gap-5 text-[17px] leading-[1.7] text-text-body">
-      {blocks.map((b, i) => (
-        <BlockView key={i} block={b} id={ids.get(i)} sources={sources} />
-      ))}
+      {blocks.map((b, i) => {
+        row = b.t === 'feature' ? row + 1 : 0
+        const view = <BlockView key={i} block={b} id={ids.get(i)} sources={sources} flip={row % 2 === 0} />
+        // on a product page the figures take the full width, and text keeps the reading measure (D-44)
+        return wide && !WIDE.has(b.t) ? (
+          <div key={i} className="max-w-[760px]">
+            {view}
+          </div>
+        ) : (
+          view
+        )
+      })}
     </div>
   )
 }
 
-function BlockView({ block: b, id, sources }: { block: Block; id?: string; sources: readonly Source[] }) {
+function BlockView({ block: b, id, sources, flip }: { block: Block; id?: string; sources: readonly Source[]; flip: boolean }) {
   switch (b.t) {
     case 'h2':
       return (
@@ -62,7 +74,8 @@ function BlockView({ block: b, id, sources }: { block: Block; id?: string; sourc
       )
     case 'box':
       return (
-        <aside className="flex flex-col gap-2 rounded-card border border-bar bg-surface px-6 py-5">
+        // named by its title, so two asides on one page are two landmarks a reader can tell apart
+        <aside aria-label={plain(b.title)} className="flex flex-col gap-2 rounded-card border border-bar bg-surface px-6 py-5">
           <p className="m-0 text-[15px] font-bold text-ink">
             <Rich text={b.title} />
           </p>
@@ -135,5 +148,11 @@ function BlockView({ block: b, id, sources }: { block: Block; id?: string; sourc
       return <Spread b={b} />
     case 'specimen':
       return <Specimen b={b} />
+    case 'shot':
+      return <ShotBlock b={b} />
+    case 'feature':
+      return <FeatureRow b={b} flip={flip} />
+    case 'value':
+      return <Value b={b} />
   }
 }

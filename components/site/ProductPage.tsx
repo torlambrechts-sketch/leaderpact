@@ -17,7 +17,20 @@ import { Rich } from './Rich'
  * where the page has them, each marked available or in development; the blocks; the questions, which the
  * FAQPage data repeats word for word; and two articles to read next.
  */
-export async function ProductPage({ path, content: c, related, extra }: { path: string; content: PageContent; related: readonly string[]; extra?: React.ReactNode }) {
+export async function ProductPage({
+  path,
+  content: c,
+  related,
+  extra,
+  features,
+}: {
+  path: string
+  content: PageContent
+  related: readonly string[]
+  extra?: React.ReactNode
+  /** the platform's feature pages (D-44), under the steps */
+  features?: React.ReactNode
+}) {
   const t = await getTranslations('site')
   return (
     <div className="mx-auto flex max-w-[1120px] flex-col px-4 pb-6 md:px-gutter">
@@ -76,8 +89,11 @@ export async function ProductPage({ path, content: c, related, extra }: { path: 
         </section>
       ) : null}
 
-      <div className="mt-12 max-w-[760px]">
-        <Blocks blocks={c.blocks} />
+      {features}
+
+      {/* figures take the page's width, text keeps the reading measure (D-44) */}
+      <div className="mt-12">
+        <Blocks blocks={c.blocks} wide />
       </div>
 
       {extra}

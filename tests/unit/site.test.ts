@@ -104,6 +104,8 @@ describe('the product pages', () => {
       'Invite your group',
       'Read the team view together',
       'Take the Leader Profile',
+      'Agree a charter',
+      'Run the full diagnostic',
     ])
     for (const key of Object.keys(PRODUCT_PAGES) as ProductPageKey[]) {
       const text = JSON.stringify(loadPage(key))

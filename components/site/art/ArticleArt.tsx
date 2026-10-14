@@ -290,6 +290,156 @@ function Debate() {
   )
 }
 
+
+/** a phone with one question on screen and its five options, the fourth chosen */
+function Scan() {
+  return (
+    <>
+      <rect x="138" y="36" width="164" height="292" rx="28" fill={INK} />
+      <rect x="148" y="48" width="144" height="268" rx="20" fill={PAPER} />
+      <rect x="196" y="56" width="48" height="8" rx="4" fill={INK} />
+      <rect x="164" y="78" width="112" height="6" rx="3" fill={BAR} />
+      <rect x="164" y="78" width="46" height="6" rx="3" fill={LAV_STRONG} />
+      <rect x="164" y="96" width="56" height="14" rx="7" fill={LAV} />
+      <Text x={164} y={120} w={104} fill={INK} />
+      <Text x={164} y={134} w={78} fill={INK} />
+      {[0, 1, 2, 3, 4].map((i) => (
+        <rect key={i} x="164" y={154 + i * 28} width="112" height="22" rx="8" fill={i === 3 ? LAV : PAPER} stroke={i === 3 ? INK : BAR} strokeWidth={i === 3 ? 2 : 1.6} />
+      ))}
+      <rect x="226" y="296" width="50" height="14" rx="7" fill={INK} />
+      <g transform="translate(344 120)">
+        <circle r="34" fill={YELLOW} {...line} />
+        <path d="M0 -18 V0 L12 8" fill="none" {...line} />
+      </g>
+      <path d="M318 168 q22 10 30 30" fill="none" {...line} strokeDasharray="1 7" />
+    </>
+  )
+}
+
+/** the team's bars, level and agreement, with the two notes beside them */
+function TeamView() {
+  const rows = [
+    { w: 120, mark: 'high' },
+    { w: 70, mark: 'differ' },
+    { w: 96, mark: 'high' },
+    { w: 60, mark: 'high' },
+    { w: 104, mark: 'medium' },
+    { w: 124, mark: 'high' },
+  ]
+  return (
+    <>
+      <rect x="60" y="74" width="236" height="230" rx="20" fill={PAPER} {...line} />
+      {rows.map((r, i) => (
+        <g key={i}>
+          <Text x={78} y={98 + i * 32} w={44} fill={INK} />
+          <rect x="132" y={96 + i * 32} width="124" height="10" rx="5" fill={BAR} />
+          <rect x="132" y={96 + i * 32} width={r.w} height="10" rx="5" fill={LAV_STRONG} />
+          <circle cx="276" cy={101 + i * 32} r="6" fill={r.mark === 'high' ? TEAL : r.mark === 'medium' ? YELLOW : ORANGE} stroke={INK} strokeWidth="1.6" />
+        </g>
+      ))}
+      <rect x="312" y="86" width="96" height="70" rx="14" fill={TEAL} {...line} />
+      <path d="M326 108 l6 6 l12 -13" fill="none" {...line} />
+      <Text x={326} y={128} w={66} fill={INK} />
+      <Text x={326} y={140} w={50} />
+      <rect x="312" y="172" width="96" height="70" rx="14" fill={PAPER} {...line} />
+      <path d="M330 194 l8 -8 m-8 8 l8 8 m14 -8 h-22" fill="none" {...line} />
+      <Text x={326} y={214} w={60} fill={INK} />
+      <Text x={326} y={226} w={44} />
+    </>
+  )
+}
+
+/** a person beside five domains, each a band with a dot in it */
+function Profile() {
+  return (
+    <>
+      <g transform="translate(118 186)">
+        <circle r="62" fill={LAV} {...line} />
+        <circle cy="-14" r="20" fill={INK} />
+        <path d="M-36 36 C-32 6 32 6 36 36 Z" fill={INK} />
+      </g>
+      <rect x="196" y="78" width="210" height="216" rx="20" fill={PAPER} {...line} />
+      {[0.75, 0.5, 0.5, 0.55, 0.3].map((at, i) => (
+        <g key={i}>
+          <Text x={212} y={98 + i * 38} w={70} fill={INK} />
+          {[0, 1, 2].map((b) => (
+            <rect key={b} x={212 + b * 60} y={112 + i * 38} width="56" height="12" rx="6" fill={b === Math.floor(at * 3) ? TAN : SUNK} />
+          ))}
+          <circle cx={212 + at * 176} cy={118 + i * 38} r="6" fill={INK} />
+        </g>
+      ))}
+      <g transform="translate(372 300)">
+        <rect x="-22" y="-14" width="44" height="34" rx="8" fill={YELLOW} {...line} />
+        <path d="M-12 -14 v-8 a12 12 0 0 1 24 0 v8" fill="none" {...line} />
+      </g>
+    </>
+  )
+}
+
+/** a clipboard of many statements, and the layers they add up to */
+function Diagnostic() {
+  return (
+    <>
+      <rect x="70" y="58" width="176" height="248" rx="20" fill={LAV} {...line} />
+      <rect x="84" y="80" width="148" height="212" rx="12" fill={PAPER} {...line} />
+      <rect x="126" y="46" width="64" height="26" rx="10" fill={INK} />
+      {Array.from({ length: 8 }).map((_, i) => (
+        <g key={i}>
+          <circle cx="102" cy={102 + i * 24} r="6" fill={i < 5 ? TEAL : SUNK} stroke={INK} strokeWidth="1.6" />
+          <Text x={116} y={98 + i * 24} w={[96, 80, 100, 70, 90, 84, 96, 74][i]!} fill={i < 5 ? INK : BAR} />
+        </g>
+      ))}
+      {[
+        { y: 110, fill: TEAL, w: 120 },
+        { y: 160, fill: YELLOW, w: 140 },
+        { y: 210, fill: TAN, w: 108 },
+        { y: 260, fill: PAPER, w: 128 },
+      ].map((l, i) => (
+        <g key={i}>
+          <rect x="270" y={l.y - 18} width="140" height="40" rx="12" fill={l.fill} {...line} />
+          <rect x="284" y={l.y - 2} width={l.w * 0.6} height="8" rx="4" fill={INK} />
+        </g>
+      ))}
+      <path d="M246 180 h20" {...line} />
+      <path d="M258 172 l8 8 l-8 8" fill="none" {...line} />
+    </>
+  )
+}
+
+/** the loop: scan, team view, charter, diagnostic, back round, around the group */
+function Loop() {
+  const steps = [
+    { a: -90, fill: LAV },
+    { a: -18, fill: TEAL },
+    { a: 54, fill: YELLOW },
+    { a: 126, fill: PAPER },
+    { a: 198, fill: LAV_MID },
+  ]
+  return (
+    <>
+      <circle cx="220" cy="184" r="104" fill="none" stroke={INK} strokeWidth="2.4" strokeDasharray="3 10" strokeLinecap="round" />
+      {steps.map((s, i) => {
+        const x = 220 + 104 * Math.cos((s.a * Math.PI) / 180)
+        const y = 184 + 104 * Math.sin((s.a * Math.PI) / 180)
+        return (
+          <g key={i}>
+            <circle cx={x} cy={y} r="30" fill={s.fill} {...line} />
+            <Text x={x - 14} y={y - 4} w={28} fill={INK} />
+          </g>
+        )
+      })}
+      <g transform="translate(220 184)">
+        <circle r="44" fill={INK} />
+        {[-16, 0, 16].map((dx) => (
+          <circle key={dx} cx={dx} cy="-6" r="7" fill={PAPER} />
+        ))}
+        <rect x="-26" y="8" width="52" height="12" rx="6" fill={PAPER} />
+      </g>
+      <path d="M300 106 l10 -14 l4 16" fill="none" {...line} />
+    </>
+  )
+}
+
 const DRAWINGS: Record<ArtKind, () => React.ReactNode> = {
   layers: Layers,
   assess: Assess,
@@ -301,6 +451,11 @@ const DRAWINGS: Record<ArtKind, () => React.ReactNode> = {
   voice: Voice,
   bridge: Bridge,
   debate: Debate,
+  scan: Scan,
+  teamview: TeamView,
+  profile: Profile,
+  diagnostic: Diagnostic,
+  loop: Loop,
 }
 
 export function ArticleArt({ kind, className }: { kind: ArtKind; className?: string }) {

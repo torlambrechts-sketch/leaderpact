@@ -2,6 +2,8 @@ import { getTranslations } from 'next-intl/server'
 import { PRODUCT_NAME } from '@/lib/brand'
 import { PublicFooter, PublicHeader } from '@/components/lp/PublicHeader'
 import { SiteBeacon } from '@/components/site/SiteBeacon'
+import type { PlatformNav } from '@/components/lp/PlatformMenu'
+import { allFeatures, featurePath, PLATFORM_PATH } from '@/lib/site/features'
 
 /**
  * The public site: the landing page, the scan, the personal view, the Leader Profile and the legal pages
@@ -11,6 +13,18 @@ import { SiteBeacon } from '@/components/site/SiteBeacon'
  */
 export default async function PublicLayout({ children }: { children: React.ReactNode }) {
   const t = await getTranslations('publicNav')
+  // the Platform menu (D-44): the features, named and summed up by their own pages, then the pages about how it is built
+  const platform: PlatformNav = {
+    label: t('platform'),
+    featuresTitle: t('platformFeatures'),
+    aboutTitle: t('platformAbout'),
+    features: allFeatures().map(({ entry, content }) => ({ href: featurePath(entry.slug), label: content.nav, text: content.summary, icon: entry.icon })),
+    about: [
+      { href: PLATFORM_PATH, label: t('howItWorks'), text: t('overviewText'), icon: 'overview' },
+      { href: '/anonymity', label: t('anonymity'), text: t('anonymityText'), icon: 'anonymity' },
+      { href: '/research', label: t('research'), text: t('researchText'), icon: 'research' },
+    ],
+  }
   return (
     <>
       <PublicHeader
@@ -22,9 +36,11 @@ export default async function PublicLayout({ children }: { children: React.React
           start: t('start'),
           home: t('home', { product: PRODUCT_NAME }),
           signIn: t('signIn'),
-          howItWorks: t('howItWorks'),
           articles: t('articles'),
+          open: t('openMenu'),
+          close: t('closeMenu'),
         }}
+        platform={platform}
       />
       <SiteBeacon />
       <main id="main">{children}</main>
@@ -45,6 +61,7 @@ export default async function PublicLayout({ children }: { children: React.React
           articles: t('articles'),
           templates: t('templates'),
         }}
+        platform={{ label: t('platform'), links: platform.features.map((f) => ({ href: f.href, label: f.label })) }}
       />
     </>
   )

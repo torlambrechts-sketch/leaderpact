@@ -174,7 +174,15 @@
     "anonymity": "Anonymity",
     "tools": "Choosing a tool",
     "product": "Product",
-    "learn": "Learn"
+    "learn": "Learn",
+    "platform": "Platform",
+    "platformFeatures": "Features",
+    "platformAbout": "How it is built",
+    "overviewText": "The loop, from a three-minute scan to better meetings.",
+    "anonymityText": "What the database enforces, so no answer has a name.",
+    "researchText": "The model's 21 scales and 3 outcomes, and their evidence.",
+    "openMenu": "Open the menu",
+    "closeMenu": "Close the menu"
   },
   "landing": {
     "free": "Free",
@@ -1067,7 +1075,8 @@
       "stepsTitle": "What it does",
       "available": "Available now",
       "development": "In development",
-      "step": "Step {n}:"
+      "step": "Step {n}:",
+      "featuresTitle": "Each feature, in detail"
     },
     "research": {
       "modelTitle": "21 scales and 3 outcomes",
@@ -1109,6 +1118,21 @@
       "totalMinutes": "{n} minutes in all",
       "average": "Average {value}",
       "answers": "Answers: {list}"
+    },
+    "features": {
+      "crumb": "Platform",
+      "more": "More of the platform",
+      "read": "See how it works"
+    },
+    "shots": {
+      "sample": "Sample data",
+      "note": "A fictional group: every name and answer is invented.",
+      "enlarge": "{alt} Opens the full-size picture."
+    },
+    "value": {
+      "you": "For you",
+      "group": "For the leadership group",
+      "organisation": "For the organisation"
     }
   },
   "assess": {

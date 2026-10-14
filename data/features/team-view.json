@@ -1,0 +1,159 @@
+{
+  "title": "Leadership team survey results, read together: the team view",
+  "description": "The team view shows a leadership group’s level and agreement on six themes. It is computed once at the close, for everyone at once.",
+  "crumb": "Team view",
+  "kicker": "Available now · free for one group",
+  "h1": "The team view",
+  "lead": "When the scan closes, the whole group sees the same picture at the same moment. Each of six themes has a level and an agreement label. It shows where you agree and where views differ, and never one person’s answers.",
+  "nav": "Team view",
+  "summary": "Level and agreement per theme, for the whole group at once.",
+  "blocks": [
+    {
+      "t": "h2",
+      "text": "What it brings"
+    },
+    {
+      "t": "value",
+      "items": [
+        {
+          "who": "you",
+          "title": "Your view beside the group’s",
+          "points": [
+            "See whether the group reads the team the way you do.",
+            "Know that no one can see your own answers.",
+            "Come to the meeting with the same picture as everyone else."
+          ]
+        },
+        {
+          "who": "group",
+          "title": "A shared picture to talk about",
+          "points": [
+            "Level and agreement per theme, for everyone at once.",
+            "What you agree on, and where views differ most.",
+            "A conversation about the team, not about who said what."
+          ]
+        },
+        {
+          "who": "organisation",
+          "title": "Early signs, without names",
+          "points": [
+            "Shows where the leadership group is aligned, and where it is not.",
+            "Points to the themes worth work, from the group’s own answers.",
+            "Answers stay anonymous, so the signal stays honest."
+          ]
+        }
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "How it works"
+    },
+    {
+      "t": "feature",
+      "title": "Level and agreement, side by side",
+      "text": "Each theme shows the group’s level on a scale of 1 to 5, and an agreement label: high, medium, or views differ. Both are computed once, when the scan closes.",
+      "points": [
+        "“You agree on” lists the themes with high agreement.",
+        "“Your views differ most on” names where to talk first."
+      ],
+      "shot": "team-view",
+      "alt": "The team view for a group of eight: six themes with a level and an agreement label each. Meetings is marked views differ.",
+      "caption": "Eight of eight answered: views differ on meetings."
+    },
+    {
+      "t": "feature",
+      "title": "On the group’s Home",
+      "text": "Once it opens, the team view sits on Home for every member, beside the scan’s count and a list of what needs them.",
+      "shot": "home",
+      "alt": "The group’s Home: the closed scan with 8 of 8 answered, and the team view’s six themes with their labels.",
+      "caption": "Home after the scan has closed."
+    },
+    {
+      "t": "h2",
+      "text": "Why agreement matters"
+    },
+    {
+      "t": "p",
+      "text": "An average hides a split. A team that averages 3 may all agree on 3, or be divided between 1 and 5. The second needs a different conversation, so every theme carries an agreement label as well as a level. [How to assess a leadership team](/articles/how-to-assess-a-leadership-team) explains the research behind it."
+    },
+    {
+      "t": "spread",
+      "scale": {
+        "low": "1 Strongly disagree",
+        "high": "5 Strongly agree"
+      },
+      "rows": [
+        {
+          "label": "Team A: everyone answered 3",
+          "values": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        },
+        {
+          "label": "Team B: three answered 1 and three answered 5",
+          "values": [
+            1,
+            1,
+            1,
+            5,
+            5,
+            5
+          ]
+        }
+      ],
+      "basis": {
+        "example": true
+      }
+    },
+    {
+      "t": "h2",
+      "text": "Three ways a scan can end"
+    },
+    {
+      "t": "cards",
+      "numbered": true,
+      "items": [
+        {
+          "title": "Four or more answers",
+          "text": "The team view opens for everyone at the same moment, computed once."
+        },
+        {
+          "title": "Fewer than four at the close",
+          "text": "The scan gets one extension of seven days, for more answers."
+        },
+        {
+          "title": "Still fewer than four",
+          "text": "No team view is made, and the answers are deleted."
+        }
+      ]
+    },
+    {
+      "t": "box",
+      "title": "Why four?",
+      "text": "With fewer answers, one person’s view could be worked out from the result. The threshold is 4, it can be raised to 8, and it is never lowered. [Anonymity](/anonymity) sets out what the database enforces."
+    }
+  ],
+  "faq": [
+    {
+      "q": "When does the team view open?",
+      "a": "When everyone has answered, or when the scan closes after seven days, whichever comes first. Everyone sees it at the same moment."
+    },
+    {
+      "q": "Does the leader see more than the members?",
+      "a": "No. The leader and the members see the same team view. No one sees anyone’s answers, a lowest or highest score, or a breakdown by person."
+    },
+    {
+      "q": "Do late answers change the result?",
+      "a": "No. The result is computed once, at the close, and answers after it are not added. A new scan gives a new result."
+    },
+    {
+      "q": "What does “views differ” mean?",
+      "a": "That answers on a theme are spread widely across the group. It is a prompt to talk about why, not a verdict on the team."
+    }
+  ]
+}

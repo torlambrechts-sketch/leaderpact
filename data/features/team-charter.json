@@ -1,0 +1,123 @@
+{
+  "title": "Leadership team charter software: purpose, tasks and agreements",
+  "description": "A leadership group’s charter in one place: its purpose, team tasks with decision rights, and working agreements, with every agreed version kept.",
+  "crumb": "Charter and members",
+  "kicker": "Available now · part of the Team plan",
+  "h1": "The group’s charter",
+  "lead": "One page the whole group agrees on. It says what the team is for, which issues come to it with what decision rights, and how members work together. The leader drafts, the group agrees, and every agreed version is kept.",
+  "nav": "Charter and members",
+  "summary": "Purpose, team tasks and working agreements, with versions.",
+  "blocks": [
+    {
+      "t": "h2",
+      "text": "What it brings"
+    },
+    {
+      "t": "value",
+      "items": [
+        {
+          "who": "you",
+          "title": "Less to settle in every meeting",
+          "points": [
+            "Decision rights written once: decide, advise or inform.",
+            "Agreements you can point to, not personal preferences.",
+            "A draft to work on, without changing what is in force."
+          ]
+        },
+        {
+          "who": "group",
+          "title": "One agreed way of working",
+          "points": [
+            "Purpose, tasks and agreements in one place.",
+            "Every member can read the version in force.",
+            "Changes come as a new version, agreed together."
+          ]
+        },
+        {
+          "who": "organisation",
+          "title": "Clear roles at the top",
+          "points": [
+            "Clarity on which issues belong to the leadership group.",
+            "A record of what was agreed, and when.",
+            "Membership that is written down, not assumed."
+          ]
+        }
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "How it works"
+    },
+    {
+      "t": "feature",
+      "title": "Purpose, tasks and agreements",
+      "text": "The charter has three parts. A purpose of a few sentences, team tasks each marked decide, advise or inform, and working agreements written as visible behaviour.",
+      "points": [
+        "All three parts are needed before a version can be agreed.",
+        "It starts from a template with sensible limits."
+      ],
+      "shot": "charter",
+      "alt": "The group’s charter: its purpose, five team tasks marked Decide, Advise or Inform, five working agreements, and Version 2 in force.",
+      "caption": "Version 2 in force, agreed by the group."
+    },
+    {
+      "t": "feature",
+      "title": "Members and invitations",
+      "text": "The leader adds a member by name and email address and gets a link to send them. The link works once, for that address. Members can be removed, and the leader role handed on.",
+      "points": [
+        "Up to 15 members, with open invitations counted.",
+        "A member who leaves loses access at once. Past rounds stay intact."
+      ],
+      "shot": "members",
+      "alt": "Members: eight people with their start dates, with buttons to make team leader or remove, and the form to invite a member.",
+      "caption": "The Members tab, seen by the leader."
+    },
+    {
+      "t": "h2",
+      "text": "How a version is agreed"
+    },
+    {
+      "t": "flow",
+      "items": [
+        {
+          "title": "Draft",
+          "text": "The leader edits a draft. The version in force does not change."
+        },
+        {
+          "title": "Agree",
+          "text": "The group agrees in its meeting, and the leader records it."
+        },
+        {
+          "title": "In force",
+          "text": "The draft becomes the next numbered version."
+        },
+        {
+          "title": "Kept",
+          "text": "The version before is superseded and stays readable."
+        }
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Writing a charter for the first time? The article on the [leadership team charter](/articles/leadership-team-charter) covers what to include and how to write one together."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Who can change the charter?",
+      "a": "The leader drafts, and puts a version in force when the group agrees. Members read the version in force and the earlier versions."
+    },
+    {
+      "q": "Does the group vote in the app?",
+      "a": "No. The group agrees in its meeting, and the leader records it with “The group agrees · put in force”."
+    },
+    {
+      "q": "What happens to earlier versions?",
+      "a": "They stay readable and numbered, and an agreed version never changes."
+    },
+    {
+      "q": "How does a group get the charter?",
+      "a": "The charter, members and the Full diagnostic are part of the Team plan. A group’s leader can start a 14-day trial in the app, with no billing details."
+    }
+  ]
+}
