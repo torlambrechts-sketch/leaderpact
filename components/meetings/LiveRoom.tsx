@@ -135,7 +135,9 @@ export function LiveRoom({ initial, agendaHref }: { initial: Live; agendaHref: s
                 ? t('invalid')
                 : reason === 'not_leader'
                   ? t('notLeader')
-                  : t('writeFailed'),
+                  : reason === 'rate_limited'
+                    ? t('rateLimited')
+                    : t('writeFailed'),
     )
   }
 
@@ -146,6 +148,8 @@ export function LiveRoom({ initial, agendaHref }: { initial: Live; agendaHref: s
     setBusy(false)
     if (!result.ok) {
       say(result.reason)
+      // too many at once (handoff 8): the event is dropped, and the room is read again
+      if (result.reason === 'rate_limited') await refresh()
       return false
     }
     await refresh()

@@ -118,7 +118,7 @@ export default async function PlanBillingPage({ params }: { params: Promise<{ gr
 
   return (
     <ClientMessages namespaces={['billing']}>
-      <SettingsFrame group={{ id: group, name: groupName }}>
+      <SettingsFrame group={{ id: group, name: groupName }} active="plan">
         <Card large className="flex flex-col gap-3">
           <SectionHeader title={status.title} meta={t('planMeta')} className="mb-0" />
           {status.body && <p className="m-0 text-[14.5px] leading-[1.55] text-text-2 max-md:text-[15px]">{status.body}</p>}

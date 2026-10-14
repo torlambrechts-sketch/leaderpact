@@ -8,13 +8,13 @@ import { PersonalCard } from '@/app/(public)/scan/result/PersonalView'
 import { readReplaceKey, writeReplaceKey } from '@/lib/scan/device'
 import { deviceStore, forget, joinDraftKey, readDraft } from '@/lib/scan/draft'
 import { isComplete, personalView, type Scan } from '@/lib/scan/model'
-import { submitScan } from '@/lib/scan/submit'
+import { submitScan } from '@/lib/scan/post'
 
 type Step =
   | { kind: 'reading' }
   | { kind: 'intro'; started: boolean; notice?: 'invalid' }
   | { kind: 'questions' }
-  | { kind: 'review'; answers: Record<string, number>; sending?: boolean; failed?: boolean }
+  | { kind: 'review'; answers: Record<string, number>; sending?: boolean; failed?: boolean; wait?: number }
   | { kind: 'done'; closed: boolean }
   | { kind: 'refused'; reason: 'closed' | 'full' | 'not_found' }
 
@@ -83,6 +83,8 @@ export function JoinFlow({
       return setStep({ kind: 'intro', started: false, notice: 'invalid' })
     }
     if (result.reason === 'failed') return setStep({ kind: 'review', answers, failed: true })
+    // past 60 an hour from this network (handoff 8): the answers stay on the device, and are sent later
+    if (result.reason === 'rate_limited') return setStep({ kind: 'review', answers, wait: Math.max(1, Math.ceil(result.retry / 60)) })
     writeReplaceKey(store, code, null)
     setStep({ kind: 'refused', reason: result.reason })
   }
@@ -115,6 +117,11 @@ export function JoinFlow({
           {step.failed && (
             <p role="alert" className="m-0 text-[13.5px] font-semibold text-danger max-md:text-[15px]">
               {t('failed')}
+            </p>
+          )}
+          {step.wait !== undefined && (
+            <p role="alert" className="m-0 text-[13.5px] font-semibold text-danger max-md:text-[15px]">
+              {t('rateLimited', { minutes: step.wait })}
             </p>
           )}
           <Button size="large" className="w-full font-bold" disabled={step.sending} onClick={() => submit(step.answers)}>

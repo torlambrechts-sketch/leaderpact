@@ -10,12 +10,12 @@ import { isPublic, isUnknown, PUBLIC_PATHS, SESSION_PATHS } from '@/lib/supabase
 describe('isPublic', () => {
   it.each(['/', '/scan', '/scan/result', '/j/abc123', '/j/lumioLeadershipScan00001', '/join/AbCdEfGhIjKlMnOpQrStUv', '/sign-in', '/sign-up', '/auth/confirm', '/privacy', '/leadership-team-assessment', '/specimens',
     '/articles', '/articles/leadership-team-purpose', '/templates', '/templates/leadership-team-charter-template', '/templates/file/x.docx',
-    '/platform', '/research', '/anonymity', '/leadership-team-assessment-tools', '/sitemap.xml', '/llms.txt', '/robots.txt'])(
+    '/platform', '/research', '/anonymity', '/leadership-team-assessment-tools', '/sitemap.xml', '/llms.txt', '/robots.txt', '/api/scan', '/export/AbCdEfGhIjKlMnOpQrStUvAbCdEfGhIjKlMnOpQrStUv', '/export/x/download'])(
     '%s is public',
     (path) => expect(isPublic(path)).toBe(true),
   )
 
-  it.each(['/app', '/app/new', '/app/0b000000-0000-4000-8000-000000000001/invite', '/app/lumio/home', '/app/me', '/settings', '/some-page', '/scanner', '/joined', '/jx', '/sign-inx', '/sign-upx', '/articlesx', '/platforms', '/api/platform/content'])(
+  it.each(['/app', '/app/new', '/app/0b000000-0000-4000-8000-000000000001/invite', '/app/lumio/home', '/app/me', '/settings', '/some-page', '/scanner', '/joined', '/jx', '/sign-inx', '/sign-upx', '/articlesx', '/platforms', '/api/platform/content', '/api/export', '/api/scanner', '/exports'])(
     '%s needs a session',
     (path) => expect(isPublic(path)).toBe(false),
   )

@@ -19,6 +19,7 @@
     "seed:profile": "node scripts/seed/profile.mjs",
     "seed:fixture": "node scripts/seed/fixture.mjs",
     "audit:security": "node scripts/audit/wiring.mjs --security-only",
+    "functions:check": "node scripts/functions/build.mjs --check && npx -y deno check --config supabase/functions/deno.json supabase/functions/leaderpact-dispatch/index.ts supabase/functions/leaderpact-mail-events/index.ts",
     "e2e": "playwright test"
   },
   "dependencies": {

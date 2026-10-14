@@ -29,6 +29,8 @@ async function call(where: string, rpc: string, args: Record<string, unknown>): 
     return { ok: false, reason: 'failed' }
   }
   const { data, error } = await supabase.schema('app').rpc(rpc, args)
+  // past 10 events a second the database answers 429 (0021 pre_request): the room drops it and reads itself again
+  if (error?.code === 'PT429') return { ok: false, reason: 'rate_limited' }
   if (callFailed(where, error)) return { ok: false, reason: 'failed' }
   const reply = replySchema.safeParse(data)
   if (parseFailed(where, reply)) return { ok: false, reason: 'failed' }

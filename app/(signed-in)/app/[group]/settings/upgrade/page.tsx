@@ -42,7 +42,7 @@ export default async function UpgradePage({ params }: { params: Promise<{ group:
 
   return (
     <ClientMessages namespaces={['billing']}>
-      <SettingsFrame group={{ id: group, name: shell.current.name }}>
+      <SettingsFrame group={{ id: group, name: shell.current.name }} active="plan">
         <UpgradeFlow
           group={{ id: group, name: shell.current.name }}
           already={plan.access !== 'free' && plan.access !== 'trial'}

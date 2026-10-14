@@ -38,9 +38,12 @@ test('the leader: a trial, the checkout, grace, read-only and a cancel; the memb
   await expect(lp.getByText(/^0 of 4 have answered\. Counts only, never names\.$/)).toBeAttached()
   await expect(lp.getByRole('link', { name: 'Free plan' })).toHaveAttribute('href', plan)
   await expect(lp.getByRole('link', { name: 'Upgrade' })).toBeVisible()
+  // Settings opens on the person's Account (D-53); Plan and billing is its last tab
   await lp.getByRole('link', { name: 'Settings' }).first().click()
-  await expect(lp).toHaveURL(new RegExp(`${plan}$`))
+  await expect(lp).toHaveURL(/\/settings\/account$/)
   await expect(lp.getByRole('heading', { level: 1, name: 'Settings' })).toBeVisible()
+  await lp.getByRole('navigation', { name: 'Settings' }).getByRole('link', { name: 'Plan and billing' }).click()
+  await expect(lp).toHaveURL(new RegExp(`${plan}$`))
   await expect(lp.getByRole('navigation', { name: 'Settings' }).getByRole('link', { name: 'Plan and billing' })).toHaveAttribute('aria-current', 'page')
   const plans = lp.getByRole('list', { name: 'Plans' })
   await expect(plans.getByRole('listitem').filter({ has: lp.getByRole('heading', { name: 'Free' }) }).getByText('Current', { exact: true })).toBeVisible()
