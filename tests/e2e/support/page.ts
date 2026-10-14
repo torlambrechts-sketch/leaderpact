@@ -20,8 +20,12 @@ export function watch(page: Page, allow: RegExp[] = []) {
   return problems
 }
 
-/** axe finds nothing, and the page does not scroll sideways */
+/**
+ * axe finds nothing, and the page does not scroll sideways. After a client-side navigation Next streams the
+ * new page's metadata in a moment after its body, so the check waits for the title before it looks.
+ */
 export async function axe(page: Page) {
+  await expect(page).toHaveTitle(/\S/)
   const result = await new AxeBuilder({ page }).analyze()
   expect(result.violations.map((v) => `${v.id} (${v.impact}): ${v.help}`)).toEqual([])
   const sideways = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)
