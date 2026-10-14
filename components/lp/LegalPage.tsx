@@ -6,9 +6,12 @@ import * as React from 'react'
  */
 export function LegalPage({ heading, body }: { heading: string; body: string }) {
   return (
-    <div className="mx-auto mt-10 flex max-w-questionnaire flex-col gap-4 px-4 md:mt-14 md:px-6">
-      <h1 className="m-0 font-display text-page-title max-md:text-[28px]">{heading}</h1>
-      <p className="m-0 text-[15px] leading-[1.55] text-text-2">{body}</p>
+    // in the site's frame (D-48), at its left edge like every other page, the text at the reading measure
+    <div className="mx-auto mt-10 max-w-site px-4 md:mt-14 md:px-gutter">
+      <div className="flex max-w-[760px] flex-col gap-4">
+        <h1 className="m-0 font-display text-page-title max-md:text-[28px]">{heading}</h1>
+        <p className="m-0 text-[15px] leading-[1.55] text-text-2">{body}</p>
+      </div>
     </div>
   )
 }

@@ -28,7 +28,7 @@ export default async function LeaderProfilePage() {
     { key: 'full' as const, title: t('fullTitle'), badge: null, facts: t('fullFacts'), start: t('startFull'), available: full !== null },
   ]
   return (
-    <div className="mx-auto mt-4 flex max-w-landing flex-col gap-6 px-4 md:mt-6 md:px-gutter">
+    <div className="mx-auto mt-4 flex max-w-site flex-col gap-6 px-4 md:mt-6 md:px-gutter">
       <section className="flex flex-col gap-6 rounded-hero border border-bar bg-hero px-5 py-8 md:px-16 md:py-14">
         <p className="m-0 inline-flex items-center gap-2 self-start rounded-pill border border-bar bg-white-veil px-3 py-[5px] text-[13px] font-semibold text-landing-pill-ink">
           {t('eyebrow')}

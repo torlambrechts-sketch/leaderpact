@@ -94,7 +94,8 @@ const config: Config = {
       },
       maxWidth: {
         app: '1240px',
-        landing: '1360px',
+        /** the public site's frame (D-48): the header's pill, every page and the footer share it */
+        site: '1360px',
         questionnaire: '640px',
       },
       spacing: {

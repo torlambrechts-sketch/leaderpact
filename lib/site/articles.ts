@@ -34,6 +34,11 @@ export const ART_KINDS = [
   'diagnostic',
   'focus',
   'loop',
+  // the product and index pages' own (D-48)
+  'ballot',
+  'research',
+  'reading',
+  'files',
 ] as const
 export type ArtKind = (typeof ART_KINDS)[number]
 

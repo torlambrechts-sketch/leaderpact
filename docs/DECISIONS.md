@@ -990,3 +990,30 @@ and several pages under a menu.
 - **To refresh the pictures** after a screen changes: run the fixture with `--shots`, start the app on the local
   stack, and run `node scripts/shots/capture.mjs` (the steps are in its header). A unit test fails if a page
   names a picture that does not exist, or if a picture is shipped that no page shows.
+
+## D-48 — The public site uses its whole frame (owner, 14 October 2026)
+
+The owner, looking at `/platform` on a wide screen: "we don't use the full width at the bottom and certain places.
+Same for all pages, so do a full review and use the entire width." The pages had three widths: the header's pill
+at the design's 1080 px, the pages at 1056 px inside 1120, and the footer at 1296 px inside the landing page's
+1360. Inside a page, text, questions and "Read next" stopped at 760 px.
+
+- **One frame.** `max-w-site` (1360 px, 1296 px inside the gutters) is the landing page's width, and now the
+  header's pill, every page and the footer share it, so their edges line up at every width. The pill is wider
+  than the design's 1080 px: the design's public bar sat over pages of other widths, and a bar that matches the
+  page is the one the owner asked for. Task flows keep their own measure inside it: a question, a sign-in form.
+- **Text sections beside their heading.** On the product and feature pages, from 1024 px, a section's heading
+  stands in the left third and its text in the right two thirds at the reading measure (760 px). Figures, cards,
+  tables, screenshots and the value block take the whole frame; a section that opens with one has its heading
+  above. Cards and tables joined the blocks that take the frame, and four cards stand in one row from 1280 px.
+- **Questions and answers** sit in the same two columns. **Article cards** fill their row: two lie on their side
+  from 1024 px, four stand in one row from 1280 px. A phone screenshot stands on a panel as wide as a desktop
+  picture's column, so its row is as wide as the others.
+- **Articles** keep the text at 800 px and give the rest of the frame to a sidebar that stays in view: what is on
+  the page, and the template that goes with the article. Under 1024 px the template stays at the article's foot.
+- **The footer** spans the frame: the product's name and one line on what it is, then four lists under their
+  names (Product, Platform, Learn, Account and legal).
+- **A drawing beside every title**: the product pages and the two indexes have one, as the articles and feature
+  pages do. Four are new: a sealed ballot box (Anonymity), an open book with a chart (Research), fanned articles
+  (Articles) and a template with its download (Templates).
+- The privacy and data-processing pages and the personal view sit in the same frame, at its left edge.

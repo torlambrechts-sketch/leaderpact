@@ -52,7 +52,7 @@ export default async function LandingPage() {
   const count = scan?.items.length
 
   return (
-    <div className="mx-auto mt-4 flex max-w-landing flex-col gap-6 px-4 md:mt-6 md:px-gutter">
+    <div className="mx-auto mt-4 flex max-w-site flex-col gap-6 px-4 md:mt-6 md:px-gutter">
       <JsonLd data={graph(organization(), website(tMeta('description', { product: PRODUCT_NAME })), software(tMeta('landingDescription')))} />
       <section className="grid items-center gap-10 overflow-hidden rounded-hero border border-bar bg-hero px-5 py-8 md:min-h-[580px] md:px-16 md:py-14 min-[900px]:grid-cols-[minmax(0,500px)_minmax(0,1fr)] min-[900px]:gap-14">
         <div className="flex flex-col gap-6">

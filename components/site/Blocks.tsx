@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { cn } from '@/lib/cn'
 import { headingIds, plain, WIDE, type Block, type Source } from '@/lib/site/blocks'
 import { Bars, Cards, Compare, Cycle, Flow, Fork, Matrix, Pillars, Pyramid, Rings, Specimen, Spread, Stats, Steps, Timebar } from './Figures'
 import { Rich } from './Rich'
@@ -9,34 +10,77 @@ import { FeatureRow, ShotBlock, Value } from './Shots'
  * all draw their long text with it. Body text is 17 px at 1.7 on the page, 15 px on a phone at the least
  * (handoff section 4); headings are Poppins, the display face. The figures (D-41) are drawn by Figures.tsx;
  * `sources` is the article's list, which a figure cites by number.
+ *
+ * A wide page (the product and feature pages) uses the whole frame (D-48): from 1024 px each section's heading
+ * stands in a column of its own at the left and its text beside it, at the reading measure, while figures,
+ * cards, tables and screenshots take the full width. A section that opens with a figure has its heading above.
  */
 export function Blocks({ blocks, sources = [], wide = false }: { blocks: Block[]; sources?: readonly Source[]; wide?: boolean }) {
   const ids = headingIds(blocks)
   // feature rows alternate sides, counted per run so each section starts the same way
   let row = 0
+  const flips = blocks.map((b) => {
+    row = b.t === 'feature' ? row + 1 : 0
+    return row % 2 === 0
+  })
+  const view = (i: number, rail = false) => <BlockView key={i} block={blocks[i]!} id={ids.get(i)} sources={sources} flip={flips[i]!} wide={wide} rail={rail} />
+
+  if (!wide) {
+    return <div className="flex flex-col gap-5 text-[17px] leading-[1.7] text-text-body">{blocks.map((_, i) => view(i))}</div>
+  }
+
+  // sections from each h2; within one, runs of text and the wide blocks between them
+  const sections: { head?: number; runs: { wide: boolean; items: number[] }[] }[] = []
+  blocks.forEach((b, i) => {
+    if (b.t === 'h2') {
+      sections.push({ head: i, runs: [] })
+      return
+    }
+    if (!sections.length) sections.push({ runs: [] })
+    const s = sections[sections.length - 1]!
+    const isWide = WIDE.has(b.t)
+    const last = s.runs[s.runs.length - 1]
+    if (last && !last.wide && !isWide) last.items.push(i)
+    else s.runs.push({ wide: isWide, items: [i] })
+  })
   return (
-    <div className="flex flex-col gap-5 text-[17px] leading-[1.7] text-text-body">
-      {blocks.map((b, i) => {
-        row = b.t === 'feature' ? row + 1 : 0
-        const view = <BlockView key={i} block={b} id={ids.get(i)} sources={sources} flip={row % 2 === 0} />
-        // on a product page the figures take the full width, and text keeps the reading measure (D-47)
-        return wide && !WIDE.has(b.t) ? (
-          <div key={i} className="max-w-[760px]">
-            {view}
+    <div className="flex flex-col gap-12 text-[17px] leading-[1.7] text-text-body">
+      {sections.map((s, k) => {
+        const railed = s.head !== undefined && s.runs[0] !== undefined && !s.runs[0].wide
+        return (
+          <div key={k} className="grid gap-5 lg:grid-cols-12 lg:gap-x-12">
+            {s.head !== undefined ? <div className={railed ? 'lg:col-span-4' : 'lg:col-span-12'}>{view(s.head, railed)}</div> : null}
+            {s.runs.map((r, j) => (
+              <div
+                key={j}
+                className={cn(
+                  'flex min-w-0 flex-col gap-5',
+                  r.wide ? 'lg:col-span-12' : s.head !== undefined ? 'max-w-[760px] lg:col-span-8 lg:col-start-5' : 'max-w-[760px] lg:col-span-8',
+                )}
+              >
+                {r.items.map((i) => view(i))}
+              </div>
+            ))}
           </div>
-        ) : (
-          view
         )
       })}
     </div>
   )
 }
 
-function BlockView({ block: b, id, sources, flip }: { block: Block; id?: string; sources: readonly Source[]; flip: boolean }) {
+function BlockView({ block: b, id, sources, flip, wide, rail }: { block: Block; id?: string; sources: readonly Source[]; flip: boolean; wide: boolean; rail: boolean }) {
   switch (b.t) {
     case 'h2':
       return (
-        <h2 id={id} className="m-0 mt-6 scroll-mt-6 font-display text-[26px] font-medium leading-[1.2] tracking-[-0.02em] text-ink max-md:text-[23px]">
+        // on a wide page the section's spacing sets it apart, and in the left column it stays in view beside its text
+        <h2
+          id={id}
+          className={cn(
+            'm-0 scroll-mt-6 font-display text-[26px] font-medium leading-[1.2] tracking-[-0.02em] text-ink max-md:text-[23px]',
+            wide ? '' : 'mt-6',
+            rail ? 'lg:sticky lg:top-6 lg:pr-4' : '',
+          )}
+        >
           <Rich text={b.text} />
         </h2>
       )
@@ -85,7 +129,7 @@ function BlockView({ block: b, id, sources, flip }: { block: Block; id?: string;
         </aside>
       )
     case 'cards':
-      return <Cards b={b} sources={sources} />
+      return <Cards b={b} sources={sources} wide={wide} />
     case 'table':
       return (
         // a table wider than a phone scrolls inside its box, which takes focus so a keyboard can scroll it
