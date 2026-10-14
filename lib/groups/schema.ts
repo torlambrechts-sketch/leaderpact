@@ -23,3 +23,37 @@ export const startReplySchema = z.union([
 export type StartGroupResult =
   | { ok: true; team: string; code: string }
   | { ok: false; reason: 'signed_out' | 'invalid' | 'unavailable' | 'failed' }
+
+/**
+ * The Settings Group tab (handoff 6.18; 0026): the name, the organisation, the threshold (4, raised up to 8 and
+ * never lowered), and the member count, with whether the reader leads the group. The database checks each write
+ * again: the leader, a name of 1 to 120 characters, a threshold above the current one.
+ */
+export const THRESHOLD_MIN = 4
+export const THRESHOLD_MAX = 8
+
+export const groupSettingsSchema = z.object({
+  name: z.string().min(1),
+  organisation: z.string().min(1),
+  threshold: z.number().int().min(THRESHOLD_MIN).max(THRESHOLD_MAX),
+  threshold_max: z.number().int().min(THRESHOLD_MIN).max(THRESHOLD_MAX),
+  members: z.number().int().min(0),
+  members_max: z.number().int().positive(),
+  can_edit: z.boolean(),
+})
+export type GroupSettings = z.infer<typeof groupSettingsSchema>
+
+export const renameGroupSchema = z.strictObject({ team: z.uuid(), name: groupNameSchema })
+export const raiseThresholdSchema = z.strictObject({ team: z.uuid(), threshold: z.number().int().min(THRESHOLD_MIN + 1).max(THRESHOLD_MAX) })
+
+export const renameReplySchema = z.union([
+  z.object({ ok: z.literal(true) }),
+  z.object({ ok: z.literal(false), reason: z.enum(['signed_out', 'not_leader', 'invalid']) }),
+])
+export const raiseReplySchema = z.union([
+  z.object({ ok: z.literal(true), threshold: z.number().int() }),
+  z.object({ ok: z.literal(false), reason: z.literal('not_higher'), threshold: z.number().int() }),
+  z.object({ ok: z.literal(false), reason: z.enum(['signed_out', 'not_leader', 'invalid']) }),
+])
+
+export type GroupSettingResult = { ok: true } | { ok: false; reason: 'signed_out' | 'not_leader' | 'invalid' | 'not_higher' | 'failed' }

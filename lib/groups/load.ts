@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/server'
 import { callFailed, parseFailed, readFailed } from '@/lib/supabase/read'
 import { codeSchema } from '@/lib/scan/link'
 import { buildTeamView, teamViewRowSchema, type TeamView } from '@/lib/scan/team-view'
+import { groupSettingsSchema, type GroupSettings } from '@/lib/groups/schema'
 
 /**
  * What a signed-in person reads of their groups, through row-level security (0002, 0006): only groups
@@ -155,3 +156,15 @@ export const loadShell = cache(async (groupId: string, personId: string): Promis
   if (parseFailed('loadShell.person', name)) return null
   return { groups, current, person: { id: personId, name: name.data.display_name } }
 })
+
+/** The Settings Group tab (0026 get_group_settings): null when it cannot be read, 'none' when the reader is no member */
+export async function loadGroupSettings(groupId: string): Promise<GroupSettings | 'none' | null> {
+  if (!z.uuid().safeParse(groupId).success) return 'none'
+  const supabase = await createClient()
+  const { data, error } = await supabase.schema('app').rpc('get_group_settings', { p_team: groupId })
+  if (callFailed('loadGroupSettings', error)) return null
+  if (data === null) return 'none'
+  const settings = groupSettingsSchema.safeParse(data)
+  if (parseFailed('loadGroupSettings', settings)) return null
+  return settings.data
+}

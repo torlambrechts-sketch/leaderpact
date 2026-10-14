@@ -3,15 +3,16 @@ import * as React from 'react'
 import Link from 'next/link'
 import type { Route } from 'next'
 import { getTranslations } from 'next-intl/server'
-import { Bell, CreditCard, Shield, User, type LucideIcon } from 'lucide-react'
+import { Bell, CreditCard, Shield, User, Users, type LucideIcon } from 'lucide-react'
 import { AppPage, PageTitle } from '@/components/app/AppPage'
 import { cn } from '@/lib/cn'
-import { accountPath, notificationsPath, planBillingPath, privacyPath } from '@/lib/routes'
+import { accountPath, groupSettingsPath, notificationsPath, planBillingPath, privacyPath } from '@/lib/routes'
 
-export type SettingsTab = 'account' | 'notifications' | 'privacy' | 'plan'
+export type SettingsTab = 'account' | 'group' | 'notifications' | 'privacy' | 'plan'
 
-const TABS: ReadonlyArray<{ key: SettingsTab; label: 'tabAccount' | 'tabNotifications' | 'tabPrivacy' | 'tabPlan'; icon: LucideIcon; href: (group: string) => string }> = [
+const TABS: ReadonlyArray<{ key: SettingsTab; label: 'tabAccount' | 'tabGroup' | 'tabNotifications' | 'tabPrivacy' | 'tabPlan'; icon: LucideIcon; href: (group: string) => string }> = [
   { key: 'account', label: 'tabAccount', icon: User, href: accountPath },
+  { key: 'group', label: 'tabGroup', icon: Users, href: groupSettingsPath },
   { key: 'notifications', label: 'tabNotifications', icon: Bell, href: notificationsPath },
   { key: 'privacy', label: 'tabPrivacy', icon: Shield, href: privacyPath },
   { key: 'plan', label: 'tabPlan', icon: CreditCard, href: planBillingPath },
@@ -21,9 +22,8 @@ const TABS: ReadonlyArray<{ key: SettingsTab; label: 'tabAccount' | 'tabNotifica
  * Settings (handoff 6.18, design `settings`): the group's name over the title, then the settings menu on the
  * left, a vertical menu as the spec has it (a white card, radius 18, padding 10; each entry 10 by 12, radius
  * 10, 14 / 600 with a 17 px icon, the current one in ink), and the tab's cards on the right. Below 960 px
- * the menu sits above. Account, Notifications and Privacy are the person's own; Plan and billing is the
- * group's. The Group tab (name, threshold) is not built yet, and the menu lists only pages that exist (D-33,
- * D-53).
+ * the menu sits above. Account, Notifications and Privacy are the person's own; Group (its name and threshold)
+ * and Plan and billing are the group's (D-33, D-53, D-56).
  */
 export async function SettingsFrame({ group, active, children }: { group: { id: string; name: string }; active: SettingsTab; children: React.ReactNode }) {
   const t = await getTranslations('settings')

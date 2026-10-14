@@ -34,9 +34,10 @@ export const profileTestPath = (test: 'quick' | 'full') => `/leader-profile/${te
 /** The person's own page: the Leader Profile and its sharing (handoff 6.17); not per group */
 export const ME_PATH = '/app/me'
 
-/** The group's settings (handoff 6.18): the person's Account, Notifications and Privacy, then the group's plan and checkout */
+/** The group's settings (handoff 6.18): the person's Account, the group's name and threshold, the person's Notifications and Privacy, then the group's plan and checkout */
 export const settingsPath = (group: string) => `/app/${group}/settings`
 export const accountPath = (group: string) => `/app/${group}/settings/account`
+export const groupSettingsPath = (group: string) => `/app/${group}/settings/group`
 export const notificationsPath = (group: string) => `/app/${group}/settings/notifications`
 export const privacyPath = (group: string) => `/app/${group}/settings/privacy`
 export const planBillingPath = (group: string) => `/app/${group}/settings/plan`

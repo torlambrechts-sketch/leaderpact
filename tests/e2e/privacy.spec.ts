@@ -11,6 +11,8 @@ import { axe, watch } from './support/page'
  * summary, asks for their data, gets the mail from the dispatcher's own loop and downloads the ZIP once; a
  * second press says the link was used. The only leader cannot delete their account; a member can, and is
  * signed out. The limits' 429s are proved in tests/unit/privacy.test.ts and supabase/tests/limits_invariants.sql.
+ * Milestone 18 (handoff 6.18; D-56): the Group tab reads as read only for a member; the leader renames the group
+ * and raises the threshold, asked once more, and nothing lower can be chosen after.
  */
 const settings = (tab: string) => `/app/${PRIVACY_FLOW.group.id}/settings/${tab}`
 const sideways = (page: Page) => page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)
@@ -38,7 +40,7 @@ test('settings: time zone, summary, the export by mail, and deleting an account'
   await expect(lp.getByRole('heading', { level: 1, name: 'Settings' })).toBeVisible()
   const menu = lp.getByRole('navigation', { name: 'Settings' })
   await expect(menu.getByRole('link', { name: 'Account' })).toHaveAttribute('aria-current', 'page')
-  await expect(menu.getByRole('link')).toHaveText(['Account', 'Notifications', 'Privacy', 'Plan and billing'])
+  await expect(menu.getByRole('link')).toHaveText(['Account', 'Group', 'Notifications', 'Privacy', 'Plan and billing'])
   await expect(lp.getByText(PRIVACY_FLOW.leader.email)).toBeVisible()
   await expect(lp.getByText('A link by email. No password.')).toBeVisible()
   await axe(lp)
@@ -67,6 +69,7 @@ test('settings: time zone, summary, the export by mail, and deleting an account'
   await expect(lp.getByText('Not taken. Nothing is stored.')).toBeVisible()
   await expect(lp.getByRole('heading', { name: 'How data is handled' })).toBeVisible()
   await expect(lp.getByText('never under 4 answers', { exact: false })).toBeVisible()
+  await expect(lp.getByText('After a cancel or an unpaid trial, Team data is kept 90 days, then deleted.', { exact: false })).toBeVisible()
   await axe(lp)
   await lp.getByRole('button', { name: 'Request export' }).click()
   await expect(lp.getByRole('status').filter({ hasText: `The link is on its way to ${PRIVACY_FLOW.leader.email}.` })).toBeVisible()
@@ -74,7 +77,7 @@ test('settings: time zone, summary, the export by mail, and deleting an account'
   // the phones: every tab fits at 360 px
   for (const width of [390, 360]) {
     await lp.setViewportSize({ width, height: 800 })
-    for (const tab of ['account', 'notifications', 'privacy']) {
+    for (const tab of ['account', 'group', 'notifications', 'privacy']) {
       await lp.goto(settings(tab))
       await expect(lp.getByRole('heading', { level: 1, name: 'Settings' })).toBeVisible()
       expect(await sideways(lp), `${tab} at ${width} px`).toBe(false)
@@ -117,9 +120,18 @@ test('settings: time zone, summary, the export by mail, and deleting an account'
   await expect(lp.getByRole('alert').filter({ hasText: `You are the only team leader of ${PRIVACY_FLOW.group.name}.` })).toBeVisible()
   expect(problems).toEqual([])
 
-  // a member deletes their account: asked once more, then signed out
+  // a member reads the Group tab, and changes nothing
   const member = await signedIn(browser, baseURL!, PRIVACY_FLOW.member)
   const mp = member.page
+  await mp.goto(settings('group'))
+  await expect(mp.getByText(`Settings for ${PRIVACY_FLOW.group.name}. Only the team leader can change them.`)).toBeVisible()
+  await expect(mp.getByText('Read only. Ask the team leader to change these.')).toBeVisible()
+  await expect(mp.getByRole('textbox', { name: 'Group name' })).toHaveCount(0)
+  await expect(mp.getByRole('radio')).toHaveCount(0)
+  await expect(mp.getByText('4 answers', { exact: true })).toBeVisible()
+  await axe(mp)
+
+  // a member deletes their account: asked once more, then signed out
   await mp.goto(settings('account'))
   await mp.getByRole('button', { name: 'Delete account' }).click()
   await expect(mp.getByText('Delete your account? This cannot be undone.')).toBeFocused()
@@ -134,6 +146,39 @@ test('settings: time zone, summary, the export by mail, and deleting an account'
   await lp.goto(`/app/${PRIVACY_FLOW.group.id}/people`)
   await expect(lp.getByText(PRIVACY_FLOW.member.name, { exact: true })).toHaveCount(0)
   await expect(lp.getByText(PRIVACY_FLOW.people[2]!.name, { exact: true })).toBeVisible()
+
+  // the Group tab: the leader renames the group
+  await lp.goto(settings('group'))
+  await expect(lp.getByRole('navigation', { name: 'Settings' }).getByRole('link', { name: 'Group' })).toHaveAttribute('aria-current', 'page')
+  await expect(lp.getByText('4 of 15. Invite and remove them on the Group page.')).toBeVisible()
+  await expect(lp.getByRole('link', { name: 'Manage members' })).toHaveAttribute('href', `/app/${PRIVACY_FLOW.group.id}/group`)
+  await axe(lp)
+  const name = lp.getByRole('textbox', { name: 'Group name' })
+  await expect(name).toHaveValue(PRIVACY_FLOW.group.name)
+  await name.fill('   ')
+  await lp.getByRole('button', { name: 'Save' }).click()
+  await expect(lp.getByRole('alert').filter({ hasText: 'Give the group a name of 1 to 120 characters.' })).toBeVisible()
+  await name.fill('Flow privacy group, renamed')
+  await lp.getByRole('button', { name: 'Save' }).click()
+  await expect(lp.getByRole('status').filter({ hasText: 'Saved.' })).toBeVisible()
+  await lp.reload()
+  await expect(lp.getByRole('textbox', { name: 'Group name' })).toHaveValue('Flow privacy group, renamed')
+
+  // and raises the threshold: nothing lower exists to choose, a value above the members says so, and it is asked once more
+  await expect(lp.getByRole('radio', { name: '4 answers' })).toBeChecked()
+  await expect(lp.getByRole('button', { name: 'Raise the threshold' })).toBeDisabled()
+  await lp.getByRole('radio', { name: '5 answers' }).click()
+  await expect(lp.getByText('This group has 4 members, so at 5 its results would never show.')).toBeVisible()
+  await lp.getByRole('button', { name: 'Raise the threshold' }).click()
+  await expect(lp.getByText('Raise the threshold to 5? It can never be lowered again.')).toBeFocused()
+  await lp.getByRole('button', { name: 'Raise to 5' }).click()
+  await expect(lp.getByRole('status').filter({ hasText: 'The threshold is now 5.' })).toBeVisible()
+  await lp.reload()
+  await expect(lp.getByRole('radio', { name: '5 answers' })).toBeChecked()
+  await expect(lp.getByRole('radio', { name: '4 answers' })).toBeDisabled()
+  await expect(lp.getByText('requires at least 5. It can be raised, never lowered.', { exact: false })).toBeVisible()
+  await axe(lp)
+  expect(problems).toEqual([])
 
   await member.context.close()
   await leader.context.close()
