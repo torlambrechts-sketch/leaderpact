@@ -55,3 +55,6 @@ export const scaleItemsPath = (group: string, scale: string, round: string) => `
 
 /** The group's focus areas and actions (handoff 6.13) */
 export const planPath = (group: string) => `/app/${group}/plan`
+
+/** The group's meetings and their agendas (handoff 6.14) */
+export const meetingsPath = (group: string) => `/app/${group}/meetings`

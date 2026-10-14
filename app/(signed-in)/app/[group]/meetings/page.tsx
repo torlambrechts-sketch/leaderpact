@@ -1,15 +1,22 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
+import { redirect } from 'next/navigation'
+import type { Route } from 'next'
 import { getTranslations } from 'next-intl/server'
-import { PageTitle } from '@/components/app/AppPage'
-import { Avatar } from '@/components/lp/Avatar'
+import { AppPage, PageProblem, PageTitle } from '@/components/app/AppPage'
 import { Card } from '@/components/lp/Card'
-import { Pill } from '@/components/lp/Pill'
-import { WarningBox } from '@/components/lp/WarningBox'
-import { SamplePage } from '@/components/sample/SamplePage'
-import { sampleAvatarId, sampleWeekday } from '@/components/sample/format'
+import { ClientMessages } from '@/components/lp/ClientMessages'
+import { AgendaArea, type ItemView } from '@/components/meetings/AgendaArea'
+import { PlanMeeting } from '@/components/meetings/MeetingForm'
+import { SampleMeetings } from '@/components/sample/SampleMeetings'
 import { PRODUCT_NAME } from '@/lib/brand'
-import { cn } from '@/lib/cn'
-import { SAMPLE, samplePerson } from '@/lib/sample/load'
+import { currentUser } from '@/lib/auth/session'
+import { loadGroupPlan } from '@/lib/billing/load'
+import { loadShell } from '@/lib/groups/load'
+import { dateFormat, isoDay } from '@/lib/i18n/dates'
+import { chosenMeeting, missing } from '@/lib/meetings/build'
+import { loadAgenda, loadMeetings } from '@/lib/meetings/load'
+import { SIGN_IN_PATH, groupPath, meetingsPath } from '@/lib/routes'
 
 export const dynamic = 'force-dynamic'
 
@@ -19,132 +26,127 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * Meetings on the Free plan (handoff 6.14 and 6.19, design `meetings`): the sample's next agenda with its
- * time check, its task match and the count of ready items. An item is ready with a type, a desired outcome,
- * an owner and a time box; an item that fits no team task is flagged and stays if the leader confirms it.
- * The agenda ends with its closing item. Section 11's corrections: "time check" and "task match", two names,
- * never "fit check"; no series, year plan, check-in, decision or audit tabs; no pre-read flags. Agendas
- * come in milestone 13, the live meeting in 14.
+ * Meetings (handoff 6.14, design `meetings`, agenda tab): on the Free plan the sample (handoff 6.19); with the
+ * Team plan or its trial, the group's own meetings (0018). The leader plans a meeting; its agenda opens at the
+ * next one, or the one `?meeting=` names. The live meeting is milestone 14.
  */
-export default async function MeetingsPage({ params }: { params: Promise<{ group: string }> }) {
+export default async function MeetingsPage({ params, searchParams }: { params: Promise<{ group: string }>; searchParams: Promise<{ meeting?: string }> }) {
   const { group } = await params
-  const t = await getTranslations('sample')
-  const { meeting, charter } = SAMPLE
-  const taskTitle = (key: string | null) => charter.tasks.find((task) => task.key === key)?.title ?? null
-  const planned = meeting.items.reduce((sum, item) => sum + item.minutes, 0)
-  const ready = meeting.items.filter((item) => item.outcome !== null).length
-  const unmatched = meeting.items.filter((item) => item.task === null)
-  const notReady = meeting.items.filter((item) => item.outcome === null)
-  const timeState =
-    planned > meeting.minutes
-      ? t('meetings.over', { minutes: planned - meeting.minutes })
-      : planned < meeting.minutes
-        ? t('meetings.left', { minutes: meeting.minutes - planned })
-        : t('meetings.fits')
+  const query = await searchParams
+  const user = await currentUser()
+  if (!user) redirect(SIGN_IN_PATH as Route)
+  const access = await loadGroupPlan(group)
+  if (access === null || access === 'none' || access.access === 'free') return <SampleMeetings group={group} />
+
+  const [t, tInvite] = await Promise.all([getTranslations('meetings'), getTranslations('invite')])
+  const [shell, data] = await Promise.all([loadShell(group, user.id), loadMeetings(group)])
+  if (shell === null || data === null) return <PageProblem title={tInvite('readFailed')} />
+  if (shell === 'none' || data === 'none') return <PageProblem title={tInvite('notFoundTitle')} body={tInvite('notFoundBody')} />
+
+  const chosen = chosenMeeting(data.meetings, query.meeting)
+  const agenda = chosen ? await loadAgenda(chosen.id) : undefined
+  if (agenda === null) return <PageProblem title={tInvite('readFailed')} />
+
+  const base = meetingsPath(group)
+  const at = (on: string, time: string) => `${on}T${time}:00Z`
+  const when = (on: string, time: string, minutes: number) =>
+    t('when', {
+      day: dateFormat({ locale: 'en', timeZone: 'UTC' }, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(at(on, time))),
+      time,
+      minutes,
+    })
+  const short = (on: string) =>
+    dateFormat({ locale: 'en', timeZone: 'UTC' }, { weekday: 'short', day: 'numeric', month: 'short' }).format(new Date(at(on, '12:00')))
+  const due = (iso: string) =>
+    dateFormat({ locale: 'en', timeZone: 'UTC' }, { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(`${iso}T00:00:00Z`))
+  const list = new Intl.ListFormat('en-GB', {
+    style: 'long',
+    type: 'conjunction',
+  })
+  const words = {
+    type: t('need_type'),
+    outcome: t('need_outcome'),
+    owner: t('need_owner'),
+    minutes: t('need_minutes'),
+  }
+
+  // the chips: the coming meetings soonest first, then the earlier ones, newest first
+  const today = isoDay('UTC')
+  const coming = data.meetings.filter((m) => m.status === 'planned' && m.meets_on >= today).reverse()
+  const earlier = data.meetings.filter((m) => !coming.includes(m))
 
   return (
-    <SamplePage group={group}>
-      <PageTitle eyebrow={t('meetings.when', { day: sampleWeekday(meeting.on), time: meeting.at })} title={meeting.title} />
+    <ClientMessages namespaces={['meetings']}>
+      <AppPage>
+        <PageTitle eyebrow={shell.current.name} title={t('title')} />
 
-      <Card large className="flex flex-col gap-3">
-        <div className="flex flex-col gap-1.5 text-[13.5px] max-md:text-[15px] md:flex-row md:gap-8">
-          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-0.5">
-            <h2 className="m-0 text-[13.5px] font-bold max-md:text-[15px]">{t('meetings.timeCheck')}</h2>
-            <span>{t('meetings.planned', { planned, length: meeting.minutes })}</span>
-            <span className={cn('font-semibold', planned > meeting.minutes && 'text-danger')}>{timeState}</span>
-          </div>
-          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-0.5">
-            <h2 className="m-0 text-[13.5px] font-bold max-md:text-[15px]">{t('meetings.taskMatch')}</h2>
-            <span>{t('meetings.unmatched', { count: unmatched.length })}</span>
-          </div>
-        </div>
-        <span
-          role="meter"
-          aria-label={t('meetings.timeLabel')}
-          aria-valuemin={0}
-          aria-valuemax={meeting.minutes}
-          aria-valuenow={planned}
-          aria-valuetext={t('meetings.planned', { planned, length: meeting.minutes })}
-          className="relative h-1.5 overflow-hidden rounded-pill bg-track"
-        >
-          <span className="absolute inset-y-0 left-0 rounded-pill bg-accent-strong" style={{ width: `${Math.min(100, (planned / meeting.minutes) * 100)}%` }} />
-        </span>
-      </Card>
-
-      <Card large className="grid items-center gap-4 md:grid-cols-[auto_minmax(0,1fr)]">
-        <div className="flex flex-col gap-0.5">
-          <h2 className="m-0 text-[20px] font-bold">{t('meetings.ready', { ready, total: meeting.items.length })}</h2>
-          <p className="m-0 text-[12.5px] text-muted max-md:text-[15px]">{t('meetings.readyRule', { minutes: planned })}</p>
-        </div>
-        <span
-          role="meter"
-          aria-label={t('meetings.readyLabel')}
-          aria-valuemin={0}
-          aria-valuemax={meeting.items.length}
-          aria-valuenow={ready}
-          aria-valuetext={t('meetings.ready', { ready, total: meeting.items.length })}
-          className="relative h-2 overflow-hidden rounded-pill bg-track"
-        >
-          <span className="absolute inset-y-0 left-0 rounded-pill bg-ink" style={{ width: `${(ready / meeting.items.length) * 100}%` }} />
-        </span>
-      </Card>
-
-      <div className="grid items-start gap-5 min-[960px]:grid-cols-[minmax(0,1fr)_440px]">
-        <ol aria-label={t('meetings.itemsLabel')} className="m-0 flex list-none flex-col gap-2.5 p-0">
-          {meeting.items.map((item, i) => {
-            const owner = samplePerson(item.owner)
-            const task = taskTitle(item.task)
-            const status = item.outcome === null ? t('meetings.itemNoOutcome') : item.task === null ? t('meetings.itemNoTask') : t('meetings.itemReady')
-            return (
-              <li
-                key={item.title}
-                className={cn(
-                  'flex flex-wrap items-start gap-3 rounded-card bg-surface px-4 py-3.5',
-                  item.outcome === null ? 'border border-dashed border-ink' : item.task === null ? 'border-[1.5px] border-flag bg-flag-bg' : 'border border-white',
-                )}
+        {data.meetings.length > 0 && (
+          <nav aria-label={t('meetingsLabel')} className="flex flex-wrap items-center gap-2">
+            {[...coming, ...earlier].map((m) => (
+              <Link
+                key={m.id}
+                href={`${base}?meeting=${m.id}` as Route}
+                aria-current={chosen?.id === m.id ? 'page' : undefined}
+                className="inline-flex min-h-[36px] items-center gap-2 rounded-pill border border-line bg-surface px-3.5 text-[13px] font-semibold text-ink hover:border-ink aria-[current=page]:border-ink aria-[current=page]:bg-ink aria-[current=page]:text-white max-md:min-h-[44px] max-md:text-[14px]"
               >
-                <span aria-hidden className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-chip bg-accent text-[12.5px] font-bold text-accent-ink">
-                  {i + 1}
-                </span>
-                <div className="flex min-w-0 flex-1 flex-col gap-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="m-0 text-[14.5px] font-bold max-md:text-[15px]">{item.title}</h3>
-                    <Pill tone="neutral">{t(`meetings.type_${item.type}`)}</Pill>
-                  </div>
-                  <p className="m-0 text-[13px] text-text-2 max-md:text-[15px]">{item.outcome ?? t('meetings.noOutcome')}</p>
-                  {task && <p className="m-0 text-[12px] text-muted max-md:text-[14px]">{t('meetings.task', { task })}</p>}
-                </div>
-                <div className="flex shrink-0 flex-col items-end gap-1.5 max-sm:w-full max-sm:flex-row max-sm:items-center max-sm:justify-between max-sm:pl-10">
-                  <span className="flex items-center gap-2">
-                    <Avatar personId={sampleAvatarId(owner.key)} name={owner.name} size={26} className="text-[10.5px]" />
-                    <span className="sr-only">{t('meetings.ownerWords', { name: owner.name })}</span>
-                    <span className="text-[13px] max-md:text-[15px]">{t('meetings.minutes', { minutes: item.minutes })}</span>
-                  </span>
-                  <span className="text-[12px] font-bold max-md:text-[13px]">{status}</span>
-                </div>
-              </li>
-            )
-          })}
-        </ol>
+                {t('chip', { day: short(m.meets_on), title: m.title })}
+                {m.next && <span className="sr-only">{t('nextWords')}</span>}
+              </Link>
+            ))}
+          </nav>
+        )}
 
-        <div className="flex flex-col gap-3">
-          {notReady.length > 0 && (
-            <Card large className="flex flex-col gap-2">
-              <h2 className="m-0 text-[14px] font-bold">{t('meetings.notReady')}</h2>
-              <ul className="m-0 list-none p-0 text-[14px] max-md:text-[15px]">
-                {notReady.map((item) => (
-                  <li key={item.title}>{t('meetings.notReadyItem', { title: item.title })}</li>
-                ))}
-              </ul>
-            </Card>
-          )}
-          {unmatched.map((item) => (
-            <WarningBox key={item.title}>{t('meetings.unmatchedItem', { title: item.title })}</WarningBox>
-          ))}
-        </div>
-      </div>
+        {data.can_plan && (
+          <Card large className="flex flex-col gap-3">
+            <PlanMeeting group={group} defaultMinutes={data.meeting_minutes} meetingsHref={base} />
+          </Card>
+        )}
 
-      <p className="m-0 text-[12.5px] text-text-2 max-md:text-[15px]">{t('meetings.live')}</p>
-    </SamplePage>
+        {!chosen || !agenda || agenda === 'none' ? (
+          <Card large className="flex flex-col gap-2">
+            <h2 className="m-0 text-[18px] font-bold">{t('noneTitle')}</h2>
+            <p className="m-0 text-[14px] text-text-2 max-md:text-[15px]">{data.leader ? t('noneLeader') : t('noneMember')}</p>
+          </Card>
+        ) : (
+          <AgendaArea
+            meeting={{
+              id: agenda.meeting.id,
+              title: agenda.meeting.title,
+              when: when(agenda.meeting.meets_on, agenda.meeting.starts_at, agenda.meeting.minutes),
+              values: {
+                title: agenda.meeting.title,
+                on: agenda.meeting.meets_on,
+                at: agenda.meeting.starts_at,
+                minutes: agenda.meeting.minutes,
+              },
+              next: agenda.meeting.next,
+            }}
+            items={agenda.items.map((i): ItemView => {
+              const needs = missing(i)
+              return {
+                ...i,
+                needs: needs.length ? list.format(needs.map((n) => words[n])) : null,
+              }
+            })}
+            tasks={agenda.tasks}
+            members={agenda.members}
+            openActions={
+              agenda.open_actions?.map((a) => ({
+                id: a.id,
+                title: a.title,
+                owner: a.owner_name,
+                due: due(a.due_on),
+                focus: a.focus,
+              })) ?? null
+            }
+            leader={agenda.leader}
+            canPropose={agenda.can_propose}
+            canManage={agenda.can_manage}
+            charterHref={groupPath(group)}
+            meetingsHref={base}
+          />
+        )}
+      </AppPage>
+    </ClientMessages>
   )
 }

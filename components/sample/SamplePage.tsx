@@ -16,9 +16,10 @@ import { SIGN_IN_PATH, upgradePath } from '@/lib/routes'
 /**
  * A paid area on the Free plan (handoff 6.19): the sample banner over seeded sample content, the whole page
  * marked Sample (handoff section 10). The leader sees the Team plan's price and Upgrade; a member is asked to
- * ask their team leader, with no price. With the Team plan, or its trial, the page is still a sample until
- * its milestone builds it, and the banner says so (D-33). A person who is not a current member of the group
- * sees no sample, only that the group is not theirs.
+ * ask their team leader, with no price. Every paid area is built now (milestone 13), so a group with the Team
+ * plan or its trial sees its own pages; the sample shows otherwise only when the plan cannot be read, and the
+ * banner says so (D-33, D-47). A person who is not a current member of the group sees no sample, only that the
+ * group is not theirs.
  */
 export async function SamplePage({ group, children }: { group: string; children: React.ReactNode }) {
   const user = await currentUser()
@@ -35,7 +36,7 @@ export async function SamplePage({ group, children }: { group: string; children:
   if (!free) {
     return (
       <AppPage>
-        <SampleBanner audience="member" chip={t('chip')} text={plan === null || plan === 'none' ? t('bannerUnknown') : t('bannerTeam')} />
+        <SampleBanner audience="member" chip={t('chip')} text={t('bannerUnknown')} />
         {children}
       </AppPage>
     )

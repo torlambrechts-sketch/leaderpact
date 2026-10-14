@@ -942,3 +942,44 @@ Handoff 6.13; milestone 12: "A third focus area is refused. An action without an
   date; their group's removal takes them. Neither is audited: the handoff's audit list names neither.
 - **The fixture** adds the plan flow's group: five people of its own and one released round, no focus area
   and no action, which the flow makes.
+
+## D-47 — The agenda: task match and time check (M13)
+
+Handoff 6.14; milestone 13: "An unmatched item is flagged and can be confirmed. Open actions appear on the
+agenda." `supabase/tests/agenda_invariants.sql` (20 checks) proves both in the database, and
+`tests/e2e/plan.spec.ts` carries the plan flow on into the agenda. Where the build chose:
+
+- **A meeting is a title, a day, a start time and a length**, planned by the leader. The day and time are the
+  group's wall clock, as entered: the product holds no time zone per person yet (handoff 6.18), so the page
+  shows them as entered. A planned meeting can be changed or cancelled by the leader; a cancelled one keeps its
+  row and its agenda. The `live` and `held` states are named now for the live meeting (milestone 14).
+- **The agenda template is a versioned row** (handoff 9): the four item types, a meeting's usual length (90
+  minutes, the design's) and the closing item, which is the design's "Reflection: one thing to keep and one to
+  change", information, 5 minutes. A new meeting's agenda starts with it, owned by the leader, and it stays
+  last. The leader alone can remove it. The template allows 30 items, this build's limit.
+- **Any member proposes an item**; its type, desired outcome, owner, time box and team task may each wait. It
+  is ready with all four of type, outcome, owner and time box (handoff 6.14); an owner who has left the group
+  counts as none. Its proposer, its owner or the leader changes it; its proposer or the leader removes it, and a
+  removed item keeps its row. Items keep the order they were proposed in: the handoff asks for no reordering.
+- **The task match.** An item names one of the team tasks of the charter in force, or none. With none, or with
+  a task a newer charter dropped, it is flagged: a warning that says it stays if the leader confirms it. The
+  leader's "Keep it on the agenda" confirms it, and it then reads "Kept without a team task". Naming a task
+  later makes the keeping moot, and dropping it again flags it again. With no team tasks in force the check is
+  off, and the page asks the leader to define them in the charter. The closing item is about the meeting itself,
+  so it is never flagged.
+- **The time check** is the items' minutes against the meeting's length, worked out by the page: planned, then
+  minutes left, over or fitting. An item without a time box adds nothing and is not ready.
+- **Open actions on the next agenda.** The next meeting is the group's first planned one from today. Its agenda
+  lists every open action of the group, with owner, due date and focus area, as a block beside the items, not
+  as items: they take no time box. Another meeting's agenda points to the next one. The Plan page now says "Each
+  open action appears on the next agenda" (D-46).
+- **Home** shows the next meeting (handoff 6.7).
+- **Every paid area is built.** With the Team plan or its trial a group sees its own pages, so the sample's
+  banner for such a group ("not built for your group yet", D-33) is retired; the sample shows outside the Free
+  plan only when the plan cannot be read.
+- **The Team plan's.** Everything is written only while the group's plan includes `meetings` and it is not
+  read-only (`meetings_writable`); the suite checks from the catalogue that every client function writing a
+  meeting or an item asks it. On the Free plan the Meetings page stays the sample.
+- **Nothing in 0018 deletes a row**, and nothing is audited: the handoff's audit list names no meeting event.
+- **The fixture** gives the plan flow's group a charter in force with two team tasks, drafted and agreed through
+  the write paths, and no meeting, which the flow plans.

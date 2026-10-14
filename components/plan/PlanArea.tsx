@@ -266,6 +266,7 @@ export function PlanArea(props: PlanProps) {
         <h2 className="m-0 text-[16px] font-bold">{t('rulesTitle')}</h2>
         <p className="m-0 text-[13.5px] leading-[1.5] text-text-2 max-md:text-[15px]">{t('ruleFocus', { max })}</p>
         <p className="m-0 text-[13.5px] leading-[1.5] text-text-2 max-md:text-[15px]">{t('ruleOwner')}</p>
+        <p className="m-0 text-[13.5px] leading-[1.5] text-text-2 max-md:text-[15px]">{t('ruleAgenda')}</p>
         <p className="m-0 text-[13.5px] leading-[1.5] text-text-2 max-md:text-[15px]">{t('ruleWho')}</p>
         <p className="m-0 text-[13.5px] leading-[1.5] text-text-2 max-md:text-[15px]">{t('ruleNoTarget')}</p>
         {!canEdit && <p className="m-0 border-t border-divider pt-2.5 text-[13.5px] font-semibold max-md:text-[15px]">{t('readOnly')}</p>}

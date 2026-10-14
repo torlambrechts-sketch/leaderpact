@@ -68,8 +68,10 @@ test('the leader: a trial, the checkout, grace, read-only and a cancel; the memb
   await mp.goto(home)
   await expect(mp.getByText(/^Team trial · ends /)).toBeVisible()
   await expect(mp.getByRole('heading', { name: 'What the Team plan adds' })).toHaveCount(0)
+  // with the trial, the group's own pages: its meetings, none planned yet, and no sample
   await mp.goto(`/app/${BILLING.group.id}/meetings`)
-  await expect(mp.getByText('This page shows sample content. It is not built for your group yet.')).toBeVisible()
+  await expect(mp.getByRole('heading', { name: 'No meeting planned yet' })).toBeVisible()
+  await expect(mp.getByText('Sample', { exact: true })).toHaveCount(0)
 
   // the trial ends unpaid: Free again, the Team data kept for its deletion date, and no second trial
   await lp.getByRole('button', { name: 'End the trial now' }).click()
