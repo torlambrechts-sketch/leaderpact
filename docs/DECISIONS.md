@@ -712,3 +712,27 @@ from D-09.
 - **No IndexNow.** Google does not use it. The sitemap in Search Console is how Google learns the pages.
 - **Search Console is the owner's:** verify the domain, submit `https://www.leaderpact.com/sitemap.xml`, and
   add Sentral's service account (D-39).
+
+## D-41 — Articles draw their argument: figures, charts and a drawing each (owner, 14 October 2026)
+
+The owner asked for the articles to be as visual as Orgpuls's: our own illustrations, and tables, graphs and other
+elements. After Orgpuls D-237.
+
+- **Fourteen figure kinds** in `lib/site/blocks.ts`, drawn by `components/site/Figures.tsx`: steps, flow, pyramid,
+  pillars, matrix, compare, fork, rings, cycle, stats, bars, timebar, spread and specimen. Cards may be numbered.
+  The words are data in the article's file and keep the copy rules; the drawing is CSS in the site's tokens.
+- **Every number says where it comes from.** A chart needs a `basis`: one of the article's sources, arithmetic
+  written out, or an example the text sets out, which the figure marks "Example". A charter or agenda item filled
+  in for illustration is marked "Sample" or "Example". No figure states a number the text and its sources do not.
+  Every figure drawn from a source cites it, linked to that source in the numbered list.
+- **The rule is code.** `articleProblems` refuses an article with fewer than two figures, a citation the list does
+  not hold, a time bar's kind it does not name and a share over 100 per cent. A page with no sources may cite none.
+- **Accessible at every width.** Every word a figure shows is text. Where a drawing repeats a list (the cycle, the
+  rings, the time bar, the small pyramid on a phone), the drawing is hidden from screen readers. Under 768 px every
+  figure is one column. axe runs on three figure-heavy articles at 1280, 390 and 360 px.
+- **A drawing for each article** (`components/site/art/ArticleArt.tsx`), chosen by its `art` in
+  `lib/site/articles.ts`: beside the title from 1024 px, and on its card in the index and under "Read next".
+  Decorative, so hidden from screen readers. The colours are the tokens, transcribed.
+- **The ten articles** each gained two to four figures, drawn from their own text: for example, Lencioni's pyramid,
+  Edmondson's safety and standards matrix, the pairs of members by team size, and the example agenda's minutes.
+  Several lists became step figures with the same words.

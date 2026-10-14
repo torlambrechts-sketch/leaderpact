@@ -66,8 +66,38 @@ The copy rules of handoff section 10 hold, and the check fails an article that b
 | `blocks` | 1,100 to 2,600 words in all, with at least four `h2` headings |
 | `sources` | At least five, checked |
 
-Blocks: `h2`, `h3`, `p`, `ul`, `ol`, `box` (a rule of thumb or questions for the team), `cards` (two to four),
-and `table` (two to four columns). Text may carry `**bold**` and `[words](/articles/slug)`, nothing else.
+Blocks: `h2`, `h3`, `p`, `ul`, `ol`, `box` (a rule of thumb or questions for the team), `cards` (two to six,
+numbered when their order is the point), and `table` (two to four columns). Text may carry `**bold**` and
+`[words](/articles/slug)`, nothing else.
+
+## Figures (D-41)
+
+Every article draws its argument at least twice. A figure's words keep the same rules as the text; the drawing is
+the site's. Draw what the text already says: a figure never carries a claim the text does not make.
+
+| Figure | Use it for |
+|---|---|
+| `steps` | A process the reader follows, three to eight steps |
+| `flow` | Stages that lead into each other, three to five; with `axis`, ordered from least to most |
+| `pyramid` | Levels resting on each other, the base first |
+| `pillars` | What holds up a whole: the roof and two to four pillars |
+| `matrix` | Two dimensions, low to high, and the four cells they make |
+| `compare` | Two things side by side, two to five points each |
+| `fork` | One starting point and the two ways it can go, each with its condition |
+| `rings` | Circles inside each other, the innermost first |
+| `cycle` | Four steps that lead back to the first |
+| `stats` | Two to four figures from the sources, each citing its source |
+| `bars` | A bar chart |
+| `timebar` | A meeting's minutes, item by item: an example |
+| `spread` | Answers on a five-point scale, team by team: an example |
+| `specimen` | A filled-in agenda item or charter, marked as an example or a sample |
+
+**Every number says where it comes from.** A chart's `basis` is a source (`{ "source": 3 }`, its number in the
+list), arithmetic written out (`{ "arithmetic": "A team of n members has n × (n − 1) ÷ 2 pairs." }`), or an example
+the text sets out (`{ "example": true }`), which the figure marks. A model or finding drawn from a source cites it
+with `source`. A cited number must be in the list; the checker refuses one that is not.
+
+Each published article also has a drawing beside its title and on its card: its `art` in `lib/site/articles.ts`.
 
 Link to at least two other published articles in the text, with the words of the search the other article
 answers as the link's words.

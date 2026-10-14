@@ -34,6 +34,39 @@
       "text": "It is not lower standards either. Edmondson treats psychological safety and performance standards as two separate dimensions, and a team needs both (Edmondson, 2018). Safety without standards gives a comfortable team that does not stretch. Standards without safety give an anxious team, where people keep problems to themselves."
     },
     {
+      "t": "matrix",
+      "x": {
+        "label": "Psychological safety",
+        "low": "Low",
+        "high": "High"
+      },
+      "y": {
+        "label": "Performance standards",
+        "low": "Low",
+        "high": "High"
+      },
+      "cells": [
+        {
+          "title": "Anxiety zone",
+          "text": "Standards without safety: an anxious team, where people keep problems to themselves."
+        },
+        {
+          "title": "Learning zone",
+          "text": "Safety and standards together: people speak up, and the team stretches."
+        },
+        {
+          "title": "Apathy zone",
+          "text": "Neither safety nor standards: little candour and little stretch."
+        },
+        {
+          "title": "Comfort zone",
+          "text": "Safety without standards: a comfortable team that does not stretch."
+        }
+      ],
+      "focus": 1,
+      "source": 9
+    },
+    {
       "t": "p",
       "text": "Edmondson and Kerrissey (2025) list the common misreadings. Psychological safety does not mean avoiding argument, backing every idea or escaping accountability for results. Debate can still be uncomfortable. What changes is that candour is expected and not punished."
     },
@@ -46,6 +79,26 @@
     {
       "t": "p",
       "text": "The research base is now large. A major review links psychological safety to voice, teamwork, team learning and organisational learning (Edmondson and Lei, 2014). One meta-analysis drew on 136 independent samples, with more than 22,000 people and nearly 5,000 groups (Frazier et al., 2017). It examined what predicts psychological safety. It also tested whether safety adds to task performance beyond related factors, such as good relations with the leader."
+    },
+    {
+      "t": "stats",
+      "items": [
+        {
+          "value": "51",
+          "label": "work teams in the study that introduced team psychological safety",
+          "source": 1
+        },
+        {
+          "value": "22,000+",
+          "label": "people in a meta-analysis of 136 samples and nearly 5,000 groups",
+          "source": 3
+        },
+        {
+          "value": "117",
+          "label": "project teams, where debate about the work went with better performance when safety was high",
+          "source": 8
+        }
+      ]
     },
     {
       "t": "p",

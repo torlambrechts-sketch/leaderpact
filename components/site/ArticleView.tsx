@@ -14,6 +14,7 @@ import { Breadcrumb } from './Breadcrumb'
 import { JsonLd } from './JsonLd'
 import { Rich } from './Rich'
 import { TemplateTeaser } from './TemplateTeaser'
+import { ArticleArt } from './art/ArticleArt'
 
 /** Words a minute for English non-fiction read on a screen; rounded up, never below 1 */
 const WPM = 230
@@ -61,15 +62,19 @@ export async function ArticleView({ entry, content: c }: { entry: ArticleEntry; 
         )}
       />
 
-      <header className="flex max-w-[760px] flex-col gap-4 pt-8 md:pt-12">
-        <Breadcrumb label={t('common.breadcrumb')} trail={[{ name: t('common.home'), path: '/' }, { name: t('articles.crumb'), path: ARTICLES_PATH }]} />
-        <h1 className="m-0 font-display text-[44px] font-medium leading-[1.08] tracking-[-0.03em] max-md:text-[32px]">{c.h1}</h1>
-        <p className="m-0 text-[19px] leading-[1.6] text-text-3 max-md:text-[17px]" style={{ textWrap: 'pretty' }}>
-          <Rich text={c.lead} />
-        </p>
-        <p className="m-0 text-[13px] text-text-2 max-md:text-[15px]">
-          {t('common.byline', { date: formatDay(modified), minutes })}
-        </p>
+      <header className="grid items-center gap-8 pt-8 md:pt-12 lg:grid-cols-[minmax(0,1fr)_380px]">
+        <div className="flex max-w-[760px] flex-col gap-4">
+          <Breadcrumb label={t('common.breadcrumb')} trail={[{ name: t('common.home'), path: '/' }, { name: t('articles.crumb'), path: ARTICLES_PATH }]} />
+          <h1 className="m-0 font-display text-[44px] font-medium leading-[1.08] tracking-[-0.03em] max-md:text-[32px]">{c.h1}</h1>
+          <p className="m-0 text-[19px] leading-[1.6] text-text-3 max-md:text-[17px]" style={{ textWrap: 'pretty' }}>
+            <Rich text={c.lead} />
+          </p>
+          <p className="m-0 text-[13px] text-text-2 max-md:text-[15px]">
+            {t('common.byline', { date: formatDay(modified), minutes })}
+          </p>
+        </div>
+        {/* the drawing (D-41) beside the title on a wide screen; on a phone the answer comes first and the drawing waits for the card */}
+        {entry.art ? <ArticleArt kind={entry.art} className="hidden h-auto w-full lg:block" /> : null}
       </header>
 
       <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,720px)_minmax(0,1fr)] lg:gap-14">
@@ -87,7 +92,7 @@ export async function ArticleView({ entry, content: c }: { entry: ArticleEntry; 
             </ul>
           </section>
 
-          <Blocks blocks={c.blocks} />
+          <Blocks blocks={c.blocks} sources={c.sources} />
 
           {entry.template ? <TemplateTeaser slug={entry.template} /> : null}
 
@@ -96,8 +101,8 @@ export async function ArticleView({ entry, content: c }: { entry: ArticleEntry; 
               {t('common.sources')}
             </h2>
             <ol className="m-0 mt-3 flex list-decimal flex-col gap-2 pl-5 text-[14.5px] leading-[1.55] text-text-body max-md:text-[15px]">
-              {c.sources.map((s) => (
-                <li key={s.url}>
+              {c.sources.map((s, i) => (
+                <li key={s.url} id={`source-${i + 1}`} className="scroll-mt-6 target:rounded-chip target:bg-pending-bg">
                   <a href={s.url} className="text-link break-words underline decoration-1 underline-offset-2" target="_blank" rel="noopener noreferrer">
                     {sourceLabel(s)}
                   </a>

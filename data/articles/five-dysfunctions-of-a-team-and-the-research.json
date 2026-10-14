@@ -21,14 +21,30 @@
       "text": "The five dysfunctions sit in a pyramid. In Lencioni's account each one grows out of the one beneath it, so a team works on them from the bottom up."
     },
     {
-      "t": "ol",
+      "t": "pyramid",
       "items": [
-        "**Absence of trust.** Members are unwilling to be vulnerable with one another. They hide their mistakes, their weaknesses and their need for help.",
-        "**Fear of conflict.** Without trust, people avoid open debate about ideas and keep an artificial harmony. Disagreement moves into side conversations.",
-        "**Lack of commitment.** Without real debate, people do not buy into decisions, and it stays unclear what was agreed.",
-        "**Avoidance of accountability.** Without clear commitments, peers hesitate to challenge each other on behaviour that hurts the team.",
-        "**Inattention to results.** When nobody is held to account, members put their needs, such as ego, career development or recognition, ahead of the team's collective goals."
-      ]
+        {
+          "title": "Absence of trust",
+          "text": "Members are unwilling to be vulnerable with one another. They hide their mistakes, their weaknesses and their need for help."
+        },
+        {
+          "title": "Fear of conflict",
+          "text": "Without trust, people avoid open debate about ideas and keep an artificial harmony. Disagreement moves into side conversations."
+        },
+        {
+          "title": "Lack of commitment",
+          "text": "Without real debate, people do not buy into decisions, and it stays unclear what was agreed."
+        },
+        {
+          "title": "Avoidance of accountability",
+          "text": "Without clear commitments, peers hesitate to challenge each other on behaviour that hurts the team."
+        },
+        {
+          "title": "Inattention to results",
+          "text": "When nobody is held to account, members put their needs, such as ego, career development or recognition, ahead of the team's collective goals."
+        }
+      ],
+      "source": 1
     },
     { "t": "h3", "text": "What does Lencioni mean by vulnerability-based trust?" },
     {
@@ -113,6 +129,26 @@
       "text": "Results show a similar pattern. Senior executives often focus more on their own roles than on the top team's shared work (Wageman et al., 2008). Inattention to results can be ego, as the model says. It can also mean the team has no clear collective work to be accountable for."
     },
     { "t": "h2", "text": "How does each dysfunction compare with the research?" },
+    {
+      "t": "stats",
+      "items": [
+        {
+          "value": "7,763",
+          "label": "teams in 112 studies, where trust went with team performance",
+          "source": 2
+        },
+        {
+          "value": "116",
+          "label": "studies in a meta-analysis that found no strong negative link between task conflict and performance",
+          "source": 5
+        },
+        {
+          "value": "70",
+          "label": "top management teams, where trust weakened the link from task to relationship conflict",
+          "source": 6
+        }
+      ]
+    },
     {
       "t": "table",
       "head": ["The dysfunction", "What the model says", "What research adds"],

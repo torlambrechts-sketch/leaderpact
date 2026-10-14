@@ -60,6 +60,37 @@
       "t": "p",
       "text": "Every item needs a type, a desired outcome, an owner and a time box. Most items also need a pre-read."
     },
+    {
+      "t": "specimen",
+      "mark": "example",
+      "title": "One agenda item, written out",
+      "parts": [
+        {
+          "label": "Item",
+          "text": "A price change affecting two divisions"
+        },
+        {
+          "label": "Type",
+          "text": "Decision"
+        },
+        {
+          "label": "Desired outcome",
+          "text": "We agree whether to change prices next quarter, and how."
+        },
+        {
+          "label": "Owner",
+          "text": "Commercial director"
+        },
+        {
+          "label": "Time box",
+          "text": "30 minutes"
+        },
+        {
+          "label": "Pre-read",
+          "text": "Sent by the deadline, with the question for the team at the top."
+        }
+      ]
+    },
     { "t": "h3", "text": "Mark the type" },
     {
       "t": "p",
@@ -151,6 +182,26 @@
       "t": "p",
       "text": "For example, a leadership team might hold a short operational meeting every week or two, and a longer strategic session every month. The rhythm is yours to choose. The principle is that each meeting has one kind of work."
     },
+    {
+      "t": "compare",
+      "items": [
+        {
+          "title": "Operational meeting",
+          "points": [
+            "Urgent operational issues",
+            "Short, for example every week or two"
+          ]
+        },
+        {
+          "title": "Strategic session",
+          "points": [
+            "The long-term questions",
+            "Longer, for example once a month"
+          ]
+        }
+      ],
+      "source": 7
+    },
     { "t": "h2", "text": "What topics belong on a leadership team agenda?" },
     { "t": "p", "text": "These are the kinds of topic that usually pass the whole-team test:" },
     {
@@ -186,6 +237,56 @@
         ["Dependence on a single supplier", "Discussion", "We understand the main options and who will work them up for next month.", "Operations director, 20 min"],
         ["Close: decisions, actions and a short check", "Follow-up", "Decisions and actions have owners and dates, and we know which items reached their outcome.", "Chair, 10 min"]
       ]
+    },
+    {
+      "t": "timebar",
+      "title": "The example agenda, minute by minute",
+      "kinds": [
+        "Information",
+        "Follow-up",
+        "Discussion",
+        "Decision"
+      ],
+      "items": [
+        {
+          "label": "Opening: the purpose of this meeting",
+          "minutes": 5,
+          "kind": 0
+        },
+        {
+          "label": "Decisions from the last meeting",
+          "minutes": 10,
+          "kind": 1
+        },
+        {
+          "label": "Quarterly results against plan",
+          "minutes": 10,
+          "kind": 0
+        },
+        {
+          "label": "A price change affecting two divisions",
+          "minutes": 30,
+          "kind": 3
+        },
+        {
+          "label": "Succession for critical roles",
+          "minutes": 25,
+          "kind": 2
+        },
+        {
+          "label": "Dependence on a single supplier",
+          "minutes": 20,
+          "kind": 2
+        },
+        {
+          "label": "Close: decisions, actions and a short check",
+          "minutes": 10,
+          "kind": 1
+        }
+      ],
+      "basis": {
+        "example": true
+      }
     },
     {
       "t": "p",
