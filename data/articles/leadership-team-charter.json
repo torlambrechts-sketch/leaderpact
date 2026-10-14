@@ -1,0 +1,263 @@
+{
+  "title": "Leadership team charter: what to include and how to write one",
+  "description": "What goes into a leadership team charter, what research says about charters and team launches, and how to write one together.",
+  "h1": "How do you write a leadership team charter?",
+  "lead": "A leadership team charter is a short document the team writes together. It says why the team exists, which issues and decisions belong to it, who is in it and how members agree to work. It helps when the team writes it jointly and reviews it regularly. It does little when it sits in a drawer.",
+  "takeaways": [
+    "A charter covers purpose, team tasks and decision rights, membership, working agreements, the support the team needs, key stakeholders and a review date.",
+    "In a business simulation with student teams, the best sustained performance came from teams with both a strong charter and a strong task plan.",
+    "In a study of project teams, the high performers held participatory launch meetings rather than scripted ones.",
+    "Write it together: each member drafts alone, the team compares and agrees, and the result fits on one page.",
+    "Keep it alive by testing agenda items against it and reviewing it at least once or twice a year."
+  ],
+  "blocks": [
+    { "t": "h2", "text": "What is a leadership team charter?" },
+    {
+      "t": "p",
+      "text": "A leadership team charter is a one-page agreement about how the team will work. It is not a mission statement for the organisation. It covers the team itself: what it is for, what it works on, who is in it and how members behave with each other."
+    },
+    {
+      "t": "p",
+      "text": "Research on teams explains why these topics matter. Hackman (2002) set out five conditions that make team success more likely. They are a real team, a clear and engaging direction, an enabling structure, a supportive organisational context and competent coaching. A later study of senior leadership teams named three essentials: a real team, a compelling direction and the right people (Wageman et al., 2008)."
+    },
+    {
+      "t": "p",
+      "text": "A charter puts the conditions the team can shape into words. Bang and Midelfart (2021) make a similar split in their model of effective management teams. They treat a clear team purpose, appropriate team tasks, the right composition and supportive organisational systems as separate factors."
+    },
+    { "t": "h2", "text": "What should a leadership team charter include?" },
+    {
+      "t": "p",
+      "text": "Seven parts cover what most leadership teams need to agree. Keep each one short; the whole charter should fit on a page."
+    },
+    {
+      "t": "table",
+      "head": ["Part", "The question it answers", "What to write"],
+      "rows": [
+        ["Purpose", "Why does this team exist?", "Two or three sentences on what the team must produce that no member could produce alone."],
+        ["Team tasks and decision rights", "Which issues come to the team, and what does it do with them?", "A short list of issue types, each marked decide, coordinate, advise or inform."],
+        ["Membership", "Who is in the team?", "Core members by name or role, and extended members who join for named items."],
+        ["Working agreements", "How do we work together?", "Five to seven norms on preparing, disagreeing, deciding and speaking about decisions afterwards."],
+        ["Support", "What does the team need from the organisation?", "The information it needs, how shared results count in rewards, and the training members need."],
+        ["Key stakeholders", "Who must we hear from and keep informed?", "The board, owners, employee representatives or other groups, and how the team stays in touch with them."],
+        ["Review date", "When do we check it?", "A date in the calendar, and a rule to review it whenever membership changes."]
+      ]
+    },
+    { "t": "h3", "text": "Team tasks and decision rights" },
+    {
+      "t": "p",
+      "text": "This part decides what reaches the agenda. Wageman (2020) describes four legitimate uses of a leadership team: sharing information, giving advice, coordinating an initiative and making decisions together. She sees trouble when it is unclear which of these the team is doing. Marking each type of issue with one of the four makes that explicit."
+    },
+    {
+      "t": "p",
+      "text": "Add who decides what. Some decisions belong to the team, some to one member after the team has advised, and some to the board. Writing this down saves the team from debating its own authority item by item."
+    },
+    { "t": "h3", "text": "Membership" },
+    {
+      "t": "p",
+      "text": "Write the names down, even if it feels obvious. Hackman and colleagues studied more than 120 top teams. When they asked members to describe their team, fewer than 10% agreed on who was on it (Coutu, 2009)."
+    },
+    {
+      "t": "p",
+      "text": "One option is a core team that makes the team's decisions, with an extended group that joins for named items. For what research says about numbers, see [leadership team size](/articles/how-big-should-a-leadership-team-be)."
+    },
+    { "t": "h3", "text": "Working agreements" },
+    {
+      "t": "p",
+      "text": "Norms form whether or not you write them. Feldman (1984) described several ways group norms develop. They include explicit statements by a leader or colleague, critical events in the group's history, what happens first, and habits carried over from elsewhere."
+    },
+    {
+      "t": "p",
+      "text": "A written agreement is an explicit statement. Without one, early events and old habits are left to set the rules. Hackman made the same point about a team's start. The first time a group meets strongly shapes how it works for the rest of its life. That includes the norms members expect and enforce (Coutu, 2009)."
+    },
+    {
+      "t": "p",
+      "text": "Teams with fuzzy or unenforced norms of conduct, Hackman warned, invariably get into trouble (Coutu, 2009). So write norms as behaviour you can see. 'We read the papers before the meeting' can be checked. 'We respect each other' cannot."
+    },
+    { "t": "h3", "text": "Support" },
+    {
+      "t": "p",
+      "text": "A team also depends on its context. Hackman argued that the organisation's reward, people and information systems must make teamwork possible (Coutu, 2009). Note what your team needs: data for its decisions, rewards that count shared results, and development for its members."
+    },
+    { "t": "h2", "text": "Do team charters actually help?" },
+    {
+      "t": "p",
+      "text": "The evidence is encouraging, though it does not come from leadership teams. Mathieu and Rapp (2009) followed 32 teams of MBA students through a business strategy simulation. Teams with high-quality performance strategies outperformed the rest. The best sustained performance came from teams that had both a high-quality charter and a high-quality strategy."
+    },
+    {
+      "t": "p",
+      "text": "The lesson is that a charter works best alongside a plan for the work itself. Agreeing how to work together is one half; agreeing how to tackle the task is the other."
+    },
+    {
+      "t": "p",
+      "text": "A study of project teams from five large companies points the same way (Ericksen and Dyer, 2004). The three high-performing teams mobilised quickly and prepared thoroughly. They also held participatory launch meetings rather than scripted ones. The three low performers slid into confusion and inactivity from which they never recovered."
+    },
+    {
+      "t": "p",
+      "text": "Both studies are small, and neither looked at senior teams. Still, they fit a wider pattern in team research. Hackman and Wageman (2005) argue that coaching has most effect at particular times in a team's work. Hackman named the launch, the midpoint and the end (Coutu, 2009)."
+    },
+    {
+      "t": "box",
+      "title": "A rule of thumb",
+      "text": "A charter is a plan for how you work together. Pair it with a plan for the work itself: the priorities, who leads each one and how you will track them."
+    },
+    { "t": "h2", "text": "How do you write a team charter together?" },
+    {
+      "t": "p",
+      "text": "Write it with the whole team, in one or two sessions. A charter the leader writes alone tells members what to do. A charter they write together is one they have agreed to."
+    },
+    {
+      "t": "ol",
+      "items": [
+        "**Draft alone.** Before the session, each member answers the questions in the table above in a few lines.",
+        "**Compare.** Put the drafts side by side. Mark where answers differ, especially on purpose, team tasks and membership.",
+        "**Discuss the differences.** Start with purpose, then team tasks and decision rights. Leave working agreements until those are settled.",
+        "**Agree and write.** One person holds the pen and drafts a single page during the session or straight after it.",
+        "**Test it.** Use it for the next two or three meetings, then adjust what does not work."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Drafting alone matters. In brainstorming experiments, people who worked alone and pooled their ideas produced more than groups talking together. The main cause was waiting for a turn to speak (Diehl and Stroebe, 1987). Private drafts also put every member's view on the table before the discussion starts."
+    },
+    {
+      "t": "p",
+      "text": "The leader still has a distinct role. Hackman noted that setting a team's direction involves authority, and the responsibility can fall to the leader (Coutu, 2009). Some parts, such as membership, may be the leader's call. Say which parts are open for discussion before you start."
+    },
+    {
+      "t": "p",
+      "text": "If the team has not yet agreed what it is for, start there. The article on the [purpose of a leadership team](/articles/leadership-team-purpose) sets out the questions to ask."
+    },
+    { "t": "h2", "text": "What does a sample leadership team charter look like?" },
+    {
+      "t": "p",
+      "text": "The outline below is an illustration, not a real team's charter. Replace each line with your team's own words."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "**Purpose.** This team exists to … (two or three sentences on what it must produce together).",
+        "**Team tasks and decision rights.** We decide: annual priorities and how resources are split between units. We coordinate: initiatives that cross units. We advise: decisions one member owns. We inform: only what everyone needs.",
+        "**Membership.** Core: the leader and the heads of the main units. Extended: named specialists, who join for specific items.",
+        "**Working agreements.** We read papers before we meet. Each item states the outcome it needs. We disagree in the room, not afterwards. Once we decide, we explain the decision as one team.",
+        "**Support.** The data we need for each decision, how shared results count in members' goals, and one development session a year.",
+        "**Key stakeholders.** The board, the owners and employee representatives, and when each hears from us.",
+        "**Review.** We review this charter every six months, and whenever a member joins or leaves."
+      ]
+    },
+    { "t": "h2", "text": "How do you keep a team charter alive?" },
+    {
+      "t": "p",
+      "text": "Use it every time you set an agenda. Before an item goes on, ask whether it belongs to the team and which of the four uses it serves. If it does not belong, send it to a one-to-one, a smaller group or a written update."
+    },
+    {
+      "t": "p",
+      "text": "For how to turn the charter into a working agenda, with outcomes and time boxes, see [leadership team meeting agenda](/articles/leadership-team-meeting-agenda)."
+    },
+    {
+      "t": "p",
+      "text": "Review it at least once or twice a year, and whenever members join or leave. Hackman pointed to the midpoint of a team's work as a moment to review what is working and correct course (Coutu, 2009). For a standing leadership team, a half-yearly review can play a similar role."
+    },
+    {
+      "t": "p",
+      "text": "Bring it into the room. Read the purpose aloud at the start of a strategy session, or check one working agreement at the end of each meeting. A charter that nobody quotes has stopped working."
+    },
+    { "t": "h2", "text": "What are the most common mistakes with team charters?" },
+    {
+      "t": "cards",
+      "items": [
+        { "title": "Written by the leader alone", "text": "Members receive it rather than agree to it. The launch research favours participation over a script (Ericksen and Dyer, 2004)." },
+        { "title": "Too long", "text": "A charter nobody can recall cannot guide a meeting. Keep it to one page, and cut anything you would never check." },
+        { "title": "Values instead of decisions", "text": "Words such as respect and trust say little about what reaches the agenda. Name issues, decision rights and visible behaviour." },
+        { "title": "Never revisited", "text": "Members change and priorities move. A charter left alone for years describes a team that no longer exists." }
+      ]
+    },
+    { "t": "h2", "text": "What can you do this month?" },
+    {
+      "t": "ul",
+      "items": [
+        "Ask each member to write, alone, one sentence on why the team exists. Compare the sentences at your next meeting.",
+        "List the issues that came to the team last quarter, and mark each one: decide, coordinate, advise or inform.",
+        "Ask everyone to name the members of the team. If the lists differ, settle membership first.",
+        "Agree three working agreements you can observe, and check them at the end of the next three meetings.",
+        "Put a review date in the calendar before the session ends."
+      ]
+    },
+    {
+      "t": "box",
+      "title": "A question for your team",
+      "text": "Which issue took the most time in our meetings this quarter, and did it need all of us? Let each member answer before anyone discusses it."
+    }
+  ],
+  "sources": [
+    {
+      "authors": "Bang, H., & Midelfart, T. N.",
+      "year": 2021,
+      "title": "Effective management teams and organizational behavior: A research-based model for team development",
+      "venue": "Routledge",
+      "url": "https://doi.org/10.4324/9781003053552"
+    },
+    {
+      "authors": "Coutu, D.",
+      "year": 2009,
+      "title": "Why teams don't work (an interview with J. Richard Hackman)",
+      "venue": "Harvard Business Review, 87(5), 98–105",
+      "url": "https://hbr.org/2009/05/why-teams-dont-work"
+    },
+    {
+      "authors": "Diehl, M., & Stroebe, W.",
+      "year": 1987,
+      "title": "Productivity loss in brainstorming groups: Toward the solution of a riddle",
+      "venue": "Journal of Personality and Social Psychology, 53(3), 497–509",
+      "url": "https://doi.org/10.1037/0022-3514.53.3.497"
+    },
+    {
+      "authors": "Ericksen, J., & Dyer, L.",
+      "year": 2004,
+      "title": "Right from the start: Exploring the effects of early team events on subsequent project team development and performance",
+      "venue": "Administrative Science Quarterly, 49(3), 438–471",
+      "url": "https://doi.org/10.2307/4131442"
+    },
+    {
+      "authors": "Feldman, D. C.",
+      "year": 1984,
+      "title": "The development and enforcement of group norms",
+      "venue": "Academy of Management Review, 9(1), 47–53",
+      "url": "https://doi.org/10.2307/258231"
+    },
+    {
+      "authors": "Hackman, J. R.",
+      "year": 2002,
+      "title": "Leading teams: Setting the stage for great performances",
+      "venue": "Harvard Business School Press",
+      "url": "https://store.hbr.org/product/leading-teams-setting-the-stage-for-great-performances/3332"
+    },
+    {
+      "authors": "Hackman, J. R., & Wageman, R.",
+      "year": 2005,
+      "title": "A theory of team coaching",
+      "venue": "Academy of Management Review, 30(2), 269–287",
+      "url": "https://doi.org/10.5465/amr.2005.16387885"
+    },
+    {
+      "authors": "Mathieu, J. E., & Rapp, T. L.",
+      "year": 2009,
+      "title": "Laying the foundation for successful team performance trajectories: The roles of team charters and performance strategies",
+      "venue": "Journal of Applied Psychology, 94(1), 90–103",
+      "url": "https://doi.org/10.1037/a0013257"
+    },
+    {
+      "authors": "Wageman, R.",
+      "year": 2020,
+      "title": "Four kinds of leadership teams [Video lecture, recorded 2013]",
+      "venue": "The Business & Management Collection, Henry Stewart Talks",
+      "url": "https://doi.org/10.69645/HBBJ4880"
+    },
+    {
+      "authors": "Wageman, R., Nunes, D. A., Burruss, J. A., & Hackman, J. R.",
+      "year": 2008,
+      "title": "Senior leadership teams: What it takes to make them great",
+      "venue": "Harvard Business School Press",
+      "url": "https://books.google.com/books/about/Senior_Leadership_Teams.html?id=WZDLwAEACAAJ"
+    }
+  ]
+}

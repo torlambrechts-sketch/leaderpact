@@ -1,0 +1,338 @@
+{
+  "title": "How to assess a leadership team: methods and survey questions",
+  "description": "What to measure in a leadership team, which methods to use, how to write good survey questions, and how to keep answers anonymous.",
+  "h1": "How to assess a leadership team",
+  "lead": "Ask every member the same short set of questions about the team, anonymously, then read both the average and how far members agree. Discuss the result together before anyone acts on it. Add a look at how your meetings actually run, because a survey shows views, not behaviour.",
+  "takeaways": [
+    "Measure the team as a whole, with statements about “we” and “this team”, never about individual members.",
+    "Cover four layers: the team's conditions, its processes, its states and its outcomes.",
+    "Read the level and the agreement. A middling average can hide a team split in two.",
+    "Protect anonymity. Set a minimum number of answers, and in a small team never show a lowest score, a distribution or a subgroup.",
+    "Show nothing until the round closes, interpret the results together, and agree one change to act on."
+  ],
+  "blocks": [
+    { "t": "h2", "text": "What should you measure in a leadership team?" },
+    {
+      "t": "p",
+      "text": "Measure the team, not its members. The aim is a picture of how the team is set up and how it works, so that you can change both."
+    },
+    {
+      "t": "p",
+      "text": "A useful frame has four layers, set out in [leadership team effectiveness](/articles/what-makes-a-leadership-team-effective). One well-documented instrument, the Team Diagnostic Survey, was built on research about the conditions that foster team effectiveness (Wageman, Hackman and Lehman, 2005). It asks how well a team is structured, supported and led, and about members' work processes and reactions to the team."
+    },
+    {
+      "t": "table",
+      "head": ["Layer", "What to ask about", "An illustrative warning sign"],
+      "rows": [
+        ["Conditions", "Membership, purpose, tasks that need the whole team, size, composition, information and support", "Members give different answers about who is on the team"],
+        ["Processes", "Meeting preparation, a goal for each item, focus, dialogue, how disagreement is handled, learning", "Items arrive with no stated goal"],
+        ["States", "Psychological safety, trust, cohesion and shared norms", "People keep concerns to themselves in the meeting"],
+        ["Outcomes", "Direction, alignment and commitment; the team's ability to keep working together; members' growth", "Units hear different priorities from different members"]
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Outcomes deserve a place even though they are hard to measure. Drath and colleagues describe direction, alignment and commitment as the outcomes of leadership in a group (Drath et al., 2008). Hackman's three tests add the team's ability to keep working together and its members' own development (Haas and Mortensen, 2016)."
+    },
+    { "t": "h2", "text": "Which methods can you use to assess a leadership team?" },
+    {
+      "t": "p",
+      "text": "Four methods are common, and each sees part of the picture. A survey is a practical starting point, and one other method adds depth."
+    },
+    {
+      "t": "table",
+      "head": ["Method", "What it shows well", "Watch out for"],
+      "rows": [
+        ["Member survey", "Every member's view at once, with level and agreement, quickly", "It shows views, not behaviour, and needs anonymity to be candid"],
+        ["Observing meetings", "What actually happens: goals, focus, who speaks and how decisions are made", "It needs a skilled observer, and one meeting may not be typical"],
+        ["Interviews", "The reasons and examples behind the scores", "Answers are not anonymous to the interviewer, and they take time"],
+        ["Outside stakeholders", "How the team's output lands with those who receive it", "They see results, not how the team works"]
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Researchers use observation to study meetings closely. Bang and colleagues combined members' ratings with observers' data from top management group meetings (Bang et al., 2010). Kauffeld and Lehmann-Willenbrock coded 92 videotaped team meetings (Kauffeld and Lehmann-Willenbrock, 2012). Functional interaction, such as problem solving and action planning, went with more satisfying meetings and higher team productivity."
+    },
+    {
+      "t": "p",
+      "text": "Stakeholders matter because the first of Hackman's tests is judged by the people who receive the team's work (Haas and Mortensen, 2016). Ask them about outcomes, such as how clear the direction they receive is. Do not ask them to rate individual members."
+    },
+    {
+      "t": "p",
+      "text": "Popular models can start a useful conversation too. If your team uses one, such as the [five dysfunctions of a team](/articles/five-dysfunctions-of-a-team-and-the-research), check the research on each part first."
+    },
+    {
+      "t": "box",
+      "title": "A rule of thumb",
+      "text": "Start with a member survey for breadth. Then watch one or two real meetings to see whether behaviour matches the scores."
+    },
+    { "t": "h2", "text": "What are good leadership team effectiveness survey questions?" },
+    {
+      "t": "p",
+      "text": "Good questions are about the team. In a referent-shift model, each member answers about the team as a whole rather than about themselves (Chan, 1998). Edmondson's measure of psychological safety, for example, asks about “this team” (Edmondson, 1999)."
+    },
+    {
+      "t": "p",
+      "text": "The usual rules of item writing apply too (Hinkin, 1998). Keep each statement short and simple, in words members use. Make each one address a single issue, because a double-barrelled item mixes two things and confuses people."
+    },
+    {
+      "t": "p",
+      "text": "Hinkin also cites evidence that reliability rises up to five scale points and then levels off, and he suggests five-point agreement scales. Keep the set short as well, since short measures reduce bias from boredom and fatigue (Hinkin, 1998). For a full measure he suggests four to six items per construct; a quick pulse can use fewer."
+    },
+    { "t": "h3", "text": "Example questions" },
+    {
+      "t": "p",
+      "text": "The statements below are examples written for this article, not items from any published instrument. Each is answered on a five-point scale from strongly disagree to strongly agree."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "Conditions: “It is clear who is a member of this team.”",
+        "Conditions: “This team spends its time on issues that need all of us.”",
+        "Processes: “Each item in our meetings has a clear goal.”",
+        "Processes: “Our discussions stay on the issue at hand.”",
+        "Processes: “When we disagree, the disagreement is about the work.”",
+        "States: “On this team, it is safe to raise a concern about a decision.”",
+        "States: “We can rely on each other to do what we agreed.”",
+        "Outcomes: “The people who report to us hear the same priorities from each of us.”"
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Notice what each example does. It names one thing, it speaks of “we” or “this team”, and it describes something a member could see happen. None of them asks a member to judge a colleague."
+    },
+    {
+      "t": "box",
+      "title": "A rule of thumb",
+      "text": "If a statement contains “and”, check whether it asks two questions. If it names a person or a role, rewrite it about the team."
+    },
+    { "t": "h2", "text": "Why does agreement matter as much as the average?" },
+    {
+      "t": "p",
+      "text": "A team average only means something if members broadly agree. Multilevel researchers treat a property such as a team climate as shared only when members' views converge (Kozlowski and Klein, 2000). Before averaging, they check agreement within the group (LeBreton and Senter, 2008)."
+    },
+    {
+      "t": "p",
+      "text": "A common index is rwg (James, Demaree and Wolf, 1984). It compares how much members' answers vary with how much they would vary if people answered at random. A value near 1 means close agreement, and a value near 0 means no more agreement than chance (O'Neill, 2017)."
+    },
+    {
+      "t": "p",
+      "text": "LeBreton and Senter (2008) offered rough bands, from a lack of agreement below about 0.3 to very strong agreement above 0.9. O'Neill (2017) cautions against applying any single cut-off mechanically, including the popular 0.70. He also notes that with few raters, statistical tests of agreement are hard to pass."
+    },
+    {
+      "t": "p",
+      "text": "The spread can be a finding in its own right. Chan's (1998) typology includes a dispersion model, in which the spread of members' views is itself the property of interest. Cole and colleagues argue that variance among members can add to what the mean tells you (Cole et al., 2011)."
+    },
+    {
+      "t": "box",
+      "title": "An example",
+      "text": "Take a team of six that averages 3.0 on “Each item in our meetings has a clear goal”. Everyone may have answered 3. Or three may have answered 1, and three answered 5. The second team needs a different conversation."
+    },
+    {
+      "t": "p",
+      "text": "In practice, read three things. Is the level high or low? Do members agree? Where they do not, what might explain the split? In a team of four to eight, treat agreement as a prompt for discussion, not a verdict."
+    },
+    { "t": "h2", "text": "How do you keep a leadership team survey anonymous?" },
+    {
+      "t": "p",
+      "text": "Anonymity matters because people say more when an answer cannot be traced to them. One study looked at students known to have cheated (Ong and Weiss, 2000). Under anonymity, 74 per cent admitted it, against 25 per cent under confidentiality. The setting was not a workplace, but it shows how much traceability can matter."
+    },
+    {
+      "t": "p",
+      "text": "Senior people have their own reasons for caution. Executives in Bang's interviews believed that raising problems in a meeting would be seen as negative and bring unwelcome consequences (Bang, 2012)."
+    },
+    {
+      "t": "p",
+      "text": "Removing names is not enough in a small group. Sweeney examined how released data can be re-identified, and proposed a rule called k-anonymity (Sweeney, 2002). Each person's data must be indistinguishable from that of at least k-1 others. For a team survey, that means a minimum number of answers before any result is shown."
+    },
+    {
+      "t": "p",
+      "text": "In a team of four to eight, several common displays can point to one person:"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "**The lowest or highest score.** If one person answered 1, the minimum is their answer, and colleagues often know who is unhappy.",
+        "**A distribution.** In a small team, a bar showing one answer at the bottom is close to naming a dissenter.",
+        "**Subgroups.** Splitting six people by role or location can leave groups of one or two.",
+        "**Changes in membership.** If one person joins or leaves between rounds, the change in the average can help reveal their answer.",
+        "**Early results.** Scores shown while answers are coming in let anyone who checks before and after a colleague answers see that answer."
+      ]
+    },
+    {
+      "t": "box",
+      "title": "A rule of thumb",
+      "text": "Decide the minimum number of answers before the survey opens, and never lower it to get a result. Show averages and a plain note on agreement, and nothing that points to a single answer."
+    },
+    { "t": "h2", "text": "How often should a leadership team be assessed?" },
+    {
+      "t": "p",
+      "text": "Start with a baseline, then use short pulses. Haas and Mortensen suggest a quick check every few months, with deeper reviews when problems arise (Haas and Mortensen, 2016)."
+    },
+    {
+      "t": "p",
+      "text": "Teams change, and team research has moved to models that take account of time (Mathieu et al., 2008). A pulse after you change something tells you whether the change worked. Ask the same questions each time, so the answers can be compared."
+    },
+    {
+      "t": "p",
+      "text": "Space the pulses so that the team has time to act between them. Measuring again before anything has changed adds little."
+    },
+    { "t": "h2", "text": "What mistakes should you avoid when assessing a leadership team?" },
+    {
+      "t": "ul",
+      "items": [
+        "**Rating or ranking individuals.** A team assessment is about the team. Scores per member turn it into an appraisal of people, which is a different exercise with different risks.",
+        "**Using results for performance evaluation.** If scores feed bonuses or reviews, members have a reason to answer strategically. Keep the results for the team's own development.",
+        "**Showing results before everyone has had the chance to answer.** Early results can sway those still to answer, and they can expose individuals.",
+        "**Leaving interpretation to the leader.** Bang's interviews suggest that executives may keep concerns to themselves (Bang, 2012). A leader reading the results alone may miss what they mean.",
+        "**Measuring without acting.** Agree one or two changes after each round, and check them at the next pulse."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Results on safety and trust are easier to discuss with some groundwork. See [psychological safety in leadership teams](/articles/psychological-safety-in-leadership-teams) for ways to make that conversation easier."
+    },
+    { "t": "h2", "text": "What can you do this month?" },
+    {
+      "t": "p",
+      "text": "You can run a simple assessment in a month with a short survey and one meeting. The steps below keep it anonymous and useful."
+    },
+    {
+      "t": "ol",
+      "items": [
+        "Choose eight to twelve statements across the four layers, each written about “we” or “this team”.",
+        "Agree the minimum number of answers, and what will be shown, before anyone answers.",
+        "Collect answers anonymously, and show nothing until the round closes.",
+        "Share each statement's average and a plain note on agreement, with no individual scores, lowest scores or subgroups.",
+        "Discuss the results in a meeting, starting with the statements where members disagree most.",
+        "Pick one change, and check it with a short pulse in two or three months."
+      ]
+    },
+    {
+      "t": "box",
+      "title": "A question for your team",
+      "text": "Where do we see this team most differently, and what would each of us need to hear to understand why?"
+    }
+  ],
+  "sources": [
+    {
+      "authors": "Wageman, R., Hackman, J. R., & Lehman, E.",
+      "year": 2005,
+      "title": "Team Diagnostic Survey: Development of an instrument",
+      "venue": "The Journal of Applied Behavioral Science, 41(4), 373–398",
+      "url": "https://doi.org/10.1177/0021886305281984"
+    },
+    {
+      "authors": "Drath, W. H., McCauley, C. D., Palus, C. J., Van Velsor, E., O'Connor, P. M. G., & McGuire, J. B.",
+      "year": 2008,
+      "title": "Direction, alignment, commitment: Toward a more integrative ontology of leadership",
+      "venue": "The Leadership Quarterly, 19(6), 635–653",
+      "url": "https://doi.org/10.1016/j.leaqua.2008.09.003"
+    },
+    {
+      "authors": "Haas, M., & Mortensen, M.",
+      "year": 2016,
+      "title": "The secrets of great teamwork",
+      "venue": "Harvard Business Review, 94(6), 70–76",
+      "url": "https://hbr.org/2016/06/the-secrets-of-great-teamwork"
+    },
+    {
+      "authors": "Bang, H., Fuglesang, S. L., Ovesen, M. R., & Eilertsen, D. E.",
+      "year": 2010,
+      "title": "Effectiveness in top management group meetings: The role of goal clarity, focused communication, and learning behavior",
+      "venue": "Scandinavian Journal of Psychology, 51(3), 253–261",
+      "url": "https://doi.org/10.1111/j.1467-9450.2009.00769.x"
+    },
+    {
+      "authors": "Kauffeld, S., & Lehmann-Willenbrock, N.",
+      "year": 2012,
+      "title": "Meetings matter: Effects of team meetings on team and organizational success",
+      "venue": "Small Group Research, 43(2), 130–158",
+      "url": "https://doi.org/10.1177/1046496411429599"
+    },
+    {
+      "authors": "Chan, D.",
+      "year": 1998,
+      "title": "Functional relations among constructs in the same content domain at different levels of analysis: A typology of composition models",
+      "venue": "Journal of Applied Psychology, 83(2), 234–246",
+      "url": "https://doi.org/10.1037/0021-9010.83.2.234"
+    },
+    {
+      "authors": "Edmondson, A.",
+      "year": 1999,
+      "title": "Psychological safety and learning behavior in work teams",
+      "venue": "Administrative Science Quarterly, 44(2), 350–383",
+      "url": "https://doi.org/10.2307/2666999"
+    },
+    {
+      "authors": "Hinkin, T. R.",
+      "year": 1998,
+      "title": "A brief tutorial on the development of measures for use in survey questionnaires",
+      "venue": "Organizational Research Methods, 1(1), 104–121",
+      "url": "https://doi.org/10.1177/109442819800100106"
+    },
+    {
+      "authors": "Kozlowski, S. W. J., & Klein, K. J.",
+      "year": 2000,
+      "title": "A multilevel approach to theory and research in organizations: Contextual, temporal, and emergent processes",
+      "venue": "In K. J. Klein & S. W. J. Kozlowski (Eds.), Multilevel theory, research, and methods in organizations (pp. 3–90). Jossey-Bass",
+      "url": "https://www.wiley-vch.de/en/areas-interest/finance-economics-law/multilevel-theory-research-and-methods-in-organizations-978-0-7879-5228-0"
+    },
+    {
+      "authors": "LeBreton, J. M., & Senter, J. L.",
+      "year": 2008,
+      "title": "Answers to 20 questions about interrater reliability and interrater agreement",
+      "venue": "Organizational Research Methods, 11(4), 815–852",
+      "url": "https://doi.org/10.1177/1094428106296642"
+    },
+    {
+      "authors": "James, L. R., Demaree, R. G., & Wolf, G.",
+      "year": 1984,
+      "title": "Estimating within-group interrater reliability with and without response bias",
+      "venue": "Journal of Applied Psychology, 69(1), 85–98",
+      "url": "https://doi.org/10.1037/0021-9010.69.1.85"
+    },
+    {
+      "authors": "O'Neill, T. A.",
+      "year": 2017,
+      "title": "An overview of interrater agreement on Likert scales for researchers and practitioners",
+      "venue": "Frontiers in Psychology, 8, article 777",
+      "url": "https://doi.org/10.3389/fpsyg.2017.00777"
+    },
+    {
+      "authors": "Cole, M. S., Bedeian, A. G., Hirschfeld, R. R., & Vogel, B.",
+      "year": 2011,
+      "title": "Dispersion-composition models in multilevel research: A data-analytic framework",
+      "venue": "Organizational Research Methods, 14(4), 718–734",
+      "url": "https://doi.org/10.1177/1094428110389078"
+    },
+    {
+      "authors": "Ong, A. D., & Weiss, D. J.",
+      "year": 2000,
+      "title": "The impact of anonymity on responses to sensitive questions",
+      "venue": "Journal of Applied Social Psychology, 30(8), 1691–1708",
+      "url": "https://doi.org/10.1111/j.1559-1816.2000.tb02462.x"
+    },
+    {
+      "authors": "Bang, H.",
+      "year": 2012,
+      "title": "What prevents senior executives from commenting upon miscommunication in top management team meetings?",
+      "venue": "Qualitative Research in Organizations and Management, 7(2), 189–208",
+      "url": "https://doi.org/10.1108/17465641211253093"
+    },
+    {
+      "authors": "Sweeney, L.",
+      "year": 2002,
+      "title": "k-anonymity: A model for protecting privacy",
+      "venue": "International Journal of Uncertainty, Fuzziness and Knowledge-Based Systems, 10(5), 557–570",
+      "url": "https://doi.org/10.1142/S0218488502001648"
+    },
+    {
+      "authors": "Mathieu, J. E., Maynard, M. T., Rapp, T., & Gilson, L.",
+      "year": 2008,
+      "title": "Team effectiveness 1997–2007: A review of recent advancements and a glimpse into the future",
+      "venue": "Journal of Management, 34(3), 410–476",
+      "url": "https://doi.org/10.1177/0149206308316061"
+    }
+  ]
+}

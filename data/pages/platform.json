@@ -1,0 +1,132 @@
+{
+  "title": "Leadership team platform: how {product} works",
+  "description": "{product} helps a leadership team of 4 to 15 see how it works, then improve it meeting by meeting. What it does today, and what is in development.",
+  "crumb": "How it works",
+  "kicker": "How it works",
+  "h1": "From a three-minute scan to better meetings",
+  "lead": "{product} helps a leadership team of 4 to 15 people see how it really works, then improve it meeting by meeting. It starts with a free scan any leader can run without a consultant.",
+  "steps": [
+    {
+      "status": "available",
+      "title": "Take the Leadership Team Scan",
+      "text": "Twelve questions in about three minutes, with no account. Your personal view appears right after the last answer."
+    },
+    {
+      "status": "available",
+      "title": "Invite your group",
+      "text": "One link for the whole group. A counter shows how many have answered, never who."
+    },
+    {
+      "status": "available",
+      "title": "Read the team view together",
+      "text": "When the scan closes, the whole group sees level and agreement per theme. It opens only with at least four answers."
+    },
+    {
+      "status": "available",
+      "title": "Take the Leader Profile",
+      "text": "A personality profile for leaders, in a quick and a full length. It is private to you until you choose to share it."
+    },
+    {
+      "status": "development",
+      "title": "Agree a charter",
+      "text": "Purpose, team tasks and working agreements. The leader drafts it, and the group agrees it."
+    },
+    {
+      "status": "development",
+      "title": "Run the full diagnostic",
+      "text": "72 questions across 21 scales and 3 outcomes. Every scale shows level, agreement and one standing."
+    },
+    {
+      "status": "development",
+      "title": "Choose focus areas",
+      "text": "At most two at a time, each with actions that have an owner."
+    },
+    {
+      "status": "development",
+      "title": "Meet with purpose",
+      "text": "Agendas where every item has a desired outcome and a team task. Open actions appear on the next agenda."
+    },
+    {
+      "status": "development",
+      "title": "Measure again",
+      "text": "A short pulse every four weeks, and a new diagnostic after six months. A change shows only when it is large enough to mean something."
+    }
+  ],
+  "blocks": [
+    {
+      "t": "h2",
+      "text": "What sets it apart?"
+    },
+    {
+      "t": "cards",
+      "items": [
+        {
+          "title": "From results to meetings",
+          "text": "Assessment and meetings sit in one place, so a focus area becomes actions on the next agenda, not a report in a drawer."
+        },
+        {
+          "title": "The evidence is shown",
+          "text": "Every scale names how strong its research is, and that rating sets how firmly the advice is worded."
+        },
+        {
+          "title": "Anonymous by construction",
+          "text": "An answer is never stored with a person. Results open at close, and only with at least four answers."
+        },
+        {
+          "title": "Honest labels",
+          "text": "Every score says Research-based, not yet validated. Nothing claims more than is true today."
+        }
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "Who is it for?"
+    },
+    {
+      "t": "p",
+      "text": "The person who leads a leadership team of 4 to 15: a chief executive, a managing director, or a division or department head. Each member of that team usually leads a team of their own, and can run the same scan with it."
+    },
+    {
+      "t": "h2",
+      "text": "What does it cost?"
+    },
+    {
+      "t": "p",
+      "text": "The Leadership Team Scan, the team view and the Leader Profile are free, for one group. The Team plan, with the charter, the full diagnostic, focus areas, meetings and pulses, is in development."
+    },
+    {
+      "t": "h2",
+      "text": "Where should you start?"
+    },
+    {
+      "t": "p",
+      "text": "Take the scan yourself first: it takes about three minutes. If the picture is worth sharing, invite your group with one link, and read the team view together when the scan closes."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Is {product} free?",
+      "a": "The Leadership Team Scan, the team view and the Leader Profile are free, for one group. The paid Team plan is in development."
+    },
+    {
+      "q": "How long does the scan take?",
+      "a": "About three minutes: twelve questions, one per screen, with no account."
+    },
+    {
+      "q": "When does the team view open?",
+      "a": "When the scan closes: when every member has answered, or after seven days. It needs at least four answers. With fewer, the scan gets one seven-day extension, and then no team view."
+    },
+    {
+      "q": "Can the leader see who answered?",
+      "a": "No. The leader sees how many have answered, never who, and never anyone's answers."
+    },
+    {
+      "q": "Has the questionnaire been tested?",
+      "a": "Not yet. Every scale draws on published research, and each shows its evidence rating, but the questions themselves have not been through a validation study. Every score says so."
+    },
+    {
+      "q": "Where is the data kept?",
+      "a": "In the EU. The database and the application run in Frankfurt."
+    }
+  ]
+}

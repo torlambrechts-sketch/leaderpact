@@ -59,6 +59,8 @@ const nextConfig: NextConfig = {
   // a QA or verification build goes to its own directory, so it never overwrites the dev build
   distDir: process.env.NEXT_DIST_DIR || '.next',
   typedRoutes: true,
+  // the free templates' files, read from private/ by their route only (D-36), travel with that route's function
+  outputFileTracingIncludes: { '/templates/file/[file]': ['./private/templates/**'] },
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }]
   },

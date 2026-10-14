@@ -1,0 +1,225 @@
+{
+  "title": "Leadership team size: how big should it be?",
+  "description": "What research says about leadership team size, why larger teams lose effort, and how to keep a small core without shutting others out.",
+  "h1": "How big should a leadership team be?",
+  "lead": "As small as the work allows: research on groups finds that coordination and individual effort suffer as a team grows. Richard Hackman, who studied senior teams with colleagues, advised against teams in double digits. The evidence on an exact number is mixed, so decide by the work. Keep the core to people whose work must be integrated, and inform the others another way.",
+  "takeaways": [
+    "Research on groups finds losses in coordination, effort and mutual support as teams grow. No study gives one right number for a leadership team.",
+    "Richard Hackman's rule of thumb was no double digits. He warned that a team of all the chief executive's direct reports may be worse than no team.",
+    "A meta-analysis found that management teams did slightly better with more members, so size is never the whole story.",
+    "Decide membership by the work: a small core for the decisions that need the whole team, and a wider group that is kept informed."
+  ],
+  "blocks": [
+    { "t": "h2", "text": "Why does the size of a leadership team matter?" },
+    {
+      "t": "p",
+      "text": "Size is one of the conditions behind [leadership team effectiveness](/articles/what-makes-a-leadership-team-effective), alongside purpose, membership and support. Each person you add brings knowledge, perspective and reach. Each also adds costs, and research on groups has measured several of them."
+    },
+    {
+      "t": "p",
+      "text": "The oldest idea is process loss. Ivan Steiner argued that what a group actually achieves equals what its members could achieve together, minus the losses of faulty process (Steiner, 1972). The losses he had in mind were mainly problems of coordination and of motivation."
+    },
+    {
+      "t": "p",
+      "text": "Motivation loss has a large literature of its own. Across 78 studies, Karau and Williams (1993) found that people tend to put in less effort when working collectively than when working alone. This is called social loafing. It appeared across tasks and populations. Its strength depended on conditions such as whether individual contributions could be evaluated and how meaningful the task was."
+    },
+    {
+      "t": "p",
+      "text": "A third loss concerns support. In a field study of 26 corporate project teams, people in larger teams were rated as performing worse individually (Mueller, 2012). The strongest explanation was what Mueller called relational loss. In larger teams, members felt less sure that colleagues would help and support them when they struggled."
+    },
+    {
+      "t": "p",
+      "text": "Richard Hackman pointed to the links between members. As a team grows, the number of relationships to manage rises far faster than the headcount (Hackman and Coutu, 2009). The arithmetic is simple: a team of 8 has 28 pairs of members, and a team of 15 has 105."
+    },
+    {
+      "t": "p",
+      "text": "Size shows in meetings too. In two survey studies of workplace meetings, larger meetings went with lower involvement from the people attending (Leach et al., 2009). Involvement, in turn, was a key link between how a meeting was designed and how effective people judged it."
+    },
+    { "t": "h2", "text": "What do researchers of senior teams recommend?" },
+    {
+      "t": "p",
+      "text": "Ruth Wageman, Debra Nunes, James Burruss and Richard Hackman studied more than 100 senior teams around the world (Wageman et al., 2008). Getting the right people on the team is one of the conditions their book sets out for a great senior leadership team."
+    },
+    {
+      "t": "p",
+      "text": "In an interview about that work, Hackman said almost every senior team they studied thought its boundaries were clear. Yet when members were asked to describe their team, fewer than 10 per cent agreed about who was on it (Hackman and Coutu, 2009)."
+    },
+    {
+      "t": "p",
+      "text": "He saw the chief executive as often responsible. Some leaders fear seeming to exclude anyone; others add people for political reasons. Either way, the result can be a team that does not work. His rule of thumb was no double digits. He warned that a large senior team, such as one of all the chief executive's direct reports, may be worse than none."
+    },
+    {
+      "t": "p",
+      "text": "Treat that number as what it is: a rule of thumb from decades of study, not a threshold tested in one study. The reasoning behind it, the cost of managing links between members, is the part to hold on to."
+    },
+    {
+      "t": "p",
+      "text": "Hackman also described a firm where the finance chief was kept off the executive committee because he worked against collective solutions. The chief executive briefed him before and after every meeting, and by Hackman's account the team worked much better (Hackman and Coutu, 2009). Being off the team did not mean being out of the loop."
+    },
+    { "t": "h2", "text": "Is there an optimal team size?" },
+    {
+      "t": "p",
+      "text": "Not one that the research agrees on. The findings point in different directions, depending on the task and on what is measured."
+    },
+    {
+      "t": "p",
+      "text": "A meta-analysis of 93 studies looked at how features of team design relate to performance (Stewart, 2006). Project and management teams performed slightly better when they had more members. One plausible reason is that complex work needs more knowledge and more links to the rest of the organisation."
+    },
+    {
+      "t": "p",
+      "text": "An early laboratory study used student groups of two to seven people (Hackman and Vidmar, 1970). Size made little difference to performance, but it strongly affected how members felt. Dissatisfaction rose roughly in step with group size."
+    },
+    {
+      "t": "p",
+      "text": "So the useful question is less what number, and more what work. Every member adds knowledge and perspective, and every member adds coordination, effort and support costs. A team that must make joint decisions pays those costs in every meeting, so its core should hold only the people those decisions need."
+    },
+    {
+      "t": "box",
+      "title": "A rule of thumb",
+      "text": "Count the people whose work must be integrated to deliver the team's shared tasks. That is the core. Everyone else needs good information and a way to give input, not a seat at every meeting."
+    },
+    { "t": "h2", "text": "What is a core and an extended leadership team?" },
+    {
+      "t": "p",
+      "text": "One practical answer to the size problem is two circles. It is an arrangement, not a research finding, but it follows from the costs described above."
+    },
+    {
+      "t": "cards",
+      "items": [
+        {
+          "title": "The core team",
+          "text": "The few people who make the decisions that need the whole organisation in view. They meet often and share accountability for the team's tasks."
+        },
+        {
+          "title": "The extended group",
+          "text": "Leaders who need the same information and whose views matter. They meet less often, to hear about direction and give input before big decisions."
+        },
+        {
+          "title": "Invited guests",
+          "text": "People who join for one item, bring their expertise and leave. Their place depends on the agenda, not on their title."
+        }
+      ]
+    },
+    {
+      "t": "p",
+      "text": "The two circles need different meetings. The core meets to decide. The extended group meets to inform, consult and align. Mixing the two tends to produce a large meeting that does neither well."
+    },
+    {
+      "t": "p",
+      "text": "To find the core, start from the [purpose of a leadership team](/articles/leadership-team-purpose): the tasks that only the whole team can do. Then ask who is needed for each of them."
+    },
+    { "t": "h2", "text": "What are the signs your leadership team is too big?" },
+    {
+      "t": "p",
+      "text": "None of these is conclusive on its own. Each is a prompt to look more closely at who is in the room and why."
+    },
+    {
+      "t": "table",
+      "head": ["Sign", "What it suggests"],
+      "rows": [
+        ["Members disagree about who is on the team", "The boundaries are unclear. Settle membership before anything else."],
+        ["Most items concern only one or two units", "The agenda carries work that belongs in a smaller forum."],
+        ["Several members rarely speak in meetings", "They may need information rather than a seat at the table."],
+        ["Decisions are reopened after the meeting", "The real decisions are being made in a smaller group outside the room."],
+        ["Meetings are mostly round-the-table updates", "The team works as an information forum, not as a decision group."],
+        ["Members describe their role as speaking for their unit", "Membership follows titles, not the team's shared tasks."]
+      ]
+    },
+    { "t": "h2", "text": "How do you make a leadership team smaller without shutting people out?" },
+    {
+      "t": "p",
+      "text": "Hackman's view was that forming a team calls for hard decisions about membership. Not everyone who wants a seat should have one (Hackman and Coutu, 2009). Hard decisions go better with clear criteria and a fair process."
+    },
+    {
+      "t": "ol",
+      "items": [
+        "**Name the team's shared tasks.** Write down the few things that only this team can do together.",
+        "**Set membership criteria from those tasks.** A member is someone whose work those tasks need, not someone with a given title.",
+        "**Design the extended group.** Decide what information it receives, how often it meets and how it gives input.",
+        "**Talk to each person who leaves the core.** Explain the criteria, what they will still receive and how they can raise an issue.",
+        "**Review membership once a year.** When the tasks change, the right members may change too."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Write the criteria into your [leadership team charter](/articles/leadership-team-charter), so that membership rests on an agreement rather than on status. People accept a boundary more readily when they can see the reason for it."
+    },
+    {
+      "t": "box",
+      "title": "A question for your team",
+      "text": "If this team were formed from scratch today, to do only its shared tasks, who would be on it?"
+    },
+    { "t": "h2", "text": "What can you do this month?" },
+    {
+      "t": "ul",
+      "items": [
+        "Ask each member to write down, privately, who is on the leadership team. Compare the lists at the next meeting.",
+        "Look at your last three agendas. Count the items that needed every member to reach a good outcome.",
+        "List the decisions the team made together in the past quarter. For each one, note who really needed to take part.",
+        "Try one meeting with only the decision items, and send the information items to the wider group in writing."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "A tighter [leadership team meeting agenda](/articles/leadership-team-meeting-agenda) is a quick test of size. If the team's real work fits a smaller room, the room can shrink."
+    }
+  ],
+  "sources": [
+    {
+      "authors": "Steiner, I. D.",
+      "year": 1972,
+      "title": "Group process and productivity",
+      "venue": "Academic Press",
+      "url": "https://openlibrary.org/works/OL16277283W"
+    },
+    {
+      "authors": "Karau, S. J., & Williams, K. D.",
+      "year": 1993,
+      "title": "Social loafing: A meta-analytic review and theoretical integration",
+      "venue": "Journal of Personality and Social Psychology, 65(4), 681–706",
+      "url": "https://doi.org/10.1037/0022-3514.65.4.681"
+    },
+    {
+      "authors": "Mueller, J. S.",
+      "year": 2012,
+      "title": "Why individuals in larger teams perform worse",
+      "venue": "Organizational Behavior and Human Decision Processes, 117(1), 111–124",
+      "url": "https://doi.org/10.1016/j.obhdp.2011.08.004"
+    },
+    {
+      "authors": "Hackman, J. R., & Coutu, D.",
+      "year": 2009,
+      "title": "Why teams don't work (interview by Diane Coutu)",
+      "venue": "Harvard Business Review, 87(5), 98–105",
+      "url": "https://hbr.org/2009/05/why-teams-dont-work"
+    },
+    {
+      "authors": "Wageman, R., Nunes, D. A., Burruss, J. A., & Hackman, J. R.",
+      "year": 2008,
+      "title": "Senior leadership teams: What it takes to make them great",
+      "venue": "Harvard Business School Press",
+      "url": "https://6teamconditions.com/publications/bibliography/wageman-r-nunes-d-a-burruss-j-hackman-j-r-2008-senior-leadership-teams-what-it-takes-to-make-them-great-harvard-business-review-press"
+    },
+    {
+      "authors": "Stewart, G. L.",
+      "year": 2006,
+      "title": "A meta-analytic review of relationships between team design features and team performance",
+      "venue": "Journal of Management, 32(1), 29–55",
+      "url": "https://doi.org/10.1177/0149206305277792"
+    },
+    {
+      "authors": "Hackman, J. R., & Vidmar, N.",
+      "year": 1970,
+      "title": "Effects of size and task type on group performance and member reactions",
+      "venue": "Sociometry, 33(1), 37–54",
+      "url": "https://doi.org/10.2307/2786271"
+    },
+    {
+      "authors": "Leach, D. J., Rogelberg, S. G., Warr, P. B., & Burnfield, J. L.",
+      "year": 2009,
+      "title": "Perceived meeting effectiveness: The role of design characteristics",
+      "venue": "Journal of Business and Psychology, 24(1), 65–76",
+      "url": "https://doi.org/10.1007/s10869-009-9092-6"
+    }
+  ]
+}

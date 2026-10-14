@@ -5,6 +5,7 @@ import type { Route } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { ClientMessages } from '@/components/lp/ClientMessages'
 import { PRODUCT_NAME } from '@/lib/brand'
+import { NOINDEX } from '@/lib/site/meta'
 import { currentUser } from '@/lib/auth/session'
 import { loadBandSet, loadMyProfile, loadProfileTest } from '@/lib/profile/load'
 import { PROFILE_PATH } from '@/lib/routes'
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ test: str
   const { test } = await params
   const [t, tp] = await Promise.all([getTranslations('meta'), getTranslations('profile')])
   const name = test === 'full' ? tp('fullTitle') : tp('quickTitle')
-  return { title: t('profileTestTitle', { test: name, product: PRODUCT_NAME }) }
+  return { title: t('profileTestTitle', { test: name, product: PRODUCT_NAME }), robots: NOINDEX }
 }
 
 /**

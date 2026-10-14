@@ -7,6 +7,14 @@ import { ArrowRight } from 'lucide-react'
 import { Logo } from '@/components/lp/Logo'
 import { cn } from '@/lib/cn'
 import { DATA_PROCESSING_PATH, LANDING_PATH, PRIVACY_PATH, PROFILE_PATH, SCAN_PATH, SIGN_IN_PATH } from '@/lib/routes'
+import { ARTICLES_PATH } from '@/lib/site/articles'
+import { TEMPLATES_PATH } from '@/lib/site/templates'
+
+/** The product pages and the reading pages (D-37), in the order the footer lists them */
+const PLATFORM_PATH = '/platform'
+const RESEARCH_PATH = '/research'
+const ANONYMITY_PATH = '/anonymity'
+const TOOLS_PATH = '/leadership-team-assessment-tools'
 
 /**
  * The public site's header (design, `r.public`): a --bar pill up to 1080 px wide, padding 10 by 10 by 14,
@@ -24,11 +32,13 @@ export function PublicHeader({
   labels,
 }: {
   productName: string
-  labels: { menu: string; scan: string; profile: string; start: string; home: string; signIn: string }
+  labels: { menu: string; scan: string; profile: string; start: string; home: string; signIn: string; howItWorks: string; articles: string }
 }) {
   const path = usePathname()
   const inScan = path === LANDING_PATH || path === SCAN_PATH || path.startsWith(`${SCAN_PATH}/`)
   const inProfile = path === PROFILE_PATH || path.startsWith(`${PROFILE_PATH}/`)
+  const inPlatform = path === PLATFORM_PATH
+  const inArticles = path === ARTICLES_PATH || path.startsWith(`${ARTICLES_PATH}/`)
   return (
     <header className="flex justify-center px-4 pt-3 md:px-gutter md:pt-5">
       <div className="flex w-full max-w-[1080px] items-center gap-6 rounded-pill border border-bar bg-bar py-2.5 pl-3.5 pr-2.5">
@@ -49,6 +59,21 @@ export function PublicHeader({
             className={cn(inProfile ? 'font-semibold text-ink hover:text-ink' : 'text-text-2 hover:text-ink')}
           >
             {labels.profile}
+          </Link>
+          {/* from 1024 px: four items and the button do not fit beside the logo at 768 (D-37) */}
+          <Link
+            href={PLATFORM_PATH as Route}
+            aria-current={inPlatform ? 'page' : undefined}
+            className={cn('hidden lg:inline', inPlatform ? 'font-semibold text-ink hover:text-ink' : 'text-text-2 hover:text-ink')}
+          >
+            {labels.howItWorks}
+          </Link>
+          <Link
+            href={ARTICLES_PATH as Route}
+            aria-current={path === ARTICLES_PATH ? 'page' : undefined}
+            className={cn('hidden lg:inline', inArticles ? 'font-semibold text-ink hover:text-ink' : 'text-text-2 hover:text-ink')}
+          >
+            {labels.articles}
           </Link>
         </nav>
         <div className="ml-auto flex items-center gap-6 md:ml-0">
@@ -73,26 +98,75 @@ export function PublicHeader({
 }
 
 /**
- * The public footer: the privacy and data-processing pages (handoff 6.1), and Sign in and the Leader
- * Profile, which the header folds away on phones. The design draws none.
+ * The public footer: the product pages, the reading pages, the account and the legal pages (handoff 6.1),
+ * in three lists. The header folds its menu away on phones, so the footer carries every page at every width.
  */
-export function PublicFooter({ labels }: { labels: { menu: string; profile: string; privacy: string; dataProcessing: string; signIn: string } }) {
+export function PublicFooter({
+  labels,
+}: {
+  labels: {
+    menu: string
+    profile: string
+    privacy: string
+    dataProcessing: string
+    signIn: string
+    product?: string
+    learn?: string
+    scan?: string
+    howItWorks?: string
+    research?: string
+    anonymity?: string
+    tools?: string
+    articles?: string
+    templates?: string
+  }
+}) {
+  const link = 'text-text-2 hover:text-ink max-md:inline-flex max-md:min-h-[44px] max-md:items-center'
+  const product: [string | undefined, string][] = [
+    [labels.scan, LANDING_PATH],
+    [labels.howItWorks, PLATFORM_PATH],
+    [labels.research, RESEARCH_PATH],
+    [labels.anonymity, ANONYMITY_PATH],
+    [labels.tools, TOOLS_PATH],
+  ]
+  const learn: [string | undefined, string][] = [
+    [labels.articles, ARTICLES_PATH],
+    [labels.templates, TEMPLATES_PATH],
+  ]
+  const list = (items: [string | undefined, string][]) =>
+    items.flatMap(([label, href]) =>
+      label ? [
+        <li key={href}>
+          <Link href={href as Route} className={link}>
+            {label}
+          </Link>
+        </li>,
+      ] : [],
+    )
   return (
     <footer className="mx-auto max-w-landing px-4 pb-10 pt-12 md:px-gutter md:pt-16">
-      <nav aria-label={labels.menu} className="flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-text-2 max-md:text-[15px]">
-        <Link href={SIGN_IN_PATH as Route} className="text-text-2 hover:text-ink max-md:inline-flex max-md:min-h-[44px] max-md:items-center">
-          {labels.signIn}
-        </Link>
-        <Link href={PROFILE_PATH as Route} className="text-text-2 hover:text-ink max-md:inline-flex max-md:min-h-[44px] max-md:items-center">
-          {labels.profile}
-        </Link>
-        <Link href={PRIVACY_PATH as Route} className="text-text-2 hover:text-ink max-md:inline-flex max-md:min-h-[44px] max-md:items-center">
-          {labels.privacy}
-        </Link>
-        <Link href={DATA_PROCESSING_PATH as Route} className="text-text-2 hover:text-ink max-md:inline-flex max-md:min-h-[44px] max-md:items-center">
-          {labels.dataProcessing}
-        </Link>
-      </nav>
+      <div className="flex flex-wrap gap-x-16 gap-y-6 text-[13px] text-text-2 max-md:text-[15px]">
+        {labels.product && labels.scan ? (
+          <nav aria-label={labels.product}>
+            <ul className="m-0 flex list-none flex-col gap-2 p-0">{list(product)}</ul>
+          </nav>
+        ) : null}
+        {labels.learn && labels.articles ? (
+          <nav aria-label={labels.learn}>
+            <ul className="m-0 flex list-none flex-col gap-2 p-0">{list(learn)}</ul>
+          </nav>
+        ) : null}
+        <nav aria-label={labels.menu}>
+          <ul className="m-0 flex list-none flex-col gap-2 p-0">
+            {list([
+              [labels.signIn, SIGN_IN_PATH],
+              [labels.profile, PROFILE_PATH],
+              [labels.privacy, PRIVACY_PATH],
+              [labels.dataProcessing, DATA_PROCESSING_PATH],
+            ])}
+          </ul>
+        </nav>
+      </div>
     </footer>
   )
 }

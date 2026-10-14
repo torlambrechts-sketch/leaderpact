@@ -40,7 +40,17 @@ export const PUBLIC_PATHS = [
   '/auth',
   '/privacy',
   '/data-processing',
+  // the public site's reading pages (D-33 to D-37): articles, free templates and the product pages
+  '/articles',
+  '/templates',
+  '/platform',
+  '/research',
+  '/anonymity',
+  '/leadership-team-assessment-tools',
+  // what search engines and answer engines read
   '/robots.txt',
+  '/sitemap.xml',
+  '/llms.txt',
   // the component specimens (milestone 1), for the side-by-side check; app/specimens refuses production
   '/specimens',
 ] as const

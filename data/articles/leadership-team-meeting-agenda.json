@@ -1,0 +1,289 @@
+{
+  "title": "Leadership team meeting agenda: how to build one that works",
+  "description": "How to build a leadership team meeting agenda: item types, desired outcomes, owners, time boxes, pre-reads and typical topics, with an example.",
+  "h1": "Leadership team meeting agenda: how to build one that works",
+  "lead": "A good leadership team agenda lists fewer items and marks each one as information, discussion, decision or follow-up. Each item carries one sentence on the outcome its owner wants, a time box and a pre-read sent in advance. And it carries only issues that need the whole team.",
+  "takeaways": [
+    "Having an agenda is not enough on its own. Research links meeting effectiveness to how the agenda is used.",
+    "Mark every item as information, discussion, decision or follow-up, and write the outcome the owner wants in one sentence.",
+    "In a study of top management groups, clear goals for agenda items went with more focused discussion and better results.",
+    "Send pre-reads before a set deadline, keep operational and strategic issues apart, and bring only issues that need the whole team.",
+    "Close with decisions and actions, with owners and dates, and a short check on whether each item reached its outcome."
+  ],
+  "blocks": [
+    { "t": "h2", "text": "Why do leadership team agendas fail?" },
+    {
+      "t": "p",
+      "text": "Most leadership teams have an agenda. An agenda alone, though, does not make a good meeting."
+    },
+    {
+      "t": "p",
+      "text": "Steven Rogelberg, a researcher of workplace meetings, says his research shows that having an agenda does nothing for meeting effectiveness in itself (Rogelberg, 2019). What matters is how the agenda is built and how it is used."
+    },
+    {
+      "t": "p",
+      "text": "Survey studies point the same way. In two studies of workplace meetings, agenda use stood out among the features that predicted perceived meeting effectiveness (Leach et al., 2009). A later survey of 367 working adults again linked agenda use to perceived meeting quality (Cohen et al., 2011)."
+    },
+    { "t": "p", "text": "Leadership team agendas also have failure modes of their own:" },
+    {
+      "t": "ul",
+      "items": [
+        "**Items without a purpose.** A title such as 'Market update' does not say whether the team is to listen, debate or decide.",
+        "**Too many items.** The agenda cannot be done in the time, so items are rushed or carried over.",
+        "**Operations crowd out strategy.** Urgent operational issues fill the time that longer-term questions need.",
+        "**Issues that do not need the whole team.** Two members work through their problem while the rest wait."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Perlow, Hadley and Eun (2017) argue that standard fixes, such as a clear agenda, are not enough on their own. They suggest the team looks at its meetings together and agrees what to change, rather than each member quietly putting up with them."
+    },
+    { "t": "h2", "text": "What does research on top management meetings show?" },
+    {
+      "t": "p",
+      "text": "Henning Bang and colleagues studied eight top management groups as they handled 56 agenda items, using both self-reports and observers (Bang et al., 2010). Goal clarity and focused communication were both positively related to team effectiveness. Effectiveness here covered task performance, relationship quality and member satisfaction."
+    },
+    {
+      "t": "p",
+      "text": "Part of the effect of clear goals ran through more focused discussion. Speaking up when an item's goal was unclear went with more focus, better task performance and better relationships. Speaking up when a discussion had drifted off track did not help performance, and it went with poorer relationships."
+    },
+    {
+      "t": "p",
+      "text": "One practical reading is to make the goal clear before the discussion starts, rather than to police focus once it has drifted. A desired outcome written on the agenda does that work in advance."
+    },
+    {
+      "t": "p",
+      "text": "A study of 92 videotaped team meetings in organisations adds to the picture (Kauffeld and Lehmann-Willenbrock, 2012). Teams with more problem-solving talk and action planning were more satisfied with their meetings. Better meetings went with higher team productivity. Criticising others and complaining were linked to worse outcomes, and those effects were stronger than the positive ones."
+    },
+    { "t": "h2", "text": "What should each item on the agenda say?" },
+    {
+      "t": "p",
+      "text": "Every item needs a type, a desired outcome, an owner and a time box. Most items also need a pre-read."
+    },
+    { "t": "h3", "text": "Mark the type" },
+    {
+      "t": "p",
+      "text": "The type tells members what the item asks of them. Michael Mankins studied how executive teams use their meeting time (Mankins, 2004). He recommends labelling each item as information, discussion or decision (Mankins and Davis-Peccoud, 2014). A fourth type, follow-up, keeps earlier decisions in view."
+    },
+    {
+      "t": "table",
+      "head": ["Type", "What it asks of the team", "Example of a desired outcome"],
+      "rows": [
+        ["Information", "Listen, understand and ask questions, with no debate on the substance.", "Everyone understands the main points of the quarterly results and has asked their questions."],
+        ["Discussion", "Give views and weigh options, with no decision today.", "We know how each unit would be affected before we decide next month."],
+        ["Decision", "Make a choice in the meeting.", "We agree which two projects to stop."],
+        ["Follow-up", "Check that earlier decisions are being carried out.", "Each open action is on track or has a new date."]
+      ]
+    },
+    { "t": "h3", "text": "Write the desired outcome" },
+    {
+      "t": "p",
+      "text": "The desired outcome is one sentence on what the team will have done when the item ends. It turns a topic into a goal, which is what the research on goal clarity points to."
+    },
+    {
+      "t": "p",
+      "text": "Rogelberg suggests a related move: frame agenda items as questions the meeting must answer (Rogelberg, 2019). If nobody can write a question, he argues, the meeting may not be needed."
+    },
+    {
+      "t": "box",
+      "title": "A rule of thumb",
+      "text": "If the owner cannot write the desired outcome in one sentence, the item is not ready for the meeting."
+    },
+    { "t": "h3", "text": "Name the owner and set a time box" },
+    {
+      "t": "p",
+      "text": "The owner prepares the item, writes the pre-read and leads it in the meeting. The time box is set by what the outcome needs. Rogelberg advises against simply accepting the calendar's default meeting length (Rogelberg, 2019)."
+    },
+    {
+      "t": "p",
+      "text": "When an item overruns, the chair asks the team to choose. Either extend it and drop something else, or park it with a clear next step."
+    },
+    { "t": "h2", "text": "How should pre-reads and deadlines work?" },
+    {
+      "t": "p",
+      "text": "Information is often better sent than presented. Mankins recommends moving information-only items into pre-reading, so that meeting time goes to discussion and decisions (Mankins and Davis-Peccoud, 2014)."
+    },
+    {
+      "t": "p",
+      "text": "A pre-read only works if people have time to read it. One that arrives late tends to be presented in the meeting instead, which uses up the time it was meant to save."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "Set a deadline for papers, and keep to it.",
+        "Keep each pre-read short, and put the question for the team at the top.",
+        "Say whether members should come with a view, a decision or questions.",
+        "If the papers miss the deadline, move the item to the next meeting."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Agree these rules in your [leadership team charter](/articles/leadership-team-charter). The chair is then holding the team to a shared agreement, not to a personal preference."
+    },
+    { "t": "h2", "text": "Does this item need the whole leadership team?" },
+    {
+      "t": "p",
+      "text": "The most useful filter is a short test before an item goes on the agenda. It keeps out issues that belong with one or two members, or with a single unit. The test follows from the [purpose of a leadership team](/articles/leadership-team-purpose): the work only the whole team can do."
+    },
+    {
+      "t": "ol",
+      "items": [
+        "Does the issue affect several units, or the organisation as a whole?",
+        "Does it need knowledge or authority that only the full team holds?",
+        "Will the team's decision or advice change what happens next?",
+        "Is a meeting the best way to handle it, rather than a paper, a call or a smaller group?"
+      ]
+    },
+    {
+      "t": "p",
+      "text": "If the answer to the first three is no, the item belongs elsewhere. The same test, applied to people rather than items, is a good way to think about [leadership team size](/articles/how-big-should-a-leadership-team-be)."
+    },
+    { "t": "h2", "text": "Should strategic and operational issues share a meeting?" },
+    {
+      "t": "p",
+      "text": "Often they should not. Mankins (2004) reported that senior executives in the typical company met to discuss strategy for only about three hours a month."
+    },
+    {
+      "t": "p",
+      "text": "His first recommendation was to deal with operations and strategy in separate meetings (Mankins and Davis-Peccoud, 2014). The aim is that urgent operational issues cannot crowd out the long-term questions."
+    },
+    {
+      "t": "p",
+      "text": "For example, a leadership team might hold a short operational meeting every week or two, and a longer strategic session every month. The rhythm is yours to choose. The principle is that each meeting has one kind of work."
+    },
+    { "t": "h2", "text": "What topics belong on a leadership team agenda?" },
+    { "t": "p", "text": "These are the kinds of topic that usually pass the whole-team test:" },
+    {
+      "t": "ul",
+      "items": [
+        "**Direction and priorities:** where the organisation is going, what it will stop doing and how resources are divided.",
+        "**Cross-unit decisions:** choices that move costs or benefits between units, or that no single unit can make alone.",
+        "**Follow-up of decisions:** whether what the team decided is being carried out, and what is in the way.",
+        "**People and leadership:** succession, key appointments, culture and how leaders across the organisation develop.",
+        "**Risks:** the few risks that could change the organisation's course, and who is watching each one.",
+        "**The team itself:** now and then, how the team is working and what it should change."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Discussion and decision items are where disagreement belongs. How to keep it about the work is the subject of [task conflict and relationship conflict](/articles/task-conflict-and-relationship-conflict)."
+    },
+    { "t": "h2", "text": "What does a good leadership team agenda look like?" },
+    {
+      "t": "p",
+      "text": "The table below is an illustrative example, not a real team's agenda. It shows a meeting of just under two hours, with a type, a desired outcome, an owner and a time box for every item."
+    },
+    { "t": "h3", "text": "An example agenda" },
+    {
+      "t": "table",
+      "head": ["Item", "Type", "Desired outcome", "Owner and time"],
+      "rows": [
+        ["Opening: the purpose of this meeting", "Information", "Everyone knows what the meeting must achieve.", "Chief executive, 5 min"],
+        ["Decisions from the last meeting", "Follow-up", "Each open action is on track or has a new date and owner.", "Chair, 10 min"],
+        ["Quarterly results against plan, with a pre-read", "Information", "Everyone understands the main deviations and has asked their questions.", "Finance director, 10 min"],
+        ["A price change affecting two divisions", "Decision", "We agree whether to change prices next quarter, and how.", "Commercial director, 30 min"],
+        ["Succession for critical roles", "Discussion", "We agree which roles are most exposed and what we need to know before deciding.", "HR director, 25 min"],
+        ["Dependence on a single supplier", "Discussion", "We understand the main options and who will work them up for next month.", "Operations director, 20 min"],
+        ["Close: decisions, actions and a short check", "Follow-up", "Decisions and actions have owners and dates, and we know which items reached their outcome.", "Chair, 10 min"]
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Notice what is not there: no round of updates from each unit. Those go out in writing, and members raise them in the meeting only when they need the whole team."
+    },
+    { "t": "h2", "text": "How should a leadership team meeting end?" },
+    {
+      "t": "p",
+      "text": "The last ten minutes decide whether the meeting changes anything. Use them for two things."
+    },
+    {
+      "t": "ol",
+      "items": [
+        "**Record decisions and actions.** Read back each decision, and each action with an owner and a date. Mankins recommends a decision log that the team reviews at its next meeting (Mankins and Davis-Peccoud, 2014).",
+        "**Check the outcomes.** Go through the items and ask whether each one reached its desired outcome. Where one did not, agree what happens next."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "In the study of videotaped meetings, action planning was among the behaviours that went with more satisfying meetings (Kauffeld and Lehmann-Willenbrock, 2012). A clear close gives action planning a fixed place."
+    },
+    {
+      "t": "p",
+      "text": "Now and then, add one question about the meeting itself: what should we do differently next time? Perlow, Hadley and Eun (2017) recommend regular group check-ins like this, weekly at first, when a team sets out to change how it meets."
+    },
+    {
+      "t": "box",
+      "title": "A question for your team",
+      "text": "Looking at our last meeting, which items reached the outcome we wanted, and which ones did not need all of us?"
+    },
+    { "t": "h2", "text": "What can you do this month?" },
+    {
+      "t": "ul",
+      "items": [
+        "Rewrite the next agenda with a type and a one-sentence desired outcome for every item.",
+        "Run the whole-team test on every proposed item, and move at least one item that fails it.",
+        "Set a deadline for pre-reads, and hold to it at least once.",
+        "Move one strategic topic out of the regular meeting into a session of its own, and compare the discussion.",
+        "End the next meeting with the outcome check, and note how many items reached their goal."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "authors": "Rogelberg, S. G.",
+      "year": 2019,
+      "title": "The surprising science of meetings: How you can lead your team to peak performance",
+      "venue": "Oxford University Press",
+      "url": "https://global.oup.com/academic/product/the-surprising-science-of-meetings-9780190689216"
+    },
+    {
+      "authors": "Leach, D. J., Rogelberg, S. G., Warr, P. B., & Burnfield, J. L.",
+      "year": 2009,
+      "title": "Perceived meeting effectiveness: The role of design characteristics",
+      "venue": "Journal of Business and Psychology, 24(1), 65–76",
+      "url": "https://doi.org/10.1007/s10869-009-9092-6"
+    },
+    {
+      "authors": "Cohen, M. A., Rogelberg, S. G., Allen, J. A., & Luong, A.",
+      "year": 2011,
+      "title": "Meeting design characteristics and attendee perceptions of staff/team meeting quality",
+      "venue": "Group Dynamics: Theory, Research, and Practice, 15(1), 90–104",
+      "url": "https://doi.org/10.1037/a0021549"
+    },
+    {
+      "authors": "Bang, H., Fuglesang, S. L., Ovesen, M. R., & Eilertsen, D. E.",
+      "year": 2010,
+      "title": "Effectiveness in top management group meetings: The role of goal clarity, focused communication, and learning behavior",
+      "venue": "Scandinavian Journal of Psychology, 51(3), 253–261",
+      "url": "https://doi.org/10.1111/j.1467-9450.2009.00769.x"
+    },
+    {
+      "authors": "Kauffeld, S., & Lehmann-Willenbrock, N.",
+      "year": 2012,
+      "title": "Meetings matter: Effects of team meetings on team and organizational success",
+      "venue": "Small Group Research, 43(2), 130–158",
+      "url": "https://doi.org/10.1177/1046496411429599"
+    },
+    {
+      "authors": "Mankins, M. C.",
+      "year": 2004,
+      "title": "Stop wasting valuable time",
+      "venue": "Harvard Business Review, 82(9), 58–65",
+      "url": "https://hbr.org/2004/09/stop-wasting-valuable-time"
+    },
+    {
+      "authors": "Mankins, M., & Davis-Peccoud, J.",
+      "year": 2014,
+      "title": "Decision insights: Stop wasting valuable time!",
+      "venue": "Bain & Company",
+      "url": "https://www.bain.com/insights/decision-insights-stop-wasting-valuable-time/"
+    },
+    {
+      "authors": "Perlow, L. A., Hadley, C. N., & Eun, E.",
+      "year": 2017,
+      "title": "Stop the meeting madness",
+      "venue": "Harvard Business Review, 95(4), 62–69",
+      "url": "https://hbr.org/2017/07/stop-the-meeting-madness"
+    }
+  ]
+}

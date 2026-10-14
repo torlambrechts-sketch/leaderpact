@@ -25,7 +25,9 @@
     "meetingsTitle": "Meetings · {product}",
     "profileTitle": "Leader Profile · {product}",
     "profileTestTitle": "{test} · Leader Profile · {product}",
-    "meTitle": "Me · {product}"
+    "meTitle": "Me · {product}",
+    "landingDescription": "A free leadership team assessment: 12 questions in about 3 minutes, no account. Invite your group for an anonymous team view with level and agreement.",
+    "profileDescription": "A free personality profile for leaders, in a quick and a full length, private to you until you choose to share it."
   },
   "nav": {
     "home": "Home",
@@ -160,7 +162,15 @@
     "dataProcessing": "Data processing",
     "signIn": "Sign in",
     "footer": "Account and legal",
-    "profile": "Leader Profile"
+    "profile": "Leader Profile",
+    "howItWorks": "How it works",
+    "articles": "Articles",
+    "research": "Research",
+    "templates": "Templates",
+    "anonymity": "Anonymity",
+    "tools": "Choosing a tool",
+    "product": "Product",
+    "learn": "Learn"
   },
   "landing": {
     "free": "Free",
@@ -696,5 +706,109 @@
     "note": "A Leader Profile shows only at the level its owner shares with this group. Nothing shows for a profile that is not shared.",
     "own": "Your own sharing is set on Me.",
     "readFailed": "The group's people could not be read. Try again in a few minutes."
+  },
+  "site": {
+    "common": {
+      "home": "Home",
+      "breadcrumb": "Breadcrumb",
+      "onThisPage": "On this page",
+      "readNext": "Read next",
+      "readArticle": "Read the article",
+      "byline": "Updated {date} · {minutes} min read",
+      "inShort": "In short",
+      "sources": "Sources",
+      "sourcesNote": "Each source was checked on {date}. This article is general information about leadership teams, not advice on a particular team.",
+      "getTemplate": "Get the template",
+      "startScan": "Start the scan",
+      "questions": "Questions and answers"
+    },
+    "articles": {
+      "title": "Articles on leadership team effectiveness",
+      "description": "Research-based articles for people who lead a leadership team: purpose, size, meetings, trust, conflict and how to assess a team. Every claim sourced.",
+      "crumb": "Articles",
+      "h1": "Articles on leadership teams",
+      "lead": "What the research says about making a leadership team work, written for the person who leads one. Each article answers one question first, then shows its sources.",
+      "templates": "Free templates",
+      "groups": {
+        "start": {
+          "title": "Where to start",
+          "text": "What makes a leadership team effective, and how to see where yours stands."
+        },
+        "conditions": {
+          "title": "Purpose, tasks and membership",
+          "text": "The conditions that come first: why the team exists, which work needs all of it, and who belongs in it."
+        },
+        "meetings": {
+          "title": "Meetings and decisions",
+          "text": "Where a leadership team does most of its work together, and how to make that time count."
+        },
+        "dynamics": {
+          "title": "How the team works together",
+          "text": "Psychological safety, trust and conflict: the states that make it possible to speak up and decide well."
+        }
+      }
+    },
+    "templates": {
+      "title": "Free templates for leadership teams",
+      "description": "Free, editable templates for leadership teams: a team charter and a meeting agenda with item types and desired outcomes.",
+      "crumb": "Templates",
+      "h1": "Free templates for leadership teams",
+      "lead": "Word files to use, change and share: a charter the team writes together, and an agenda that says what every item is for. Each is free for an e-mail address.",
+      "readWith": "Read with it"
+    },
+    "templateForm": {
+      "title": "Get the template",
+      "text": "Tell us where to find you, and the files are yours at once.",
+      "name": "Name",
+      "mail": "Work e-mail",
+      "org": "Organisation",
+      "role": "Role",
+      "optional": "Optional",
+      "consent": "Yes please, e-mail me when there are new templates and articles. I can unsubscribe at any time.",
+      "send": "Get the files",
+      "sending": "Getting the files…",
+      "invalid": "Write your name and a valid e-mail address.",
+      "limited": "Too many requests from this address just now. Try again in an hour.",
+      "failed": "Something went wrong on our side. Try again in a minute.",
+      "privacy": "We keep your name and address with the template you asked for. We e-mail you only if you ticked the box. Read the [privacy page](/privacy).",
+      "readyTitle": "Your template is ready",
+      "readyText": "Download the file below. This browser keeps access, so you can come back for it."
+    },
+    "platform": {
+      "stepsTitle": "What it does",
+      "available": "Available now",
+      "development": "In development",
+      "step": "Step {n}:"
+    },
+    "research": {
+      "modelTitle": "21 scales and 3 outcomes",
+      "scale": "Scale",
+      "reading": "How it is read",
+      "evidence": "Evidence",
+      "layers": {
+        "conditions": {
+          "title": "Conditions · {count} scales",
+          "text": "How the team is set up: purpose, tasks, people and support."
+        },
+        "processes": {
+          "title": "Processes · {count} scales",
+          "text": "How the team works, in and between meetings."
+        },
+        "states": {
+          "title": "States · {count} scales",
+          "text": "How it feels to be part of the team."
+        },
+        "outcomes": {
+          "title": "Outcomes · {count}",
+          "text": "What the team achieves together. Members rate these themselves."
+        }
+      },
+      "readings": {
+        "higher": "Higher is better",
+        "lower": "Lower is better",
+        "descriptive": "A fact, no target",
+        "conditional": "Read with relationship conflict"
+      }
+    }
   }
 }

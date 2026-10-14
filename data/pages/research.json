@@ -1,0 +1,101 @@
+{
+  "title": "Team effectiveness model for leadership teams: the research",
+  "description": "How {product} reads a leadership team: four layers, 21 scales and 3 outcomes, and an evidence rating for every scale.",
+  "crumb": "Research",
+  "kicker": "Research",
+  "h1": "The research behind the model",
+  "lead": "{product} reads a leadership team in four layers: the conditions it works in, how it works, the states that follow, and what it achieves. That makes 21 scales and 3 outcomes, and every scale shows how strong its evidence is.",
+  "blocks": [
+    {
+      "t": "h2",
+      "text": "Where does the model come from?"
+    },
+    {
+      "t": "p",
+      "text": "It builds on research on management teams by Henning Bang and colleagues at the University of Oslo. It is checked against the wider evidence on team effectiveness. That includes the conditions Hackman and Wageman describe, Edmondson's work on psychological safety, and the meta-analyses on conflict and trust."
+    },
+    {
+      "t": "p",
+      "text": "The articles explain the main findings with their sources, starting with [what makes a leadership team effective](/articles/what-makes-a-leadership-team-effective)."
+    },
+    {
+      "t": "h2",
+      "text": "Why four layers?"
+    },
+    {
+      "t": "p",
+      "text": "Conditions come first: purpose, team tasks and membership set what a team can achieve. Processes come next: how the team prepares, meets, talks and decides. States such as trust and psychological safety grow out of both. The outcomes say whether it all adds up."
+    },
+    {
+      "t": "p",
+      "text": "So a low score on a process is read against the conditions behind it. Better meeting habits will not fix a team that has no shared tasks."
+    },
+    {
+      "t": "h2",
+      "text": "How does the evidence rating change what you see?"
+    },
+    {
+      "t": "table",
+      "head": [
+        "Evidence rating",
+        "What the guidance does"
+      ],
+      "rows": [
+        [
+          "Strong",
+          "Gives direct guidance."
+        ],
+        [
+          "Moderate",
+          "Words its guidance as likely to help."
+        ],
+        [
+          "Mixed or weak",
+          "Describes what it sees, with no flag."
+        ],
+        [
+          "Not yet rated",
+          "Is treated as moderate."
+        ]
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Some scales are read differently. Two describe facts and carry no target: size and membership, and composition. Relationship conflict and political behaviour are better when lower. Task conflict is always read together with relationship conflict."
+    },
+    {
+      "t": "h2",
+      "text": "What does a result show?"
+    },
+    {
+      "t": "p",
+      "text": "Every scale shows its level, the mean to one decimal, and how much members agree, as a label: high, medium, or views differ. It also shows one standing, such as strength or priority. Low agreement changes the message from improve this to your views differ on this."
+    },
+    {
+      "t": "p",
+      "text": "A result never shows the lowest, highest or median answer, a spread, or a mark per member. With four to fifteen answers, each of these can point to one person."
+    },
+    {
+      "t": "h2",
+      "text": "Research-based, not yet validated"
+    },
+    {
+      "t": "p",
+      "text": "The questions were written for leadership teams and draw on published research. They have not yet been through a validation study, and the cut-offs between standings are provisional until a pilot sets them. Every score says so."
+    }
+  ],
+  "faq": [
+    {
+      "q": "How many scales does the model have?",
+      "a": "21 scales and 3 outcomes, in four layers: 6 conditions, 11 processes and 4 states, then 3 outcomes."
+    },
+    {
+      "q": "What are the three outcomes?",
+      "a": "Direction, alignment and commitment; viability, whether the team can keep working well together; and member growth. Members rate them themselves, so they carry no evidence rating."
+    },
+    {
+      "q": "Has the questionnaire been tested in a study?",
+      "a": "Not yet. It is research-based, not yet validated, and every score says so."
+    }
+  ]
+}

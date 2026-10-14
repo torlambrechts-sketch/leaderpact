@@ -1,0 +1,235 @@
+{
+  "title": "Psychological safety in leadership teams: what leaders can do",
+  "description": "What psychological safety is and is not, why it is harder to build in a leadership team, and what the leader can do.",
+  "h1": "Psychological safety in leadership teams",
+  "lead": "Psychological safety is a team's shared belief that it is safe to take interpersonal risks: to ask, disagree or admit a mistake. In a leadership team it is both rarer and more consequential. Members carry status, compete for resources and answer for their own units, so silence can feel like the safer choice. Members watch the leader's reactions closely, which gives the leader a strong lever to change that.",
+  "takeaways": [
+    "Psychological safety is confidence that the team will not embarrass, reject or punish someone for speaking up (Edmondson, 1999).",
+    "It is not comfort and not lower standards. The aim is high safety and high standards together.",
+    "It is harder at the top, where members hold status, compete for resources and speak for their own units.",
+    "The leader's reactions carry extra weight: invite views before giving yours, admit what you do not know and thank the bearer of bad news.",
+    "Watch who speaks, how early bad news arrives and whether mistakes are discussed in the room."
+  ],
+  "blocks": [
+    { "t": "h2", "text": "What is psychological safety?" },
+    {
+      "t": "p",
+      "text": "Amy Edmondson introduced team psychological safety in a study of 51 work teams in a manufacturing company. She defined it as a shared belief that the team is safe for interpersonal risk taking (Edmondson, 1999). The belief is usually tacit. Nobody states it, but everyone acts on it."
+    },
+    {
+      "t": "p",
+      "text": "In that study, safer teams showed more learning behaviour: asking questions, seeking feedback, experimenting, reflecting on results and discussing errors. Learning behaviour, in turn, linked safety to the team's performance (Edmondson, 1999). The idea itself is older. Organisational researchers first explored it in the 1960s, and interest revived from the 1990s (Edmondson and Lei, 2014)."
+    },
+    {
+      "t": "p",
+      "text": "Psychological safety is close to trust, but it is not the same thing. Edmondson described it as a team climate of trust and mutual respect in which people are comfortable being themselves (Edmondson, 1999). Trust is an expectation about what another person will do. Safety is a shared belief about how the group treats someone who takes a risk. If trust is your concern, read [how to build trust in a leadership team](/articles/how-to-build-trust-in-a-leadership-team)."
+    },
+    { "t": "h2", "text": "Does psychological safety mean being nice or lowering standards?" },
+    {
+      "t": "p",
+      "text": "No. It is not a cosy team. Edmondson wrote that the term means neither letting anything go nor a constant positive mood. It is also different from cohesion, since close-knit groups can become less willing to challenge each other, as in groupthink (Edmondson, 1999)."
+    },
+    {
+      "t": "p",
+      "text": "It is not lower standards either. Edmondson treats psychological safety and performance standards as two separate dimensions, and a team needs both (Edmondson, 2018). Safety without standards gives a comfortable team that does not stretch. Standards without safety give an anxious team, where people keep problems to themselves."
+    },
+    {
+      "t": "p",
+      "text": "Edmondson and Kerrissey (2025) list the common misreadings. Psychological safety does not mean avoiding argument, backing every idea or escaping accountability for results. Debate can still be uncomfortable. What changes is that candour is expected and not punished."
+    },
+    {
+      "t": "box",
+      "title": "A rule of thumb",
+      "text": "Psychological safety is about what happens to the person who speaks, not about how pleasant the meeting feels. A team can argue hard and still be safe."
+    },
+    { "t": "h2", "text": "Why does psychological safety matter?" },
+    {
+      "t": "p",
+      "text": "The research base is now large. A major review links psychological safety to voice, teamwork, team learning and organisational learning (Edmondson and Lei, 2014). One meta-analysis drew on 136 independent samples, with more than 22,000 people and nearly 5,000 groups (Frazier et al., 2017). It examined what predicts psychological safety. It also tested whether safety adds to task performance beyond related factors, such as good relations with the leader."
+    },
+    {
+      "t": "p",
+      "text": "It also shapes what disagreement does. In 117 project teams, disagreement about the work went with better performance where psychological safety was high (Bradley et al., 2012). That matters for any team whose job is to argue its way to good decisions. For more, see [task conflict and relationship conflict](/articles/task-conflict-and-relationship-conflict)."
+    },
+    {
+      "t": "p",
+      "text": "Google's research on its own teams ranked psychological safety first among five dynamics of effective teams (re:Work, 2015). That work covered one company's teams, not leadership teams in particular. Much of the wider evidence is also correlational. It shows what goes together, which is not the same as proving cause."
+    },
+    { "t": "h2", "text": "Why is psychological safety harder in a leadership team?" },
+    {
+      "t": "p",
+      "text": "You might expect it to come easily at the top. Members are senior, experienced and used to being heard. Yet several features of a leadership team work against it."
+    },
+    {
+      "t": "cards",
+      "items": [
+        {
+          "title": "Status and hierarchy",
+          "text": "In 23 neonatal intensive care units, staff with higher professional status felt safer. Inclusive leaders narrowed that gap (Nembhard and Edmondson, 2006). In a leadership team, the gap between the chief executive and the rest is wide."
+        },
+        {
+          "title": "Two roles at once",
+          "text": "Each member leads a unit and sits on the team. Top team members can hold different information and interests, and that divergence hurts decisions unless the process is managed (Edmondson, Roberto and Watkins, 2003)."
+        },
+        {
+          "title": "Unspoken rules",
+          "text": "Across four studies, people held taken-for-granted beliefs about when speaking up is risky. These beliefs helped explain silence, even on ideas meant to help the organisation (Detert and Edmondson, 2011)."
+        },
+        {
+          "title": "All eyes on the leader",
+          "text": "Members watch the leader's behaviour especially closely. Supportive, non-defensive responses signal that the team is safe, while punitive ones teach silence (Edmondson, 1999)."
+        }
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Competition for budget and people adds to this. Admitting a problem in your own unit can feel like handing a colleague an argument. One symptom to look for is a polite meeting, followed by the real debate in pairs afterwards."
+    },
+    { "t": "h2", "text": "What can the leader of a leadership team do?" },
+    {
+      "t": "p",
+      "text": "Psychological safety is built in the group through many small interactions, not by policy (Edmondson and Kerrissey, 2025). These five practices draw on the research above."
+    },
+    {
+      "t": "ol",
+      "items": [
+        "**Frame the work as needing everyone.** Talk about the goal, and why each member's view is needed to reach it, more than about psychological safety itself (Edmondson and Kerrissey, 2025).",
+        "**Acknowledge your own fallibility.** Say what you do not know, and ask whether you are missing something. Leaders who take such risks themselves show that the risk is not punished (Edmondson, 1999).",
+        "**Ask genuine questions.** Inclusive leaders invite and appreciate others' contributions, in words and in deeds (Nembhard and Edmondson, 2006). Ask questions you do not know the answer to, and ask quieter members by name.",
+        "**Respond productively to bad news.** Thank the messenger, then ask what happened and what is needed. In a restaurant chain, managers' openness related to employees speaking up more consistently than transformational leadership did (Detert and Burris, 2007). The link ran through employees' sense of safety.",
+        "**Invite dissent before you state your view.** Members watch the leader closely, so your view stated first can end a discussion before it starts. Ask each member for theirs, and for the strongest case against the leading option."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "None of this means agreeing with everyone. You can listen fully, decide against a view and still hold people to account for results (Edmondson and Kerrissey, 2025)."
+    },
+    {
+      "t": "p",
+      "text": "Nor is it the leader's job alone. Edmondson and Kerrissey (2025) argue that it need not start with top leadership, and that any group can build it. In a leadership team, members can practise the same habits with one another: asking, listening and thanking the person who raises a problem."
+    },
+    { "t": "h2", "text": "How can you tell whether your leadership team has it?" },
+    {
+      "t": "p",
+      "text": "Edmondson measured psychological safety with seven survey statements. In substance, they ask whether mistakes are held against people, whether hard issues can be raised and whether taking a risk is safe. Others ask whether people are rejected for being different, whether help is easy to ask for and whether skills are valued (Edmondson, 1999)."
+    },
+    {
+      "t": "p",
+      "text": "You can also watch for signals in your own meetings. The table gives examples. They are illustrations to look for, not a test."
+    },
+    {
+      "t": "table",
+      "head": ["Signal", "Lower safety might look like", "Higher safety might look like"],
+      "rows": [
+        ["Who speaks", "The same two or three voices, with others speaking only when asked", "Most members contribute, including on issues outside their own unit"],
+        ["Bad news", "It arrives late, after the problem has grown, or through someone else", "It arrives early, from the person closest to it"],
+        ["Mistakes", "Discussed in the corridor, or not at all", "Discussed in the room, with a question about what to learn"],
+        ["Disagreement", "Nods in the meeting, objections afterwards", "Objections voiced in the meeting, about the issue"],
+        ["Questions to the leader", "Rare, and mostly about detail", "Frequent, including challenges to the leader's view"]
+      ]
+    },
+    {
+      "t": "p",
+      "text": "An anonymous survey can add what observation misses. In a small team, protect anonymity with care, or the survey will repeat the silence it is meant to measure. For methods and pitfalls, see [how to assess a leadership team](/articles/how-to-assess-a-leadership-team)."
+    },
+    { "t": "h2", "text": "What can you do this month?" },
+    {
+      "t": "box",
+      "title": "A question for your team",
+      "text": "What is one thing we know about the business that we have not yet said in this room? Give everyone a minute to write an answer, then hear each one before you respond."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "**In your next meeting,** hold back your view on one decision until every member has given theirs.",
+        "**When bad news arrives,** thank the person first. Ask what they need before you ask what went wrong.",
+        "**Name one of your own mistakes** from the past quarter, and what you learnt from it.",
+        "**End each meeting with a two-minute review.** Ask what the team avoided saying today, and why.",
+        "**Put the hardest item early** in your [leadership team meeting agenda](/articles/leadership-team-meeting-agenda), while people still have the energy to argue it well."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "After a month, compare the signals in the table with what you saw before. Then ask the team what has changed, and listen to who answers."
+    }
+  ],
+  "sources": [
+    {
+      "authors": "Edmondson, A.",
+      "year": 1999,
+      "title": "Psychological safety and learning behavior in work teams",
+      "venue": "Administrative Science Quarterly, 44(2), 350–383",
+      "url": "https://doi.org/10.2307/2666999"
+    },
+    {
+      "authors": "Edmondson, A. C., & Lei, Z.",
+      "year": 2014,
+      "title": "Psychological safety: The history, renaissance, and future of an interpersonal construct",
+      "venue": "Annual Review of Organizational Psychology and Organizational Behavior, 1, 23–43",
+      "url": "https://doi.org/10.1146/annurev-orgpsych-031413-091305"
+    },
+    {
+      "authors": "Frazier, M. L., Fainshmidt, S., Klinger, R. L., Pezeshkan, A., & Vracheva, V.",
+      "year": 2017,
+      "title": "Psychological safety: A meta-analytic review and extension",
+      "venue": "Personnel Psychology, 70(1), 113–165",
+      "url": "https://doi.org/10.1111/peps.12183"
+    },
+    {
+      "authors": "Nembhard, I. M., & Edmondson, A. C.",
+      "year": 2006,
+      "title": "Making it safe: The effects of leader inclusiveness and professional status on psychological safety and improvement efforts in health care teams",
+      "venue": "Journal of Organizational Behavior, 27(7), 941–966",
+      "url": "https://doi.org/10.1002/job.413"
+    },
+    {
+      "authors": "Detert, J. R., & Burris, E. R.",
+      "year": 2007,
+      "title": "Leadership behavior and employee voice: Is the door really open?",
+      "venue": "Academy of Management Journal, 50(4), 869–884",
+      "url": "https://doi.org/10.5465/amj.2007.26279183"
+    },
+    {
+      "authors": "Detert, J. R., & Edmondson, A. C.",
+      "year": 2011,
+      "title": "Implicit voice theories: Taken-for-granted rules of self-censorship at work",
+      "venue": "Academy of Management Journal, 54(3), 461–488",
+      "url": "https://doi.org/10.5465/amj.2011.61967925"
+    },
+    {
+      "authors": "Edmondson, A. C., Roberto, M. A., & Watkins, M. D.",
+      "year": 2003,
+      "title": "A dynamic model of top management team effectiveness: Managing unstructured task streams",
+      "venue": "The Leadership Quarterly, 14(3), 297–325",
+      "url": "https://doi.org/10.1016/S1048-9843(03)00021-3"
+    },
+    {
+      "authors": "Bradley, B. H., Postlethwaite, B. E., Klotz, A. C., Hamdani, M. R., & Brown, K. G.",
+      "year": 2012,
+      "title": "Reaping the benefits of task conflict in teams: The critical role of team psychological safety climate",
+      "venue": "Journal of Applied Psychology, 97(1), 151–158",
+      "url": "https://doi.org/10.1037/a0024200"
+    },
+    {
+      "authors": "Edmondson, A. C.",
+      "year": 2018,
+      "title": "The fearless organization: Creating psychological safety in the workplace for learning, innovation, and growth",
+      "venue": "Wiley",
+      "url": "https://www.wiley.com/en-us/The+Fearless+Organization%3A+Creating+Psychological+Safety+in+the+Workplace+for+Learning%2C+Innovation%2C+and+Growth-p-9781119477242"
+    },
+    {
+      "authors": "Edmondson, A. C., & Kerrissey, M. J.",
+      "year": 2025,
+      "title": "What people get wrong about psychological safety",
+      "venue": "Harvard Business Review, May–June 2025",
+      "url": "https://hbr.org/2025/05/what-people-get-wrong-about-psychological-safety"
+    },
+    {
+      "authors": "re:Work Editorial Team",
+      "year": 2015,
+      "title": "Understand team effectiveness",
+      "venue": "Google re:Work",
+      "url": "https://rework.withgoogle.com/intl/en/guides/understand-team-effectiveness"
+    }
+  ]
+}

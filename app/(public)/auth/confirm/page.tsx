@@ -4,6 +4,7 @@ import type { Route } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { ClientMessages } from '@/components/lp/ClientMessages'
 import { PRODUCT_NAME } from '@/lib/brand'
+import { NOINDEX } from '@/lib/site/meta'
 import { confirmSchema } from '@/lib/auth/schema'
 import { SIGN_IN_PATH } from '@/lib/routes'
 import { ConfirmForm } from './ConfirmForm'
@@ -12,7 +13,7 @@ export const dynamic = 'force-dynamic'
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('meta')
-  return { title: t('confirmTitle', { product: PRODUCT_NAME }) }
+  return { title: t('confirmTitle', { product: PRODUCT_NAME }), robots: NOINDEX }
 }
 
 /**

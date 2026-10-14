@@ -1,0 +1,298 @@
+{
+  "title": "How to build trust in a leadership team, and how to repair it",
+  "description": "What trust is, why it matters at the top, what builds it and how to repair it after a breach, drawn from research.",
+  "h1": "How do you build trust in a leadership team?",
+  "lead": "Trust in a leadership team grows when members see each other's competence, goodwill and integrity, mostly through small, repeated acts. Doing what you said, sharing the information others need and admitting your mistakes all count. When trust is broken, address the breach directly, and match your response to what went wrong.",
+  "takeaways": [
+    "Colleagues trust each other when they judge them able, well-meaning and principled.",
+    "Across more than a hundred studies, trust within a team goes with better team performance, especially where the work is interdependent.",
+    "In top teams, trust helps keep debate about the work from turning personal.",
+    "Trust grows from follow-through, shared information, admitted mistakes and fair decisions, not from asking for it.",
+    "After a failure of competence, apologise. If your integrity is questioned, tell the truth: denial did worse than apology once evidence of guilt emerged."
+  ],
+  "blocks": [
+    {
+      "t": "h2",
+      "text": "What is trust in a leadership team?"
+    },
+    {
+      "t": "p",
+      "text": "Researchers define trust as a willingness to be vulnerable to another person's actions, when you cannot monitor or control them (Mayer et al., 1995). In a leadership team, that means relying on a colleague's judgement, figures or promises without checking them yourself."
+    },
+    {
+      "t": "p",
+      "text": "Mayer et al. (1995) argued that this willingness rests on three judgements about the other person:"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "**Ability:** are they competent in the area where you rely on them? Trust is specific to a domain, so you may trust a colleague's analysis but not their handling of a key client.",
+        "**Benevolence:** do they want to do right by you, beyond their own interest?",
+        "**Integrity:** do they keep to principles you accept? People judge this partly by whether past actions are consistent and whether actions match words."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "McAllister (1995) drew a second distinction, in a field study of 194 managers and professionals. **Cognition-based trust** rests on beliefs about a colleague's reliability and dependability. **Affect-based trust** rests on care and concern that runs both ways."
+    },
+    {
+      "t": "p",
+      "text": "In his data, managers felt more affect-based trust in peers who showed care beyond their role, and in peers they met often. Cognition-based trust was strongly related to affect-based trust, and he argued that some reliability has to come first (McAllister, 1995)."
+    },
+    {
+      "t": "table",
+      "head": [
+        "Basis of trust",
+        "What colleagues look for",
+        "What builds it in a leadership team"
+      ],
+      "rows": [
+        [
+          "Ability",
+          "Competence in the area where they rely on you",
+          "Doing your part of the shared work well, and saying where you are not the expert"
+        ],
+        [
+          "Benevolence",
+          "That you want them to succeed, not only yourself",
+          "Sharing information early, and helping beyond your own remit"
+        ],
+        [
+          "Integrity",
+          "Principles they accept, and words matched by actions",
+          "Keeping commitments, and telling the same story in every room"
+        ]
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "Why does trust matter in a leadership team?"
+    },
+    {
+      "t": "p",
+      "text": "Across 112 studies covering 7,763 teams, trust within a team was positively related to team performance (De Jong et al., 2016). The link held for both cognitive and affective trust, and after accounting for trust in the leader and past performance."
+    },
+    {
+      "t": "p",
+      "text": "It mattered more where members depended on each other's work, and less where they could work alone (De Jong et al., 2016). These are correlations, so they do not show which comes first. A leadership team that shares real decisions is the kind of team where trust should matter most."
+    },
+    {
+      "t": "p",
+      "text": "Trust also shapes how disagreement plays out. In a study of 70 top management teams, trust weakened the link between task conflict and relationship conflict (Simons and Peterson, 2000)."
+    },
+    {
+      "t": "p",
+      "text": "Their reading was that people in low-trust teams tend to take a challenge to their idea as an attack on themselves. With trust, a team can get the benefits of debate with less of the cost. For more, see [task conflict and relationship conflict](/articles/task-conflict-and-relationship-conflict)."
+    },
+    {
+      "t": "p",
+      "text": "Trust is also the base of Lencioni's popular model of team problems (Lencioni, 2002). The research on that model is reviewed in [five dysfunctions of a team](/articles/five-dysfunctions-of-a-team-and-the-research)."
+    },
+    {
+      "t": "h3",
+      "text": "Why is trust harder at the top?"
+    },
+    {
+      "t": "p",
+      "text": "Members of a leadership team each run their own part of the organisation. Senior executives often focus more on their own roles than on the top team's shared work (Wageman et al., 2008)."
+    },
+    {
+      "t": "p",
+      "text": "That leaves colleagues few chances to see each other's ability and goodwill at close range. Affect-based trust went with frequent contact (McAllister, 1995), and a team that meets once a month has little of it. So trust at the top has to be built on purpose, in the meetings and the work the team does share."
+    },
+    {
+      "t": "h2",
+      "text": "Is trust the same as psychological safety?"
+    },
+    {
+      "t": "p",
+      "text": "No, though they overlap. Edmondson (1999) defined psychological safety as a shared belief that the team is safe for interpersonal risk-taking. She described it as involving trust but going further, to a climate of trust and mutual respect where people can be themselves."
+    },
+    {
+      "t": "p",
+      "text": "A practical way to hold the difference follows from those definitions. Trust is your judgement of a particular colleague: will they act in my interest? Psychological safety is the team's shared sense of how it treats someone who speaks up."
+    },
+    {
+      "t": "p",
+      "text": "You need both. Edmondson (1999) suggested that building trust may be an important ingredient of psychological safety. The companion article covers the second: [psychological safety in leadership teams](/articles/psychological-safety-in-leadership-teams)."
+    },
+    {
+      "t": "h2",
+      "text": "What builds trust in a leadership team?"
+    },
+    {
+      "t": "p",
+      "text": "Trust rests on what colleagues see each other do, so it grows mainly through ordinary work. Four kinds of act give colleagues the evidence the research describes."
+    },
+    {
+      "t": "h3",
+      "text": "Follow through on what you said"
+    },
+    {
+      "t": "p",
+      "text": "Integrity is judged partly by whether actions match words and stay consistent over time (Mayer et al., 1995). Each kept commitment adds evidence, and each quietly dropped one takes some away. Say what you will do and by when, and say so early when it slips."
+    },
+    {
+      "t": "h3",
+      "text": "Share the information others need"
+    },
+    {
+      "t": "p",
+      "text": "Across 72 studies, information sharing was positively related to team performance, cohesion and satisfaction with decisions (Mesmer-Magnus and DeChurch, 2009). In the terms of Mayer et al. (1995), sharing is also evidence of benevolence: you are helping a colleague succeed."
+    },
+    {
+      "t": "h3",
+      "text": "Admit your mistakes and limits"
+    },
+    {
+      "t": "p",
+      "text": "Admitting an error makes you vulnerable to how colleagues respond. In the research definition, that willingness is trust itself (Mayer et al., 1995). So admitting a mistake is an act of trust, not only a way to earn it. If you lead the team, go first."
+    },
+    {
+      "t": "h3",
+      "text": "Make decisions in a way people see as fair"
+    },
+    {
+      "t": "p",
+      "text": "Korsgaard et al. (1995) ran an experiment with intact management teams. When members' input was considered and they had some influence, they saw the process as fairer."
+    },
+    {
+      "t": "p",
+      "text": "That went with more trust in the leader, more attachment to the team and stronger commitment to the decision (Korsgaard et al., 1995). Before you close an item, say what you heard and how it shaped the decision."
+    },
+    {
+      "t": "box",
+      "title": "A rule of thumb",
+      "text": "Trust is built in the work, one kept promise at a time. If a member cannot point to something a colleague did that earned their trust, talk will not supply it."
+    },
+    {
+      "t": "h2",
+      "text": "How do you repair trust after a breach?"
+    },
+    {
+      "t": "p",
+      "text": "Breaches happen in any team under pressure. For example, a forecast is missed, a decision is taken without a colleague who owned the area, or a promise is broken."
+    },
+    {
+      "t": "p",
+      "text": "Kim et al. (2004) ran two studies of responses to an alleged violation of trust. Trust recovered more after an apology when the issue was competence. When the issue was integrity, a denial repaired more than an apology."
+    },
+    {
+      "t": "p",
+      "text": "But the facts mattered. Apologising worked better when later evidence showed guilt, and denying worked better when later evidence showed innocence (Kim et al., 2004). For a leadership team, the lesson is to tell the truth, not to pick a tactic."
+    },
+    {
+      "t": "ol",
+      "items": [
+        "**Name it soon,** in the meeting or with the person, before it travels into side conversations.",
+        "**Say what happened and what it cost,** without explaining it away.",
+        "**Match the repair to the breach.** For a failure of competence, apologise and show what you will do differently. When your integrity is in question, set out the facts plainly.",
+        "**Then show it.** Repaired trust rests on the same evidence as new trust: consistent action over the following weeks."
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "What should you avoid when building trust?"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "**Exercises that replace the work.** Time together can help, since frequent contact went with affect-based trust (McAllister, 1995). But an off-site exercise shows little about ability or follow-through, which colleagues judge from the work.",
+        "**Asking for trust.** Saying \"trust me\" adds no evidence. Colleagues decide from what they observe, so show reliability instead (Mayer et al., 1995).",
+        "**Treating trust as openness alone.** Personal disclosure without delivery wears thin. Ability and integrity count too (Mayer et al., 1995).",
+        "**Holding back information.** Keeping a colleague in the dark, even with good intentions, can read as a lack of goodwill."
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "What can you do this month?"
+    },
+    {
+      "t": "ol",
+      "items": [
+        "**Make commitments visible.** End each meeting by reading back who will do what by when. Open the next one by checking.",
+        "**Ask for one piece of information.** Have each member name the one thing from a colleague that would most help their work, and agree how it will flow.",
+        "**Go first on a mistake.** Share one call you got wrong this quarter and what you learned from it.",
+        "**Close decisions fairly.** Before you decide, summarise the views you heard and say how they shaped the outcome.",
+        "**Repair one open breach.** If something is unresolved between members, address it this month with the people involved."
+      ]
+    },
+    {
+      "t": "box",
+      "title": "A question for your team",
+      "text": "When did someone in this team last do something that made you trust them more? What exactly did they do?"
+    }
+  ],
+  "sources": [
+    {
+      "authors": "Mayer, R. C., Davis, J. H., & Schoorman, F. D.",
+      "year": 1995,
+      "title": "An integrative model of organizational trust",
+      "venue": "Academy of Management Review, 20(3), 709–734",
+      "url": "https://doi.org/10.2307/258792"
+    },
+    {
+      "authors": "McAllister, D. J.",
+      "year": 1995,
+      "title": "Affect- and cognition-based trust as foundations for interpersonal cooperation in organizations",
+      "venue": "Academy of Management Journal, 38(1), 24–59",
+      "url": "https://doi.org/10.2307/256727"
+    },
+    {
+      "authors": "De Jong, B. A., Dirks, K. T., & Gillespie, N.",
+      "year": 2016,
+      "title": "Trust and team performance: A meta-analysis of main effects, moderators, and covariates",
+      "venue": "Journal of Applied Psychology, 101(8), 1134–1150",
+      "url": "https://doi.org/10.1037/apl0000110"
+    },
+    {
+      "authors": "Simons, T. L., & Peterson, R. S.",
+      "year": 2000,
+      "title": "Task conflict and relationship conflict in top management teams: The pivotal role of intragroup trust",
+      "venue": "Journal of Applied Psychology, 85(1), 102–111",
+      "url": "https://doi.org/10.1037/0021-9010.85.1.102"
+    },
+    {
+      "authors": "Edmondson, A.",
+      "year": 1999,
+      "title": "Psychological safety and learning behavior in work teams",
+      "venue": "Administrative Science Quarterly, 44(2), 350–383",
+      "url": "https://doi.org/10.2307/2666999"
+    },
+    {
+      "authors": "Mesmer-Magnus, J. R., & DeChurch, L. A.",
+      "year": 2009,
+      "title": "Information sharing and team performance: A meta-analysis",
+      "venue": "Journal of Applied Psychology, 94(2), 535–546",
+      "url": "https://doi.org/10.1037/a0013773"
+    },
+    {
+      "authors": "Korsgaard, M. A., Schweiger, D. M., & Sapienza, H. J.",
+      "year": 1995,
+      "title": "Building commitment, attachment, and trust in strategic decision-making teams: The role of procedural justice",
+      "venue": "Academy of Management Journal, 38(1), 60–84",
+      "url": "https://doi.org/10.2307/256728"
+    },
+    {
+      "authors": "Kim, P. H., Ferrin, D. L., Cooper, C. D., & Dirks, K. T.",
+      "year": 2004,
+      "title": "Removing the shadow of suspicion: The effects of apology versus denial for repairing competence- versus integrity-based trust violations",
+      "venue": "Journal of Applied Psychology, 89(1), 104–118",
+      "url": "https://doi.org/10.1037/0021-9010.89.1.104"
+    },
+    {
+      "authors": "Lencioni, P.",
+      "year": 2002,
+      "title": "The five dysfunctions of a team: A leadership fable",
+      "venue": "Jossey-Bass",
+      "url": "https://www.wiley.com/en-us/The+Five+Dysfunctions+of+a+Team%3A+A+Leadership+Fable-p-9780787960759"
+    },
+    {
+      "authors": "Wageman, R., Nunes, D. A., Burruss, J. A., & Hackman, J. R.",
+      "year": 2008,
+      "title": "Senior leadership teams: What it takes to make them great",
+      "venue": "Harvard Business School Press",
+      "url": "https://books.google.com/books/about/Senior_Leadership_Teams.html?id=WZDLwAEACAAJ"
+    }
+  ]
+}
