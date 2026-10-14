@@ -4,6 +4,7 @@
  *
  *   node scripts/seed/fixture.mjs                     # DATABASE_URL, or the local Supabase stack
  *   node scripts/seed/fixture.mjs --db <url> --e2e    # also the flows' own groups (tests/e2e)
+ *   node scripts/seed/fixture.mjs --e2e --live-off    # and the live meeting without sync, where Realtime is absent
  *
  * 1. **Lumio AS**, the demo organisation, with the Lumio leadership group of 8 led by Kari Nordmann, its
  *    members named as the design names them (and as data/sample/lumio.v1.json does). Every name is
@@ -43,10 +44,14 @@
  *    Beside it, the sales leadership group, led by Ingrid Berg, with its scan open at 3 of 7. Every answer
  *    goes through its write path, as each person where the path needs one. `scripts/shots/capture.mjs` takes
  *    the pictures from these rows.
- * 10. **Deterministic, and local only.** Fixed ids, link codes and a known password, so a reset gives the
+ * 10. **The live meeting's groups** (`--e2e`, milestone 14), each on its trial with five people of its own and a
+ *    meeting planned for today with two items and the closing item, through the write paths: one for the
+ *    single-browser flow, one for the four-browser sync flow. With `--live-off` the live_meeting flag is off,
+ *    for a local database that has no Realtime: the meeting runs without sync (D-51).
+ * 11. **Deterministic, and local only.** Fixed ids, link codes and a known password, so a reset gives the
  *    same rows and a test can name them. That is why the script refuses any database that is not on
  *    127.0.0.1 or localhost (REUSE 4.12: Orgpuls's fixture did not, and its tokens are derivable).
- * 11. **Idempotent.** It removes its own rows first, by their fixed ids, in one transaction.
+ * 12. **Idempotent.** It removes its own rows first, by their fixed ids, in one transaction.
  *
  * Kari's id is chosen so her avatar takes the first pair, as the design draws her (D-12).
  */
@@ -275,19 +280,50 @@ const SHOT_PLAN = {
   ],
 }
 
+/** The live meeting's people (milestone 14): one group for the single-browser flow, one for the four-browser sync */
+const livePeople = (from, word) =>
+  ['leader', 'member', 'member two', 'member three', 'member four'].map((role, i) => ({
+    id: id('4c0e0000', from + i),
+    name: `${word} ${role}`,
+    email: `${word.toLowerCase()}.${i === 0 ? 'leader' : `member${i === 1 ? '' : i}`}@lumio.example`,
+    role: i === 0 ? 'leader' : 'member',
+  }))
+const LIVE_PEOPLE = livePeople(918, 'Live')
+const SYNC_PEOPLE = livePeople(923, 'Sync')
+
+/** The live meeting flow's group: a meeting planned for today with three items, which the flow runs and ends */
+export const LIVE_FLOW = {
+  org: { id: id('0a000000', 801), name: 'Flow live group' },
+  group: { id: id('0b000000', 801), name: 'Flow live group' },
+  scan: { id: id('0c000000', 801), code: 'flowLiveScanCode000000001', size: 5 },
+  meeting: { title: 'Live flow meeting', items: ['Q4 hiring plan', 'Office move'] },
+  leader: LIVE_PEOPLE[0],
+  people: LIVE_PEOPLE,
+}
+
+/** The sync flow's group (tests/e2e/live-sync.spec.ts): four browsers in one live meeting */
+export const SYNC_FLOW = {
+  org: { id: id('0a000000', 802), name: 'Flow sync group' },
+  group: { id: id('0b000000', 802), name: 'Flow sync group' },
+  scan: { id: id('0c000000', 802), code: 'flowSyncScanCode000000001', size: 5 },
+  meeting: { title: 'Sync flow meeting', items: ['Pricing change', 'Hiring plan'] },
+  leader: SYNC_PEOPLE[0],
+  people: SYNC_PEOPLE,
+}
+
 const q = (s) => `'${String(s).replace(/'/g, "''")}'`
 const answersOf = (values) => `(select jsonb_agg(jsonb_build_object('item', vi.item_id, 'value', (${q(JSON.stringify(values))}::jsonb ->> (vi.ordinal - 1))::int) order by vi.ordinal)
     from app.scan_session ss join app.instrument_version_item vi on vi.instrument_version_id = ss.instrument_version_id where ss.code = c)`
 
 /** The SQL, as one script: remove the fixture's own rows, then write them again */
-export function render({ e2e = false, shots = false } = {}) {
+export function render({ e2e = false, shots = false, liveOff = false } = {}) {
   const leads = [{ ...FLOW_LEADER, role: 'leader' }]
   // opened two weeks ago, so a closing date moved back to now is still after the opening (0006)
   const states = Object.values(TEAM_STATES).map((g) => ({ ...g, people: leads, demo: false, opened: "now() - interval '14 days'" }))
   const billing = { ...BILLING, demo: false, people: [{ ...BILLING.leader, role: 'leader' }, { ...BILLING.member, role: 'member' }] }
   const charter = { ...GROUP_FLOW, demo: false, trial: true, people: [{ ...GROUP_FLOW.leader, role: 'leader' }, { ...GROUP_FLOW.member, role: 'member' }] }
   // members since before the oldest round the fixture opens
-  const rounds = [ROUND_FLOW, ROUND_STATES, PLAN_FLOW].map((g) => ({ ...g, demo: false, trial: true, since: "now() - interval '120 days'" }))
+  const rounds = [ROUND_FLOW, ROUND_STATES, PLAN_FLOW, LIVE_FLOW, SYNC_FLOW].map((g) => ({ ...g, demo: false, trial: true, since: "now() - interval '120 days'" }))
   // the screenshots' two groups share one organisation, so the second carries no organisation row of its own
   const shotGroups = [
     { ...SHOTS, demo: false, trial: true, since: "now() - interval '200 days'", opened: "now() - interval '30 days'" },
@@ -300,7 +336,7 @@ export function render({ e2e = false, shots = false } = {}) {
   ]
   const accounts = [
     ...LUMIO.people,
-    ...(e2e ? [FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, NO_GROUP] : []),
+    ...(e2e ? [FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, ...LIVE_PEOPLE, ...SYNC_PEOPLE, NO_GROUP] : []),
     ...(shots ? SHOT_PEOPLE : []),
   ]
   const orgIds = [...new Set(groups.map((g) => g.org.id))].map(q).join(', ')
@@ -311,7 +347,7 @@ export function render({ e2e = false, shots = false } = {}) {
   // and the groups the flow leader made in an earlier run, which a reset would otherwise leave behind
   lines.push(`delete from app.organisation where id in (select m.org_id from app.membership m where m.person_id = ${q(FLOW_LEADER.id)});`)
   lines.push(
-    `delete from auth.users where id in (${[...LUMIO.people, FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, NO_GROUP, ...SHOT_PEOPLE].map((p) => q(p.id)).join(', ')});`,
+    `delete from auth.users where id in (${[...LUMIO.people, FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, ...LIVE_PEOPLE, ...SYNC_PEOPLE, NO_GROUP, ...SHOT_PEOPLE].map((p) => q(p.id)).join(', ')});`,
   )
   // a local database completes checkouts with the development adapter (0013): it succeeds or fails on demand
   lines.push(`update app.payment_adapter set adapter = 'development';`)
@@ -403,6 +439,9 @@ end $$;`)
     }
     lines.push(roundStates())
     lines.push(planFlow())
+    lines.push(liveMeeting(LIVE_FLOW), liveMeeting(SYNC_FLOW))
+    // a database with no Realtime (a cloud session's local stack) runs the live meeting without sync (D-51)
+    if (liveOff) lines.push(`update app.feature_flag set "on" = false where key = 'live_meeting';`)
   }
   if (shots) lines.push(shotStates())
   return lines.join('\n') + '\n'
@@ -549,6 +588,25 @@ begin
 end $$;`
 }
 
+/** A meeting planned for today with its items, through the write paths as the group's leader (milestone 14) */
+function liveMeeting(g) {
+  return `do $$
+declare v_reply jsonb; v_meeting uuid;
+begin
+  perform set_config('request.jwt.claims', json_build_object('sub', ${q(g.leader.id)}, 'role', 'authenticated')::text, true);
+  v_reply := app.plan_meeting(${q(g.group.id)}, ${q(g.meeting.title)}, current_date, '09:00', 60);
+  if not (v_reply ->> 'ok')::boolean then raise exception 'fixture: the live meeting was refused (%)', v_reply ->> 'reason'; end if;
+  v_meeting := (v_reply ->> 'meeting')::uuid;
+${g.meeting.items
+  .map(
+    (title, i) => `  v_reply := app.propose_item(v_meeting, ${q(title)}, 'discussion', 'Views heard and a way forward.', ${q(g.people[i + 1].id)}, 10, null);
+  if not (v_reply ->> 'ok')::boolean then raise exception 'fixture: a live meeting item was refused (%)', v_reply ->> 'reason'; end if;`,
+  )
+  .join('\n')}
+  perform set_config('request.jwt.claims', '', true);
+end $$;`
+}
+
 /** Rounds of a group's Full diagnostic, each opened, answered as each person and closed through the write paths */
 function roundsOf(g, plan) {
   return plan
@@ -606,7 +664,7 @@ function main(argv) {
     process.exit(2)
   }
   execFileSync('psql', [db, '-X', '-q', '-1', '-v', 'ON_ERROR_STOP=1'], {
-    input: render({ e2e: argv.includes('--e2e'), shots: argv.includes('--shots') }),
+    input: render({ e2e: argv.includes('--e2e'), shots: argv.includes('--shots'), liveOff: argv.includes('--live-off') }),
     stdio: ['pipe', 'inherit', 'inherit'],
   })
   console.log(`fixture: ${LUMIO.org.name}, ${LUMIO.group.name} (${LUMIO.people.length}), scan /j/${LUMIO.scan.code}`)

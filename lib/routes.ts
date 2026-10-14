@@ -58,3 +58,6 @@ export const planPath = (group: string) => `/app/${group}/plan`
 
 /** The group's meetings and their agendas (handoff 6.14) */
 export const meetingsPath = (group: string) => `/app/${group}/meetings`
+
+/** A meeting, live or held (handoff 6.15) */
+export const livePath = (group: string, meeting: string) => `/app/${group}/meetings/${meeting}`

@@ -16,7 +16,7 @@ import { loadShell } from '@/lib/groups/load'
 import { dateFormat, isoDay } from '@/lib/i18n/dates'
 import { chosenMeeting, missing } from '@/lib/meetings/build'
 import { loadAgenda, loadMeetings } from '@/lib/meetings/load'
-import { SIGN_IN_PATH, groupPath, meetingsPath } from '@/lib/routes'
+import { SIGN_IN_PATH, groupPath, livePath, meetingsPath } from '@/lib/routes'
 
 export const dynamic = 'force-dynamic'
 
@@ -120,6 +120,8 @@ export default async function MeetingsPage({ params, searchParams }: { params: P
                 minutes: agenda.meeting.minutes,
               },
               next: agenda.meeting.next,
+              status: agenda.meeting.status === 'live' || agenda.meeting.status === 'held' ? agenda.meeting.status : 'planned',
+              liveHref: livePath(group, agenda.meeting.id),
             }}
             items={agenda.items.map((i): ItemView => {
               const needs = missing(i)

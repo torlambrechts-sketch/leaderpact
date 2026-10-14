@@ -14,7 +14,7 @@ import { loadGroupPlan } from '@/lib/billing/load'
 import { loadShell } from '@/lib/groups/load'
 import { dateFormat } from '@/lib/i18n/dates'
 import { candidates } from '@/lib/plan/build'
-import { loadPlan } from '@/lib/plan/load'
+import { loadMeetingActions, loadPlan } from '@/lib/plan/load'
 import type { FocusArea } from '@/lib/plan/schema'
 import type { ScaleResult } from '@/lib/results/build'
 import { loadScaleResults } from '@/lib/results/load'
@@ -42,9 +42,10 @@ export default async function PlanPage({ params }: { params: Promise<{ group: st
   if (access === null || access === 'none' || access.access === 'free') return <SamplePlan group={group} />
 
   const [t, tInvite, { rows: labels }] = await Promise.all([getTranslations('plan'), getTranslations('invite'), resultLabels()])
-  const [shell, plan, rounds] = await Promise.all([loadShell(group, user.id), loadPlan(group), loadRounds(group)])
-  if (shell === null || plan === null || rounds === null) return <PageProblem title={tInvite('readFailed')} />
-  if (shell === 'none' || plan === 'none' || rounds === 'none') return <PageProblem title={tInvite('notFoundTitle')} body={tInvite('notFoundBody')} />
+  const [shell, plan, rounds, fromMeetings] = await Promise.all([loadShell(group, user.id), loadPlan(group), loadRounds(group), loadMeetingActions(group)])
+  if (shell === null || plan === null || rounds === null || fromMeetings === null) return <PageProblem title={tInvite('readFailed')} />
+  if (shell === 'none' || plan === 'none' || rounds === 'none' || fromMeetings === 'none')
+    return <PageProblem title={tInvite('notFoundTitle')} body={tInvite('notFoundBody')} />
 
   const released = rounds.rounds.filter((r) => r.kind === 'diagnostic' && r.phase === 'released')
   const newest = released[0] ?? null
@@ -71,19 +72,20 @@ export default async function PlanPage({ params }: { params: Promise<{ group: st
           : t('from', { number: round.number }),
       href: round && s ? scalePath(group, f.scale, round.id) : null,
       closed: f.closed_at ? day(f.closed_at) : null,
-      actions: f.actions.map((a) => ({
-        id: a.id,
-        title: a.title,
-        owner: a.owner,
-        ownerName: a.owner_name,
-        ownerCurrent: a.owner_current,
-        dueOn: a.due_on,
-        due: day(`${a.due_on}T00:00:00Z`),
-        done: a.status === 'done',
-        canEdit: a.can_edit,
-      })),
+      actions: f.actions.map(toView),
     }
   }
+  const toView = (a: FocusArea['actions'][number]) => ({
+    id: a.id,
+    title: a.title,
+    owner: a.owner,
+    ownerName: a.owner_name,
+    ownerCurrent: a.owner_current,
+    dueOn: a.due_on,
+    due: day(`${a.due_on}T00:00:00Z`),
+    done: a.status === 'done',
+    canEdit: a.can_edit,
+  })
   const active = plan.focus_areas.filter((f) => f.status === 'active')
   const offered = newest
     ? {
@@ -119,6 +121,11 @@ export default async function PlanPage({ params }: { params: Promise<{ group: st
           active={active.map(view)}
           closed={plan.focus_areas.filter((f) => f.status === 'closed').map(view)}
           candidates={offered}
+          meetingActions={
+            fromMeetings.length
+              ? { id: 'meetings', scale: '', name: t('meetingActions'), from: t('meetingActionsFrom'), href: null, closed: null, actions: fromMeetings.map(toView) }
+              : null
+          }
           assessHref={assessPath(group)}
         />
       </AppPage>

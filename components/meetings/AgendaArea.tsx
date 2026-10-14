@@ -4,7 +4,7 @@ import Link from 'next/link'
 import type { Route } from 'next'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { ArrowRight, Plus } from 'lucide-react'
+import { ArrowRight, Play, Plus } from 'lucide-react'
 import { Avatar } from '@/components/lp/Avatar'
 import { Card } from '@/components/lp/Card'
 import { HintBox } from '@/components/lp/HintBox'
@@ -12,8 +12,9 @@ import { Pill } from '@/components/lp/Pill'
 import { TextField } from '@/components/lp/TextField'
 import { WarningAction, WarningBox } from '@/components/lp/WarningBox'
 import { MeetingForm, meetingReason, type MeetingValues } from '@/components/meetings/MeetingForm'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/cn'
+import { startMeeting } from '@/lib/live/actions'
 import { cancelMeeting, confirmItem, proposeItem, removeItem, updateItem, updateMeeting } from '@/lib/meetings/actions'
 import { readiness, timeCheck } from '@/lib/meetings/build'
 import { ITEM_TYPES, OUTCOME_MAX, TITLE_MAX, type AgendaItem, type ItemFields, type ItemType, type MeetingReason } from '@/lib/meetings/schema'
@@ -24,7 +25,7 @@ export interface ItemView extends AgendaItem {
 }
 
 export interface AgendaProps {
-  meeting: { id: string; title: string; when: string; values: MeetingValues; next: boolean }
+  meeting: { id: string; title: string; when: string; values: MeetingValues; next: boolean; status: 'planned' | 'live' | 'held'; liveHref: string }
   items: ItemView[]
   tasks: { id: string; title: string }[]
   members: { person: string; name: string; me: boolean }[]
@@ -103,6 +104,32 @@ export function AgendaArea(props: AgendaProps) {
             </div>
           )}
         </div>
+        {meeting.status === 'planned' && canManage && !changing && !cancelling && (
+          <Button
+            className="gap-1.5 self-start"
+            disabled={busy}
+            onClick={async () => {
+              setBusy(true)
+              setProblem(null)
+              const result = await startMeeting({ meeting: meeting.id }).catch(() => ({ ok: false as const, reason: 'failed' as const }))
+              setBusy(false)
+              if (!result.ok) return setProblem(result.reason === 'invalid' ? t('startRefused') : result.reason === 'unavailable' ? t('unavailable') : t('writeFailed'))
+              router.push(meeting.liveHref as Route)
+            }}
+          >
+            <Play aria-hidden size={16} />
+            {t('start')}
+          </Button>
+        )}
+        {meeting.status !== 'planned' && (
+          <div className="flex flex-wrap items-center gap-3 rounded-btn bg-surface-sunk px-3 py-2.5">
+            <p className="m-0 text-[14px] font-semibold max-md:text-[15px]">{meeting.status === 'live' ? t('isLive') : t('isHeld')}</p>
+            <Link href={meeting.liveHref as Route} className={buttonVariants({ size: 'compact', className: 'gap-1.5' })}>
+              {meeting.status === 'live' ? t('join') : t('summary')}
+              <ArrowRight aria-hidden size={14} />
+            </Link>
+          </div>
+        )}
         {changing && (
           <MeetingForm
             id="change-meeting"

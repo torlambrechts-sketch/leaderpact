@@ -21,7 +21,7 @@ import { dateFormat } from '@/lib/i18n/dates'
 import { formatPrice, loadTeamPrice } from '@/lib/plans/load'
 import { loadMeetings } from '@/lib/meetings/load'
 import { myOpenActions } from '@/lib/plan/build'
-import { loadPlan } from '@/lib/plan/load'
+import { loadMeetingActions, loadPlan } from '@/lib/plan/load'
 import { loadMyProfile } from '@/lib/profile/load'
 import { loadRounds } from '@/lib/rounds/load'
 import { SIGN_IN_PATH, joinPath, meetingsPath, planBillingPath, planPath, profileTestPath, roundPath, teamPath, upgradePath } from '@/lib/routes'
@@ -71,10 +71,11 @@ export default async function HomePage({ params }: { params: Promise<{ group: st
   const leader = data.role === 'leader'
   // the Full diagnostic asking this person, the plan's focus areas and their own actions, and the next meeting,
   // with the Team plan or its trial (milestones 10, 12 and 13)
-  const [rounds, focus, meetings] = known && !free ? await Promise.all([loadRounds(group), loadPlan(group), loadMeetings(group)]) : [null, null, null]
+  const [rounds, focus, meetings, fromMeetings] =
+    known && !free ? await Promise.all([loadRounds(group), loadPlan(group), loadMeetings(group), loadMeetingActions(group)]) : [null, null, null, null]
   const asking = rounds && rounds !== 'none' ? rounds.rounds.find((r) => r.phase === 'answering' && r.me === 'to_answer') : undefined
   const ownPlan = focus && focus !== 'none' ? focus : null
-  const mine = ownPlan ? myOpenActions(ownPlan) : 0
+  const mine = ownPlan ? myOpenActions(ownPlan, Array.isArray(fromMeetings) ? fromMeetings : []) : 0
   const focusAreas = ownPlan ? ownPlan.focus_areas.filter((f) => f.status === 'active') : null
   const meetingList = meetings && meetings !== 'none' ? meetings : null
   const nextMeeting = meetingList?.meetings.find((m) => m.next) ?? null

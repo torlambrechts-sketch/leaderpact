@@ -1085,3 +1085,52 @@ search engine reads as "this page is now a sign-in page". The owner chose 404, s
 - **The not-found page** is the site's: header, footer, the way to the scan and four pages a visitor most likely
   came for, `noindex`. A `notFound()` from a page (an article that does not exist) uses it too. The beacon is
   left out, so an old address is not counted as a page view (D-39).
+
+## D-51 — The live meeting over Realtime (M14)
+
+Handoff 6.15; milestone 14: "Two browsers stay in sync within 1 second. Comments carry no sender."
+`supabase/tests/live_invariants.sql` (19 checks) proves the database's half; `tests/e2e/live.spec.ts` runs a
+meeting in one browser, and `tests/e2e/live-sync.spec.ts` four browsers over Realtime. Where the build chose:
+
+- **Sync is a signal, then a read.** Each change bumps a version on `meeting_signal`, one narrow row per live
+  meeting, which Supabase Realtime sends as a Postgres change, under row-level security, to the meeting's
+  current members. The page then reads the meeting through `get_live`. The row holds a version and the last
+  process comment's kind and item: no content travels over Realtime, and no sender. It is the one table a
+  client reads directly, and only that row of its own meeting. Postgres changes need no policy on Realtime's
+  own tables, which a rebuilt local database does not yet hold when its migrations run.
+- **Comments carry no sender.** `process_comment` is a kind and an item: no person, no time, and no key shared
+  with the presence table that counts who is online. The page shows "Someone said: …" and a count per item.
+  Comments are refused while fewer than the group's threshold are online (4 unless raised; the handoff's 4
+  is the anonymity floor, and a raised threshold raises it too). They are deleted when the meeting ends.
+  There is no rate limit per person: it would store who sent something when. Each item holds at most 50.
+- **Presence is a heartbeat** every 10 seconds to `meeting_presence`; online means seen in the last 30.
+- **The leader runs the meeting** (start, pause, plus 5 minutes, take up an item, close it as reached,
+  carried over or parked, end it), as the leader runs the agenda; meeting roles are left out (section 11).
+  Any member saves a decision, adds an action and parks a topic. One meeting is live per group; the agenda
+  cannot change while it is live, and a held meeting never changes.
+- **Carried over** items go to the group's next planned meeting when the meeting ends, or when the next one
+  is planned. Items not closed stay as they were: the summary says "Not reached".
+- **The summary** at the end lists each item as it closed, its decision and its actions, and the parking lot.
+- **Actions from meetings** have an owner and a due date, belong to their item and to no focus area, go on
+  the next agenda, and show on the Plan page under "Actions from meetings", on Home and on Me.
+- **The live_meeting flag is a row** (`feature_flag`; handoff 8). Off, the page joins no Realtime: the meeting
+  runs without sync, changes save and others see them on reload; nothing is deleted. Sentral's command to
+  turn it comes with milestone 17. A cloud session's local database has no Realtime, so its fixture runs with
+  `--live-off`; CI runs Realtime.
+- **Read-only when the connection drops** (handoff 6.15): while Realtime has not joined, or has dropped, every
+  control is disabled and the page says so; on joining again it reads the meeting.
+- **The four-browser flow runs on pushes to main, nightly and by hand** (owner, A5): CI sets `LIVE_FLOW` then.
+  The pull request runs the one-browser flow, which joins Realtime in CI.
+- **0018's readers say false, not null** for a meeting that is not the next, when no meeting lies ahead; their
+  replies keep their keys, so the pages already deployed read them unchanged. The live meeting counts as the
+  next one, so the open actions stay on its agenda while it runs.
+- **Hosted, through the owner's SQL editor** (D-22), with 0018 in one script: `scripts/qa/editor-script.mjs
+  0018_agenda 0019_live`, rehearsed on a local database built to 0017.
+- **Numbered D-51**, after the platform's pages (#19), the public site's frame (#22) and the 404 change (#24) took
+  D-47, D-48 and D-50;
+  0019's header still names it D-48, as the owner's script carried it.
+- **The live and sync groups take ids 801 and 802**: the screenshots' groups (#19) hold 701 and 702.
+- **CI's bundle check looks for a key, not the word.** supabase-js, now in the browser, tests whether a key
+  starts with "sb_secret_", which the old pattern took for a key. The check now fails on the prefix followed by
+  key characters, on "service_role", and on the exact value of either local secret key, printing file names
+  only. Every key the old pattern caught, the new one catches.
