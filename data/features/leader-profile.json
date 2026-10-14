@@ -1,0 +1,129 @@
+{
+  "title": "Leader personality profile: private, Big Five, two lengths",
+  "description": "A Big Five personality profile for leaders: a 20-question quick test or a 120-question full test. Private to you until you choose to share it.",
+  "crumb": "Leader Profile",
+  "kicker": "Available now · private by default",
+  "h1": "The Leader Profile",
+  "lead": "A personality profile built on the Big Five, from the public-domain IPIP items. Take the quick test of 20 questions or the full test of 120. The result is yours alone, until you choose to share it with your group.",
+  "nav": "Leader Profile",
+  "summary": "A private Big Five profile, shared only if you choose.",
+  "blocks": [
+    {
+      "t": "h2",
+      "text": "What it brings"
+    },
+    {
+      "t": "value",
+      "items": [
+        {
+          "who": "you",
+          "title": "Know your own tendencies",
+          "points": [
+            "Five domains, each placed lower, middle or higher on the answer scale.",
+            "Never good or bad: a trait describes you.",
+            "Private by default, and yours to delete at once."
+          ]
+        },
+        {
+          "who": "group",
+          "title": "Understand each other better",
+          "points": [
+            "Each member shares at the level they choose, or not at all.",
+            "People lists what each member has shared, and nothing more.",
+            "A starting point for talking about how you work together."
+          ]
+        },
+        {
+          "who": "organisation",
+          "title": "Development, never selection",
+          "points": [
+            "It is for each leader’s own development.",
+            "It is never used for selection, promotion or performance evaluation.",
+            "No admin or coach has a path to anyone’s profile."
+          ]
+        }
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "How it works"
+    },
+    {
+      "t": "feature",
+      "title": "Two lengths",
+      "text": "The quick test asks 20 questions and is labelled a first look. The full test asks 120, with the five domains and their facets. Both use the published IPIP items, word for word.",
+      "points": [
+        "Progress is saved, so you can stop and come back.",
+        "Your answers are not stored: only the sums the result needs."
+      ],
+      "shot": "leader-profile-question",
+      "alt": "The quick test on a phone: question 1 of 20, “Am the life of the party.”, with Moderately accurate chosen.",
+      "caption": "The quick test’s first question."
+    },
+    {
+      "t": "feature",
+      "title": "Your result, on Me",
+      "text": "Each domain is shown as lower, middle or higher on the answer scale, with your own position marked. No norm group is used yet, and the page says so.",
+      "points": [
+        "You choose what each group sees: nothing, domains, or domains and facets.",
+        "A retake replaces the profile and resets sharing to nothing."
+      ],
+      "shot": "leader-profile",
+      "alt": "The Leader Profile on Me: five domains with a band and a dot each. What the group sees is set to domains.",
+      "caption": "A quick test result, shared with the group as domains."
+    },
+    {
+      "t": "feature",
+      "title": "What the group sees",
+      "text": "People lists each member and what they have shared. A profile that is not shared reads “Not shared”, the same as no profile, so no one can tell whether one exists.",
+      "shot": "people",
+      "alt": "People: eight members; Kari Nordmann shares five domains as bands, and the others read Not shared.",
+      "caption": "People, with one profile shared as domains."
+    },
+    {
+      "t": "h2",
+      "text": "Three levels of sharing"
+    },
+    {
+      "t": "cards",
+      "numbered": true,
+      "items": [
+        {
+          "title": "Nothing",
+          "text": "Your profile shows as Not shared. This is where every profile starts."
+        },
+        {
+          "title": "Domains",
+          "text": "The five domains, as lower, middle or higher. No facets."
+        },
+        {
+          "title": "Domains and facets",
+          "text": "The five domains and their facets, as lower, middle or higher."
+        }
+      ]
+    },
+    {
+      "t": "box",
+      "title": "Never a judgement",
+      "text": "The profile describes tendencies. It shows no trait as good or bad, and a group sees only a band, never a number. It is for development, never for selection, promotion or performance evaluation."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Where do the questions come from?",
+      "a": "From the International Personality Item Pool, which is in the public domain. The quick test is the Mini-IPIP and the full test is the IPIP-NEO-120, both word for word."
+    },
+    {
+      "q": "Who can see my profile?",
+      "a": "Only you, until you share it with a group. You choose the level for each group, and it applies at once."
+    },
+    {
+      "q": "Can I delete it?",
+      "a": "Yes. Deleting removes the profile and every share at once. It cannot be undone."
+    },
+    {
+      "q": "Is it compared with other leaders?",
+      "a": "Not yet. Results are placed on the answer scale in three equal bands, and the page says that no norm group is used."
+    }
+  ]
+}

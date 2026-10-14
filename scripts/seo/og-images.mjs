@@ -19,6 +19,7 @@ const { PRODUCT_NAME } = await tsImport('../../lib/brand.ts', import.meta.url)
 const { allArticles } = await tsImport('../../lib/site/article-load.ts', import.meta.url)
 const { allTemplates } = await tsImport('../../lib/site/template-load.ts', import.meta.url)
 const { loadPage, PRODUCT_PAGES } = await tsImport('../../lib/site/pages.ts', import.meta.url)
+const { allFeatures } = await tsImport('../../lib/site/features.ts', import.meta.url)
 const messages = JSON.parse(readFileSync('messages/en.json', 'utf8'))
 const fonts = readFileSync('app/fonts.css', 'utf8')
 
@@ -52,12 +53,15 @@ const cards = [
     const c = loadPage(k)
     return { file: PRODUCT_PAGES[k].path.slice(1), kicker: c.kicker, title: c.h1 }
   }),
+  // the platform's feature pages (D-47)
+  ...allFeatures().map(({ entry, content }) => ({ file: `platform/${entry.slug}`, kicker: messages.site.features.crumb, title: content.h1 })),
   ...allTemplates().map(({ template, content }) => ({ file: `templates/${template.slug}`, kicker: content.kicker, title: content.h1 })),
   ...allArticles().map(({ entry, content }) => ({ file: `articles/${entry.slug}`, kicker: messages.site.articles.crumb, title: content.h1 })),
 ]
 
 mkdirSync('public/og/articles', { recursive: true })
 mkdirSync('public/og/templates', { recursive: true })
+mkdirSync('public/og/platform', { recursive: true })
 const browser = await chromium.launch({ executablePath })
 const page = await browser.newPage({ viewport: { width: 1200, height: 630 } })
 // the site's origin, so /fonts/… in the stylesheet loads from the running server

@@ -93,6 +93,62 @@ for (const [path, heading] of [
   })
 }
 
+test('the Platform menu (D-47): opens, lists every feature, closes on Escape and leads to the page', async ({ page }) => {
+  const problems = watch(page)
+  await page.goto('/articles')
+  const phone = (page.viewportSize()?.width ?? 1280) < 768
+  const button = phone ? page.getByRole('button', { name: 'Open the menu' }) : page.getByRole('banner').getByRole('button', { name: 'Platform' })
+  await expect(button).toHaveAttribute('aria-expanded', 'false')
+  // closed, the panel is not in the page at all
+  await expect(page.getByRole('banner').getByRole('link', { name: /Full diagnostic/ })).toHaveCount(0)
+  await button.click()
+  const opened = phone ? page.getByRole('button', { name: 'Close the menu' }) : button
+  await expect(opened).toHaveAttribute('aria-expanded', 'true')
+  for (const name of ['Leadership Team Scan', 'Team view', 'Leader Profile', 'Charter and members', 'Full diagnostic', 'Focus areas and actions', 'How it works', 'Anonymity', 'Research']) {
+    await expect(page.getByRole('banner').getByRole('link', { name: new RegExp(`^${name}`) }).first()).toBeVisible()
+  }
+  await axe(page)
+  await page.keyboard.press('Escape')
+  await expect(phone ? page.getByRole('button', { name: 'Open the menu' }) : button).toBeFocused()
+  await expect(page.getByRole('banner').getByRole('link', { name: /Full diagnostic/ })).toHaveCount(0)
+
+  await (phone ? page.getByRole('button', { name: 'Open the menu' }) : button).click()
+  await page.getByRole('banner').getByRole('link', { name: /^Full diagnostic/ }).click()
+  await expect(page).toHaveURL(/\/platform\/full-diagnostic$/)
+  await expect(page.getByRole('heading', { level: 1, name: 'The Full diagnostic' })).toBeVisible()
+  await expect(page.getByRole('banner').getByRole('link', { name: /^Team view/ })).toHaveCount(0)
+  expect(problems).toEqual([])
+})
+
+for (const [path, heading] of [
+  ['/platform/leadership-team-scan', 'The Leadership Team Scan'],
+  ['/platform/team-view', 'The team view'],
+  ['/platform/leader-profile', 'The Leader Profile'],
+  ['/platform/team-charter', 'The group’s charter'],
+  ['/platform/full-diagnostic', 'The Full diagnostic'],
+  ['/platform/focus-areas', 'Focus areas and actions'],
+] as const) {
+  test(`the feature page ${path}: screenshots of the real app, marked, and what it brings`, async ({ page }) => {
+    const problems = watch(page)
+    await page.goto(path)
+    await expect(page.getByRole('heading', { level: 1, name: heading })).toBeVisible()
+    for (const who of ['For you', 'For the leadership group', 'For the organisation']) await expect(page.getByText(who, { exact: true })).toBeVisible()
+    // every screenshot has its description, loads, and is marked as sample data from a fictional group
+    const shots = page.locator('main img[src^="/shots/"]')
+    expect(await shots.count()).toBeGreaterThanOrEqual(2)
+    for (const img of await shots.all()) {
+      expect(await img.getAttribute('alt')).toMatch(/\w{4,}/)
+      await img.scrollIntoViewIfNeeded()
+      await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth)).toBeGreaterThan(0)
+    }
+    await expect(page.getByText('Sample data').first()).toBeVisible()
+    await expect(page.getByText('A fictional group: every name and answer is invented.').first()).toBeVisible()
+    await expect(page.getByRole('heading', { level: 2, name: 'More of the platform' })).toBeVisible()
+    await axe(page)
+    expect(problems).toEqual([])
+  })
+}
+
 test('the research page reads the model: 21 scales and 3 outcomes with their evidence', async ({ page }) => {
   await page.goto('/research')
   await expect(page.getByRole('heading', { level: 2, name: '21 scales and 3 outcomes' })).toBeVisible()
@@ -122,6 +178,7 @@ test('what search engines read: the sitemap, robots.txt and llms.txt', async ({ 
   expect(sitemap).toContain('https://www.leaderpact.com/articles/leadership-team-purpose')
   expect(sitemap).toContain('https://www.leaderpact.com/templates/leadership-team-charter-template')
   expect(sitemap).not.toContain('/scan/result')
+  expect(sitemap).toContain('https://www.leaderpact.com/platform/team-charter')
   const robots = await (await request.get('/robots.txt')).text()
   expect(robots).toContain('Sitemap: https://www.leaderpact.com/sitemap.xml')
   expect(robots).toContain('Disallow: /app')

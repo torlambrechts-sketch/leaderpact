@@ -18,7 +18,7 @@ import { SIGN_IN_PATH, upgradePath } from '@/lib/routes'
  * marked Sample (handoff section 10). The leader sees the Team plan's price and Upgrade; a member is asked to
  * ask their team leader, with no price. Every paid area is built now (milestone 13), so a group with the Team
  * plan or its trial sees its own pages; the sample shows otherwise only when the plan cannot be read, and the
- * banner says so (D-33, D-47). A person who is not a current member of the group sees no sample, only that the
+ * banner says so (D-33, D-48). A person who is not a current member of the group sees no sample, only that the
  * group is not theirs.
  */
 export async function SamplePage({ group, children }: { group: string; children: React.ReactNode }) {

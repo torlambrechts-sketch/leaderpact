@@ -4,6 +4,7 @@ import { LANDING_PATH, PROFILE_PATH } from '@/lib/routes'
 import { ARTICLE_GROUPS, ARTICLES_PATH, articlePath, PUBLISHED } from '@/lib/site/articles'
 import { allArticles } from '@/lib/site/article-load'
 import { absolute } from '@/lib/site/config'
+import { allFeatures, featurePath } from '@/lib/site/features'
 import { loadPage, PRODUCT_PAGES, type ProductPageKey } from '@/lib/site/pages'
 import { allTemplates } from '@/lib/site/template-load'
 import { templatePath } from '@/lib/site/templates'
@@ -30,6 +31,9 @@ export async function GET() {
       const c = loadPage(k)
       return line(c.title, PRODUCT_PAGES[k].path, c.description)
     }),
+    '',
+    `## ${site('features.crumb')}`,
+    ...allFeatures().map(({ entry, content }) => line(content.title, featurePath(entry.slug), content.description)),
     '',
     `## ${site('articles.crumb')}`,
     line(site('articles.title'), ARTICLES_PATH, site('articles.description')),

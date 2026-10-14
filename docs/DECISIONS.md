@@ -943,7 +943,55 @@ Handoff 6.13; milestone 12: "A third focus area is refused. An action without an
 - **The fixture** adds the plan flow's group: five people of its own and one released round, no focus area
   and no action, which the flow makes.
 
-## D-47 — The agenda: task match and time check (M13)
+## D-47 — The platform's pages: every built feature, in screenshots of the real app (owner, 14 October 2026)
+
+The owner asked for detailed platform pages in the articles' style: real features in screenshots, what each
+brings to the user, the leadership group and the organisation, illustrations and visuals, nothing commercial,
+and several pages under a menu.
+
+- **One page per feature built today** (`lib/site/features.ts`, words in `data/features/`), under `/platform/`:
+  the Leadership Team Scan, the team view, the Leader Profile, the charter and members, the Full diagnostic, and
+  focus areas and actions. A feature not built has no page; the overview lists it as in development.
+  `/platform` stays the overview, now with each feature's card, and its steps mark the charter, the Full
+  diagnostic and focus areas as available (milestones 9 to 12). The diagnostic's page shows its results in
+  screenshots: the overview of a released round and one scale's page (D-45). The focus areas' page shows the
+  Plan page (D-46): a focus area with its actions, the scales to consider, and a member adding an action on a
+  phone. It promises nothing of the agenda, which is milestone 13.
+- **Screenshots of the real app, never mock-ups.** `scripts/shots/capture.mjs` signs in as the fixture's people
+  on the local stack (D-23, D-27) and photographs the pages as they render, into `public/shots/*.webp` and
+  `data/shots.json`. Its rows come from the generator's new `--shots` scenario: the Lumio leadership group with
+  the design's names, its scan released from eight answers, its charter at version 2, a Full diagnostic
+  released from all eight (each scale with a level and a spread of its own, so the results show every
+  standing), Preparation chosen from it as a focus area with four actions (Kari's done), a second round
+  answering at 5 of 8, Kari Nordmann's profile shared as domains, and a sales group whose scan is open at 3 of
+  7. Every row goes through its write path, as each person (the fixture test holds it). The groups' ids (701,
+  702) are their own, clear of the flows'. Requests carry the production host, so an invite link reads
+  www.leaderpact.com, and the browser runs in British English, so a date field reads day first.
+- **Every screenshot is marked.** A "Sample data" chip on the picture and, under it, "A fictional group: every
+  name and answer is invented" (CLAUDE.md: sample content is always marked Sample). Desktop pictures show an
+  app page's content, cropped from its top bar so the words stay readable, and open at full size.
+- **What each feature brings**, in a `value` block of three: for you, for the leadership group, for the
+  organisation. The claims are what the feature does today, with no outcome promised: the Leader Profile's
+  "never used for selection, promotion or performance evaluation" is the product's own rule.
+- **Nothing commercial.** No price, no offer and no button on a feature page; a unit test refuses prices, "per
+  seat", "upgrade" and "sign up". Where a feature belongs to the Team plan, the page says so and that a leader
+  can try it for 14 days with no billing details (D-33), and nothing about paying, which is not connected.
+- **The Platform menu** replaces "How it works" in the header: a disclosure button whose panel lists the six
+  features and the overview, Anonymity and Research. It closes on Escape (focus returns to the button), on a
+  click outside, when focus leaves it and on a new page; the panel exists only while open. Under 768 px a menu
+  button beside "Start the scan" opens the header's links and the same pages, which the header had no room for.
+  The footer lists the features. An e2e test drives both at every width, with axe on the open menu.
+- **Feature pages are wide**: figures, screenshots and the value block take the page's width, and text keeps
+  the reading measure (`Blocks` with `wide`); the product pages use the same frame. A box is an `aside`
+  named by its title, so two on one page are landmarks a reader can tell apart.
+- **Search:** each page answers its own search (the title carries it, and the inventory refuses a search that
+  is the first of two pages), with breadcrumbs, FAQPage data, a share card, the sitemap and llms.txt; the
+  content inventory sends the six pages to Sentral.
+- **To refresh the pictures** after a screen changes: run the fixture with `--shots`, start the app on the local
+  stack, and run `node scripts/shots/capture.mjs` (the steps are in its header). A unit test fails if a page
+  names a picture that does not exist, or if a picture is shipped that no page shows.
+
+## D-48 — The agenda: task match and time check (M13)
 
 Handoff 6.14; milestone 13: "An unmatched item is flagged and can be confirmed. Open actions appear on the
 agenda." `supabase/tests/agenda_invariants.sql` (20 checks) proves both in the database, and
@@ -989,3 +1037,5 @@ agenda." `supabase/tests/agenda_invariants.sql` (20 checks) proves both in the d
   `scripts/qa/editor-script.mjs 0018_agenda` makes. It was rehearsed on a local database built to 0017 with a
   history table: applied in one transaction, the firewall six of six, the history hash matching the file, a
   second run refused, every suite passing. The code merges once hosted carries 0018 (database first).
+- **Numbered D-48.** It was D-47 until the platform's pages (#19) took that number first; 0018's header still
+  names it D-47, since a migration's text is what its hosted history records.

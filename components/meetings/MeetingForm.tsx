@@ -40,7 +40,7 @@ export function meetingReason(t: (key: string) => string, reason: MeetingReason)
 
 /**
  * A meeting's title, day, start and length (handoff 6.14), as the leader plans or changes it. The day and time
- * are the group's wall clock, as entered (D-47).
+ * are the group's wall clock, as entered (D-48).
  */
 export function MeetingForm({
   id,
