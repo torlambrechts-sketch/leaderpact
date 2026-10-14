@@ -25,6 +25,10 @@ export const actionSchema = z.strictObject({
 })
 export type PlanAction = z.infer<typeof actionSchema>
 
+/** An action made in a meeting (0019): no focus area, the meeting and the item it came from */
+export const meetingActionSchema = actionSchema.extend({ meeting: z.string().nullable(), item: z.string().nullable() })
+export type MeetingAction = z.infer<typeof meetingActionSchema>
+
 export const focusAreaSchema = z.strictObject({
   id: z.uuid(),
   scale: z.string().regex(SCALE_KEY),

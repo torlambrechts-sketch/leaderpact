@@ -2,7 +2,8 @@
 #
 # One job (owner, A5): the quick checks first, so a type or lint error fails in a minute; then the
 # database rebuilt from migrations, every SQL suite, the catalogue audit, a build against that database,
-# and the Playwright flows with axe.
+# and the Playwright flows with axe. The four-browser live meeting flow joins them on pushes to main,
+# nightly and by hand.
 #
 # Unlike Orgpuls there is no `paths-ignore`: a pull request that touches only documentation still gets
 # a run, so a required check can never leave it unmergeable.
@@ -12,6 +13,10 @@ on:
   pull_request:
   push:
     branches: [main]
+  # the two-browser live meeting flow runs on pushes to main, nightly and by hand (owner, A5)
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -146,7 +151,11 @@ jobs:
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - run: npx playwright install --with-deps chromium
 
+      # LIVE_FLOW turns on the live meeting in four browsers over Realtime (tests/e2e/live-sync.spec.ts):
+      # on pushes to main, nightly and by hand, not on every pull request (owner, A5)
       - name: Flows, with axe, at 1280, 390 and 360 px
+        env:
+          LIVE_FLOW: ${{ github.event_name != 'pull_request' && '1' || '' }}
         run: npx playwright test
 
       - if: failure()

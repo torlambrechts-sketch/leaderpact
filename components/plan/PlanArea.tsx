@@ -4,7 +4,7 @@ import Link from 'next/link'
 import type { Route } from 'next'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { ArrowRight, CheckCircle2, Circle, Plus, Target } from 'lucide-react'
+import { ArrowRight, CalendarClock, CheckCircle2, Circle, Plus, Target } from 'lucide-react'
 import { Avatar } from '@/components/lp/Avatar'
 import { Card } from '@/components/lp/Card'
 import { EvidenceChip } from '@/components/lp/EvidenceChip'
@@ -64,6 +64,8 @@ export interface PlanProps {
   members: { person: string; name: string; me: boolean }[]
   active: FocusAreaView[]
   closed: FocusAreaView[]
+  /** the actions made in the group's meetings, as one list; null when there are none */
+  meetingActions: FocusAreaView | null
   /** the newest released round's scales to consider; null while the group has no released round */
   candidates: { round: string; number: number; scales: CandidateView[] } | null
   assessHref: string
@@ -242,6 +244,21 @@ export function PlanArea(props: PlanProps) {
         )}
         {full && canChoose && <p className="m-0 text-[13.5px] text-text-2 max-md:text-[15px]">{t('fullNote', { max })}</p>}
 
+        {props.meetingActions && (
+          <FocusCard
+            group={group}
+            area={props.meetingActions}
+            members={props.members}
+            canEdit={canEdit}
+            busy={busy}
+            run={run}
+            reasonText={reasonText}
+            close={null}
+            canAdd={false}
+            icon={CalendarClock}
+          />
+        )}
+
         {closed.length > 0 && (
           <>
             <h2 className="m-0 mt-2 text-[16px] font-bold">{t('closedTitle')}</h2>
@@ -284,6 +301,8 @@ function FocusCard({
   run,
   reasonText,
   close,
+  canAdd = true,
+  icon = Target,
 }: {
   group: string
   area: FocusAreaView
@@ -293,6 +312,9 @@ function FocusCard({
   run: (action: () => Promise<{ ok: true } | { ok: false; reason: PlanReason }>) => Promise<boolean>
   reasonText: (reason: PlanReason) => string
   close: React.ReactNode
+  /** a focus area takes new actions here; a meeting's come from the live meeting */
+  canAdd?: boolean
+  icon?: typeof Target
 }) {
   const t = useTranslations('plan')
   const [adding, setAdding] = React.useState(false)
@@ -303,7 +325,7 @@ function FocusCard({
     <section aria-labelledby={titleId}>
       <Card large className="flex flex-col gap-3">
         <div className="flex items-start gap-3">
-          <IconTile icon={Target} />
+          <IconTile icon={icon} />
           <div className="flex min-w-0 flex-1 flex-col gap-0.5">
             <div className="flex flex-wrap items-center gap-2">
               <h3 id={titleId} className="m-0 text-[17px] font-bold">
@@ -382,7 +404,7 @@ function FocusCard({
             ))}
           </ul>
         )}
-        {canEdit && !area.closed && (
+        {canEdit && canAdd && !area.closed && (
           <div className="border-t border-divider pt-3">
             {adding ? (
               <ActionForm

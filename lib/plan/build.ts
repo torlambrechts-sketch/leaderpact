@@ -1,5 +1,5 @@
 import type { ScaleResult } from '@/lib/results/build'
-import type { Plan } from '@/lib/plan/schema'
+import type { Plan, PlanAction } from '@/lib/plan/schema'
 import type { Standing } from '@/lib/scoring'
 
 /**
@@ -39,7 +39,8 @@ export function focusPlace(plan: Plan, scale: string, isOutcome: boolean): Focus
   return active.length >= plan.max ? { kind: 'full' } : { kind: 'open' }
 }
 
-/** A person's open actions in the group: the Home's "Needs you" counts them for that person alone */
-export function myOpenActions(plan: Plan): number {
-  return plan.focus_areas.reduce((n, f) => n + f.actions.filter((a) => a.mine && a.status === 'open').length, 0)
+/** A person's open actions in the group, its meetings' included: the Home's "Needs you" counts them for that person alone */
+export function myOpenActions(plan: Plan, fromMeetings: readonly Pick<PlanAction, 'mine' | 'status'>[] = []): number {
+  const open = (a: Pick<PlanAction, 'mine' | 'status'>) => a.mine && a.status === 'open'
+  return plan.focus_areas.reduce((n, f) => n + f.actions.filter(open).length, 0) + fromMeetings.filter(open).length
 }

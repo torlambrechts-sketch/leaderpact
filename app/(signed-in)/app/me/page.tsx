@@ -15,7 +15,7 @@ import { PRODUCT_NAME } from '@/lib/brand'
 import { currentUser } from '@/lib/auth/session'
 import { loadMyGroups } from '@/lib/groups/load'
 import { dateFormat } from '@/lib/i18n/dates'
-import { loadPlan } from '@/lib/plan/load'
+import { loadMeetingActions, loadPlan } from '@/lib/plan/load'
 import { loadMyProfile, loadMyShares, loadPersonName } from '@/lib/profile/load'
 import { loadRounds } from '@/lib/rounds/load'
 import { SIGN_IN_PATH, planPath, profileTestPath, roundPath } from '@/lib/routes'
@@ -51,13 +51,15 @@ export default async function MePage() {
 
   // what waits for the person: per group, the round asking them and their own open actions
   const groups = await loadMyGroups(user.id)
-  const reads = groups ? await Promise.all(groups.map(async (g) => ({ g, rounds: await loadRounds(g.id), plan: await loadPlan(g.id) }))) : null
-  const workFailed = !reads || reads.some((r) => r.rounds === null || r.plan === null)
-  const work = (reads ?? []).flatMap(({ g, rounds, plan }) => [
+  const reads = groups
+    ? await Promise.all(groups.map(async (g) => ({ g, rounds: await loadRounds(g.id), plan: await loadPlan(g.id), fromMeetings: await loadMeetingActions(g.id) })))
+    : null
+  const workFailed = !reads || reads.some((r) => r.rounds === null || r.plan === null || r.fromMeetings === null)
+  const work = (reads ?? []).flatMap(({ g, rounds, plan, fromMeetings }) => [
     ...(rounds && rounds !== 'none' ? rounds.rounds : [])
       .filter((r) => r.phase === 'answering' && r.me === 'to_answer')
       .map((r) => ({ key: r.id, kind: 'round' as const, title: t('workRound'), meta: t('workRoundMeta', { group: g.name, date: r.closes_at ? day(r.closes_at) : '' }), href: roundPath(g.id, r.id) })),
-    ...(plan && plan !== 'none' ? plan.focus_areas.flatMap((f) => f.actions) : [])
+    ...[...(plan && plan !== 'none' ? plan.focus_areas.flatMap((f) => f.actions) : []), ...(Array.isArray(fromMeetings) ? fromMeetings : [])]
       .filter((a) => a.mine && a.status === 'open')
       .map((a) => ({ key: a.id, kind: 'action' as const, title: a.title, meta: t('workActionMeta', { group: g.name, date: day(`${a.due_on}T00:00:00Z`) }), href: planPath(g.id) })),
   ])
