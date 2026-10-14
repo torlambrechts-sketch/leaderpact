@@ -13,7 +13,8 @@
     "app.invitation_matches(p_token text, p_email text)": "whether an open invitation with this token names this address, asked before a sign-in link may make an account for the invitee; a holder of the token learns only yes or no (0014)",
     "app.download_export(p_token text)": "the data export's one-time link (handoff 6.18, owner D6): the token is the capability, mailed to the person; it answers the file once within 24 hours and empties it, or a reason (0023)",
     "app.pre_request()": "PostgREST's pre-request (db-pre-request), run as the request's role before every request: counts a signed-in person's writes and live events and answers HTTP 429 past the limit; an anon request is not counted and nothing is returned (0021)",
-    "app.take_public_rate(p_bucket text, p_key text)": "the public scan's and sign-in's rate count (handoff 8), keyed by the app's keyed hash of a network or an address (64 hex), so no IP or address is stored and a caller without the app's secret cannot spend another's count; answers seconds to wait (0021)"
+    "app.take_public_rate(p_bucket text, p_key text)": "the public scan's and sign-in's rate count (handoff 8), keyed by the app's keyed hash of a network or an address (64 hex), so no IP or address is stored and a caller without the app's secret cannot spend another's count; answers seconds to wait (0021)",
+    "public.platform_command(p_token text, p_command text, p_args jsonb)": "Sentral's one way in (handoff A.3): the token is the credential, an HS256 JWT for audience leaderpact verified against Vault, at most five minutes long, its id used once; every verified call is audited, refusals included; the command map names each function and scope, and no command reads an answer (0025, D-54)"
   },
   "client_writes": {},
   "unread_columns": {},

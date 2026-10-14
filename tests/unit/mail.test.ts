@@ -112,6 +112,8 @@ describe('the mails', () => {
   it('the dispatcher reads no setting it does not document', () => {
     const src = readFileSync('supabase/functions/leaderpact-dispatch/index.ts', 'utf8')
     const read = [...src.matchAll(/Deno\.env\.get\('([A-Z_]+)'\)/g)].map((x) => x[1]).sort()
-    expect(read).toEqual(['BREVO_API_KEY', 'LEADERPACT_APP_URL', 'LEADERPACT_DISPATCH_SECRET', 'LEADERPACT_MAIL_FROM', 'MAILPIT_URL', 'SUPABASE_SERVICE_ROLE_KEY', 'SUPABASE_URL'])
+    // the dispatcher's own secret is in Vault, checked by dispatch_authorised (0025): no environment holds it
+    expect(read).toEqual(['BREVO_API_KEY', 'LEADERPACT_APP_URL', 'LEADERPACT_MAIL_FROM', 'MAILPIT_URL', 'SUPABASE_SERVICE_ROLE_KEY', 'SUPABASE_URL'])
+    expect(src).toContain("rpc('dispatch_authorised'")
   })
 })
