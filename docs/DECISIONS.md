@@ -1379,5 +1379,8 @@ and 8 for it, the Group tab and the retention jobs; both are built (0026). Where
   4.5 to 1 among them, stay on everywhere. The first run found controls under 44 px on phones, now fixed: the skip
   link once shown, breadcrumbs, the footer's short links, the Leader Profile's start links, the copy-link field,
   and the scale links on Results and Plan. Focus rings, keyboard reach and colour needed nothing.
-- **Hosted:** 0026 carries several `DELETE` statements in function bodies, so it goes through the owner's SQL
-  editor (D-22), after 0024 and 0025.
+- **Hosted:** 0026 carries several `DELETE` statements in function bodies, so it went through the owner's SQL
+  editor (D-22), with 0024 and 0025 in one script. Deploying the dispatcher then showed that PostgREST's
+  pre-request (0021) was granted to anon and authenticated only: every request the service role made through the
+  Data API failed with 42501 before it reached its function. 0027 grants it to the service role, for which it
+  returns at once, and the limits suite now requires it.
