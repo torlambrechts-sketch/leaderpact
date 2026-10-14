@@ -1,6 +1,7 @@
 import 'server-only'
 import { createClient } from '@/lib/supabase/server'
 import { requestOrigin } from '@/lib/auth/origin'
+import { keyed, takePublicRate } from '@/lib/limits/key'
 import type { LinkResult } from '@/lib/auth/schema'
 import { CONFIRM_PATH } from '@/lib/routes'
 
@@ -10,6 +11,8 @@ import { CONFIRM_PATH } from '@/lib/routes'
  * page's (lib/group/actions.ts). It is not a server action itself, so no client can ask it to make one.
  *
  * Nothing here logs an address. A failure is logged by Auth's error code alone (CLAUDE.md invariant 10).
+ * An address gets at most 5 links an hour (handoff 8; 0021), counted by the app's keyed hash of the address,
+ * before Auth is asked: past that, the same answer as Auth's own limit.
  */
 
 /** Auth's codes that mean "too many": its own limits on mail and on requests */
@@ -23,6 +26,7 @@ const NO_ACCOUNT = new Set(['otp_disabled', 'signup_disabled', 'user_not_found']
 export async function sendSignInLink(where: string, email: string, createUser: boolean): Promise<LinkResult> {
   const origin = await requestOrigin()
   if (!origin) return { ok: false, reason: 'failed' }
+  if ((await takePublicRate('sign_in', keyed(`address:${email.trim().toLowerCase()}`))) > 0) return { ok: false, reason: 'rate_limited' }
 
   let supabase
   try {

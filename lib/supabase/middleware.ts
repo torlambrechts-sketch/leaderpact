@@ -35,6 +35,10 @@ export const PUBLIC_PATHS = [
   '/scan',
   // the group's invite link: a capability in the path, opened by people with no account (6.5)
   '/j',
+  // the scan's answers from that link, counted per network (handoff 8, milestone 16)
+  '/api/scan',
+  // the data export's one-time link: a capability in the path, opened from the mail (6.18, owner D6)
+  '/export',
   // an invitation to join a group: a capability in the path, opened before the invitee has signed in (6.8)
   '/join',
   '/leader-profile',

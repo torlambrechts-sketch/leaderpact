@@ -17,7 +17,7 @@
 --     13  a share is refused for a group the caller is not in, without a profile, or at an unknown level
 --     14  a retake replaces the profile and resets every share to nothing, audited per group
 --     15  delete removes the profile and its shares at once, audited with no detail
---     16  audit rows carry ids, a level and a reason only; a profile holds sums and counts, never an answer
+--     16  audit rows carry ids, a level, a reason, or the consent and its test; a profile holds sums and counts, never an answer
 --     17  a published test's items and a band set never change
 --     18  nothing written by this suite survives
 --
@@ -262,7 +262,7 @@ begin
 
     -- 16 ----------------------------------------------------------- no answer anywhere
     select count(*) into v_n from app.audit_event a, jsonb_object_keys(a.detail) k
-    where a.actor = v_owner and k not in ('team', 'level', 'reason');
+    where a.actor = v_owner and k not in ('team', 'level', 'reason', 'consent', 'test');
     select string_agg(column_name, ',' order by ordinal_position) into v_txt
     from information_schema.columns where table_schema = 'app' and table_name = 'personality_profile';
     perform set_config('request.jwt.claims', format(claims, v_viewer), true);
@@ -271,7 +271,7 @@ begin
     reset role;
     select count(*) into v_m from app.personality_profile pp, jsonb_each(pp.scores) s
     where pp.person_id = v_viewer and (select array_agg(k order by k) from jsonb_object_keys(s.value) k) <> array['n', 'sum'];
-    v_rows := v_rows || jsonb_build_object('seq', 16, 'name', 'audit rows carry ids, a level and a reason; a profile holds sums and counts only',
+    v_rows := v_rows || jsonb_build_object('seq', 16, 'name', 'audit rows carry ids, a level, a reason, or the consent and its test; a profile holds sums and counts only',
       'expected', '0 other keys, person_id,test_id,band_set,taken_at,scores, 0 other score keys',
       'actual', v_n || ' other keys, ' || coalesce(v_txt, 'null') || ', ' || v_m || ' other score keys',
       'pass', v_n = 0 and v_txt = 'person_id,test_id,band_set,taken_at,scores' and v_m = 0);

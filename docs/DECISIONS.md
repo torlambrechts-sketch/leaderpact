@@ -1180,3 +1180,76 @@ builds, starts and answers one, and reads a result with change. Where the build 
 - **A pulse shows the date it opened**, not the one it closed: one that closes at 100% keeps its planned date, as
   a diagnostic does.
 - **Hosted:** `close_round` keeps its deletes from 0007, so 0020 may need the owner's SQL editor (D-22).
+
+## D-53 — Export, delete, notifications, audit and rate limits (M16)
+
+Handoff 6.18 and 8; milestone 16: "An export arrives. A delete removes personal data. Limits return 429." Three
+suites prove the database's half (`limits_invariants.sql` 13 checks, `mail_invariants.sql` 13,
+`privacy_invariants.sql` 15); `tests/e2e/privacy.spec.ts` asks for an export, has the dispatcher's own loop mail
+it, downloads the ZIP once and deletes an account; `tests/unit/privacy.test.ts` drives the routes' 429s. Where the
+build chose:
+
+- **Limits are rows** (`rate_limit`, handoff 8's table) counted in fixed windows by `take_rate`, which answers 0 or
+  the seconds to wait. No row names anyone: a counter is keyed by a SHA-256 of a person's id, or of the app's
+  HMAC of a network or an address under `RATE_LIMIT_SECRET`, set on Vercel for production and preview (14
+  October 2026). Without it, as on a local stack, the key is a plain SHA-256, which still stores no address.
+- **"Per IP" is read as per network**, a /24 for IPv4 and a /48 for IPv6: one office answers from one address, and
+  a phone moves within its carrier's. The scan's answers now go to `POST /api/scan`, a route rather than a server
+  action, so a breach can answer HTTP 429 with `Retry-After`; the answers stay on the device and the page says
+  how long to wait. A failed count lets the request through, logged by code: the scan's cap still stands.
+- **Sign-in links: 5 an hour per address**, counted before Auth is asked, with Auth's own "too many" answer.
+- **The signed-in API: 120 writes a minute, and 10 live meeting events a second**, through PostgREST's
+  pre-request (`app.pre_request`, set on the `authenticator` role). It answers `PT429`, which PostgREST sends as
+  HTTP 429. A read-only request cannot write its count and is not counted. The live room drops a refused event,
+  says so and reads the meeting again (handoff 8: "drop the event and resync").
+- **Exports: 5 a person a day**, counted in `request_export`; `POST /api/export` answers 429 with `Retry-After`,
+  and takes requests from the site's own pages only (its Origin names the host).
+- **Invitation mail: 50 a group a day**, counted at the claim; the rest moves to the next day, with no try spent.
+- **One outbox** for a leader's invitation (now also by mail), a round's invitation, the export's link and each
+  person's summary; the round reminders keep their ledger (0015). A round's mail is one row, its recipients
+  decided when it is sent and never stored. Links are minted at the claim and only their hashes kept.
+- **The dispatcher** is the `leaderpact-dispatch` edge function, called every five minutes by pg_cron through
+  pg_net with a secret of its own, inert until Vault holds `leaderpact_dispatch_url` and
+  `leaderpact_dispatch_secret`. It checks the sender before it claims, sends a mail to several people as one
+  message per person with the same words (so it greets nobody by name and nobody sees another address), reports
+  each row, and stops on a refused key. Its loop is pure (`_shared/dispatch.ts`), so the unit tests and the
+  e2e flow run the code that is deployed. Brevo in production (D-26), Mailpit's send API on a local stack. Its
+  settings: `LEADERPACT_DISPATCH_SECRET`, `LEADERPACT_APP_URL`, `LEADERPACT_MAIL_FROM` (TODO(owner): the sending
+  domain) and `BREVO_API_KEY`. Until they are set nothing is sent, and the outbox waits.
+- **Mail texts live in `messages/en.json` under `mail`**, held to the copy rules like every string;
+  `scripts/functions/build.mjs` copies them into `_shared/messages.gen.ts`, which is committed and which a unit
+  test compares with the catalogue. Functions deploy through the Supabase MCP on the LeaderPact project only.
+- **Suppression:** Brevo's hard bounces, spam reports and unsubscriptions reach `leaderpact-mail-events`, which
+  keeps the address's SHA-256 only; such an address gets no invitation, reminder or summary.
+- **Summaries** (handoff 6.18: "each person sets how often"): weekly on Monday from 08:00 in the person's time
+  zone, monthly on the first Monday, or never; weekly by default. One goes only when something waits: a
+  questionnaire to answer, an open action of theirs, the next meeting. It never says who has or has not answered.
+  The design's six switches are not built: the handoff asks for the summary's frequency, and an invitation or a
+  reminder belongs to the questionnaire it asks the person to answer.
+- **The export is built when asked for** (`export_person`): everything stored about the person as JSON, never
+  another member's words and never an answer, since none is stored with a person. Every table declares whether
+  it is included (`export_coverage`), so a new table without a row fails the suite. The mail's link works once,
+  for 24 hours; opening it uses nothing, and its button posts to the download, so a mail scanner leaves it
+  working. The file is a ZIP of `data.json` and a `README.txt` saying what it holds and what it cannot. The
+  content is emptied when downloaded, when the link lapses, or a week after it was asked for.
+- **Deleting an account** removes the person and every row that names them, and their address from invitations;
+  what they wrote for a group stays with the group without their name, and the group's answers stay, since
+  nothing links them to anyone (owner D7). A group they are alone in goes with them. The only leader of a group
+  with others names another leader first. "Delete my results" is the Leader Profile's delete, offered on the
+  Privacy tab as in Me.
+- **The audit trail is kept 24 months and nobody changes it**, written as "nobody may change this content" so a
+  person's removal can still clear its actor. Saving a Leader Profile records "consent given", the last of
+  handoff 8's audited events, with the test and never a score.
+- **Settings has four tabs**: Account, Notifications and Privacy (the person's own) and Plan and billing (the
+  group's). Account shows the address (there is no flow to change it), the time zone and "Sign out everywhere"
+  (Auth's global sign-out); there is no language picker (English only) and no session list, since nothing
+  records sessions by place. Privacy lists the one consent the MVP asks for, the Leader Profile; the design's
+  contribution view and profile modules are Phase 2. "How data is handled" states only rules that hold today: its
+  retention row waits for the jobs that delete on schedule, which are not built yet.
+- **Not in this milestone:** the Group tab (the group's name and raising its threshold) and the retention jobs of
+  handoff 8 (scan answers after 90 days, a Free group after 12 months without a sign-in, Team data 90 days after
+  a cancel). Both are listed for milestone 18.
+- **Hosted:** 0021 to 0023 carry several `DELETE` statements in function bodies, so they went through the owner's
+  SQL editor (D-22). 0022 left pg_net's extension in `public`, which Supabase's security advisor flags; 0024
+  creates it again in `extensions` (it cannot be relocated), through the owner's editor too, since it drops it.
+  The edge functions and their secrets are set after.

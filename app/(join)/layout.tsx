@@ -8,11 +8,12 @@ import { PRODUCT_NAME } from '@/lib/brand'
 import { LANDING_PATH } from '@/lib/routes'
 import { NOINDEX } from '@/lib/site/meta'
 
-/** The invite link carries a capability in its path: never indexed (D-34) */
+/** The invite link and the export's link carry a capability in their path: never indexed (D-34) */
 export const metadata: Metadata = { robots: NOINDEX }
 
 /**
- * The invite link's pages (handoff 6.5). A member came for their group's scan, so the bar holds the logo
+ * The invite link's pages (handoff 6.5), and the pages behind a mailed link: an invitation, the export. A
+ * member came for their group's scan, so the bar holds the logo
  * only: the public menu's "Start the scan" would lead to a different scan from the one they were sent.
  * The footer's privacy and data-processing links stay, as on every public page.
  */

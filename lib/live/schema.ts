@@ -78,7 +78,8 @@ export const parkSchema = z.object({ meeting: z.uuid(), text: z.string().trim().
 export const commentSchema = z.object({ meeting: z.uuid(), kind: z.enum(COMMENT_KINDS) })
 
 export const REASONS = ['signed_out', 'not_leader', 'not_member', 'unavailable', 'invalid', 'no_owner', 'too_few', 'full'] as const
-export type LiveReason = (typeof REASONS)[number] | 'failed'
+/** 'rate_limited': more than 10 events a second (handoff 8; 0021): the event is dropped and the room read again */
+export type LiveReason = (typeof REASONS)[number] | 'failed' | 'rate_limited'
 
 export const replySchema = z.union([
   z.strictObject({ ok: z.literal(true), online: z.number().int().min(0).optional() }),

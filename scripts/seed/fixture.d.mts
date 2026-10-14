@@ -33,6 +33,7 @@ interface PulseGroup extends Group {
 }
 export declare const PULSE_FLOW: PulseGroup
 export declare const PULSE_STATES: PulseGroup
+export declare const PRIVACY_FLOW: Group & { leader: RoundPerson; member: RoundPerson; people: RoundPerson[] }
 export declare const NO_GROUP: { id: string; name: string; email: string }
 export declare const SHOTS: Group & {
   round: string

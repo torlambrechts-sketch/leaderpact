@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 /**
  * The group's invite link and what crosses the scan's write path (handoff 6.4 and 6.5). Shared by the
- * server action that submits and the pages that send to it.
+ * route that submits (app/api/scan) and the pages that send to it.
  */
 
 /** The link's code: what scan_session.code allows (0006) */
@@ -32,6 +32,8 @@ export const submitReplySchema = z.union([
 export type SubmitResult =
   | { ok: true; replaceKey: string | null }
   | { ok: false; reason: 'not_found' | 'closed' | 'invalid' | 'full' | 'failed' }
+  /** past 60 an hour from one network (handoff 8): the seconds to wait */
+  | { ok: false; reason: 'rate_limited'; retry: number }
 
 /** get_scan_invite's row (0009) */
 export const inviteRowSchema = z.object({

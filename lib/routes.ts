@@ -34,8 +34,11 @@ export const profileTestPath = (test: 'quick' | 'full') => `/leader-profile/${te
 /** The person's own page: the Leader Profile and its sharing (handoff 6.17); not per group */
 export const ME_PATH = '/app/me'
 
-/** The group's settings (handoff 6.18): Plan and billing is the one tab so far, and the Team plan's checkout */
+/** The group's settings (handoff 6.18): the person's Account, Notifications and Privacy, then the group's plan and checkout */
 export const settingsPath = (group: string) => `/app/${group}/settings`
+export const accountPath = (group: string) => `/app/${group}/settings/account`
+export const notificationsPath = (group: string) => `/app/${group}/settings/notifications`
+export const privacyPath = (group: string) => `/app/${group}/settings/privacy`
 export const planBillingPath = (group: string) => `/app/${group}/settings/plan`
 export const upgradePath = (group: string) => `/app/${group}/settings/upgrade`
 
@@ -61,3 +64,8 @@ export const meetingsPath = (group: string) => `/app/${group}/meetings`
 
 /** A meeting, live or held (handoff 6.15) */
 export const livePath = (group: string, meeting: string) => `/app/${group}/meetings/${meeting}`
+
+/** Asking for one's data (handoff 6.18): 5 a day, HTTP 429 past that (handoff 8) */
+export const EXPORT_API_PATH = '/api/export'
+/** The export's mailed link: the token in the path is the capability (0022, 0023) */
+export const exportPath = (token: string) => `/export/${token}`

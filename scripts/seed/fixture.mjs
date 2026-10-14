@@ -346,6 +346,19 @@ export const PULSE_STATES = {
   people: RHYTHM_PEOPLE,
 }
 
+/** The privacy flow's people (milestone 16): a leader and a member who deletes their account */
+const PRIVACY_PEOPLE = livePeople(938, 'Privacy')
+
+/** The privacy flow's group (tests/e2e/privacy.spec.ts): settings, the export by mail, and deleting an account */
+export const PRIVACY_FLOW = {
+  org: { id: id('0a000000', 903), name: 'Flow privacy group' },
+  group: { id: id('0b000000', 903), name: 'Flow privacy group' },
+  scan: { id: id('0c000000', 903), code: 'flowPrivacyScanCode000001', size: 5 },
+  leader: PRIVACY_PEOPLE[0],
+  member: PRIVACY_PEOPLE[1],
+  people: PRIVACY_PEOPLE,
+}
+
 const q = (s) => `'${String(s).replace(/'/g, "''")}'`
 const answersOf = (values) => `(select jsonb_agg(jsonb_build_object('item', vi.item_id, 'value', (${q(JSON.stringify(values))}::jsonb ->> (vi.ordinal - 1))::int) order by vi.ordinal)
     from app.scan_session ss join app.instrument_version_item vi on vi.instrument_version_id = ss.instrument_version_id where ss.code = c)`
@@ -358,7 +371,7 @@ export function render({ e2e = false, shots = false, liveOff = false } = {}) {
   const billing = { ...BILLING, demo: false, people: [{ ...BILLING.leader, role: 'leader' }, { ...BILLING.member, role: 'member' }] }
   const charter = { ...GROUP_FLOW, demo: false, trial: true, people: [{ ...GROUP_FLOW.leader, role: 'leader' }, { ...GROUP_FLOW.member, role: 'member' }] }
   // members since before the oldest round the fixture opens
-  const rounds = [ROUND_FLOW, ROUND_STATES, PLAN_FLOW, LIVE_FLOW, SYNC_FLOW, PULSE_FLOW, PULSE_STATES].map((g) => ({ ...g, demo: false, trial: true, since: "now() - interval '120 days'" }))
+  const rounds = [ROUND_FLOW, ROUND_STATES, PLAN_FLOW, LIVE_FLOW, SYNC_FLOW, PULSE_FLOW, PULSE_STATES, PRIVACY_FLOW].map((g) => ({ ...g, demo: false, trial: true, since: "now() - interval '120 days'" }))
   // the screenshots' two groups share one organisation, so the second carries no organisation row of its own
   const shotGroups = [
     { ...SHOTS, demo: false, trial: true, since: "now() - interval '200 days'", opened: "now() - interval '30 days'" },
@@ -371,7 +384,7 @@ export function render({ e2e = false, shots = false, liveOff = false } = {}) {
   ]
   const accounts = [
     ...LUMIO.people,
-    ...(e2e ? [FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, ...LIVE_PEOPLE, ...SYNC_PEOPLE, ...PULSE_PEOPLE, ...RHYTHM_PEOPLE, NO_GROUP] : []),
+    ...(e2e ? [FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, ...LIVE_PEOPLE, ...SYNC_PEOPLE, ...PULSE_PEOPLE, ...RHYTHM_PEOPLE, ...PRIVACY_PEOPLE, NO_GROUP] : []),
     ...(shots ? SHOT_PEOPLE : []),
   ]
   const orgIds = [...new Set(groups.map((g) => g.org.id))].map(q).join(', ')
@@ -382,7 +395,7 @@ export function render({ e2e = false, shots = false, liveOff = false } = {}) {
   // and the groups the flow leader made in an earlier run, which a reset would otherwise leave behind
   lines.push(`delete from app.organisation where id in (select m.org_id from app.membership m where m.person_id = ${q(FLOW_LEADER.id)});`)
   lines.push(
-    `delete from auth.users where id in (${[...LUMIO.people, FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, ...LIVE_PEOPLE, ...SYNC_PEOPLE, ...PULSE_PEOPLE, ...RHYTHM_PEOPLE, NO_GROUP, ...SHOT_PEOPLE].map((p) => q(p.id)).join(', ')});`,
+    `delete from auth.users where id in (${[...LUMIO.people, FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, ...LIVE_PEOPLE, ...SYNC_PEOPLE, ...PULSE_PEOPLE, ...RHYTHM_PEOPLE, ...PRIVACY_PEOPLE, NO_GROUP, ...SHOT_PEOPLE].map((p) => q(p.id)).join(', ')});`,
   )
   // a local database completes checkouts with the development adapter (0013): it succeeds or fails on demand
   lines.push(`update app.payment_adapter set adapter = 'development';`)
