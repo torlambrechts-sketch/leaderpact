@@ -911,12 +911,15 @@ and several pages under a menu.
   the Leadership Team Scan, the team view, the Leader Profile, the charter and members, and the Full diagnostic.
   A feature not built has no page; the overview lists it as in development. `/platform` stays the overview,
   now with each feature's card, and its steps mark the charter and the Full diagnostic as available (milestones
-  9 and 10), the diagnostic's results pages as in development (milestone 11).
+  9 to 11). The diagnostic's page shows its results in screenshots: the overview of a released round and one
+  scale's page (D-45).
 - **Screenshots of the real app, never mock-ups.** `scripts/shots/capture.mjs` signs in as the fixture's people
   on the local stack (D-23, D-27) and photographs the pages as they render, into `public/shots/*.webp` and
   `data/shots.json`. Its rows come from the generator's new `--shots` scenario: the Lumio leadership group with
-  the design's names, its scan released from eight answers, its charter at version 2, a Full diagnostic at
-  5 of 8, Kari Nordmann's profile shared as domains, and a sales group whose scan is open at 3 of 7. Every row
+  the design's names, its scan released from eight answers, its charter at version 2, a Full diagnostic
+  released from all eight (each scale with a level and a spread of its own, so the results show every
+  standing) and a second answering at 5 of 8, Kari Nordmann's profile shared as domains, and a sales group
+  whose scan is open at 3 of 7. Every row
   goes through its write path, as each person (the fixture test holds it). Requests carry the production host,
   so an invite link reads www.leaderpact.com.
 - **Every screenshot is marked.** A "Sample data" chip on the picture and, under it, "A fictional group: every

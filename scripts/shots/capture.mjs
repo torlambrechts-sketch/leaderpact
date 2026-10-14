@@ -12,7 +12,8 @@
  * host, so an invite link reads www.leaderpact.com, not the local server.
  *
  * A picture keeps the whole screen, the whole page (`full`), its top `clip` CSS pixels, where the rest is a
- * footer or a form the page is not about, or one `region` of it: an app page's content without the top bar.
+ * footer or a form the page is not about, or one `region` of it: an app page's content without the top bar,
+ * cut at `maxHeight` where the page runs long.
  *
  * Writes public/shots/<id>.webp and data/shots.json (each picture's file, size and device), which
  * lib/site/shots.ts reads. Local only: it refuses an API that is not on 127.0.0.1 or localhost.
@@ -107,6 +108,19 @@ const PICTURES = [
     },
     clip: 660,
   },
+  { id: 'results', as: kari, at: DESKTOP, path: `/app/${G}/results`, region: CONTENT, maxHeight: 900 },
+  {
+    id: 'results-scale',
+    as: kari,
+    at: DESKTOP,
+    path: `/app/${G}/results`,
+    steps: async (page) => {
+      await page.getByRole('link', { name: 'Meeting goals' }).first().click()
+      await page.waitForLoadState('networkidle')
+    },
+    region: CONTENT,
+    maxHeight: 600,
+  },
   { id: 'leader-profile', as: kari, at: DESKTOP, path: '/app/me', region: CONTENT },
   {
     id: 'leader-profile-question',
@@ -166,6 +180,8 @@ for (const p of PICTURES.filter((p) => !only.length || only.includes(p.id))) {
   if (p.steps) await p.steps(page)
   await page.waitForLoadState('networkidle')
   await page.evaluate(() => document.fonts.ready)
+  // measured from the top of the page: a page reached by a link may open scrolled
+  if (p.region) await page.evaluate(() => window.scrollTo(0, 0))
   const box = p.region ? await page.locator(p.region).first().boundingBox() : null
   const pad = 16
   const png = await page.screenshot({
@@ -173,7 +189,15 @@ for (const p of PICTURES.filter((p) => !only.length || only.includes(p.id))) {
     animations: 'disabled',
     ...(p.clip ? { clip: { x: 0, y: 0, width: p.at.width, height: p.clip } } : {}),
     ...(box
-      ? { clip: { x: Math.max(0, box.x - pad), y: Math.max(0, box.y - pad), width: Math.min(p.at.width, box.width + 2 * pad), height: box.height + 2 * pad } }
+      ? {
+          clip: {
+            x: Math.max(0, box.x - pad),
+            y: Math.max(0, box.y - pad),
+            width: Math.min(p.at.width, box.width + 2 * pad),
+            // a long page keeps its top `maxHeight` CSS pixels
+            height: Math.min(box.height + 2 * pad, p.maxHeight ?? Infinity),
+          },
+        }
       : {}),
   })
   const file = `public/shots/${p.id}.webp`

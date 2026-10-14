@@ -1,12 +1,12 @@
 {
   "title": "Leadership team diagnostic: 72 questions, 21 scales, 3 outcomes",
-  "description": "Every member answers 72 statements across 21 scales and 3 outcomes, one per screen and anonymously. The round closes on a set date.",
+  "description": "Every member answers 72 statements across 21 scales and 3 outcomes, anonymously. The results show level, agreement and one standing per scale.",
   "crumb": "Full diagnostic",
-  "kicker": "Available now · results pages in development",
+  "kicker": "Available now · part of the Team plan",
   "h1": "The Full diagnostic",
-  "lead": "The fuller look, once the scan has shown what to talk about. Every member answers 72 statements, one per screen and in mixed order, across 21 scales and 3 outcomes. Answers carry a random ID, never a name, and nothing shows while the round is open.",
+  "lead": "The fuller look, once the scan has shown what to talk about. Every member answers 72 statements, one per screen and in mixed order, across 21 scales and 3 outcomes. Answers carry a random ID, never a name. When the round closes, everyone sees the same results, scale by scale.",
   "nav": "Full diagnostic",
-  "summary": "72 statements across 21 scales and 3 outcomes, anonymously.",
+  "summary": "72 statements across 21 scales and 3 outcomes, with results in three depths.",
   "blocks": [
     {
       "t": "h2",
@@ -81,6 +81,31 @@
       "caption": "The first of 72 statements, on a phone."
     },
     {
+      "t": "feature",
+      "title": "Results, for everyone at once",
+      "text": "When the round is released, every member sees the same results at the same moment. The three outcomes come first, then the 21 scales by layer.",
+      "points": [
+        "Each scale shows its level, an agreement label and one standing.",
+        "Each carries its evidence rating, from strong to not yet rated.",
+        "Change shows only between two rounds, and only when it is large enough to mean something."
+      ],
+      "shot": "results",
+      "alt": "Results for round 1: the three outcomes, then the six conditions, each with evidence, level, change, agreement and standing.",
+      "caption": "The overview of a released round."
+    },
+    {
+      "t": "feature",
+      "title": "A scale, explained",
+      "text": "Each scale opens on a page of its own: what it means, its level, agreement and standing, its guidance and its evidence. One step further shows each question’s mean.",
+      "points": [
+        "Guidance is worded as firmly as the scale’s evidence allows.",
+        "Never a lowest or highest score, a distribution, or one person’s answer."
+      ],
+      "shot": "results-scale",
+      "alt": "The scale Meeting goals: level 3.5, views differ, first round, with what it suggests and the evidence behind it, rated moderate.",
+      "caption": "One scale, one level deeper."
+    },
+    {
       "t": "h2",
       "text": "A round, from open to result"
     },
@@ -134,13 +159,17 @@
     {
       "t": "box",
       "title": "In development",
-      "text": "The results pages are being built: each scale will show its level, an agreement label and one standing. Reminders to those who have not answered, focus areas, agendas and pulses follow."
+      "text": "Reminder emails to those who have not answered, focus areas with their actions, agendas and pulses are being built. They will follow from the results, not replace them."
     }
   ],
   "faq": [
     {
       "q": "Can the leader see who has answered?",
       "a": "No. Everyone sees the count, such as 5 of 8 answered. Each person sees only whether they have answered themselves."
+    },
+    {
+      "q": "What do the results show?",
+      "a": "For each scale, its level, an agreement label and one standing, with its evidence rating. Never a lowest or highest score, a distribution or anyone’s answers."
     },
     {
       "q": "What if someone stops halfway?",

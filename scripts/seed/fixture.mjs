@@ -35,7 +35,8 @@
  * 8. **The product screenshots' groups** (`--shots`, D-46): the Lumio leadership group as the public site
  *    pictures it, with the design's names, in its own organisation and accounts so no flow shares a row. Kari
  *    Nordmann leads it on its trial: its scan released from eight answers, its charter at version 2, a Full
- *    diagnostic answering at 5 of 8, and her Leader Profile shared with the group at the level of domains.
+ *    diagnostic released from all eight and a second one answering at 5 of 8, and her Leader Profile shared
+ *    with the group at the level of domains.
  *    Beside it, the sales leadership group, led by Ingrid Berg, with its scan open at 3 of 7. Every answer
  *    goes through its write path, as each person where the path needs one. `scripts/shots/capture.mjs` takes
  *    the pictures from these rows.
@@ -185,6 +186,8 @@ export const SHOTS = {
   group: { id: id('0b000000', 601), name: 'Lumio leadership group' },
   scan: { id: id('0c000000', 601), code: 'lumioShotsLeadershipScan1', size: 8 },
   round: id('0d000000', 601),
+  /** the round before it, released from all eight, whose results the screenshots show */
+  released: id('0d000000', 602),
   people: SHOT_PEOPLE,
   /** who has answered the round: Kari and four members; Erik, Maja and Henrik have not */
   answered: [0, 1, 2, 3, 4],
@@ -398,6 +401,39 @@ ${as(kari, charter(v1))}
 ${as(kari, `app.agree_charter(${q(g.group.id)})`)}
 ${as(kari, charter(v2))}
 ${as(kari, `app.agree_charter(${q(g.group.id)})`)}
+
+  -- the first round, all eight answering. Each scale gets a level and a spread of its own, from its code, and each
+  -- person a steady lean on it, so the results show strengths, priorities, medium agreement and views that differ:
+  -- base 4 or 2 that all share, base 3 or 4 with a lean of a point, base 3 with a lean of two; a few statements a
+  -- point higher or lower, so a level is not a round number
+  insert into app.assessment_round (id, org_id, team_id, kind, instrument_version_id, window_days, opens_at)
+  values (${q(g.released)}, ${q(g.org.id)}, ${q(g.group.id)}, 'diagnostic', app.diagnostic_version(), 14, now() - interval '60 days');
+  if app.open_round(${q(g.released)}) <> ${g.people.length} then raise exception 'fixture: the shots round 1 did not invite everyone'; end if;
+${g.people
+  .map(
+    (_, i) => `  select jsonb_agg(jsonb_build_object('item', x.item_id, 'value', greatest(1, least(5, x.base + x.spread * ((x.h + ${i}) % 3 - 1) + x.nudge))) order by x.ordinal)
+    into v_answers
+  from (
+    select vi.item_id, vi.ordinal, abs(hashtext(split_part(it.code, '.', 1))) as h,
+           (array[4, 3, 2, 3, 4])[1 + abs(hashtext(split_part(it.code, '.', 1))) % 5] as base,
+           (array[0, 1, 0, 2, 1])[1 + abs(hashtext(split_part(it.code, '.', 1))) % 5] as spread,
+           case when vi.ordinal % 4 = 0 then 1 when vi.ordinal % 5 = 0 then -1 else 0 end as nudge
+    from app.instrument_version_item vi join app.item it on it.id = vi.item_id
+    where vi.instrument_version_id = app.diagnostic_version()
+  ) x;
+${as(g.people[i], `app.submit_response(${q(g.released)}, v_answers)`)}`,
+  )
+  .join('\n')}
+  perform set_config('request.jwt.claims', '', true);
+end $$;
+alter table app.assessment_round disable trigger assessment_round_fixed;
+update app.assessment_round set closes_at = opens_at + interval '14 days' where id = ${q(g.released)} and phase = 'answering';
+alter table app.assessment_round enable trigger assessment_round_fixed;
+select app.close_round(${q(g.released)}) where (select phase from app.assessment_round where id = ${q(g.released)}) = 'answering';
+do $$
+declare v_reply jsonb; v_answers jsonb;
+begin
+  if (select phase from app.assessment_round where id = ${q(g.released)}) <> 'released' then raise exception 'fixture: the shots round 1 is not released'; end if;
 
   insert into app.assessment_round (id, org_id, team_id, kind, instrument_version_id, window_days, opens_at)
   values (${q(g.round)}, ${q(g.org.id)}, ${q(g.group.id)}, 'diagnostic', app.diagnostic_version(), 14, now() - interval '3 days');

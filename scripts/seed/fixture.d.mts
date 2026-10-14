@@ -23,6 +23,7 @@ export declare const ROUND_STATES: Group & { rounds: Record<'released' | 'again'
 export declare const NO_GROUP: { id: string; name: string; email: string }
 export declare const SHOTS: Group & {
   round: string
+  released: string
   people: Person[]
   answered: number[]
   sales: { group: { id: string; name: string }; scan: { id: string; code: string; size: number }; people: Person[]; answers: number }

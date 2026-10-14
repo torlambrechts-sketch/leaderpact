@@ -2,7 +2,7 @@
   "assess": {
     "file": "/shots/assess.webp",
     "width": 1600,
-    "height": 594,
+    "height": 670,
     "device": "desktop"
   },
   "charter": {
@@ -14,7 +14,7 @@
   "diagnostic-intro": {
     "file": "/shots/diagnostic-intro.webp",
     "width": 1344,
-    "height": 1100,
+    "height": 1052,
     "device": "desktop"
   },
   "diagnostic-question": {
@@ -63,6 +63,18 @@
     "file": "/shots/people.webp",
     "width": 1600,
     "height": 1313,
+    "device": "desktop"
+  },
+  "results": {
+    "file": "/shots/results.webp",
+    "width": 1600,
+    "height": 1220,
+    "device": "desktop"
+  },
+  "results-scale": {
+    "file": "/shots/results-scale.webp",
+    "width": 1600,
+    "height": 814,
     "device": "desktop"
   },
   "scan-personal-view": {
