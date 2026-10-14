@@ -8,7 +8,7 @@ import { PRODUCT_NAME } from '@/lib/brand'
 import { LANDING_PATH } from '@/lib/routes'
 import { NOINDEX } from '@/lib/site/meta'
 
-/** The invite link carries a capability in its path: never indexed (D-33) */
+/** The invite link carries a capability in its path: never indexed (D-34) */
 export const metadata: Metadata = { robots: NOINDEX }
 
 /**

@@ -40,7 +40,7 @@ export const PUBLIC_PATHS = [
   '/auth',
   '/privacy',
   '/data-processing',
-  // the public site's reading pages (D-33 to D-37): articles, free templates and the product pages
+  // the public site's reading pages (D-34 to D-38): articles, free templates and the product pages
   '/articles',
   '/templates',
   '/platform',

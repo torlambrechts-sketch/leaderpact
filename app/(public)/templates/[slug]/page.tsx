@@ -27,7 +27,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 /**
- * A free template's page (D-36): what is in it, how to use it and why it is built that way, with the form
+ * A free template's page (D-37): what is in it, how to use it and why it is built that way, with the form
  * beside the heading. The cookie decides whether the files show at once; reading it makes the page render
  * on request.
  */

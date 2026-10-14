@@ -10,7 +10,7 @@ import { DATA_PROCESSING_PATH, LANDING_PATH, PRIVACY_PATH, PROFILE_PATH, SCAN_PA
 import { ARTICLES_PATH } from '@/lib/site/articles'
 import { TEMPLATES_PATH } from '@/lib/site/templates'
 
-/** The product pages and the reading pages (D-37), in the order the footer lists them */
+/** The product pages and the reading pages (D-38), in the order the footer lists them */
 const PLATFORM_PATH = '/platform'
 const RESEARCH_PATH = '/research'
 const ANONYMITY_PATH = '/anonymity'
@@ -60,7 +60,7 @@ export function PublicHeader({
           >
             {labels.profile}
           </Link>
-          {/* from 1024 px: four items and the button do not fit beside the logo at 768 (D-37) */}
+          {/* from 1024 px: four items and the button do not fit beside the logo at 768 (D-38) */}
           <Link
             href={PLATFORM_PATH as Route}
             aria-current={inPlatform ? 'page' : undefined}

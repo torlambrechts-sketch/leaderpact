@@ -19,7 +19,7 @@ import { TemplateTeaser } from './TemplateTeaser'
 const WPM = 230
 
 /**
- * An article (D-33): the answer first, the argument in the blocks, every claim's source listed under it,
+ * An article (D-34): the answer first, the argument in the blocks, every claim's source listed under it,
  * and two neighbouring articles. It sells nothing (Orgpuls D-235): no offer beside or under the text. The
  * site's header and footer are the way to the product. The one box at the foot is the free template that
  * goes with the article (Orgpuls D-243): a resource for the reader, named for what it is.

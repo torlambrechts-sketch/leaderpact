@@ -6,7 +6,7 @@ import anonymity from '@/data/pages/anonymity.json'
 import tools from '@/data/pages/assessment-tools.json'
 
 /**
- * The product pages (D-37): what the product is and does, for the searches that ask which tool to use.
+ * The product pages (D-38): what the product is and does, for the searches that ask which tool to use.
  * Unlike the articles, they may name the product and point to the scan; every claim on them is one the
  * product enforces today, or is marked as in development. The product's name comes from lib/brand.ts as
  * `{product}`, so a new name is a one-line change.

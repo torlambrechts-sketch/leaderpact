@@ -11,7 +11,7 @@ import { TEMPLATES, granted, grantFor } from '@/lib/site/templates'
 import sitemap from '@/app/sitemap'
 
 /**
- * The public site (D-33 to D-37): the registries agree with the data files, every article keeps the editorial
+ * The public site (D-34 to D-38): the registries agree with the data files, every article keeps the editorial
  * rules, every page carries the search it answers in its title, and the inventory Sentral receives is the
  * keyword map with one page per search.
  */

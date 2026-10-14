@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 import { absolute, SITE_HOST } from '@/lib/site/config'
 
 /**
- * What crawlers may read (D-33). The private paths are listed so no crawler spends time on them; each of
+ * What crawlers may read (D-34). The private paths are listed so no crawler spends time on them; each of
  * those pages also says noindex itself. Answer engines' crawlers are not singled out: they read what any
  * crawler reads (docs/marketing/seo-geo-strategy.md, section 2).
  */

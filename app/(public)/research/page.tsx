@@ -16,7 +16,7 @@ export function generateMetadata(): Metadata {
 }
 
 /**
- * The model (D-37): the four layers and every scale with how it is read and its evidence rating, read from
+ * The model (D-38): the four layers and every scale with how it is read and its evidence rating, read from
  * the published bank (data/instrument/bank.v1.json), so the page and the product cannot disagree. The
  * items themselves are not shown.
  */

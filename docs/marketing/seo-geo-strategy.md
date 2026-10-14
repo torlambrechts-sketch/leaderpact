@@ -7,7 +7,7 @@ and sell nothing, every claim has a source, and product claims live on product p
 
 This is the working strategy. The keyword → page map in section 4 is the ledger, and it is data:
 `lib/site/inventory.ts` builds it from the registries, the tests hold it to one page per search, and Sentral
-receives it (D-35). Change the map and the pages together.
+receives it (D-36). Change the map and the pages together.
 
 ## 1. Where we are
 
@@ -18,7 +18,7 @@ receives it (D-35). Change the map and the pages together.
   assessment any leader can run without a consultant. The head terms to own are "leadership team assessment"
   and "leadership team effectiveness". Avoid "leadership team development", "executive team" and "senior
   leadership team" as head terms.
-- **What is in place after this change** (D-33 to D-37):
+- **What is in place after this change** (D-34 to D-38):
   - ten articles under `/articles`, each with at least eight checked sources (section 5);
   - two free Word templates behind an e-mail address under `/templates`;
   - four product pages: `/platform`, `/research`, `/anonymity` and `/leadership-team-assessment-tools`;

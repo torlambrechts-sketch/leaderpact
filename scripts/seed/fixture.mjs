@@ -20,10 +20,13 @@
  *    its second. Answers go through `submit_scan`, and the deadlines through `close_scan`; only the
  *    closing date is moved back, with the session's guard off for that one statement, as the suites do,
  *    because time does not pass inside a script.
- * 5. **Deterministic, and local only.** Fixed ids, link codes and a known password, so a reset gives the
+ * 5. **The billing flow's group** (`--e2e`, milestone 8), with a leader and a member of its own, and the
+ *    development payment adapter (0013), so a local checkout succeeds or fails on demand. A hosted database
+ *    keeps the adapter `none`: it is never seeded.
+ * 6. **Deterministic, and local only.** Fixed ids, link codes and a known password, so a reset gives the
  *    same rows and a test can name them. That is why the script refuses any database that is not on
  *    127.0.0.1 or localhost (REUSE 4.12: Orgpuls's fixture did not, and its tokens are derivable).
- * 6. **Idempotent.** It removes its own rows first, by their fixed ids, in one transaction.
+ * 7. **Idempotent.** It removes its own rows first, by their fixed ids, in one transaction.
  *
  * Kari's id is chosen so her avatar takes the first pair, as the design draws her (D-12).
  */
@@ -100,6 +103,15 @@ export const TEAM_STATES = {
   },
 }
 
+/** The billing flow's group (milestone 8): a leader who upgrades it and a member who sees the plan, each signing in on their own */
+export const BILLING = {
+  org: { id: id('0a000000', 301), name: 'Flow billing group' },
+  group: { id: id('0b000000', 301), name: 'Flow billing group' },
+  scan: { id: id('0c000000', 301), code: 'flowBillingScanCode000001', size: 4 },
+  leader: { id: id('4c0e0000', 902), name: 'Billing leader', email: 'billing.leader@lumio.example' },
+  member: { id: id('4c0e0000', 903), name: 'Billing member', email: 'billing.member@lumio.example' },
+}
+
 const q = (s) => `'${String(s).replace(/'/g, "''")}'`
 const answersOf = (values) => `(select jsonb_agg(jsonb_build_object('item', vi.item_id, 'value', (${q(JSON.stringify(values))}::jsonb ->> (vi.ordinal - 1))::int) order by vi.ordinal)
     from app.scan_session ss join app.instrument_version_item vi on vi.instrument_version_id = ss.instrument_version_id where ss.code = c)`
@@ -109,8 +121,9 @@ export function render({ e2e = false } = {}) {
   const leads = [{ ...FLOW_LEADER, role: 'leader' }]
   // opened two weeks ago, so a closing date moved back to now is still after the opening (0006)
   const states = Object.values(TEAM_STATES).map((g) => ({ ...g, people: leads, demo: false, opened: "now() - interval '14 days'" }))
-  const groups = [{ ...LUMIO, demo: true }, ...(e2e ? [...E2E_GROUPS.map((g) => ({ ...g, people: [], demo: false })), ...states] : [])]
-  const accounts = [...LUMIO.people, ...(e2e ? [FLOW_LEADER] : [])]
+  const billing = { ...BILLING, demo: false, people: [{ ...BILLING.leader, role: 'leader' }, { ...BILLING.member, role: 'member' }] }
+  const groups = [{ ...LUMIO, demo: true }, ...(e2e ? [...E2E_GROUPS.map((g) => ({ ...g, people: [], demo: false })), ...states, billing] : [])]
+  const accounts = [...LUMIO.people, ...(e2e ? [FLOW_LEADER, BILLING.leader, BILLING.member] : [])]
   const orgIds = groups.map((g) => q(g.org.id)).join(', ')
   const peopleIds = accounts.map((p) => q(p.id)).join(', ')
   const lines = []
@@ -118,7 +131,9 @@ export function render({ e2e = false } = {}) {
   lines.push(`delete from app.organisation where id in (${orgIds});`)
   // and the groups the flow leader made in an earlier run, which a reset would otherwise leave behind
   lines.push(`delete from app.organisation where id in (select m.org_id from app.membership m where m.person_id = ${q(FLOW_LEADER.id)});`)
-  lines.push(`delete from auth.users where id in (${[...LUMIO.people, FLOW_LEADER].map((p) => q(p.id)).join(', ')});`)
+  lines.push(`delete from auth.users where id in (${[...LUMIO.people, FLOW_LEADER, BILLING.leader, BILLING.member].map((p) => q(p.id)).join(', ')});`)
+  // a local database completes checkouts with the development adapter (0013): it succeeds or fails on demand
+  lines.push(`update app.payment_adapter set adapter = 'development';`)
 
   // auth.users: the full row on real Supabase, so the known password signs in; id and email on the stub
   const people = accounts

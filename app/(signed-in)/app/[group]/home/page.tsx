@@ -15,11 +15,12 @@ import { buttonVariants } from '@/components/ui/button'
 import { PRODUCT_NAME } from '@/lib/brand'
 import { requestOrigin } from '@/lib/auth/origin'
 import { currentUser } from '@/lib/auth/session'
+import { loadBillingRules, loadGroupPlan } from '@/lib/billing/load'
 import { loadGroupTeamView } from '@/lib/groups/load'
 import { dateFormat } from '@/lib/i18n/dates'
 import { formatPrice, loadTeamPrice } from '@/lib/plans/load'
 import { loadMyProfile } from '@/lib/profile/load'
-import { SIGN_IN_PATH, joinPath, profileTestPath, teamPath } from '@/lib/routes'
+import { SIGN_IN_PATH, joinPath, planBillingPath, profileTestPath, teamPath, upgradePath } from '@/lib/routes'
 import { HomeHero } from './HomeHero'
 import { NeedsYou } from './NeedsYou'
 
@@ -31,14 +32,15 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * Home on the Free plan (handoff 6.7, design `home` with plan free): the greeting block, "Needs you" (the
+ * Home (handoff 6.7, design `home`): the greeting block with the plan, "Needs you" (the
  * scan, the link, and the Leader Profile while the person has none), the
- * scan's status card with the count, the dots, the closing date and the link, and one card on what the
- * Team plan adds, meetings included. Once the team view is open, "Where we stand" shows it.
+ * scan's status card with the count, the dots, the closing date and the link, and on the Free plan one card
+ * on what the Team plan adds, meetings included. Once the team view is open, "Where we stand" shows it.
  *
  * Section 11's corrections: no "Assessment schedule" button; no countdown to 4 and no "the team view opens
- * at 4"; the closing date is said once, in the scan card. The Upgrade button comes with the checkout
- * (milestone 8): the leader sees the price, a member is asked to ask their team leader (D-30).
+ * at 4"; the closing date is said once, in the scan card. On the Free plan the leader sees the price,
+ * Upgrade and, while the group has had none, the trial; a member is asked to ask their team leader (D-30,
+ * D-33). With the Team plan or its trial the card is gone and the status line names the plan.
  */
 export default async function HomePage({ params }: { params: Promise<{ group: string }> }) {
   const { group } = await params
@@ -48,7 +50,7 @@ export default async function HomePage({ params }: { params: Promise<{ group: st
   const tInvite = await getTranslations('invite')
   const tTeam = await getTranslations('teamView')
   const tAgree = await getTranslations('agreement')
-  const [data, profile] = await Promise.all([loadGroupTeamView(group, user.id), loadMyProfile(user.id)])
+  const [data, profile, plan] = await Promise.all([loadGroupTeamView(group, user.id), loadMyProfile(user.id), loadGroupPlan(group)])
 
   if (data === null || data === 'none') {
     return <PageProblem title={data === null ? tInvite('readFailed') : tInvite('notFoundTitle')} body={data === 'none' ? tInvite('notFoundBody') : undefined} />
@@ -58,8 +60,20 @@ export default async function HomePage({ params }: { params: Promise<{ group: st
   const open = scan?.phase === 'open' && code ? code : null
   const origin = await requestOrigin()
   const link = open ? `${origin ?? ''}${joinPath(open)}` : null
-  const price = data.role === 'leader' ? await loadTeamPrice() : null
+  const known = plan !== null && plan !== 'none' ? plan : null
+  const free = known?.access === 'free'
+  const leader = data.role === 'leader'
+  const [price, rules] = leader && free ? await Promise.all([loadTeamPrice(), known.trialAvailable ? loadBillingRules() : null]) : [null, null]
   const date = (iso: string) => dateFormat({ locale: 'en', timeZone: 'UTC' }, { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date(iso))
+  const status = !known
+    ? ''
+    : known.access === 'free'
+      ? t('status')
+      : known.access === 'trial' && known.trialEndsAt
+        ? t('statusTrial', { date: date(known.trialEndsAt) })
+        : known.access === 'read_only'
+          ? t('statusReadOnly')
+          : t('statusTeam')
 
   const adds: { icon: LucideIcon; title: string; body: string }[] = [
     { icon: ClipboardList, title: t('planDiagnostic'), body: t('planDiagnosticBody') },
@@ -73,7 +87,7 @@ export default async function HomePage({ params }: { params: Promise<{ group: st
     <AppPage>
       <HomeHero
         labels={{ morning: t('greetingMorning'), afternoon: t('greetingAfternoon'), evening: t('greetingEvening'), any: t('greetingAny') }}
-        status={t('status')}
+        status={status}
       />
 
       <div className="grid items-start gap-5 min-[900px]:grid-cols-[minmax(0,1fr)_minmax(0,462px)]">
@@ -153,26 +167,38 @@ export default async function HomePage({ params }: { params: Promise<{ group: st
           </Card>
         )}
 
-        <section className="flex flex-col gap-4 rounded-card-lg bg-ink px-6 py-6 text-white min-[900px]:col-start-2">
-          <h2 className="m-0 text-[18px] font-bold">{t('planTitle')}</h2>
-          <ul className="m-0 flex list-none flex-col gap-3 p-0">
-            {adds.map(({ icon: Icon, title, body }) => (
-              <li key={title} className="flex items-start gap-2.5">
-                <Icon aria-hidden size={18} className="mt-0.5 shrink-0" />
-                <div className="flex flex-col gap-0.5">
-                  <p className="m-0 text-[14px] font-bold">{title}</p>
-                  <p className="m-0 text-[13px] text-white/85 max-md:text-[15px]">{body}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-          {data.role === 'leader' ? (
-            price && <p className="m-0 text-[13.5px] font-semibold max-md:text-[15px]">{t('planPrice', { price: formatPrice(price) })}</p>
-          ) : (
-            <p className="m-0 text-[13.5px] max-md:text-[15px]">{t('planAsk')}</p>
-          )}
-          <p className="m-0 text-[12.5px] text-white/80 max-md:text-[15px]">{t('planSamples')}</p>
-        </section>
+        {free && (
+          <section className="flex flex-col gap-4 rounded-card-lg bg-ink px-6 py-6 text-white min-[900px]:col-start-2">
+            <h2 className="m-0 text-[18px] font-bold">{t('planTitle')}</h2>
+            <ul className="m-0 flex list-none flex-col gap-3 p-0">
+              {adds.map(({ icon: Icon, title, body }) => (
+                <li key={title} className="flex items-start gap-2.5">
+                  <Icon aria-hidden size={18} className="mt-0.5 shrink-0" />
+                  <div className="flex flex-col gap-0.5">
+                    <p className="m-0 text-[14px] font-bold">{title}</p>
+                    <p className="m-0 text-[13px] text-white/85 max-md:text-[15px]">{body}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            {leader ? (
+              <div className="flex flex-wrap items-center gap-3">
+                <Link href={upgradePath(data.group.id) as Route} className={buttonVariants({ variant: 'on-ink' })}>
+                  {t('upgrade')}
+                </Link>
+                {price && <p className="m-0 text-[13.5px] font-semibold max-md:text-[15px]">{t('planPrice', { price: formatPrice(price) })}</p>}
+                {rules && (
+                  <Link href={planBillingPath(data.group.id) as Route} className="basis-full text-[13px] font-semibold text-white underline underline-offset-2 hover:text-white max-md:text-[15px]">
+                    {t('planTrial', { days: rules.trialDays })}
+                  </Link>
+                )}
+              </div>
+            ) : (
+              <p className="m-0 text-[13.5px] max-md:text-[15px]">{t('planAsk')}</p>
+            )}
+            <p className="m-0 text-[12.5px] text-white/80 max-md:text-[15px]">{t('planSamples')}</p>
+          </section>
+        )}
       </div>
     </AppPage>
   )

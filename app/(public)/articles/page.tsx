@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * The articles, by section (D-33). Informational: the index carries no offer. Under the sections, the free
+ * The articles, by section (D-34). Informational: the index carries no offer. Under the sections, the free
  * templates, which are resources for the reader's own work.
  */
 export default async function ArticlesPage() {

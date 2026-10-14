@@ -1,5 +1,5 @@
 /**
- * The articles: which exist, where they sit on the index and how they link to each other (D-33). The words
+ * The articles: which exist, where they sit on the index and how they link to each other (D-34). The words
  * are data (data/articles/<slug>.json, lib/site/article-content.ts); this file holds only what is not words,
  * so adding an article is an entry here and a data file, never a component change.
  *
@@ -7,7 +7,7 @@
  * plan, the keyword map and Sentral's content plan read from one place; it has no page until it is written
  * and its status says published.
  *
- * Articles inform and sell nothing (D-33, after Orgpuls D-235): no product, no price, no offer beside the
+ * Articles inform and sell nothing (D-34, after Orgpuls D-235): no product, no price, no offer beside the
  * text. The site's header and footer are the way to the product.
  */
 

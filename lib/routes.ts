@@ -31,3 +31,8 @@ export const PROFILE_PATH = '/leader-profile'
 export const profileTestPath = (test: 'quick' | 'full') => `/leader-profile/${test}`
 /** The person's own page: the Leader Profile and its sharing (handoff 6.17); not per group */
 export const ME_PATH = '/app/me'
+
+/** The group's settings (handoff 6.18): Plan and billing is the one tab so far, and the Team plan's checkout */
+export const settingsPath = (group: string) => `/app/${group}/settings`
+export const planBillingPath = (group: string) => `/app/${group}/settings/plan`
+export const upgradePath = (group: string) => `/app/${group}/settings/upgrade`

@@ -1,5 +1,5 @@
 /**
- * The editorial rules for one article, or all of them (lib/site/article-content.ts, D-33): the check a
+ * The editorial rules for one article, or all of them (lib/site/article-content.ts, D-34): the check a
  * writer runs while writing, and the same rules the unit tests hold every published article to.
  *
  *   node scripts/verify/article.mjs <slug>     one article

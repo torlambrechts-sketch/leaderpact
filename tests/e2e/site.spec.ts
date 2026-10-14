@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 import { axe, watch } from './support/page'
 
 /**
- * The public site (D-33 to D-37): the articles, a free template behind an address, the product pages and
+ * The public site (D-34 to D-38): the articles, a free template behind an address, the product pages and
  * what search engines read. Every page has its heading, passes axe and does not scroll sideways at any
  * width. With no Sentral secret set (development), a template request is not sent and the files are given.
  */

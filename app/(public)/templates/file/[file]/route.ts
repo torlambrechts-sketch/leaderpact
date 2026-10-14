@@ -6,7 +6,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { granted, grantFor, MIME, TEMPLATE_COOKIE, TEMPLATES, templatePath } from '@/lib/site/templates'
 
 /**
- * A template's file (D-36), to a browser that has asked for the template: its cookie names a template that
+ * A template's file (D-37), to a browser that has asked for the template: its cookie names a template that
  * holds the file. Anyone else goes to the template's page, where the form is. Only names in the registry are
  * read, so the path cannot leave private/templates.
  */

@@ -6,7 +6,7 @@ import { PRODUCT_PAGES } from '@/lib/site/pages'
 import { TEMPLATES, TEMPLATES_PATH, templatePath } from '@/lib/site/templates'
 
 /**
- * Every page a search engine may show, from the registries (D-33): the landing page, the Leader Profile,
+ * Every page a search engine may show, from the registries (D-34): the landing page, the Leader Profile,
  * the product pages, the articles and the templates. The questionnaires, results, sign-in, the invite link
  * and the app are not here, and each says noindex itself.
  */

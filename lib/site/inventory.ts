@@ -9,7 +9,7 @@ import { loadTemplate } from './template-load'
 import { TEMPLATES, templatePath } from './templates'
 
 /**
- * The public site's content inventory (D-35): every page a search should find, the searches each answers
+ * The public site's content inventory (D-36): every page a search should find, the searches each answers
  * (the first is the one it is the answer to: one page per intent), and whether it is live or planned. It is
  * the keyword map of docs/marketing/seo-geo-strategy.md as data, and it is what Sentral receives as a
  * `content.inventory` event (scripts/platform/publish-content.mjs), so Growth › SEO tracks the same searches

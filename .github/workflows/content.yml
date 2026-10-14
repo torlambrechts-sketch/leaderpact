@@ -1,4 +1,4 @@
-# The public site's content inventory to Sentral (D-35): on every push to main that changes the site's pages,
+# The public site's content inventory to Sentral (D-36): on every push to main that changes the site's pages,
 # scripts/platform/publish-content.mjs sends one signed content.inventory event to Sentral's product-events, which
 # files each page's search in Growth › SEO's content plan and tracks every search as a keyword.
 #

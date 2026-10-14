@@ -1,5 +1,5 @@
 /**
- * Sends the public site's content inventory to Sentral (D-35): one signed `content.inventory` event to its
+ * Sends the public site's content inventory to Sentral (D-36): one signed `content.inventory` event to its
  * product-events door, which files each page's search in Growth › SEO's content plan and tracks every search
  * as a keyword. Run it after a deploy that adds or changes public pages, as the playbook's IndexNow step was
  * in Orgpuls; .github/workflows/content.yml runs it on every push to main that touches the site's content.

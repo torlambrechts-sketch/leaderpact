@@ -11,7 +11,7 @@ export function generateMetadata(): Metadata {
   return pageMeta({ title: c.title, description: c.description, path: PAGE.path, image: pageCard('leadership-team-assessment-tools') })
 }
 
-/** A product page (D-37); its words are data/pages, its frame components/site/ProductPage */
+/** A product page (D-38); its words are data/pages, its frame components/site/ProductPage */
 export default function Page() {
   return <ProductPage path={PAGE.path} content={loadPage('tools')} related={PAGE.related} />
 }

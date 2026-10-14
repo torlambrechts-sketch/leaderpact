@@ -3,7 +3,7 @@ import { blockText, Blocks, Copy, linksIn, plain, Source, wordCount, type Block 
 import { ARTICLES, ARTICLES_PATH } from './articles'
 
 /**
- * An article's words (data/articles/<slug>.json) and the editorial rules they keep (D-33). The rules are
+ * An article's words (data/articles/<slug>.json) and the editorial rules they keep (D-34). The rules are
  * code, so the unit tests and the writer's check (scripts/verify/article.mjs) run the same ones:
  *
  * 1. **The answer first.** The lead answers the title's question in its first sentence.

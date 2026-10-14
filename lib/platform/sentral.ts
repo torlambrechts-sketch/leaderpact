@@ -9,7 +9,7 @@ import { z } from 'zod'
  * `{"product": "leaderpact", "events": [...]}`, and the headers carry the product, the time and
  * `sha256=HMAC(leaderpact_webhook_secret, "<ts>.<body>")`. Sentral refuses anything older than five minutes
  * and treats an event it has seen (by id) as a duplicate. LeaderPact holds no key to Sentral's database,
- * and Sentral none to LeaderPact's: the shared webhook secret is the whole of the connection (D-34).
+ * and Sentral none to LeaderPact's: the shared webhook secret is the whole of the connection (D-35).
  *
  * **Nothing about an answer leaves** (CLAUDE.md invariant 12). The builder refuses any field its kind does
  * not list, and the kinds here are a reader's request for a template and the public site's own pages. The
@@ -24,7 +24,7 @@ export const PRODUCT_KEY = 'leaderpact'
 const KINDS = {
   /** a free template asked for (lib/site/templates.ts): Sentral makes a Sales ticket and a lead of it */
   'template.requested': ['template', 'name', 'email', 'organisation', 'role', 'consent', 'lang'],
-  /** the public site's pages and the searches they answer (D-35): Sentral's content plan and tracked keywords */
+  /** the public site's pages and the searches they answer (D-36): Sentral's content plan and tracked keywords */
   'content.inventory': ['site', 'items', 'keywords'],
 } as const
 

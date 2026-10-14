@@ -7,7 +7,7 @@ import { buildEvent, sendEvents } from '@/lib/platform/sentral'
 import { granted, TEMPLATE_COOKIE, TEMPLATES_PATH, templateBySlug } from '@/lib/site/templates'
 
 /**
- * A free template for an address (D-36, after Orgpuls D-241): the request goes to Sentral as a
+ * A free template for an address (D-37, after Orgpuls D-241): the request goes to Sentral as a
  * `template.requested` event, with the box the person ticked for e-mail about new templates and articles.
  * Sentral makes a Sales ticket and a lead of it. LeaderPact keeps nothing but the browser's cookie, which
  * names the template so the page shows its files. Nothing the person wrote is logged.

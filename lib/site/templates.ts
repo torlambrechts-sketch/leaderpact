@@ -1,5 +1,5 @@
 /**
- * The free templates behind an e-mail address (D-36, after Orgpuls D-241): one page each under /templates,
+ * The free templates behind an e-mail address (D-37, after Orgpuls D-241): one page each under /templates,
  * the files they give, and the cookie that says which a browser has asked for.
  *
  * The files are built by scripts/templates/build.py from what the articles already say, and kept in

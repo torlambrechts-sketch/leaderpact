@@ -13,7 +13,7 @@ import { JsonLd } from './JsonLd'
 import { Rich } from './Rich'
 
 /**
- * A product page (D-37): the hero with the one button the landing page has, "Start the scan"; the steps
+ * A product page (D-38): the hero with the one button the landing page has, "Start the scan"; the steps
  * where the page has them, each marked available or in development; the blocks; the questions, which the
  * FAQPage data repeats word for word; and two articles to read next.
  */

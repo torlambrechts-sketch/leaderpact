@@ -1,18 +1,15 @@
 /**
- * The public site's address and who publishes it (D-33). Imported by middleware, so it imports nothing.
+ * The public site's address and who publishes it (D-34). Imports nothing.
  *
- * The site is indexed on its production address only. `leaderpact.com` redirects to `www` at Vercel, and
- * every other host (leaderpact.vercel.app, a preview, localhost) answers `X-Robots-Tag: noindex`
- * (lib/supabase/middleware.ts), so a search engine knows one address per page.
+ * Every canonical address, sitemap entry and JSON-LD id names the production address; `leaderpact.com`
+ * redirects to `www` at Vercel. The pages still say noindex until the owner switches indexing on (D-34);
+ * with it comes an `X-Robots-Tag: noindex` from every other host (leaderpact.vercel.app, a preview).
  */
 export const SITE_HOST = 'www.leaderpact.com'
 export const SITE_URL = `https://${SITE_HOST}`
 
 /** An absolute address on the production site, for canonicals, the sitemap and JSON-LD */
 export const absolute = (path: string) => `${SITE_URL}${path === '/' ? '' : path}`
-
-/** Whether a request's host is the one a search engine should index */
-export const indexedHost = (host: string | null | undefined) => (host ?? '').toLowerCase().split(':')[0] === SITE_HOST
 
 /** The contact address the site names, the sender of D-26 */
 export const CONTACT_MAIL = 'post@leaderpact.com'

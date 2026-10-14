@@ -31,8 +31,9 @@ export function website(description: string): Node {
 }
 
 /**
- * The product as software. No offers: the paid plan cannot be bought yet (handoff milestone 8), and a
- * price a visitor cannot pay is not a fact (D-33). The free tools are named in the description the page shows.
+ * The product as software. No offers: the hosted payment adapter is `none`, so the Team plan cannot be paid
+ * for yet (D-33), and a price a visitor cannot pay is not a fact (D-38). The free tools are named in the
+ * description the page shows.
  */
 export function software(description: string): Node {
   return {

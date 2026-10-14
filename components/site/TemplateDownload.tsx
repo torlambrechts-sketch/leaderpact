@@ -11,7 +11,7 @@ import { Rich } from './Rich'
 type Problem = 'invalid' | 'rate_limited' | 'failed'
 
 /**
- * The form beside a template's page (D-36, after Orgpuls D-241): a name and an address, the organisation and
+ * The form beside a template's page (D-37, after Orgpuls D-241): a name and an address, the organisation and
  * role if the person wants, and a box, unticked, for e-mail about new templates and articles. When the
  * request is filed the files are there to download; a browser that has asked before sees them at once.
  */

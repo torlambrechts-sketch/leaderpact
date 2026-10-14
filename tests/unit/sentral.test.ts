@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { buildEvent, sign } from '@/lib/platform/sentral'
 
 /**
- * The events to Sentral (D-34): the builder refuses any field its kind does not list (CLAUDE.md invariant 12),
+ * The events to Sentral (D-35): the builder refuses any field its kind does not list (CLAUDE.md invariant 12),
  * an id fits Sentral's dedupe key, and the signature is the one Sentral's product-events checks.
  */
 describe('the Sentral event builder', () => {

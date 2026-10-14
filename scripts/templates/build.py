@@ -1,5 +1,5 @@
 """
-Builds the free templates (lib/site/templates.ts, D-36) into private/templates/.
+Builds the free templates (lib/site/templates.ts, D-37) into private/templates/.
 
 The words follow the articles they go with: the charter follows "leadership-team-charter" and
 "leadership-team-purpose", the agenda "leadership-team-meeting-agenda". The outputs are committed, like the

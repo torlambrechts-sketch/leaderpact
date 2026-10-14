@@ -18,7 +18,7 @@ export const PageContent = z.object({
   lead: Copy,
   blocks: Blocks,
   faq: z.array(FaqItem).optional(),
-  /** the product's steps, each with whether it is available today or in development (D-37) */
+  /** the product's steps, each with whether it is available today or in development (D-38) */
   steps: z.array(z.object({ status: z.enum(['available', 'development']), title: Copy, text: Copy })).optional(),
 })
 export type PageContent = z.infer<typeof PageContent>

@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return pageMeta({ title: t('title'), description: t('description'), path: TEMPLATES_PATH, image: pageCard('templates') })
 }
 
-/** The free templates (D-36): one card each, leading to its page and its form */
+/** The free templates (D-37): one card each, leading to its page and its form */
 export default async function TemplatesPage() {
   const t = await getTranslations('site')
   const templates = allTemplates()

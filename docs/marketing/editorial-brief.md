@@ -1,6 +1,6 @@
 # Editorial brief for the articles
 
-The standard every article on `/articles` is written to (D-33). It follows Orgpuls's D-235: an article answers
+The standard every article on `/articles` is written to (D-34). It follows Orgpuls's D-235: an article answers
 one question the way a good trade paper would, and sells nothing. The rules that can be code are code
 (`lib/site/article-content.ts`); `node scripts/verify/article.mjs <slug>` runs them.
 
