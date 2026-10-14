@@ -866,3 +866,37 @@ with scientific validated time recommendation"; on D-43's removed members, "your
   - It shows on the questionnaire's intro, the leader's card that opens a round, and Home's row.
 - **D-43's removed members stand** as decided: the participation row stays, so the count never shows
   whether a removed member had answered.
+
+## D-45 — Results in three depths (M11)
+
+Milestone 11 of handoff section 12: "Every row shows level, agreement label and one standing. No forbidden
+element appears." `supabase/tests/results_invariants.sql` (8 checks) proves it in the database, and
+`tests/e2e/results.spec.ts` on the screens.
+
+- **The snapshot is the only source.** The overview, a scale and its questions read `get_results` and
+  `get_item_results` (0007), the firewall's reviewed readers: a current member, a released round, at or above
+  its threshold. No new reader of an answer table. The suite checks from the catalogue that the two return
+  exactly the columns a result may show, and that the agreement they return is the label.
+- **Three depths, three pages:** `/results` (the newest released round, or one by `?round=`), a scale at
+  `/results/[scale]`, and its questions at `/results/[scale]/items`. The overview shows the three outcomes
+  first, marked self-rated, then the 21 scales by layer: scale, evidence chip, level, change, agreement label,
+  standing. A scale's page adds its definition, the evidence behind its rating and the guidance. The questions
+  page shows each question's text and its mean to one decimal, nothing else.
+- **Change** shows only between two released rounds of the Full diagnostic, at the margin of the cut-offs in
+  force when the later one closed (0.6 in version 1), and only for a scale whose questions were the same in
+  both versions (owner C5, "Not comparable: the questions changed"). A first round shows "First round". It is
+  worked out in the app from the two rounds' results and the versions' items, which members may read.
+- **Definitions are rows** (`factor_text`, 0016), versioned like the item wording. Version 1 is the owner's
+  design bundle's sentence per scale (`proto-core-v5.js`, `SDEF`): neither the handoff nor the item bank has
+  definitions. The owner may reword them as a version 2.
+- **Guidance** follows handoff 7: the standing says what, the scale's own evidence rating the tone. Strong is
+  direct ("Make … a priority"), moderate and not yet rated are "likely to help", mixed describes with no flag,
+  low agreement says the views differ. The sentences are product copy in `messages/en.json`, one per case,
+  naming the scale; they claim no research beyond the scale's rating. The evidence explanations are the
+  design bundle's (`WHY`), without its "outside view", which is not built.
+- **"Make this a focus area"** comes with the focus areas (milestone 12); until then the scale page has no
+  dead button.
+- **Assess links a released round to its results.** The sample results on the Free plan now draw the same
+  rows (`components/results/ScaleRows.tsx`).
+- **The fixture** adds a second released round to the round states' group, half its questions answered as in
+  the first, so the overview shows both change and no change.

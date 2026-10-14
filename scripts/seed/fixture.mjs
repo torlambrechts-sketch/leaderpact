@@ -29,8 +29,9 @@
  * 7. **The diagnostic round's groups** (`--e2e`, milestone 10), both on their trial with the same five people:
  *    one with no round yet, where the flow opens the Full diagnostic and two of them answer; and one with a
  *    round in each of the other states, opened through `open_round` and answered through `submit_response`
- *    as each person: round 1 released at 4 of 5, round 2 closed with no result at 2 of 5 (its extension,
- *    then its second deadline), and round 3 answering at 3 of 5.
+ *    as each person: rounds 1 and 2 released at 4 of 5 (half of round 2's questions answered as in round 1,
+ *    so the results show change and no change), round 3 closed with no result at 2 of 5 (its extension, then
+ *    its second deadline), and round 4 answering at 3 of 5.
  * 8. **Deterministic, and local only.** Fixed ids, link codes and a known password, so a reset gives the
  *    same rows and a test can name them. That is why the script refuses any database that is not on
  *    127.0.0.1 or localhost (REUSE 4.12: Orgpuls's fixture did not, and its tokens are derivable).
@@ -157,7 +158,7 @@ export const ROUND_STATES = {
   org: { id: id('0a000000', 502), name: 'Flow round states group' },
   group: { id: id('0b000000', 502), name: 'Flow round states group' },
   scan: { id: id('0c000000', 502), code: 'flowRoundStatesScan000001', size: 5 },
-  rounds: { released: id('0d000000', 501), closed: id('0d000000', 502), answering: id('0d000000', 503) },
+  rounds: { released: id('0d000000', 501), closed: id('0d000000', 502), answering: id('0d000000', 503), again: id('0d000000', 504) },
   people: ROUND_PEOPLE,
 }
 
@@ -285,15 +286,20 @@ end $$;`)
 /**
  * The round states' group: each round opened through open_round and answered through submit_response as
  * each person, then closed through close_round after its date is moved back, with the round's guard off for
- * that one statement, as the suites do. Round 1: 4 of 5, released. Round 2: 2 of 5, extended at its first
- * date, closed with no result at its second. Round 3: 3 of 5, answering.
+ * that one statement, as the suites do. Round 1: 4 of 5, released. Round 2: 4 of 5, released, half its
+ * questions answered as in round 1. Round 3: 2 of 5, extended at its first date, closed with no result at its
+ * second. Round 4: 3 of 5, answering.
  */
 function roundStates() {
   const g = ROUND_STATES
+  // the first 36 questions answered alike in rounds 1 and 2, the other 36 all 5 in round 2: half the scales
+  // show no change, half a change well past the margin
+  const same = (i) => `1 + (vi.ordinal + ${i}) % 5`
   const plan = [
-    { round: g.rounds.released, opened: 90, answer: [1, 2, 3, 4], deadlines: 1, phase: 'released' },
-    { round: g.rounds.closed, opened: 40, answer: [1, 2], deadlines: 2, phase: 'closed' },
-    { round: g.rounds.answering, opened: 2, answer: [2, 3, 4], deadlines: 0, phase: 'answering' },
+    { round: g.rounds.released, opened: 90, answer: [1, 2, 3, 4], value: same, deadlines: 1, phase: 'released' },
+    { round: g.rounds.again, opened: 60, answer: [1, 2, 3, 4], value: (i) => `case when vi.ordinal <= 36 then ${same(i)} else 5 end`, deadlines: 1, phase: 'released' },
+    { round: g.rounds.closed, opened: 40, answer: [1, 2], value: same, deadlines: 2, phase: 'closed' },
+    { round: g.rounds.answering, opened: 2, answer: [2, 3, 4], value: same, deadlines: 0, phase: 'answering' },
   ]
   return plan
     .map(
@@ -305,7 +311,7 @@ begin
   if app.open_round(${q(r.round)}) <> ${g.people.length} then raise exception 'fixture: round ${r.phase} did not invite everyone'; end if;
 ${r.answer
   .map(
-    (i) => `  select jsonb_agg(jsonb_build_object('item', vi.item_id, 'value', 1 + (vi.ordinal + ${i}) % 5) order by vi.ordinal) into v_answers
+    (i) => `  select jsonb_agg(jsonb_build_object('item', vi.item_id, 'value', ${r.value(i)}) order by vi.ordinal) into v_answers
   from app.instrument_version_item vi where vi.instrument_version_id = app.diagnostic_version();
   perform set_config('request.jwt.claims', json_build_object('sub', ${q(g.people[i].id)}, 'role', 'authenticated')::text, true);
   v_reply := app.submit_response(${q(r.round)}, v_answers);

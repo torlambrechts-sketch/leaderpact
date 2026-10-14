@@ -47,3 +47,8 @@ export const joinInvitePath = (token: string) => `/join/${token}`
 /** The group's rounds (handoff 6.10), and one round's questionnaire for a member who is asked (handoff 6.11) */
 export const assessPath = (group: string) => `/app/${group}/assess`
 export const roundPath = (group: string, round: string) => `/app/${group}/assess/${round}`
+
+/** The group's results in three depths (handoff 6.12): the overview, one scale, and the scale's questions */
+export const resultsPath = (group: string, round?: string) => `/app/${group}/results${round ? `?round=${round}` : ''}`
+export const scalePath = (group: string, scale: string, round: string) => `/app/${group}/results/${scale}?round=${round}`
+export const scaleItemsPath = (group: string, scale: string, round: string) => `/app/${group}/results/${scale}/items?round=${round}`

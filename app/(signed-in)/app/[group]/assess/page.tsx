@@ -16,7 +16,7 @@ import { loadGroupPlan } from '@/lib/billing/load'
 import { loadShell } from '@/lib/groups/load'
 import { dateFormat } from '@/lib/i18n/dates'
 import { loadRounds } from '@/lib/rounds/load'
-import { SIGN_IN_PATH, groupPath, roundPath } from '@/lib/routes'
+import { SIGN_IN_PATH, groupPath, resultsPath, roundPath } from '@/lib/routes'
 
 export const dynamic = 'force-dynamic'
 
@@ -49,6 +49,7 @@ export default async function AssessPage({ params }: { params: Promise<{ group: 
     from: day(r.opens_at),
     to: r.closes_at ? day(r.closes_at) : null,
     answerHref: r.phase === 'answering' && r.me === 'to_answer' ? roundPath(group, r.id) : null,
+    resultsHref: r.phase === 'released' && r.kind === 'diagnostic' ? resultsPath(group, r.id) : null,
   }))
   const open = data.rounds.some((r) => r.phase === 'answering')
 
