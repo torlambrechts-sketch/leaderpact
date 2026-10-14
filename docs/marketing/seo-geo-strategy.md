@@ -11,8 +11,9 @@ receives it (D-36). Change the map and the pages together.
 
 ## 1. Where we are
 
-- **The site is new and not indexed.** Every page says `noindex` until the name is cleared (handoff section 0,
-  D-09). That switch is the owner's: see section 9. Until it is flipped, nothing below reaches a search engine.
+- **The site is new and indexed since 14 October 2026** (D-40, the owner's word). Only `www.leaderpact.com` is
+  indexed; the private pages and every other host say `noindex`. Google finds the pages through the sitemap
+  submitted in Search Console (section 9).
 - **The positioning** is the owner's market angle (artifact "Optimal Solution and Market Angle", section "SEO
   plan to lead worldwide"): the research-based way to make a leadership team perform, opened by a free
   assessment any leader can run without a consultant. The head terms to own are "leadership team assessment"
@@ -199,10 +200,10 @@ for real data, must keep the threshold across groups, and is the owner's decisio
 
 ## 9. Open decisions for the owner
 
-1. **Indexing.** Every page still says `noindex` (D-09, handoff section 0: the trademark check is not done). The
-   switch is the `robots` line in `app/layout.tsx`. When it flips, also send `X-Robots-Tag: noindex` from every
-   host but `www.leaderpact.com`, add an IndexNow key, and run the first IndexNow submission. Until then the
-   pages are public but no search engine indexes them.
+1. **Search Console** (indexing is on since D-40). Verify the domain `leaderpact.com`, submit
+   `https://www.leaderpact.com/sitemap.xml`, and add Sentral's service account
+   `orgpuls-search-console@orgpuls-seo.iam.gserviceaccount.com` as a restricted user so Sentral imports the
+   figures (D-39). Bing Webmaster Tools can import the property from Search Console.
 2. **The privacy page** must describe template requests (what is kept, where, for how long, the legal basis and
    the e-mail consent) before the form collects addresses at scale. Orgpuls's privacy statement has such a
    section to adapt. The legal text is the owner's (`TODO(owner)` in the page).

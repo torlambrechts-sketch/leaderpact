@@ -92,7 +92,7 @@ const field = 'w-full rounded-input border border-line bg-surface px-3.5 text-[1
  * The charter (handoff 6.8, design `group` charter tab): the version in force with its versions, the draft,
  * and the leader's editor. A draft is saved in the database and changes nothing in force until the leader
  * records that the group agrees ("The group agrees · put in force"); earlier versions open read-only. The
- * design keeps the draft in the browser; here the group can read it before it agrees (D-40).
+ * design keeps the draft in the browser; here the group can read it before it agrees (D-41).
  */
 export function CharterArea(props: CharterProps) {
   const t = useTranslations('group')

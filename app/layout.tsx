@@ -11,8 +11,10 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: t('title', { product: PRODUCT_NAME }),
     description: t('description', { product: PRODUCT_NAME }),
-    // the name is not cleared (handoff section 0): nothing is indexed until it is
-    robots: { index: false, follow: false },
+    // the public site is indexed since the owner switched it on (D-40); the questionnaires, the result, sign-in,
+    // the invite link and the app say noindex themselves, and every host but www.leaderpact.com says it in a
+    // header (next.config.ts)
+    robots: { index: true, follow: true },
   }
 }
 

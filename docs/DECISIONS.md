@@ -695,7 +695,25 @@ address and the browser string with a key that changes every day, and stores nei
   `orgpuls-search-console@orgpuls-seo.iam.gserviceaccount.com` as a user (restricted is enough) on the
   leaderpact.com property; the nightly import then finds it.
 
-## D-40 — The group: charter versions and members (M9)
+## D-40 — The public site is indexed (owner, 14 October 2026)
+
+The owner asked for indexing to start. This supersedes D-34's "Not indexed yet" and the root layout's noindex
+from D-09.
+
+- **The root layout says `index, follow`.** The pages that must never be found keep their own `noindex`: the
+  scan and its result, the Leader Profile's tests, sign-in and its confirmation, the invite link, the app, the
+  privacy and data-processing drafts. A template's file says it in a header. `robots.txt` also disallows the
+  private paths.
+- **Only `www.leaderpact.com` is indexed.** Every other host (leaderpact.vercel.app, a preview, a local server)
+  answers with `X-Robots-Tag: noindex` (`next.config.ts`), so no copy of the site competes with it.
+  `leaderpact.com` redirects to `www` at Vercel.
+- **An e2e test holds it** (`tests/e2e/site.spec.ts`): the public pages say index, the private ones noindex,
+  and a host that is not production sends the header.
+- **No IndexNow.** Google does not use it. The sitemap in Search Console is how Google learns the pages.
+- **Search Console is the owner's:** verify the domain, submit `https://www.leaderpact.com/sitemap.xml`, and
+  add Sentral's service account (D-39).
+
+## D-41 — The group: charter versions and members (M9)
 
 Handoff 6.8, 8 and 9; milestone 9: "A draft does not change the version in force until the group agrees."
 Where the build chose:
