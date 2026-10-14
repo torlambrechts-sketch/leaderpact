@@ -983,3 +983,9 @@ agenda." `supabase/tests/agenda_invariants.sql` (20 checks) proves both in the d
 - **Nothing in 0018 deletes a row**, and nothing is audited: the handoff's audit list names no meeting event.
 - **The fixture** gives the plan flow's group a charter in force with two team tasks, drafted and agreed through
   the write paths, and no meeting, which the flow plans.
+- **Hosted, through the owner's SQL editor** (D-22). `apply_migration` held 0018 and timed out; the Postgres log
+  shows the query never arrived, and nothing was applied. 0018 holds no `DELETE` statement, so the connector's
+  hold is wider than the rule D-22 found. The SQL is not reshaped: the owner runs the script
+  `scripts/qa/editor-script.mjs 0018_agenda` makes. It was rehearsed on a local database built to 0017 with a
+  history table: applied in one transaction, the firewall six of six, the history hash matching the file, a
+  second run refused, every suite passing. The code merges once hosted carries 0018 (database first).
