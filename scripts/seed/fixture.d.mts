@@ -10,7 +10,7 @@ export declare function render(options?: { e2e?: boolean; shots?: boolean; liveO
 export declare function localOnly(url: string): boolean
 export declare const TEAM_VIEW_ANSWERS: number[][]
 export declare const TEAM_VIEW_FIGURES: { theme: string; level: string; agreement: 'high' | 'medium' | 'low' }[]
-export declare const TEAM_STATES: Record<'released' | 'extended' | 'closed', Group>
+export declare const TEAM_STATES: Record<'released' | 'extended' | 'closed' | 'timeline', Group>
 export declare const BILLING: Group & { leader: { id: string; name: string; email: string }; member: { id: string; name: string; email: string } }
 export declare const GROUP_FLOW: Group & {
   leader: { id: string; name: string; email: string }
@@ -34,6 +34,7 @@ interface PulseGroup extends Group {
 export declare const PULSE_FLOW: PulseGroup
 export declare const PULSE_STATES: PulseGroup
 export declare const PRIVACY_FLOW: Group & { leader: RoundPerson; member: RoundPerson; people: RoundPerson[] }
+export declare const CHAIN_FLOW: Group & { leader: RoundPerson; people: RoundPerson[] }
 export declare const NO_GROUP: { id: string; name: string; email: string }
 export declare const SHOTS: Group & {
   round: string

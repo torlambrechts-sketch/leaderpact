@@ -1328,3 +1328,54 @@ sends a command signed as Sentral signs it through the Data API, and its replay 
   `select app.platform_hand_over('<the one-time number>')` (with `false` as a second argument if Sentral already
   holds a webhook secret, after `app.platform_set_webhook_secret` with that value); then turn
   `platform_installation.enabled` on.
+
+## D-56 — Hardening: retention, the Group tab, and section 13's checks (M18)
+
+Milestone 18: "The checks of section 13 pass. An accessibility pass is done." D-53 left two pieces of handoff 6.18
+and 8 for it, the Group tab and the retention jobs; both are built (0026). Where the build chose:
+
+- **Team data goes on the date the leader is shown.** `get_group_plan` already showed it (0013): a cancel's
+  `deletion_due_at`, or the end of an unpaid trial plus the retention (the `retention_after_cancel_days` row, 90).
+  On that date the daily job deletes the group's rounds with their answers, participation and scores, its pulses,
+  meetings, focus areas, actions and charter versions. The group, its members, its scans and team views, its
+  invitations and the Leader Profiles' shares stay: they are the Free plan's. `team.team_data_deleted_at` records
+  the run, so no date shows after it, and a later cancel has a date of its own. The organisation's
+  `retention_days` column is not read: the date comes from the setting row, as 0013 set it.
+- **"While the subscription is active" is read as "until a cancel or an unpaid trial".** A group held read-only
+  for an unpaid invoice keeps its data: no date is set for it, and deleting it unannounced would be worse than
+  keeping it. TODO(owner): a rule for a group read-only for a long time, if one is wanted.
+- **A Free group with no sign-in for 12 months is deleted**, with its organisation when it holds no other group.
+  "Without a sign-in" is the latest of the current members' last sign-ins and the day the group began; a former
+  member's sign-in does not count. Accounts stay: a person goes only by their own delete. The demo organisation
+  is never touched.
+- **Scan answers before sign-up need no job** (D-15), the audit trail has its own (0023), process comments go when
+  their meeting ends (0019), and a Leader Profile's delete is immediate (0011). Analytics events are not stored
+  by the app, so none are kept.
+- **The Group tab** (handoff 6.18: "Name, members link, anonymity threshold"): the leader renames the group and
+  raises the threshold; a member reads both. The threshold is the organisation's (CLAUDE.md invariant 1), so a
+  raise holds for every group of the organisation from the next round each opens, and the tab says so when asked
+  to confirm. Raising is asked once more on the page, since it cannot be undone. A value above the group's
+  member count says that its results would never show; it is not refused, because the group may grow. The
+  design's survey language (English only), coach access (not in the handoff) and "Delete group" (a group goes with
+  its last member's account, 0023) are not built; nor its organisation number, a billing detail the leader alone
+  reads. "Manage members" leads to the Group page, where invitations and removals are (handoff 6.8).
+- **The Privacy tab's retention row** now states the rule, with the days read from the setting row the job uses.
+- **Section 13 in the database, proven from the catalogue** (`hardening_invariants.sql`): no staff role holds a
+  privilege on any table, and the only functions it may run that touch answers, scores or profiles are the five
+  reviewed jobs (`claim_mail`, `claim_reminders`, `close_round`, `close_scan`, `open_round`), none returning rows.
+  Every client function keyed by a group, a round, a meeting or a scan is called as a member of
+  another group and as a former member, and each answers null, false or a refusal; a current member is the
+  control. Every table a client may select is read by both, and neither sees a row. A new reader is covered the
+  day it is added.
+- **Section 13's flows:** the extension path runs in the browser (`extension.spec.ts`): three answer through the
+  link, the closing date passes and the link stays open with a count, it passes again and the link says no team
+  view was made. Upgrade, charter, diagnostic, results, focus area, action and agenda run as one chained flow on
+  one group (`chain.spec.ts`).
+- **The accessibility pass** (`a11y.spec.ts`, `support/a11y.ts`) adds what axe does not check, over every public
+  page and every page of a group with content: every control at least 44 by 44 px at 390 and 360 px (a link
+  inside a sentence excepted, WCAG 2.5.5); Tab reaches every control with the 2 px focus ring and is trapped
+  nowhere; nothing drawn with a pointer cursor is left outside a control; a small coloured mark with no words is
+  hidden as decoration beside its words, and every meter says its value in words. axe's own rules, contrast at
+  4.5 to 1 among them, stay on everywhere.
+- **Hosted:** 0026 carries several `DELETE` statements in function bodies, so it goes through the owner's SQL
+  editor (D-22), after 0024 and 0025.

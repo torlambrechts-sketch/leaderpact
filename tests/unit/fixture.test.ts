@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { E2E_GROUPS, FLOW_LEADER, LUMIO, SHOTS, TEAM_STATES, localOnly, render } from '../../scripts/seed/fixture.mjs'
+import { CHAIN_FLOW, E2E_GROUPS, FLOW_LEADER, LUMIO, SHOTS, TEAM_STATES, localOnly, render } from '../../scripts/seed/fixture.mjs'
 
 /**
  * The fixture (CLAUDE.md, The fixture): Lumio AS with the Lumio leadership group of 8 led by Kari Nordmann,
@@ -15,8 +15,8 @@ describe('the fixture', () => {
   })
 
   it('uses addresses that cannot receive mail, and codes the scan accepts', () => {
-    for (const p of [...LUMIO.people, FLOW_LEADER]) expect(p.email).toMatch(/@lumio\.example$/)
-    const all = [LUMIO, ...E2E_GROUPS, ...Object.values(TEAM_STATES)]
+    for (const p of [...LUMIO.people, FLOW_LEADER, ...CHAIN_FLOW.people]) expect(p.email).toMatch(/@lumio\.example$/)
+    const all = [LUMIO, ...E2E_GROUPS, ...Object.values(TEAM_STATES), CHAIN_FLOW]
     for (const g of all) expect(g.scan.code).toMatch(/^[A-Za-z0-9_-]{22,64}$/)
     expect(new Set(all.map((g) => g.scan.code)).size).toBe(all.length)
     expect(new Set(all.map((g) => g.group.id)).size).toBe(all.length)
