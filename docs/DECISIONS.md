@@ -1278,3 +1278,53 @@ The owner, on the overview's "What it does": "make the links and articles for th
   trial too, for its meeting. Both rounds' planned closing dates follow the day they opened.
 - **The live picture is cropped below the meeting's header.** A cloud session's local database has no Realtime,
   so the fixture runs `--live-off` and the header says the sync is off; the picture shows the meeting itself.
+
+## D-55 — The Sentral connection (M17)
+
+Handoff A.3 and 13; milestone 17: "An event arrives at Sentral and a command round-trips. A replayed token is
+refused. The suite proves no answer field can leave." `supabase/tests/platform_invariants.sql` (18 checks) proves
+the database's half; `tests/unit/platform.test.ts` signs events as Sentral checks them; `tests/e2e/platform.spec.ts`
+sends a command signed as Sentral signs it through the Data API, and its replay is refused. Where the build chose:
+
+- **Ported from Orgpuls 0205 and 0207, with REUSE 6.1's two defects fixed.** Every claim check is null-safe and
+  `exp` and `iat` must be numbers, so a token with no audience or no lifetime is refused; and the audit row is
+  written as soon as the signature passes, so an unknown command, a missing scope or a stray argument is recorded
+  too. A stray argument is refused, not dropped. The audit keeps argument names, never values, and is deleted only
+  after 24 months.
+- **Secrets live in Vault only.** 0025 makes the token secret, the webhook secret and the dispatcher's secret at
+  random. `app.platform_hand_over(nonce)` sends the first two to Sentral's secret-intake through pg_net, with the
+  one-time number Sentral's owner opens there, so no person reads them; Sentral switches LeaderPact's installation
+  on when it holds both (its 0065). pg_cron sends the dispatcher's secret and the dispatcher asks the database
+  whether a call carries it (`dispatch_authorised`), so the dispatcher needs no secret of its own (it supersedes
+  D-53's `LEADERPACT_DISPATCH_SECRET`).
+- **One webhook secret per product.** The app's own events (`template.requested`, `content.inventory`, D-35) are
+  signed with `PLATFORM_WEBHOOK_SECRET`; the database's with Vault's. They must be one value. If Sentral already
+  holds the app's, Vault takes it (`app.platform_set_webhook_secret`) and the hand-over sends the token secret alone;
+  otherwise the hand-over sends both and the app's environment takes Vault's.
+- **Events are what Sentral projects** (its `ingest_events`): `org.created` (name, the first group's size, when),
+  `org.deleted`, `member.invited` (an invitation, no address), `member.joined` and `member.left` (an account holder
+  in at least one, or none, of the organisation's groups), `billing.changed` and `usage.daily`. Owner E3 to E6: the
+  member names Sentral parses; usage without open or closed counts or round dates; no organisation number; one
+  organisation per tenant, its groups' plans summed (seats are paying groups, the price the total per interval, a
+  monthly group counted twelve times when another pays yearly, in the currency most groups pay in). The registry
+  is the only list of fields that may leave; the suite holds it exactly and against a block list.
+- **Commands:** `orgs.list`, `orgs.get` (groups and their plans, members and usage; no round, no person's sign-in
+  time), `orgs.resync`, `billing.cancel`, `billing.cancel_withdraw`, `billing.move_to_free`, `billing.set_status`
+  (owner D1: an invoice paid renews the period; a failed payment starts the grace), `users.deactivate` (out of every
+  group of the organisation; the only leader of a group with others stays), `users.resend_invite`, `modules.list`
+  (in the reply Sentral's modules screen reads) and `modules.set_status` (forward only). No command adds, invites or
+  promotes anyone, reads an answer, or erases (E8).
+- **Not yet:** `billing.set_plan` (an interval change has nothing to bill until a payment provider exists, D-33),
+  `modules.pilot` (no pilot groups yet, owner D8) and `demo.*` (the demo is the fixture's, not a command's). Each
+  waits for its milestone or the owner.
+- **Delivery** is the dispatcher's (D-53), every five minutes, in batches of 50, each signed with `x-platform-*`
+  headers like the app's events; a batch Sentral refuses is tried again later, at most 20 times, and events go
+  after 30 days. Events need none of the mail settings.
+- **Sentral's half** is its own repository's work (owner E1, E2): its `product-command` must take the product,
+  sign for audience `leaderpact` and know LeaderPact's commands and scopes (`users:*` included). Its product-events
+  receiver already takes LeaderPact (its 0090).
+- **To connect, once 0025 is on the hosted project:** set `platform_installation` to Sentral's product-events
+  address; in Sentral, open an intake for LeaderPact; in LeaderPact's SQL editor run
+  `select app.platform_hand_over('<the one-time number>')` (with `false` as a second argument if Sentral already
+  holds a webhook secret, after `app.platform_set_webhook_secret` with that value); then turn
+  `platform_installation.enabled` on.
