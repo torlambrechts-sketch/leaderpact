@@ -39,7 +39,7 @@ export async function ArticleView({ entry, content: c }: { entry: ArticleEntry; 
   })
 
   return (
-    <article className="mx-auto flex max-w-[1120px] flex-col px-4 pb-6 md:px-gutter">
+    <article className="mx-auto flex max-w-site flex-col px-4 pb-6 md:px-gutter">
       <JsonLd
         data={graph(
           organization(),
@@ -62,7 +62,7 @@ export async function ArticleView({ entry, content: c }: { entry: ArticleEntry; 
         )}
       />
 
-      <header className="grid items-center gap-8 pt-8 md:pt-12 lg:grid-cols-[minmax(0,1fr)_380px]">
+      <header className="grid items-center gap-8 pt-8 md:pt-12 lg:grid-cols-[minmax(0,1fr)_400px] xl:gap-16">
         <div className="flex max-w-[760px] flex-col gap-4">
           <Breadcrumb label={t('common.breadcrumb')} trail={[{ name: t('common.home'), path: '/' }, { name: t('articles.crumb'), path: ARTICLES_PATH }]} />
           <h1 className="m-0 font-display text-[44px] font-medium leading-[1.08] tracking-[-0.03em] max-md:text-[32px]">{c.h1}</h1>
@@ -77,7 +77,8 @@ export async function ArticleView({ entry, content: c }: { entry: ArticleEntry; 
         {entry.art ? <ArticleArt kind={entry.art} className="hidden h-auto w-full lg:block" /> : null}
       </header>
 
-      <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,720px)_minmax(0,1fr)] lg:gap-14">
+      {/* the text at the reading measure, and beside it, filling the frame (D-48), what is on the page and the template */}
+      <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-14 xl:grid-cols-[minmax(0,800px)_minmax(0,1fr)] xl:gap-16">
         <div className="flex min-w-0 flex-col gap-8">
           <section aria-labelledby="in-short" className="rounded-card bg-surface px-6 py-5">
             <h2 id="in-short" className="m-0 text-[13px] font-bold uppercase tracking-[0.08em] text-text-2">
@@ -94,7 +95,7 @@ export async function ArticleView({ entry, content: c }: { entry: ArticleEntry; 
 
           <Blocks blocks={c.blocks} sources={c.sources} />
 
-          {entry.template ? <TemplateTeaser slug={entry.template} /> : null}
+          {entry.template ? <TemplateTeaser slug={entry.template} className="lg:hidden" /> : null}
 
           <section aria-labelledby="sources" className="border-t border-bar pt-6">
             <h2 id="sources" className="m-0 text-[13px] font-bold uppercase tracking-[0.08em] text-text-2">
@@ -113,26 +114,29 @@ export async function ArticleView({ entry, content: c }: { entry: ArticleEntry; 
           </section>
         </div>
 
-        {toc.length >= 3 ? (
-          <nav aria-label={t('common.onThisPage')} className="hidden lg:block">
-            <div className="sticky top-6 flex flex-col gap-3 rounded-card border border-bar px-5 py-4">
-              <p className="m-0 text-[13px] font-bold uppercase tracking-[0.08em] text-text-2">{t('common.onThisPage')}</p>
-              <ol className="m-0 flex list-none flex-col gap-2 p-0 text-[14px] leading-[1.45]">
-                {toc.map((h) => (
-                  <li key={h.id}>
-                    <Link href={`#${h.id}` as Route} className="text-text-2 hover:text-ink">
-                      {h.text}
-                    </Link>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </nav>
-        ) : null}
+        <div className="hidden lg:block">
+          <div className="sticky top-6 flex flex-col gap-4">
+            {toc.length >= 3 ? (
+              <nav aria-label={t('common.onThisPage')} className="flex flex-col gap-3 rounded-card border border-bar px-5 py-4">
+                <p className="m-0 text-[13px] font-bold uppercase tracking-[0.08em] text-text-2">{t('common.onThisPage')}</p>
+                <ol className="m-0 flex list-none flex-col gap-2 p-0 text-[14px] leading-[1.45]">
+                  {toc.map((h) => (
+                    <li key={h.id}>
+                      <Link href={`#${h.id}` as Route} className="text-text-2 hover:text-ink">
+                        {h.text}
+                      </Link>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            ) : null}
+            {entry.template ? <TemplateTeaser slug={entry.template} compact /> : null}
+          </div>
+        </div>
       </div>
 
       {entry.related ? (
-        <section aria-labelledby="read-next" className="mt-14">
+        <section aria-labelledby="read-next" className="mt-16">
           <h2 id="read-next" className="m-0 font-display text-[24px] font-medium tracking-[-0.02em]">
             {t('common.readNext')}
           </h2>

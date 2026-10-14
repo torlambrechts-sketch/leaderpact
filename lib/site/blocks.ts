@@ -192,7 +192,8 @@ export const FIGURES = [
 ] as const
 
 /** The blocks that take the page's full width on a product page; text keeps the reading measure */
-export const WIDE = new Set<Block['t']>(['feature', 'value', 'shot', 'flow', 'stats', 'compare', 'cycle', 'steps'])
+/** the blocks that take a wide page's whole frame (D-47, D-48); text keeps the reading measure beside its heading */
+export const WIDE = new Set<Block['t']>(['feature', 'value', 'shot', 'flow', 'stats', 'compare', 'cycle', 'steps', 'cards', 'table'])
 export const isFigure = (b: Block) => (FIGURES as readonly string[]).includes(b.t)
 
 /**

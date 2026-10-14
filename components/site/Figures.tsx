@@ -638,11 +638,13 @@ export function Specimen({ b }: { b: Of<'specimen'> }) {
 }
 
 /** Cards in a row, numbered when their order is the point */
-export function Cards({ b, sources }: { b: Of<'cards'>; sources: readonly Source[] }) {
+export function Cards({ b, sources, wide = false }: { b: Of<'cards'>; sources: readonly Source[]; wide?: boolean }) {
   const n = b.items.length
+  // across a wide page's frame (D-48) four cards stand in one row; in an article's column, two by two
+  const columns = n === 3 || n >= 5 ? 'lg:grid-cols-3' : wide && n === 4 ? 'xl:grid-cols-4' : ''
   return (
     <Figure foot={b.source ? <Cite n={b.source} sources={sources} /> : null} className="my-0">
-      <ul className={cn('m-0 grid list-none gap-3 p-0 sm:grid-cols-2', n === 3 || n >= 5 ? 'lg:grid-cols-3' : '')}>
+      <ul className={cn('m-0 grid list-none gap-3 p-0 sm:grid-cols-2', columns)}>
         {b.items.map((item, i) => (
           <li key={i} className={cn('flex flex-col gap-1.5 rounded-card px-5 py-4', b.numbered ? fill(i) : 'bg-surface')}>
             {b.numbered ? (

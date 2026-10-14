@@ -441,6 +441,95 @@ function Focus() {
   )
 }
 
+/** a sealed ballot box: a folded slip goes in by the slot, and the shield on the front says no slip has a name */
+function Ballot() {
+  return (
+    <>
+      <g transform="rotate(-8 220 112)">
+        <rect x="184" y="62" width="72" height="96" rx="8" fill={PAPER} {...line} />
+        <Text x={196} y={80} w={46} fill={INK} />
+        <Text x={196} y={95} w={34} />
+        <rect x="196" y="112" width="16" height="16" rx="5" fill={TEAL} {...line} />
+        <path d="M200 120 l3 3 l6 -7" fill="none" {...line} />
+      </g>
+      <rect x="112" y="176" width="216" height="134" rx="18" fill={LAV} {...line} />
+      <rect x="104" y="148" width="232" height="38" rx="14" fill={PAPER} {...line} />
+      <rect x="170" y="162" width="100" height="10" rx="5" fill={INK} />
+      <path d="M220 206 l30 10 v22 c0 21 -14 32 -30 39 c-16 -7 -30 -18 -30 -39 v-22 z" fill={YELLOW} {...line} />
+      <path d="M207 238 l9 9 l17 -19" fill="none" {...line} />
+    </>
+  )
+}
+
+/** an open book of research: text on one page, a bar chart on the other, a footnote marker beside each */
+function Research() {
+  return (
+    <>
+      <path d="M92 278 V290 C138 280 190 282 220 296 C250 282 302 280 348 290 V278" fill={LAV_STRONG} {...line} />
+      <path d="M220 100 C188 86 136 84 92 94 V278 C136 268 188 270 220 284 Z" fill={PAPER} {...line} />
+      <path d="M220 100 C252 86 304 84 348 94 V278 C304 268 252 270 220 284 Z" fill={PAPER} {...line} />
+      <path d="M220 100 V284" {...line} />
+      {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+        <rect key={i} x="112" y={118 + i * 21} width={[84, 72, 88, 60, 80, 70, 52][i]!} height="7" rx="3.5" fill={i === 0 ? INK : BAR} />
+      ))}
+      <circle cx={196} cy={225} r="7" fill={YELLOW} stroke={INK} strokeWidth="1.8" />
+      <path d="M244 244 H328" {...line} />
+      {[
+        { x: 252, h: 44, fill: TEAL },
+        { x: 274, h: 76, fill: YELLOW },
+        { x: 296, h: 58, fill: LAV },
+        { x: 318, h: 96, fill: ORANGE },
+      ].map((b) => (
+        <rect key={b.x} x={b.x - 8} y={244 - b.h} width="16" height={b.h} rx="4" fill={b.fill} {...line} />
+      ))}
+      <rect x="244" y="122" width="58" height="7" rx="3.5" fill={INK} />
+      <circle cx={318} cy={125} r="7" fill={YELLOW} stroke={INK} strokeWidth="1.8" />
+      <rect x="244" y="256" width="70" height="7" rx="3.5" fill={BAR} />
+    </>
+  )
+}
+
+/** articles to read: three cards fanned, the front one with its picture, its title and a ribbon to keep the place */
+function Reading() {
+  return (
+    <>
+      <rect x="104" y="78" width="172" height="222" rx="16" fill={LAV} {...line} transform="rotate(-10 190 189)" />
+      <rect x="176" y="72" width="172" height="222" rx="16" fill={TEAL} {...line} transform="rotate(8 262 183)" />
+      <rect x="132" y="70" width="176" height="236" rx="16" fill={PAPER} {...line} />
+      <rect x="150" y="90" width="140" height="70" rx="10" fill={YELLOW} {...line} />
+      <path d="M164 146 l24 -20 l18 12 l28 -24 l22 14" fill="none" {...line} />
+      <Text x={150} y={178} w={124} fill={INK} />
+      <Text x={150} y={193} w={96} fill={INK} />
+      <Text x={150} y={214} w={136} />
+      <Text x={150} y={229} w={118} />
+      <Text x={150} y={244} w={130} />
+      <Text x={150} y={259} w={92} />
+      <path d="M286 64 v46 l-11 -9 l-11 9 v-46" fill={ORANGE} {...line} />
+    </>
+  )
+}
+
+/** a template's files: a document with its folded corner and its checklist, a second behind it, and the download */
+function Files() {
+  return (
+    <>
+      <rect x="176" y="58" width="152" height="204" rx="14" fill={TEAL} {...line} transform="rotate(7 252 160)" />
+      <path d="M124 84 H232 L268 120 V296 a14 14 0 0 1 -14 14 H124 a14 14 0 0 1 -14 -14 V98 a14 14 0 0 1 14 -14 Z" fill={PAPER} {...line} />
+      <path d="M232 84 V110 a10 10 0 0 0 10 10 H268" fill={SUNK} {...line} />
+      <rect x="132" y="104" width="76" height="11" rx="5.5" fill={INK} />
+      {[0, 1, 2, 3].map((i) => (
+        <g key={i}>
+          <rect x="132" y={136 + i * 36} width="18" height="18" rx="6" fill={[LAV, YELLOW, TEAL, PAPER][i]} {...line} />
+          <Text x={160} y={137 + i * 36} w={[84, 70, 90, 62][i]!} fill={INK} />
+          <Text x={160} y={150 + i * 36} w={[58, 74, 50, 66][i]!} />
+        </g>
+      ))}
+      <circle cx="300" cy="262" r="38" fill={YELLOW} {...line} />
+      <path d="M300 240 V282 M284 268 L300 284 L316 268" fill="none" {...line} />
+    </>
+  )
+}
+
 /** the loop: scan, team view, charter, diagnostic, back round, around the group */
 function Loop() {
   const steps = [
@@ -492,6 +581,10 @@ const DRAWINGS: Record<ArtKind, () => React.ReactNode> = {
   diagnostic: Diagnostic,
   focus: Focus,
   loop: Loop,
+  ballot: Ballot,
+  research: Research,
+  reading: Reading,
+  files: Files,
 }
 
 export function ArticleArt({ kind, className }: { kind: ArtKind; className?: string }) {

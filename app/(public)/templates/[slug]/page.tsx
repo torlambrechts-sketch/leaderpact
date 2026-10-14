@@ -41,7 +41,7 @@ export default async function TemplatePage(props: Props) {
   const files = template.files.map((f) => ({ name: f.name, format: f.format, label: c.files[f.name] ?? f.name }))
 
   return (
-    <div className="mx-auto flex max-w-[1120px] flex-col px-4 pb-6 md:px-gutter">
+    <div className="mx-auto flex max-w-site flex-col px-4 pb-6 md:px-gutter">
       <JsonLd
         data={graph(
           organization(),
@@ -54,7 +54,7 @@ export default async function TemplatePage(props: Props) {
         )}
       />
       {/* phones: the heading, then the form, then the text; from 1024 px the form sits beside both */}
-      <div className="grid gap-x-14 gap-y-8 pt-8 md:pt-12 lg:grid-cols-[minmax(0,1fr)_400px]">
+      <div className="grid gap-x-14 gap-y-8 pt-8 md:pt-12 lg:grid-cols-[minmax(0,1fr)_400px] xl:grid-cols-[minmax(0,1fr)_440px] xl:gap-x-20">
         <div className="flex min-w-0 flex-col gap-4 lg:col-start-1 lg:row-start-1">
           <Breadcrumb label={t('common.breadcrumb')} trail={[{ name: t('common.home'), path: '/' }, { name: t('templates.crumb'), path: TEMPLATES_PATH }]} />
           <p className="m-0 self-start rounded-pill bg-accent px-3 py-[5px] text-[12.5px] font-semibold text-accent-ink">{c.kicker}</p>
@@ -72,7 +72,7 @@ export default async function TemplatePage(props: Props) {
           <Blocks blocks={c.blocks} />
         </div>
       </div>
-      <section aria-labelledby="read-with" className="mt-14">
+      <section aria-labelledby="read-with" className="mt-16">
         <h2 id="read-with" className="m-0 font-display text-[24px] font-medium tracking-[-0.02em]">
           {t('templates.readWith')}
         </h2>

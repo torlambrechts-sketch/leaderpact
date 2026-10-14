@@ -4,6 +4,7 @@ import type { Route } from 'next'
 import { ArrowRight, FileText } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Breadcrumb } from '@/components/site/Breadcrumb'
+import { ArticleArt } from '@/components/site/art/ArticleArt'
 import { JsonLd } from '@/components/site/JsonLd'
 import { pageCard } from '@/lib/site/cards'
 import { absolute } from '@/lib/site/config'
@@ -22,17 +23,20 @@ export default async function TemplatesPage() {
   const t = await getTranslations('site')
   const templates = allTemplates()
   return (
-    <div className="mx-auto flex max-w-[1120px] flex-col gap-8 px-4 pb-6 pt-8 md:px-gutter md:pt-12">
+    <div className="mx-auto flex max-w-site flex-col gap-10 px-4 pb-6 pt-8 md:px-gutter md:pt-12">
       <JsonLd
         data={graph(organization(), {
           ...webPage(TEMPLATES_PATH, t('templates.h1'), t('templates.description'), 'CollectionPage'),
           hasPart: templates.map(({ template, content }) => ({ '@type': 'DigitalDocument', name: content.h1, url: absolute(templatePath(template.slug)) })),
         }, breadcrumbs([{ name: t('common.home'), path: '/' }, { name: t('templates.crumb'), path: TEMPLATES_PATH }]))}
       />
-      <header className="flex max-w-[760px] flex-col gap-4">
-        <Breadcrumb label={t('common.breadcrumb')} trail={[{ name: t('common.home'), path: '/' }]} />
-        <h1 className="m-0 font-display text-[44px] font-medium leading-[1.08] tracking-[-0.03em] max-md:text-[32px]">{t('templates.h1')}</h1>
-        <p className="m-0 text-[19px] leading-[1.6] text-text-3 max-md:text-[17px]">{t('templates.lead')}</p>
+      <header className="grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_400px] xl:gap-16">
+        <div className="flex max-w-[760px] flex-col gap-4">
+          <Breadcrumb label={t('common.breadcrumb')} trail={[{ name: t('common.home'), path: '/' }]} />
+          <h1 className="m-0 font-display text-[44px] font-medium leading-[1.08] tracking-[-0.03em] max-md:text-[32px]">{t('templates.h1')}</h1>
+          <p className="m-0 text-[19px] leading-[1.6] text-text-3 max-md:text-[17px]">{t('templates.lead')}</p>
+        </div>
+        <ArticleArt kind="files" className="hidden h-auto w-full lg:block" />
       </header>
       <ul className="m-0 grid list-none gap-4 p-0 md:grid-cols-2">
         {templates.map(({ template, content }) => (

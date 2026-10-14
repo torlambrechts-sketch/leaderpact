@@ -31,7 +31,7 @@ export function PersonalView({ scan }: { scan: Scan }) {
     setState(scores ? { kind: 'view', scores } : { kind: 'none', started: !!draft && Object.keys(draft.answers).length > 0 })
   }, [scan])
 
-  if (state.kind === 'reading') return <div aria-busy className="mx-auto mt-6 min-h-[480px] max-w-[1040px] px-4 md:mt-9" />
+  if (state.kind === 'reading') return <div aria-busy className="mx-auto mt-6 min-h-[480px] max-w-site px-4 md:px-gutter md:mt-9" />
 
   if (state.kind === 'none') {
     return (
@@ -49,7 +49,7 @@ export function PersonalView({ scan }: { scan: Scan }) {
   }
 
   return (
-    <div className="mx-auto mt-6 grid max-w-[1040px] items-start gap-6 px-4 md:mt-9 min-[900px]:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
+    <div className="mx-auto mt-6 grid max-w-site items-start gap-6 px-4 md:mt-9 md:px-gutter min-[900px]:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
       <PersonalCard scores={state.scores} />
       <SaveCard />
     </div>

@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { ArticleCards } from '@/components/site/ArticleCards'
 import { Breadcrumb } from '@/components/site/Breadcrumb'
 import { JsonLd } from '@/components/site/JsonLd'
+import { ArticleArt } from '@/components/site/art/ArticleArt'
 import { TemplateTeaser } from '@/components/site/TemplateTeaser'
 import { ARTICLE_GROUPS, ARTICLES_PATH, articlePath, PUBLISHED } from '@/lib/site/articles'
 import { allArticles } from '@/lib/site/article-load'
@@ -26,7 +27,7 @@ export default async function ArticlesPage() {
   const sections = ARTICLE_GROUPS.map((group) => ({ group, slugs: PUBLISHED.filter((a) => a.group === group).map((a) => a.slug) })).filter((s) => s.slugs.length)
 
   return (
-    <div className="mx-auto flex max-w-[1120px] flex-col gap-12 px-4 pb-6 pt-8 md:px-gutter md:pt-12">
+    <div className="mx-auto flex max-w-site flex-col gap-14 px-4 pb-6 pt-8 md:px-gutter md:pt-12">
       <JsonLd
         data={graph(
           organization(),
@@ -40,10 +41,13 @@ export default async function ArticlesPage() {
           ]),
         )}
       />
-      <header className="flex max-w-[760px] flex-col gap-4">
-        <Breadcrumb label={t('common.breadcrumb')} trail={[{ name: t('common.home'), path: '/' }]} />
-        <h1 className="m-0 font-display text-[44px] font-medium leading-[1.08] tracking-[-0.03em] max-md:text-[32px]">{t('articles.h1')}</h1>
-        <p className="m-0 text-[19px] leading-[1.6] text-text-3 max-md:text-[17px]">{t('articles.lead')}</p>
+      <header className="grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_400px] xl:gap-16">
+        <div className="flex max-w-[760px] flex-col gap-4">
+          <Breadcrumb label={t('common.breadcrumb')} trail={[{ name: t('common.home'), path: '/' }]} />
+          <h1 className="m-0 font-display text-[44px] font-medium leading-[1.08] tracking-[-0.03em] max-md:text-[32px]">{t('articles.h1')}</h1>
+          <p className="m-0 text-[19px] leading-[1.6] text-text-3 max-md:text-[17px]">{t('articles.lead')}</p>
+        </div>
+        <ArticleArt kind="reading" className="hidden h-auto w-full lg:block" />
       </header>
       {sections.map((s) => (
         <section key={s.group} aria-labelledby={`group-${s.group}`} className="flex flex-col gap-2">
@@ -58,8 +62,10 @@ export default async function ArticlesPage() {
         <h2 id="templates" className="m-0 font-display text-[26px] font-medium tracking-[-0.02em]">
           {t('articles.templates')}
         </h2>
-        <TemplateTeaser slug="leadership-team-charter-template" />
-        <TemplateTeaser slug="leadership-team-meeting-agenda-template" />
+        <div className="grid gap-4 xl:grid-cols-2">
+          <TemplateTeaser slug="leadership-team-charter-template" />
+          <TemplateTeaser slug="leadership-team-meeting-agenda-template" />
+        </div>
       </section>
     </div>
   )
