@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { PLAN_FLOW, render } from '../../scripts/seed/fixture.mjs'
 import { chosenMeeting, missing, readiness, timeCheck } from '@/lib/meetings/build'
-import { agendaSchema, itemFieldsSchema, meetingInputSchema, proposeSchema, replySchema } from '@/lib/meetings/schema'
+import { agendaSchema, itemFieldsSchema, meetingInputSchema, meetingsSchema, proposeSchema, replySchema } from '@/lib/meetings/schema'
 
 /**
  * Milestone 13 (handoff 6.14; D-47): "An unmatched item is flagged and can be confirmed. Open actions appear on
@@ -67,6 +67,13 @@ describe("the agenda's boundary", () => {
     expect(replySchema.safeParse({ ok: true, meeting: UUID }).success).toBe(true)
     expect(replySchema.safeParse({ ok: false, reason: 'no_task' }).success).toBe(true)
     expect(replySchema.safeParse({ ok: true, item: UUID }).success).toBe(false)
+  })
+
+  it('reads a meeting as not the next one when the group has no next meeting at all', () => {
+    const m = { id: UUID, title: 'Leadership meeting', meets_on: '2026-10-01', starts_at: '09:00', minutes: 60, status: 'planned', next: null }
+    const read = meetingsSchema.parse({ meetings: [m], next: null, meeting_minutes: 90, leader: true, can_plan: true })
+    expect(read.meetings[0]!.next).toBe(false)
+    expect(meetingsSchema.safeParse({ meetings: [{ ...m, next: 'yes' }], next: null, meeting_minutes: 90, leader: true, can_plan: true }).success).toBe(false)
   })
 
   it('reads open actions as a list on the next agenda and as nothing on any other', () => {

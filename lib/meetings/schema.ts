@@ -21,7 +21,11 @@ export const meetingSchema = z.strictObject({
   starts_at: time,
   minutes: z.number().int().min(15).max(480),
   status: z.enum(['planned', 'live', 'held', 'cancelled']),
-  next: z.boolean(),
+  // null when the group has no next meeting at all (0018 compares with no meeting): not the next one
+  next: z
+    .boolean()
+    .nullable()
+    .transform((v) => v === true),
 })
 export type Meeting = z.infer<typeof meetingSchema>
 
