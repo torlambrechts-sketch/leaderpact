@@ -18,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * Every address the app has no page for, and every page that says it has nothing (D-49): a 404 in the site's
+ * Every address the app has no page for, and every page that says it has nothing (D-50): a 404 in the site's
  * chrome, with the way to the scan and to the pages a visitor most likely came for. The domain held an earlier
  * site, and its old addresses now end here, where they used to end at sign-in.
  */

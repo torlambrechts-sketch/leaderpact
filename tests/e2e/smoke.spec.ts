@@ -39,7 +39,7 @@ test('the security headers are sent', async ({ request }) => {
   expect(headers['x-powered-by']).toBeUndefined()
 })
 
-test('an address under no route answers 404 in the site, never sign-in, and the app stays behind it (D-49)', async ({ page, request, baseURL }) => {
+test('an address under no route answers 404 in the site, never sign-in, and the app stays behind it (D-50)', async ({ page, request, baseURL }) => {
   for (const path of ['/blog/2019/hello-world', '/product/old-widget', '/sitemap_index.xml', '/articles/no-such-article']) {
     const response = await request.get(path, { maxRedirects: 0 })
     expect(response.status(), path).toBe(404)

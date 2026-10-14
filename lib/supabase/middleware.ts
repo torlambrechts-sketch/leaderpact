@@ -11,7 +11,7 @@ import { readSupabaseEnv } from '@/lib/supabase/env'
  * **Deny by default.** Orgpuls made every unknown kebab-case address public, because its public
  * site has many pages. LeaderPact's public surface is short and named below; every other route
  * needs a session. A new public page is added here on purpose, never by accident. An address under
- * no route at all is neither: it is answered 404 (D-49).
+ * no route at all is neither: it is answered 404 (D-50).
  *
  * The four rules about failure carry over from Orgpuls unchanged, because each was learned from an
  * outage that returned 500 on every URL:
@@ -72,7 +72,7 @@ export const SESSION_PATHS = ['/app', '/api'] as const
 export const isPublic = (path: string) => PUBLIC_PATHS.some((p) => path === p || (p !== '/' && path.startsWith(`${p}/`)))
 
 /**
- * Whether an address is under none of the app's routes (D-49): a link from the domain's earlier site, or a typo.
+ * Whether an address is under none of the app's routes (D-50): a link from the domain's earlier site, or a typo.
  * There is nothing there to protect, so it goes on to Next, which answers 404 with the site's not-found page,
  * where it used to go to sign-in and tell search engines that every old address was a sign-in page. The address
  * is read the way a router could read it: decoded, repeated slashes as one, and without case, so no spelling of a
@@ -104,7 +104,7 @@ export async function updateSession(request: NextRequest) {
   const path = request.nextUrl.pathname
   // no session needed here, so nothing here may depend on one being obtainable
   if (isPublic(path)) return NextResponse.next({ request })
-  // no route here at all: Next answers 404, with nothing behind it to guard (D-49)
+  // no route here at all: Next answers 404, with nothing behind it to guard (D-50)
   if (isUnknown(path)) return NextResponse.next({ request })
 
   try {

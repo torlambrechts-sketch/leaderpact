@@ -19,11 +19,12 @@ import { loadBillingRules, loadGroupPlan } from '@/lib/billing/load'
 import { loadGroupTeamView } from '@/lib/groups/load'
 import { dateFormat } from '@/lib/i18n/dates'
 import { formatPrice, loadTeamPrice } from '@/lib/plans/load'
+import { loadMeetings } from '@/lib/meetings/load'
 import { myOpenActions } from '@/lib/plan/build'
 import { loadPlan } from '@/lib/plan/load'
 import { loadMyProfile } from '@/lib/profile/load'
 import { loadRounds } from '@/lib/rounds/load'
-import { SIGN_IN_PATH, joinPath, planBillingPath, planPath, profileTestPath, roundPath, teamPath, upgradePath } from '@/lib/routes'
+import { SIGN_IN_PATH, joinPath, meetingsPath, planBillingPath, planPath, profileTestPath, roundPath, teamPath, upgradePath } from '@/lib/routes'
 import { HomeHero } from './HomeHero'
 import { NeedsYou } from './NeedsYou'
 
@@ -44,7 +45,8 @@ export async function generateMetadata(): Promise<Metadata> {
  * at 4"; the closing date is said once, in the scan card. On the Free plan the leader sees the price,
  * Upgrade and, while the group has had none, the trial; a member is asked to ask their team leader (D-30,
  * D-33). With the Team plan or its trial the card is gone and the status line names the plan, and Home shows
- * the person's own open actions in "Needs you" and the group's active focus areas (milestone 12).
+ * the person's own open actions in "Needs you", the group's active focus areas (milestone 12) and its next
+ * meeting (milestone 13).
  */
 export default async function HomePage({ params }: { params: Promise<{ group: string }> }) {
   const { group } = await params
@@ -67,13 +69,15 @@ export default async function HomePage({ params }: { params: Promise<{ group: st
   const known = plan !== null && plan !== 'none' ? plan : null
   const free = known?.access === 'free'
   const leader = data.role === 'leader'
-  // the Full diagnostic asking this person, and the plan's focus areas and their own actions, with the Team
-  // plan or its trial (milestones 10 and 12)
-  const [rounds, focus] = known && !free ? await Promise.all([loadRounds(group), loadPlan(group)]) : [null, null]
+  // the Full diagnostic asking this person, the plan's focus areas and their own actions, and the next meeting,
+  // with the Team plan or its trial (milestones 10, 12 and 13)
+  const [rounds, focus, meetings] = known && !free ? await Promise.all([loadRounds(group), loadPlan(group), loadMeetings(group)]) : [null, null, null]
   const asking = rounds && rounds !== 'none' ? rounds.rounds.find((r) => r.phase === 'answering' && r.me === 'to_answer') : undefined
   const ownPlan = focus && focus !== 'none' ? focus : null
   const mine = ownPlan ? myOpenActions(ownPlan) : 0
   const focusAreas = ownPlan ? ownPlan.focus_areas.filter((f) => f.status === 'active') : null
+  const meetingList = meetings && meetings !== 'none' ? meetings : null
+  const nextMeeting = meetingList?.meetings.find((m) => m.next) ?? null
   const [price, rules] = leader && free ? await Promise.all([loadTeamPrice(), known.trialAvailable ? loadBillingRules() : null]) : [null, null]
   const date = (iso: string) => dateFormat({ locale: 'en', timeZone: 'UTC' }, { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date(iso))
   const status = !known
@@ -177,6 +181,29 @@ export default async function HomePage({ params }: { params: Promise<{ group: st
             </>
           )}
         </Card>
+
+        {meetingList && (
+          <Card large className="flex flex-col gap-3">
+            <SectionHeader title={t('meetingTitle')} className="mb-0" />
+            {nextMeeting ? (
+              <div className="flex flex-col gap-0.5">
+                <p className="m-0 text-[15px] font-bold">{nextMeeting.title}</p>
+                <p className="m-0 text-[13.5px] text-text-2 max-md:text-[15px]">
+                  {t('meetingWhen', { day: date(`${nextMeeting.meets_on}T12:00:00Z`), time: nextMeeting.starts_at })}
+                </p>
+              </div>
+            ) : (
+              <p className="m-0 text-[14px] text-text-2 max-md:text-[15px]">{t('meetingNone')}</p>
+            )}
+            <Link
+              href={(nextMeeting ? `${meetingsPath(group)}?meeting=${nextMeeting.id}` : meetingsPath(group)) as Route}
+              className="inline-flex items-center gap-1.5 self-start text-[14px] font-bold text-ink underline underline-offset-2 max-md:min-h-[44px] max-md:text-[15px]"
+            >
+              {t('meetingLink')}
+              <ArrowRight aria-hidden size={15} />
+            </Link>
+          </Card>
+        )}
 
         {focusAreas && (
           <Card large className="flex flex-col gap-3">

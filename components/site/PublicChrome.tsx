@@ -7,7 +7,7 @@ import { allFeatures, featurePath, PLATFORM_PATH } from '@/lib/site/features'
 
 /**
  * The public site's chrome: the header with the Platform menu, the page, and the footer. The public layout wraps
- * every public page in it, and the not-found page uses it too (D-49), so an address that leads nowhere still has
+ * every public page in it, and the not-found page uses it too (D-50), so an address that leads nowhere still has
  * the site around it. The footer's privacy and data-processing links are on every public page, not only the
  * landing page: the scan is where a visitor most wants to know how answers are kept. The beacon counts page
  * views (D-39); the not-found page leaves it out, so an old address is not counted as a visit to a page.

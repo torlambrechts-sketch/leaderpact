@@ -1018,7 +1018,57 @@ at the design's 1080 px, the pages at 1056 px inside 1120, and the footer at 129
   (Articles) and a template with its download (Templates).
 - The privacy and data-processing pages and the personal view sit in the same frame, at its left edge.
 
-## D-49 — An address under no route answers 404 (owner, 14 October 2026)
+## D-49 — The agenda: task match and time check (M13)
+
+Handoff 6.14; milestone 13: "An unmatched item is flagged and can be confirmed. Open actions appear on the
+agenda." `supabase/tests/agenda_invariants.sql` (20 checks) proves both in the database, and
+`tests/e2e/plan.spec.ts` carries the plan flow on into the agenda. Where the build chose:
+
+- **A meeting is a title, a day, a start time and a length**, planned by the leader. The day and time are the
+  group's wall clock, as entered: the product holds no time zone per person yet (handoff 6.18), so the page
+  shows them as entered. A planned meeting can be changed or cancelled by the leader; a cancelled one keeps its
+  row and its agenda. The `live` and `held` states are named now for the live meeting (milestone 14).
+- **The agenda template is a versioned row** (handoff 9): the four item types, a meeting's usual length (90
+  minutes, the design's) and the closing item, which is the design's "Reflection: one thing to keep and one to
+  change", information, 5 minutes. A new meeting's agenda starts with it, owned by the leader, and it stays
+  last. The leader alone can remove it. The template allows 30 items, this build's limit.
+- **Any member proposes an item**; its type, desired outcome, owner, time box and team task may each wait. It
+  is ready with all four of type, outcome, owner and time box (handoff 6.14); an owner who has left the group
+  counts as none. Its proposer, its owner or the leader changes it; its proposer or the leader removes it, and a
+  removed item keeps its row. Items keep the order they were proposed in: the handoff asks for no reordering.
+- **The task match.** An item names one of the team tasks of the charter in force, or none. With none, or with
+  a task a newer charter dropped, it is flagged: a warning that says it stays if the leader confirms it. The
+  leader's "Keep it on the agenda" confirms it, and it then reads "Kept without a team task". Naming a task
+  later makes the keeping moot, and dropping it again flags it again. With no team tasks in force the check is
+  off, and the page asks the leader to define them in the charter. The closing item is about the meeting itself,
+  so it is never flagged.
+- **The time check** is the items' minutes against the meeting's length, worked out by the page: planned, then
+  minutes left, over or fitting. An item without a time box adds nothing and is not ready.
+- **Open actions on the next agenda.** The next meeting is the group's first planned one from today. Its agenda
+  lists every open action of the group, with owner, due date and focus area, as a block beside the items, not
+  as items: they take no time box. Another meeting's agenda points to the next one. The Plan page now says "Each
+  open action appears on the next agenda" (D-46).
+- **Home** shows the next meeting (handoff 6.7).
+- **Every paid area is built.** With the Team plan or its trial a group sees its own pages, so the sample's
+  banner for such a group ("not built for your group yet", D-33) is retired; the sample shows outside the Free
+  plan only when the plan cannot be read.
+- **The Team plan's.** Everything is written only while the group's plan includes `meetings` and it is not
+  read-only (`meetings_writable`); the suite checks from the catalogue that every client function writing a
+  meeting or an item asks it. On the Free plan the Meetings page stays the sample.
+- **Nothing in 0018 deletes a row**, and nothing is audited: the handoff's audit list names no meeting event.
+- **The fixture** gives the plan flow's group a charter in force with two team tasks, drafted and agreed through
+  the write paths, and no meeting, which the flow plans.
+- **Hosted, through the owner's SQL editor** (D-22). `apply_migration` held 0018 and timed out; the Postgres log
+  shows the query never arrived, and nothing was applied. 0018 holds no `DELETE` statement, so the connector's
+  hold is wider than the rule D-22 found. The SQL is not reshaped: the owner runs the script
+  `scripts/qa/editor-script.mjs 0018_agenda` makes. It was rehearsed on a local database built to 0017 with a
+  history table: applied in one transaction, the firewall six of six, the history hash matching the file, a
+  second run refused, every suite passing. The code merges once hosted carries 0018 (database first).
+- **Numbered D-49.** It was D-47, then D-48, until the platform's pages (#19) and the public site's frame (#22)
+  took those numbers first; 0018's header still names it D-47, since a migration's text is what its hosted
+  history records.
+
+## D-50 — An address under no route answers 404 (owner, 14 October 2026)
 
 The domain held an earlier site of some 5,000 pages, and Search Console still lists its sitemaps. Its old
 addresses reached the middleware, which denies by default, so every one of them went to sign-in: a redirect a

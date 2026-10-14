@@ -26,7 +26,7 @@ describe('isPublic', () => {
 })
 
 /**
- * An address under no route is answered 404 (D-49), not sent to sign-in. That is safe only while every route the
+ * An address under no route is answered 404 (D-50), not sent to sign-in. That is safe only while every route the
  * app has is named, public or behind a session: this reads app/ and holds it.
  */
 describe('isUnknown', () => {
