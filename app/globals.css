@@ -161,4 +161,8 @@
   z-index: 50;
   background: var(--surface);
   padding: 8px 12px;
+  /* a target of 44 px, like every control (handoff 13, D-56) */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }

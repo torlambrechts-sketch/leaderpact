@@ -25,6 +25,8 @@ export async function smallTargets(page: Page): Promise<string[]> {
     const visible = (el: Element) => {
       const r = el.getBoundingClientRect()
       const s = getComputedStyle(el)
+      // off screen until focused, like the skip link, which is measured focused (skipLink)
+      if (r.right <= 0 || r.left >= innerWidth) return false
       return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none' && !el.closest('[aria-hidden="true"], [hidden], [inert]')
     }
     const name = (el: Element) =>
@@ -43,47 +45,60 @@ export async function smallTargets(page: Page): Promise<string[]> {
       // an element inside a larger control is pressed through it
       const outer = target.parentElement?.closest('a[href], button, label, [role="radio"], [role="checkbox"], [role="option"]')
       if (outer && outer !== target) continue
-      const r = target.getBoundingClientRect()
+      // a link stretched over its card by an absolute ::after is pressed anywhere on the card
+      const after = getComputedStyle(target, '::after')
+      const stretched = after.content !== 'none' && after.position === 'absolute' && (target as HTMLElement).offsetParent
+      const r = stretched ? (target as HTMLElement).offsetParent!.getBoundingClientRect() : target.getBoundingClientRect()
       if (r.width < 43.5 || r.height < 43.5) out.push(`${name(el)} (${Math.round(r.width)} by ${Math.round(r.height)})`)
     }
     return out
   }, CONTROLS)
 }
 
-/** Tab through the page; the elements reached, each with whether its focus ring shows */
-export async function tabWalk(page: Page, limit = 250): Promise<{ reached: Set<string>; ringless: string[]; trapped: boolean }> {
-  await page.evaluate(() => {
-    ;(document.activeElement as HTMLElement | null)?.blur()
+/**
+ * Tab through the page; the elements reached, each with whether its focus ring shows. One listener in the page
+ * records each focus as it happens, so a step is one key press; the walk stops when focus comes back round, leaves
+ * the page, or stays on one element (a trap).
+ */
+export async function tabWalk(page: Page): Promise<{ reached: Set<string>; ringless: string[]; trapped: boolean }> {
+  const stops = await page.evaluate(() => {
     let n = 0
     for (const el of Array.from(document.querySelectorAll('*'))) if (!el.hasAttribute('data-a11y')) el.setAttribute('data-a11y', String(n++))
-  })
-  const reached = new Set<string>()
-  const ringless: string[] = []
-  let last = ''
-  let repeats = 0
-  for (let i = 0; i < limit; i++) {
-    await page.keyboard.press('Tab')
-    const seen = await page.evaluate(() => {
-      const el = document.activeElement as HTMLElement | null
-      if (!el || el === document.body) return null
+    const w = window as unknown as { __a11y: { key: string; label: string; ring: boolean }[] }
+    w.__a11y = []
+    document.addEventListener('focusin', (e) => {
+      const el = e.target as HTMLElement
       const s = getComputedStyle(el)
       const ring = (s.outlineStyle !== 'none' && parseFloat(s.outlineWidth) >= 2) || /\d+px \d+px 0px [2-9]/.test(s.boxShadow)
       const label = (el.getAttribute('aria-label') || el.innerText || el.getAttribute('name') || el.tagName).trim().replace(/\s+/g, ' ').slice(0, 50)
-      return { key: el.getAttribute('data-a11y') ?? '', label, ring }
+      w.__a11y.push({ key: el.getAttribute('data-a11y') ?? '', label, ring })
     })
-    if (!seen) {
-      if (reached.size > 0) break
-      continue
+    ;(document.activeElement as HTMLElement | null)?.blur()
+    return document.querySelectorAll('a[href], button, input, select, textarea, summary, [tabindex]').length
+  })
+  // every tab stop once, and a few more to come back round
+  for (let i = 0; i < stops + 4; i++) {
+    await page.keyboard.press('Tab')
+    if (i % 25 === 24) {
+      const log = await page.evaluate(() => (window as unknown as { __a11y: { key: string }[] }).__a11y.map((x) => x.key))
+      if (new Set(log).size < log.length) break
     }
-    if (reached.has(seen.key)) break
-    if (seen.key === last) {
-      if (++repeats > 3) return { reached, ringless, trapped: true }
-    } else repeats = 0
-    last = seen.key
-    reached.add(seen.key)
-    if (!seen.ring) ringless.push(seen.label)
   }
-  return { reached, ringless, trapped: false }
+  const log = await page.evaluate(() => (window as unknown as { __a11y: { key: string; label: string; ring: boolean }[] }).__a11y)
+  const reached = new Set<string>()
+  const ringless: string[] = []
+  for (const f of log) {
+    if (reached.has(f.key)) break
+    reached.add(f.key)
+    if (!f.ring) ringless.push(f.label)
+  }
+  // a trap: Tab no longer moves focus off an element of the page
+  const at = () => page.evaluate(() => (document.activeElement && document.activeElement !== document.body ? document.activeElement.getAttribute('data-a11y') : null))
+  const before = await at()
+  await page.keyboard.press('Tab')
+  await page.keyboard.press('Tab')
+  const trapped = before !== null && before === (await at())
+  return { reached, ringless, trapped }
 }
 
 /**
@@ -100,6 +115,8 @@ export async function unreachable(page: Page, reached: Set<string>): Promise<str
       const visible = (el: Element) => {
         const r = el.getBoundingClientRect()
         const s = getComputedStyle(el)
+        // off screen until focused, like the skip link, which skipLink checks
+        if (r.right <= 0 || r.left >= innerWidth) return false
         return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none' && !el.closest('[aria-hidden="true"], [hidden], [inert]')
       }
       const name = (el: Element) => (el.getAttribute('aria-label') || (el as HTMLElement).innerText || el.tagName).trim().replace(/\s+/g, ' ').slice(0, 50)
@@ -150,18 +167,34 @@ export async function colourOnly(page: Page): Promise<string[]> {
   })
 }
 
-/** All four, on the page as it stands: targets at the two phone widths, the walk and the marks at 1280 */
+/** The skip link, the first stop of every page, at 44 px once it shows */
+export async function skipLink(page: Page): Promise<string | null> {
+  await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+  await page.keyboard.press('Tab')
+  return page.evaluate(() => {
+    const el = document.activeElement as HTMLElement | null
+    if (!el?.classList.contains('skip-link')) return 'the first stop is not the skip link'
+    const r = el.getBoundingClientRect()
+    return r.width < 43.5 || r.height < 43.5 ? `the skip link is ${Math.round(r.width)} by ${Math.round(r.height)}` : null
+  })
+}
+
+/**
+ * All four, on the page as it stands: targets at the two phone widths, the walk and the marks at 1280. Soft, so
+ * one run lists everything a page fails.
+ */
 export async function checkA11y(page: Page, where: string) {
   const size = page.viewportSize() ?? { width: 1280, height: 800 }
   for (const width of [390, 360]) {
     await page.setViewportSize({ width, height: 800 })
-    expect(await smallTargets(page), `${where}: targets under 44 px at ${width} px`).toEqual([])
+    expect.soft(await smallTargets(page), `${where}: targets under 44 px at ${width} px`).toEqual([])
   }
+  expect.soft(await skipLink(page), `${where}: the skip link`).toBeNull()
   await page.setViewportSize({ width: 1280, height: 800 })
   const walk = await tabWalk(page)
-  expect(walk.trapped, `${where}: the keyboard is trapped`).toBe(false)
-  expect(walk.ringless, `${where}: focus with no ring`).toEqual([])
-  expect(await unreachable(page, walk.reached), `${where}: not reached by keyboard`).toEqual([])
-  expect(await colourOnly(page), `${where}: colour alone`).toEqual([])
+  expect.soft(walk.trapped, `${where}: the keyboard is trapped`).toBe(false)
+  expect.soft(walk.ringless, `${where}: focus with no ring`).toEqual([])
+  expect.soft(await unreachable(page, walk.reached), `${where}: not reached by keyboard`).toEqual([])
+  expect.soft(await colourOnly(page), `${where}: colour alone`).toEqual([])
   await page.setViewportSize(size)
 }

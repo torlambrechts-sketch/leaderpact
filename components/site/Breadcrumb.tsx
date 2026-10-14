@@ -9,7 +9,7 @@ export function Breadcrumb({ label, trail }: { label: string; trail: { name: str
         {trail.map((c, i) => (
           <li key={c.path} className="flex items-center gap-1.5">
             {i > 0 ? <span aria-hidden>/</span> : null}
-            <Link href={c.path as Route} className="text-text-2 hover:text-ink">
+            <Link href={c.path as Route} className="text-text-2 hover:text-ink max-md:inline-flex max-md:min-h-[44px] max-md:min-w-[44px] max-md:items-center">
               {c.name}
             </Link>
           </li>

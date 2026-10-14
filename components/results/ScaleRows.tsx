@@ -57,7 +57,7 @@ export function ScaleRows({ rows, labels }: { rows: readonly ScaleRowView[]; lab
               <div className="flex flex-col gap-0.5">
                 <h3 className="m-0 text-[14px] font-semibold max-md:text-[15px]">
                   {s.href ? (
-                    <Link href={s.href as Route} className="underline-offset-2 hover:underline max-md:inline-flex max-md:min-h-[44px] max-md:items-center">
+                    <Link href={s.href as Route} className="underline-offset-2 hover:underline max-md:inline-flex max-md:min-h-[44px] max-md:min-w-[44px] max-md:items-center">
                       {s.name}
                     </Link>
                   ) : (

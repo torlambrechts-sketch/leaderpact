@@ -48,7 +48,7 @@ export default async function LeaderProfilePage() {
               {test.available ? (
                 <Link
                   href={profileTestPath(test.key) as Route}
-                  className="mt-1 inline-flex items-center gap-2 self-start rounded-btn bg-ink px-[18px] py-3 text-[14px] font-semibold text-white hover:text-white"
+                  className="mt-1 inline-flex min-h-[44px] items-center gap-2 self-start rounded-btn bg-ink px-[18px] py-3 text-[14px] font-semibold text-white hover:text-white"
                 >
                   {test.start}
                   <ArrowRight aria-hidden size={16} />

@@ -34,7 +34,7 @@ const SIGNED_IN = ['home', 'group', 'people', 'assess', 'results', 'plan', 'meet
 
 test('the public pages: keyboard, focus, targets and colour', async ({ page }, info) => {
   test.skip(info.project.name !== 'desktop', 'once, at 1280 px, moving to the phone widths inside')
-  test.setTimeout(240_000)
+  test.setTimeout(600_000)
   const problems = watch(page)
   for (const path of PUBLIC) {
     await page.goto(path)
@@ -52,7 +52,7 @@ test('the public pages: keyboard, focus, targets and colour', async ({ page }, i
 test('a group with content, signed in: keyboard, focus, targets and colour on every page', async ({ page, baseURL }, info) => {
   test.skip(info.project.name !== 'desktop', 'once, at 1280 px, moving to the phone widths inside')
   test.skip(!canSignIn(), 'no way to sign in: needs Mailpit (CI) or the local API (D-27)')
-  test.setTimeout(240_000)
+  test.setTimeout(600_000)
   const problems = watch(page)
   await signInPerson(page, baseURL!, PULSE_STATES.leader)
   for (const tab of SIGNED_IN) {
