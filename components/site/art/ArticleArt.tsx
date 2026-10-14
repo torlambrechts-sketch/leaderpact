@@ -530,6 +530,63 @@ function Files() {
   )
 }
 
+/** a meeting on every screen: the current item with its timer running, the items to come, and the members around it */
+function Meeting() {
+  return (
+    <>
+      <rect x="86" y="58" width="268" height="190" rx="18" fill={PAPER} {...line} />
+      <rect x="104" y="78" width="54" height="20" rx="10" fill={ORANGE} {...line} />
+      <circle cx="117" cy="88" r="4" fill={PAPER} />
+      <rect x="104" y="112" width="128" height="10" rx="5" fill={INK} />
+      <Text x={104} y={130} w={96} />
+      <circle cx="292" cy="128" r="34" fill={YELLOW} {...line} />
+      <path d="M292 94 A34 34 0 0 1 324 140" fill="none" stroke={INK} strokeWidth="6" strokeLinecap="round" />
+      <path d="M292 110 V128 L304 136" fill="none" {...line} />
+      {[0, 1, 2].map((i) => (
+        <g key={i}>
+          <rect x="104" y={170 + i * 24} width="16" height="16" rx="5" fill={[TEAL, PAPER, PAPER][i]} {...line} />
+          <Text x={130} y={175 + i * 24} w={[120, 96, 136][i]!} fill={i === 0 ? BAR : INK} />
+        </g>
+      ))}
+      {[LAV, TEAL, YELLOW, LAV_MID, TEAL].map((fill, i) => (
+        <g key={i} transform={`translate(${128 + i * 46} 292)`}>
+          <circle r="18" fill={fill} {...line} />
+          <circle cy="-4" r="5" fill={INK} />
+          <path d="M-9 9 C-8 1 8 1 9 9" fill={INK} />
+        </g>
+      ))}
+    </>
+  )
+}
+
+/** a pulse: a reading every few weeks, rising past the margin, with the change marked */
+function Pulse() {
+  const pts = [
+    [120, 214],
+    [180, 206],
+    [240, 168],
+    [300, 132],
+  ] as const
+  return (
+    <>
+      <rect x="86" y="62" width="268" height="222" rx="18" fill={PAPER} {...line} />
+      {[110, 160, 210].map((y) => (
+        <path key={y} d={`M108 ${y} H332`} stroke={BAR} strokeWidth="2" strokeDasharray="4 6" strokeLinecap="round" />
+      ))}
+      <path d={`M${pts.map(([x, y]) => `${x} ${y}`).join(' L')}`} fill="none" stroke={LAV_STRONG} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+      {pts.map(([x, y], i) => (
+        <circle key={i} cx={x} cy={y} r="9" fill={i === pts.length - 1 ? YELLOW : PAPER} {...line} />
+      ))}
+      <rect x="258" y="78" width="78" height="30" rx="15" fill={TEAL} {...line} />
+      <path d="M276 99 L284 87 L292 99" fill="none" {...line} />
+      <rect x="300" y="89" width="24" height="7" rx="3.5" fill={INK} />
+      {[0, 1, 2, 3].map((i) => (
+        <rect key={i} x={108 + i * 60} y="246" width="44" height="14" rx="7" fill={i === 3 ? LAV : SUNK} stroke={INK} strokeWidth="1.8" />
+      ))}
+    </>
+  )
+}
+
 /** the loop: scan, team view, charter, diagnostic, back round, around the group */
 function Loop() {
   const steps = [
@@ -585,6 +642,8 @@ const DRAWINGS: Record<ArtKind, () => React.ReactNode> = {
   research: Research,
   reading: Reading,
   files: Files,
+  meeting: Meeting,
+  pulse: Pulse,
 }
 
 export function ArticleArt({ kind, className }: { kind: ArtKind; className?: string }) {

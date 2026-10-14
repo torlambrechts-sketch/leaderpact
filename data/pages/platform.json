@@ -1,6 +1,6 @@
 {
   "title": "Leadership team platform: how {product} works",
-  "description": "{product} helps a leadership team of 4 to 15 see how it works, then improve it meeting by meeting. What it does today, and what is in development.",
+  "description": "{product} helps a leadership team of 4 to 15 see how it works, then improve it meeting by meeting. Every step of the loop, and what it brings.",
   "crumb": "How it works",
   "kicker": "How it works",
   "h1": "From a three-minute scan to better meetings",
@@ -9,47 +9,56 @@
     {
       "status": "available",
       "title": "Take the Leadership Team Scan",
-      "text": "Twelve questions in about three minutes, with no account. Your personal view appears right after the last answer."
+      "text": "Twelve questions in about three minutes, with no account. Your personal view appears right after the last answer.",
+      "href": "/platform/leadership-team-scan"
     },
     {
       "status": "available",
       "title": "Invite your group",
-      "text": "One link for the whole group. A counter shows how many have answered, never who."
+      "text": "One link for the whole group. A counter shows how many have answered, never who.",
+      "href": "/platform/leadership-team-scan"
     },
     {
       "status": "available",
       "title": "Read the team view together",
-      "text": "When the scan closes, the whole group sees level and agreement per theme. It opens only with at least four answers."
+      "text": "When the scan closes, the whole group sees level and agreement per theme. It opens only with at least four answers.",
+      "href": "/platform/team-view"
     },
     {
       "status": "available",
       "title": "Take the Leader Profile",
-      "text": "A personality profile for leaders, in a quick and a full length. It is private to you until you choose to share it."
+      "text": "A personality profile for leaders, in a quick and a full length. It is private to you until you choose to share it.",
+      "href": "/platform/leader-profile"
     },
     {
       "status": "available",
       "title": "Agree a charter",
-      "text": "Purpose, team tasks and working agreements, in numbered versions. The leader drafts it, and the group agrees it."
+      "text": "Purpose, team tasks and working agreements, in numbered versions. The leader drafts it, and the group agrees it.",
+      "href": "/platform/team-charter"
     },
     {
       "status": "available",
       "title": "Run the full diagnostic",
-      "text": "72 questions across 21 scales and 3 outcomes, answered anonymously. Every scale shows level, agreement and one standing."
+      "text": "72 questions across 21 scales and 3 outcomes, answered anonymously. Every scale shows level, agreement and one standing.",
+      "href": "/platform/full-diagnostic"
     },
     {
       "status": "available",
       "title": "Choose focus areas",
-      "text": "At most two at a time, each with actions that have an owner and a due date."
+      "text": "At most two at a time, each with actions that have an owner and a due date.",
+      "href": "/platform/focus-areas"
     },
     {
-      "status": "development",
+      "status": "available",
       "title": "Meet with purpose",
-      "text": "Agendas where every item has a desired outcome and a team task. Open actions appear on the next agenda."
+      "text": "Agendas where every item has a desired outcome and a team task. The meeting runs live, and open actions appear on the next agenda.",
+      "href": "/platform/meetings"
     },
     {
-      "status": "development",
+      "status": "available",
       "title": "Measure again",
-      "text": "A short pulse every four weeks, and a new diagnostic after six months. A change shows only when it is large enough to mean something."
+      "text": "A short pulse every few weeks, and a new diagnostic after six months. A change shows only when it is large enough to mean something.",
+      "href": "/platform/pulses"
     }
   ],
   "blocks": [
@@ -104,7 +113,7 @@
       "items": [
         {
           "title": "From results to meetings",
-          "text": "The loop links assessment and meetings. A focus area becomes actions with owners now, and the next agenda will carry them. Meetings are in development."
+          "text": "The loop links assessment and meetings. A focus area becomes actions with owners, and every open action appears on the next agenda."
         },
         {
           "title": "The evidence is shown",
@@ -134,7 +143,7 @@
     },
     {
       "t": "p",
-      "text": "The Leadership Team Scan, the team view and the Leader Profile are free, for one group. The charter, members, the Full diagnostic and focus areas are part of the Team plan. A group’s leader can try it for 14 days. Meetings and pulses are in development."
+      "text": "The Leadership Team Scan, the team view and the Leader Profile are free, for one group. The charter, the Full diagnostic, focus areas, meetings and pulses are part of the Team plan. A group’s leader can try it for 14 days."
     },
     {
       "t": "h2",
@@ -148,7 +157,7 @@
   "faq": [
     {
       "q": "Is {product} free?",
-      "a": "The Leadership Team Scan, the team view and the Leader Profile are free, for one group. The charter, the Full diagnostic and focus areas are part of the Team plan, which a group’s leader can try for 14 days."
+      "a": "The Leadership Team Scan, the team view and the Leader Profile are free, for one group. The charter, the Full diagnostic, focus areas, meetings and pulses are part of the Team plan. A group’s leader can try it for 14 days."
     },
     {
       "q": "How long does the scan take?",

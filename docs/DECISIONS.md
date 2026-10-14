@@ -1253,3 +1253,28 @@ build chose:
   SQL editor (D-22). 0022 left pg_net's extension in `public`, which Supabase's security advisor flags; 0024
   creates it again in `extensions` (it cannot be relocated), through the owner's editor too, since it drops it.
   The edge functions and their secrets are set after.
+
+## D-54 — Every step leads to its page; meetings and pulses on the site (owner, 14 October 2026)
+
+The owner, on the overview's "What it does": "make the links and articles for the platform features". Milestones
+13 to 15 had built the last two steps, which the site still called in development.
+
+- **Each step is a link** to the feature page that shows it (`href` on a step, checked against the registry by a
+  unit test). The title is the link, stretched over the card, with "See how it works" under the text; a step
+  with no page would stay a plain card. "Invite your group" leads to the scan's page, which shows the link and
+  the counter.
+- **Two new feature pages**, in the loop's order after focus areas: `/platform/meetings` (the agenda with its
+  time check and task match, the live meeting and its summary, M13 and M14) and `/platform/pulses` (the rhythm,
+  the next pulse's questions and a result with change, M15). Each has its drawing, a value block, screenshots
+  of the real app, a figure and FAQ data, like the others. The Platform menu lists eight features.
+- **Copy brought up to date:** "Meet with purpose" and "Measure again" are available; the cost text, the FAQ,
+  the "From results to meetings" card, the anonymity page and the tools page no longer call meetings or pulses
+  in development. Reminder emails are built but send nothing until the sending domain is set (D-53), so the
+  Full diagnostic's page says they are being set up.
+- **The screenshots' fixture** (`--shots`) adds, through the write paths: a meeting held yesterday (a decision, an
+  action, a parked topic, an item carried over and one kept without a team task); next week's meeting, with the
+  carried item, a flagged item and one not ready; the sales group's meeting, live, with four online and three
+  process comments; and two pulses before round 2 opened, the second with change. The sales group now has its
+  trial too, for its meeting. Both rounds' planned closing dates follow the day they opened.
+- **The live picture is cropped below the meeting's header.** A cloud session's local database has no Realtime,
+  so the fixture runs `--live-off` and the header says the sync is off; the picture shows the meeting itself.

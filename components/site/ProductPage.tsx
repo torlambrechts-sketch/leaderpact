@@ -78,7 +78,15 @@ export async function ProductPage({
           </h2>
           <ol className="m-0 mt-6 grid list-none gap-4 p-0 md:grid-cols-2 lg:grid-cols-3">
             {c.steps.map((s, i) => (
-              <li key={i} className={cn('flex flex-col gap-2.5 rounded-card p-6', s.status === 'available' ? 'bg-surface' : 'border border-dashed border-line-dashed')}>
+              // a step with a page is a card that leads to it (D-54): its title is the link, stretched over the card
+              <li
+                key={i}
+                className={cn(
+                  'group relative flex flex-col gap-2.5 rounded-card p-6',
+                  s.status === 'available' ? 'bg-surface' : 'border border-dashed border-line-dashed',
+                  s.href ? 'transition-shadow hover:shadow-[0_18px_40px_-28px_rgba(17,17,17,0.45)]' : '',
+                )}
+              >
                 <span
                   className={cn(
                     'inline-flex items-center gap-1.5 self-start rounded-pill px-2.5 py-1 text-[12px] font-semibold',
@@ -89,10 +97,25 @@ export async function ProductPage({
                   {s.status === 'available' ? t('platform.available') : t('platform.development')}
                 </span>
                 <h3 className="m-0 text-[18px] font-bold">
-                  <span className="sr-only">{t('platform.step', { n: i + 1 })} </span>
-                  {s.title}
+                  {s.href ? (
+                    <Link href={s.href as Route} className="text-ink no-underline after:absolute after:inset-0 after:rounded-card hover:text-ink group-hover:underline">
+                      <span className="sr-only">{t('platform.step', { n: i + 1 })} </span>
+                      {s.title}
+                    </Link>
+                  ) : (
+                    <>
+                      <span className="sr-only">{t('platform.step', { n: i + 1 })} </span>
+                      {s.title}
+                    </>
+                  )}
                 </h3>
                 <p className="m-0 text-[15px] leading-[1.55] text-text-2">{s.text}</p>
+                {s.href ? (
+                  <span aria-hidden className="mt-auto inline-flex items-center gap-1.5 pt-1 text-[14px] font-semibold text-ink">
+                    {t('features.read')}
+                    <ArrowRight size={15} />
+                  </span>
+                ) : null}
               </li>
             ))}
           </ol>

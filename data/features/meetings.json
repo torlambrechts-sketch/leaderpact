@@ -1,0 +1,144 @@
+{
+  "title": "Leadership team meeting software: agendas, live meetings, summaries",
+  "description": "Agendas where every item has an outcome and a team task. A live meeting on every member’s screen, and a summary of decisions and actions.",
+  "crumb": "Meetings",
+  "kicker": "Available now · part of the Team plan",
+  "h1": "Meetings with purpose",
+  "lead": "A leadership group does most of its work in its meetings. Each item states the outcome it needs and the team task it serves. The meeting runs live on every member’s screen, and ends with a written summary.",
+  "nav": "Meetings",
+  "summary": "Agendas with outcomes and team tasks, the live meeting and its summary.",
+  "blocks": [
+    {
+      "t": "h2",
+      "text": "What it brings"
+    },
+    {
+      "t": "value",
+      "items": [
+        {
+          "who": "you",
+          "title": "Meetings you can prepare for",
+          "points": [
+            "Every item says what it needs and who owns it.",
+            "Your open actions wait beside the next agenda.",
+            "You follow the live meeting on your own screen."
+          ]
+        },
+        {
+          "who": "group",
+          "title": "Time spent on what matters",
+          "points": [
+            "The time check shows when the agenda overruns the slot.",
+            "An item that matches no team task is flagged before the meeting.",
+            "Anyone can say the meeting is off track, without a name."
+          ]
+        },
+        {
+          "who": "organisation",
+          "title": "Decisions on record",
+          "points": [
+            "Each meeting ends with its decisions, actions and parked topics.",
+            "Items carried over move to the next meeting, so nothing is lost.",
+            "The leadership group’s time goes to the tasks only it can do."
+          ]
+        }
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "How it works"
+    },
+    {
+      "t": "feature",
+      "title": "An agenda that is ready",
+      "text": "Any member proposes an item. It is ready with a type, a desired outcome, an owner and a time box. The time check adds the minutes against the meeting’s length.",
+      "points": [
+        "An item that matches no team task is flagged. It stays if the leader confirms it.",
+        "Every open action of the group appears beside the next agenda."
+      ],
+      "shot": "meetings-agenda",
+      "alt": "Next week’s agenda: 65 of 90 minutes planned and 4 of 5 items ready. Two items match no team task, and the open actions sit beside it.",
+      "caption": "The next meeting’s agenda, as the leader sees it."
+    },
+    {
+      "t": "feature",
+      "title": "The live meeting",
+      "text": "The leader starts the meeting and takes it item by item, with a timer for each time box. Every member sees the same item on their own screen, in sync.",
+      "points": [
+        "Anyone saves a decision, adds an action or parks a topic.",
+        "Process comments carry no name. They open only when enough members are online to keep the sender hidden."
+      ],
+      "shot": "meetings-live",
+      "alt": "A live meeting: the current item with its timer and the leader’s controls, its decision, and the items still to come.",
+      "caption": "A live meeting, run by its leader."
+    },
+    {
+      "t": "feature",
+      "title": "The summary",
+      "text": "When the leader ends the meeting, the summary lists each item as it closed, with its decision and its actions. Items carried over go to the next meeting.",
+      "points": [
+        "Topics parked during the meeting stay in the parking lot.",
+        "Process comments are deleted when the meeting ends."
+      ],
+      "shot": "meetings-summary",
+      "alt": "A meeting summary: four items closed as reached or carried over, one decision with its action, and a topic in the parking lot.",
+      "caption": "Yesterday’s meeting, held."
+    },
+    {
+      "t": "h2",
+      "text": "Before, during and after"
+    },
+    {
+      "t": "flow",
+      "items": [
+        {
+          "title": "Prepare",
+          "text": "Members propose items with an outcome, an owner, a time box and a team task."
+        },
+        {
+          "title": "Run",
+          "text": "The leader takes the items in turn, and everyone sees the same one."
+        },
+        {
+          "title": "Record",
+          "text": "Decisions, actions and parked topics are saved as the meeting goes."
+        },
+        {
+          "title": "Carry",
+          "text": "Open actions and carried items move to the next agenda."
+        }
+      ]
+    },
+    {
+      "t": "box",
+      "title": "If the connection drops",
+      "text": "The page turns read-only and says so, until it joins again. It then reads the meeting afresh, so nothing saved is lost."
+    },
+    {
+      "t": "p",
+      "text": "The article on the [leadership team meeting agenda](/articles/leadership-team-meeting-agenda) covers item types, desired outcomes and time boxes, with an example."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Who can add items to the agenda?",
+      "a": "Any member proposes an item. Its proposer, its owner or the leader can change it."
+    },
+    {
+      "q": "What is a team task?",
+      "a": "An issue that belongs to the whole leadership group, written in its charter with a decision right. An item that matches none is flagged."
+    },
+    {
+      "q": "Can anyone see who sent a process comment?",
+      "a": "No. A process comment carries no name and no time, and it is deleted when the meeting ends."
+    },
+    {
+      "q": "What happens to items we did not reach?",
+      "a": "An item closed as carried over moves to the next planned meeting. Items not closed show as not reached in the summary."
+    },
+    {
+      "q": "How does a group get meetings?",
+      "a": "Meetings are part of the Team plan. A group’s leader can start a 14-day trial in the app, with no billing details."
+    }
+  ]
+}

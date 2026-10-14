@@ -285,6 +285,58 @@ const SHOT_PLAN = {
   ],
 }
 
+/**
+ * The meetings the screenshots show (milestones 13 and 14). The leadership group held one yesterday: a decision, an
+ * action and a parked topic, one item carried over, and an item without a team task kept by the leader. The next,
+ * in six days, has the carried item, an item still flagged and one not ready. The sales group's meeting is live.
+ * Owners are indexes into the group's people; a team task is named by its title in the charter in force.
+ */
+const SHOT_MEETINGS = {
+  held: {
+    title: 'Leadership meeting',
+    items: [
+      { title: 'Q4 priorities and the budget split', type: 'decision', outcome: 'Agree three priorities for Q4 and how the budget follows them.', owner: 0, minutes: 30, task: 'Annual priorities and how the budget is split between units' },
+      { title: 'Customer churn in the northern region', type: 'discussion', outcome: 'Views heard and a way forward.', owner: 3, minutes: 25, task: 'Quarterly results and the main risks' },
+      { title: 'New supplier portal', type: 'information', outcome: 'Everyone knows the launch date and who to ask.', owner: 4, minutes: 10, task: null },
+    ],
+    decision: 'Retention, the new platform and hiring in sales are the three priorities. The budget follows them.',
+    action: { title: 'Share the Q4 priorities with every unit', owner: 1, due: 7 },
+    parked: 'Pricing for public sector customers',
+  },
+  next: {
+    title: 'Leadership meeting',
+    items: [
+      { title: 'Hiring plan for the sales team', type: 'decision', outcome: 'Approve the hiring plan and its budget.', owner: 2, minutes: 25, task: 'Key appointments in the units' },
+      { title: 'Office move timeline', type: 'information', outcome: 'Everyone knows the dates and what changes.', owner: 5, minutes: 10, task: null },
+      { title: 'Lessons from the platform launch', type: 'discussion', outcome: null, owner: 6, minutes: null, task: null },
+    ],
+  },
+  live: {
+    title: 'Sales leadership meeting',
+    items: [
+      { title: 'Pipeline review for Q4', type: 'discussion', outcome: 'Agree where the team spends its time this quarter.', owner: 1, minutes: 20 },
+      { title: 'Pricing for the public sector', type: 'decision', outcome: 'Decide the pricing model we offer.', owner: 2, minutes: 20 },
+      { title: 'Two new account managers', type: 'information', outcome: 'Everyone knows the start dates and the regions.', owner: 3, minutes: 10 },
+    ],
+    decision: 'We start with the twenty largest renewals.',
+    action: { title: 'List the twenty largest renewals with their dates', owner: 4, due: 5 },
+    parked: 'A shared view of the forecast',
+    // online for the process comments, which need the group's threshold online; the comments carry no sender
+    here: [0, 1, 2, 3],
+    comments: ['purpose', 'purpose', 'off_track'],
+  },
+}
+
+/**
+ * The pulses the screenshots show (milestone 15): two, before round 2 opened, since a pulse never opens while a round
+ * is answering. All eight answer each. Pulse 2 lifts Preparation by a point and the first agreement by about 0.6, so
+ * its result shows change; everything else stays at 3. Days are ago, from today.
+ */
+const SHOT_PULSES = [
+  { opened: 45, closed: 38, preparation: 2, agreement: 3 },
+  { opened: 17, closed: 10, preparation: 3, agreement: 4 },
+]
+
 /** The live meeting's people (milestone 14): one group for the single-browser flow, one for the four-browser sync */
 const livePeople = (from, word) =>
   ['leader', 'member', 'member two', 'member three', 'member four'].map((role, i) => ({
@@ -375,7 +427,8 @@ export function render({ e2e = false, shots = false, liveOff = false } = {}) {
   // the screenshots' two groups share one organisation, so the second carries no organisation row of its own
   const shotGroups = [
     { ...SHOTS, demo: false, trial: true, since: "now() - interval '200 days'", opened: "now() - interval '30 days'" },
-    { ...SHOTS.sales, org: SHOTS.org, sameOrg: true, demo: false, since: "now() - interval '200 days'", opened: "now() - interval '4 days'" },
+    // on its trial too, so its meeting can run (D-54)
+    { ...SHOTS.sales, org: SHOTS.org, sameOrg: true, demo: false, trial: true, since: "now() - interval '200 days'", opened: "now() - interval '4 days'" },
   ]
   const groups = [
     { ...LUMIO, demo: true },
@@ -502,10 +555,11 @@ const as = (person, statement) => `  perform set_config('request.jwt.claims', js
   if not (v_reply ->> 'ok')::boolean then raise exception 'fixture: shots refused % (%)', ${q(statement.slice(0, 40))}, v_reply ->> 'reason'; end if;`
 
 /**
- * The screenshots' states (--shots, D-47), each through its write path: the leadership group's scan released by
- * its eighth answer; its charter drafted and agreed as Kari, twice; round 1 of the Full diagnostic released from
- * all eight; a focus area from it with four actions; round 2 opened three days ago and answered by five; Kari's
- * Leader Profile, shared with the group at the level of domains; and the sales group's scan, open at 3 of 7.
+ * The screenshots' states (--shots, D-47, D-54), each through its write path: the leadership group's scan released
+ * by its eighth answer; its charter drafted and agreed as Kari, twice; round 1 of the Full diagnostic released from
+ * all eight; a focus area from it with four actions; two pulses; a meeting held yesterday and the next one planned;
+ * round 2 opened three days ago and answered by five; Kari's Leader Profile, shared with the group at the level of
+ * domains; and the sales group's scan, open at 3 of 7, and its meeting, live.
  */
 function shotStates() {
   const g = SHOTS
@@ -555,24 +609,14 @@ ${as(g.people[i], `app.submit_response(${q(g.released)}, v_answers)`)}`,
   perform set_config('request.jwt.claims', '', true);
 end $$;
 alter table app.assessment_round disable trigger assessment_round_fixed;
-update app.assessment_round set closes_at = opens_at + interval '14 days' where id = ${q(g.released)} and phase = 'answering';
+-- its planned closing date from the day it opened, whether it is still answering or released by its eighth answer
+update app.assessment_round set closes_at = opens_at + interval '14 days' where id = ${q(g.released)};
 alter table app.assessment_round enable trigger assessment_round_fixed;
 select app.close_round(${q(g.released)}) where (select phase from app.assessment_round where id = ${q(g.released)}) = 'answering';
 do $$
-declare v_reply jsonb; v_answers jsonb; v_focus uuid; v_action uuid;
+declare v_reply jsonb; v_answers jsonb; v_focus uuid; v_action uuid; v_round uuid; v_held uuid; v_next uuid; v_live uuid; v_item uuid;
 begin
   if (select phase from app.assessment_round where id = ${q(g.released)}) <> 'released' then raise exception 'fixture: the shots round 1 is not released'; end if;
-
-  insert into app.assessment_round (id, org_id, team_id, kind, instrument_version_id, window_days, opens_at)
-  values (${q(g.round)}, ${q(g.org.id)}, ${q(g.group.id)}, 'diagnostic', app.diagnostic_version(), 14, now() - interval '3 days');
-  if app.open_round(${q(g.round)}) <> ${g.people.length} then raise exception 'fixture: the shots round did not invite everyone'; end if;
-${g.answered
-  .map(
-    (i) => `  select jsonb_agg(jsonb_build_object('item', vi.item_id, 'value', 2 + (vi.ordinal + ${i}) % 4) order by vi.ordinal) into v_answers
-  from app.instrument_version_item vi where vi.instrument_version_id = app.diagnostic_version();
-${as(g.people[i], `app.submit_response(${q(g.round)}, v_answers)`)}`,
-  )
-  .join('\n')}
 
 ${as(kari, `app.make_focus_area(${q(g.group.id)}, ${q(g.released)}, ${q(SHOT_PLAN.scale)})`)}
   v_focus := (v_reply ->> 'focus_area')::uuid;
@@ -586,12 +630,111 @@ ${as(g.people[a.owner], `app.set_action_done(${q(g.group.id)}, v_action, true)`)
   })
   .join('\n')}
 
+${shotPulses()}
+
+${shotMeetings()}
+
+  insert into app.assessment_round (id, org_id, team_id, kind, instrument_version_id, window_days, opens_at)
+  values (${q(g.round)}, ${q(g.org.id)}, ${q(g.group.id)}, 'diagnostic', app.diagnostic_version(), 14, now() - interval '3 days');
+  if app.open_round(${q(g.round)}) <> ${g.people.length} then raise exception 'fixture: the shots round did not invite everyone'; end if;
+  alter table app.assessment_round disable trigger assessment_round_fixed;
+  update app.assessment_round set closes_at = opens_at + interval '14 days' where id = ${q(g.round)};
+  alter table app.assessment_round enable trigger assessment_round_fixed;
+${g.answered
+  .map(
+    (i) => `  select jsonb_agg(jsonb_build_object('item', vi.item_id, 'value', 2 + (vi.ordinal + ${i}) % 4) order by vi.ordinal) into v_answers
+  from app.instrument_version_item vi where vi.instrument_version_id = app.diagnostic_version();
+${as(g.people[i], `app.submit_response(${q(g.round)}, v_answers)`)}`,
+  )
+  .join('\n')}
+
   select jsonb_object_agg(i.id::text, 1 + (i.ordinal * 7) % 5) into v_answers
   from app.profile_item i join app.profile_test t on t.id = i.test_id where t.key = 'quick' and t.status = 'published';
 ${as(kari, `app.save_profile('quick', v_answers)`)}
 ${as(kari, `app.set_profile_share(${q(g.group.id)}, 'domains')`)}
   perform set_config('request.jwt.claims', '', true);
 end $$;`
+}
+
+/**
+ * The screenshots' pulses (milestone 15), inside shotStates' block: Kari starts the rhythm, which opens pulse 1; all
+ * eight answer, so it closes at once; the scheduled job opens pulse 2 the same way. Each pulse's dates are moved back,
+ * with the round's guard off for that statement, as the pulse states' group does.
+ */
+function shotPulses() {
+  const g = SHOTS
+  const answer = (pulse, i) => `  select jsonb_agg(jsonb_build_object('item', coalesce(x.item_id, x.agreement_id), 'value',
+           case when f.key = ${q(SHOT_PLAN.scale)} then ${pulse.preparation} + (x.pos + ${i}) % 2
+                when a.ordinal = 1 then ${pulse.agreement === 4 ? `case when ${i} % 3 = 0 then 3 else 4 end` : pulse.agreement}
+                else 3 end) order by x.ordinal) into v_answers
+  from (select pq.*, row_number() over (partition by pq.factor_id order by pq.ordinal) as pos from app.pulse_question pq where pq.round_id = v_round) x
+  left join app.factor f on f.id = x.factor_id
+  left join app.working_agreement a on a.id = x.agreement_id;
+${as(g.people[i], 'app.submit_response(v_round, v_answers)')}`
+  const dates = (pulse) => `  alter table app.assessment_round disable trigger assessment_round_fixed;
+  update app.assessment_round set opens_at = now() - interval '${pulse.opened} days', closes_at = now() - interval '${pulse.closed} days' where id = v_round;
+  alter table app.assessment_round enable trigger assessment_round_fixed;
+  if (select phase from app.assessment_round where id = v_round) <> 'released' then raise exception 'fixture: a shots pulse is not released'; end if;`
+  return SHOT_PULSES.map((pulse, k) => `${
+    k === 0
+      ? `${as(g.people[0], `app.start_pulses(${q(g.group.id)}, 4, 7)`)}
+  v_round := (v_reply ->> 'round')::uuid;`
+      : `  update app.pulse_schedule set next_at = now() - interval '1 minute' where team_id = ${q(g.group.id)};
+  if app.open_due_pulses() <> 1 then raise exception 'fixture: the shots pulse 2 did not open'; end if;
+  select r.id into v_round from app.assessment_round r where r.team_id = ${q(g.group.id)} and r.kind = 'pulse' and r.phase = 'answering';`
+  }
+${g.people.map((_, i) => answer(pulse, i)).join('\n')}
+${dates(pulse)}`).join('\n\n')
+}
+
+/**
+ * The screenshots' meetings (milestones 13 and 14), inside shotStates' block, each through its write path: next
+ * week's planned first, so yesterday's carried item goes to it when Kari ends that meeting; then the sales group's,
+ * started by Ingrid and left live, with four online and three process comments.
+ */
+function shotMeetings() {
+  const g = SHOTS
+  const m = SHOT_MEETINGS
+  const task = (title) =>
+    title === null
+      ? 'null'
+      : `(select tt.id from app.team_task tt join app.charter_version v on v.id = tt.version_id where v.team_id = ${q(g.group.id)} and v.status = 'in_force' and tt.title = ${q(title)})`
+  const propose = (people, meeting, it) =>
+    as(people[0], `app.propose_item(${meeting}, ${q(it.title)}, ${q(it.type)}, ${it.outcome === null ? 'null' : q(it.outcome)}, ${q(people[it.owner].id)}, ${it.minutes ?? 'null'}, ${it.task === undefined ? 'null' : task(it.task)})`)
+  const item = (meeting, title) => `  select i.id into v_item from app.agenda_item i where i.meeting_id = ${meeting} and i.title = ${q(title)};`
+  const sales = g.sales.people
+  const live = m.live
+  return `${as(g.people[0], `app.plan_meeting(${q(g.group.id)}, ${q(m.next.title)}, current_date + 6, '10:00', 90)`)}
+  v_next := (v_reply ->> 'meeting')::uuid;
+${m.next.items.map((it) => propose(g.people, 'v_next', it)).join('\n')}
+${as(g.people[0], `app.plan_meeting(${q(g.group.id)}, ${q(m.held.title)}, current_date - 1, '09:00', 90)`)}
+  v_held := (v_reply ->> 'meeting')::uuid;
+${m.held.items.map((it) => propose(g.people, 'v_held', it)).join('\n')}
+${item('v_held', m.held.items[2].title)}
+${as(g.people[0], 'app.confirm_item(v_item)')}
+${as(g.people[0], 'app.start_meeting(v_held)')}
+${as(g.people[0], `app.run_meeting(v_held, 'start')`)}
+${item('v_held', m.held.items[0].title)}
+${as(g.people[1], `app.save_decision(v_item, ${q(m.held.decision)})`)}
+${as(g.people[0], `app.add_item_action(v_item, ${q(m.held.action.title)}, ${q(g.people[m.held.action.owner].id)}, current_date + ${m.held.action.due})`)}
+${as(g.people[0], `app.run_meeting(v_held, 'reached')`)}
+${as(g.people[3], `app.park_topic(v_held, ${q(m.held.parked)})`)}
+${as(g.people[0], `app.run_meeting(v_held, 'carried_over')`)}
+${as(g.people[0], `app.run_meeting(v_held, 'reached')`)}
+${as(g.people[0], `app.run_meeting(v_held, 'reached')`)}
+${as(g.people[0], 'app.end_meeting(v_held)')}
+
+${as(sales[0], `app.plan_meeting(${q(g.sales.group.id)}, ${q(live.title)}, current_date, '14:00', 60)`)}
+  v_live := (v_reply ->> 'meeting')::uuid;
+${live.items.map((it) => propose(sales, 'v_live', it)).join('\n')}
+${as(sales[0], 'app.start_meeting(v_live)')}
+${as(sales[0], `app.run_meeting(v_live, 'start')`)}
+${live.here.map((i) => as(sales[i], 'app.meeting_here(v_live)')).join('\n')}
+${live.comments.map((kind, i) => as(sales[live.here[i]], `app.send_process_comment(v_live, ${q(kind)})`)).join('\n')}
+${item('v_live', live.items[0].title)}
+${as(sales[1], `app.save_decision(v_item, ${q(live.decision)})`)}
+${as(sales[0], `app.add_item_action(v_item, ${q(live.action.title)}, ${q(sales[live.action.owner].id)}, current_date + ${live.action.due})`)}
+${as(sales[2], `app.park_topic(v_live, ${q(live.parked)})`)}`
 }
 
 /**

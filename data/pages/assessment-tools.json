@@ -17,7 +17,7 @@
         ["It shows agreement, not only averages", "A middling average can hide a team that is split.", "Every theme shows its level and an agreement label."],
         ["The research is visible", "Research-based should be something you can check.", "Each scale names its layer and its evidence rating."],
         ["It is honest about its own evidence", "Evidence for the ideas is not evidence for the questionnaire.", "Every score says Research-based, not yet validated."],
-        ["It leads to action", "Results that stay in a report change little.", "Focus areas with actions that appear on the next agenda, in development."],
+        ["It leads to action", "Results that stay in a report change little.", "Focus areas with actions that appear on the next agenda."],
         ["You can start alone", "A first reading should not wait for a workshop.", "The scan is free, takes about three minutes and needs no account."]
       ]
     },
@@ -46,7 +46,7 @@
   "faq": [
     { "q": "What is a leadership team assessment?", "a": "A structured way to see how a leadership team works: its conditions, how it meets and decides, and the trust and safety between members. Usually every member answers the same questions anonymously." },
     { "q": "How many members need to answer?", "a": "In {product}, at least four. Below that, no team result is shown, because a result for three or fewer can point to one person." },
-    { "q": "How often should a leadership team be assessed?", "a": "A full reading once or twice a year, with short pulses between, works for most teams. In {product}, the pulses and the full diagnostic are in development." },
+    { "q": "How often should a leadership team be assessed?", "a": "A full reading once or twice a year, with short pulses between, works for most teams. In {product}, the Full diagnostic gives the full reading, and pulses follow your focus areas between." },
     { "q": "Is the {product} scan free?", "a": "Yes. The Leadership Team Scan, the team view and the Leader Profile are free, for one group." }
   ]
 }
