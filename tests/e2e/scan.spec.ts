@@ -46,7 +46,13 @@ test('the landing page: one way in, a sample marked Sample, and the corrections 
   await expect(sample).toContainText('Sample')
   await expect(sample).toContainText('Research-based, not yet validated')
   await expect(page.getByText('Counts only, never names')).toBeVisible()
-  await expect(page.getByText(/At 4 answers|demo group|^Research$|Templates|For coaches|(?<!Leadership )Team Scan/)).toHaveCount(0)
+  // section 11's corrections: nothing of the design's unbuilt pages, anywhere on the page
+  await expect(page.getByText(/At 4 answers|demo group|For coaches|(?<!Leadership )Team Scan/)).toHaveCount(0)
+  // the design's Research and Templates menu items stay out of the menu; the pages exist since D-34 and the footer
+  // lists them with the other public pages
+  await expect(page.getByRole('banner').getByText(/^Research$|Templates/)).toHaveCount(0)
+  await expect(page.getByRole('contentinfo').getByRole('link', { name: 'Research', exact: true })).toHaveAttribute('href', '/research')
+  await expect(page.getByRole('contentinfo').getByRole('link', { name: 'Templates', exact: true })).toHaveAttribute('href', '/templates')
   await expect(page.getByText('When the scan closes, the team view opens')).toBeVisible()
   await expect(page.getByRole('link', { name: 'Privacy' })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Data processing' })).toBeVisible()
