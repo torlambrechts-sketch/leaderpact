@@ -4,7 +4,7 @@ import { canSignIn, signInPerson } from './support/leader'
 import { watch } from './support/page'
 
 /**
- * Milestone 14 (handoff 12; D-50): "Two browsers stay in sync within 1 second. Comments carry no sender." Four
+ * Milestone 14 (handoff 12; D-51): "Two browsers stay in sync within 1 second. Comments carry no sender." Four
  * members of the sync flow's group (scripts/seed/fixture.mjs, SYNC_FLOW) in one live meeting over Supabase
  * Realtime: the leader's start and close reach the others within a second; with four online, a member's
  * process comment reaches everyone within a second, saying "Someone", never who. It needs Realtime, so it runs

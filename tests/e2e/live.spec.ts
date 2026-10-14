@@ -4,7 +4,7 @@ import { canSignIn, signInPerson } from './support/leader'
 import { axe, watch } from './support/page'
 
 /**
- * Milestone 14 (handoff 6.15; D-50), in one browser: the leader starts the meeting from its agenda, runs the
+ * Milestone 14 (handoff 6.15; D-51), in one browser: the leader starts the meeting from its agenda, runs the
  * timer (start, pause, plus 5 minutes), saves a decision, adds an action (refused without an owner), parks a
  * side topic, closes items as reached and carried over, and ends the meeting, which shows its summary.
  * Process comments stay closed with one person online. In CI the page joins Realtime ("In sync"); in a cloud

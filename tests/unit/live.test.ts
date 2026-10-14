@@ -4,7 +4,7 @@ import { clock, connection, dayWords, mmss, writable } from '@/lib/live/build'
 import { commentSchema, controlSchema, liveSchema, replySchema, signalSchema } from '@/lib/live/schema'
 
 /**
- * Milestone 14 (handoff 6.15; D-50): "Two browsers stay in sync within 1 second. Comments carry no sender." The
+ * Milestone 14 (handoff 6.15; D-51): "Two browsers stay in sync within 1 second. Comments carry no sender." The
  * database proves both (supabase/tests/live_invariants.sql); here, the clock, when the page may write, and the
  * boundary a process comment crosses.
  */

@@ -47,7 +47,7 @@
  * 10. **The live meeting's groups** (`--e2e`, milestone 14), each on its trial with five people of its own and a
  *    meeting planned for today with two items and the closing item, through the write paths: one for the
  *    single-browser flow, one for the four-browser sync flow. With `--live-off` the live_meeting flag is off,
- *    for a local database that has no Realtime: the meeting runs without sync (D-50).
+ *    for a local database that has no Realtime: the meeting runs without sync (D-51).
  * 11. **Deterministic, and local only.** Fixed ids, link codes and a known password, so a reset gives the
  *    same rows and a test can name them. That is why the script refuses any database that is not on
  *    127.0.0.1 or localhost (REUSE 4.12: Orgpuls's fixture did not, and its tokens are derivable).
@@ -440,7 +440,7 @@ end $$;`)
     lines.push(roundStates())
     lines.push(planFlow())
     lines.push(liveMeeting(LIVE_FLOW), liveMeeting(SYNC_FLOW))
-    // a database with no Realtime (a cloud session's local stack) runs the live meeting without sync (D-50)
+    // a database with no Realtime (a cloud session's local stack) runs the live meeting without sync (D-51)
     if (liveOff) lines.push(`update app.feature_flag set "on" = false where key = 'live_meeting';`)
   }
   if (shots) lines.push(shotStates())
