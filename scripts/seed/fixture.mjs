@@ -53,10 +53,12 @@
  *    In one the flow starts the pulses. In the other the leader has started them: pulse 1 released at 4 of 5,
  *    pulse 2 released at 5 of 5 (one focus scale up 1.0, the other 0.5, one agreement up 0.6), pulse 3 missed at
  *    2 of 5. Each later pulse opens through the scheduled job, its dates moved back as the suites do (D-52).
- * 12. **Deterministic, and local only.** Fixed ids, link codes and a known password, so a reset gives the
+ * 12. **The chained flow's group** (`--e2e`, handoff 13), on the Free plan with five people of its own and nothing
+ *    else: the flow starts its trial, agrees its charter, opens and answers a round, closes it, and plans from it.
+ * 13. **Deterministic, and local only.** Fixed ids, link codes and a known password, so a reset gives the
  *    same rows and a test can name them. That is why the script refuses any database that is not on
  *    127.0.0.1 or localhost (REUSE 4.12: Orgpuls's fixture did not, and its tokens are derivable).
- * 13. **Idempotent.** It removes its own rows first, by their fixed ids, in one transaction.
+ * 14. **Idempotent.** It removes its own rows first, by their fixed ids, in one transaction.
  *
  * Kari's id is chosen so her avatar takes the first pair, as the design draws her (D-12).
  */
@@ -114,7 +116,7 @@ export const TEAM_VIEW_FIGURES = [
   { theme: 'Results', level: '4.5', agreement: 'high' },
 ]
 
-/** The team view's three states, each led by the flow leader */
+/** The team view's three states, each led by the flow leader, and a fourth that a flow takes through them */
 export const TEAM_STATES = {
   released: {
     org: { id: id('0a000000', 201), name: 'Flow team view group' },
@@ -130,6 +132,12 @@ export const TEAM_STATES = {
     org: { id: id('0a000000', 203), name: 'Flow no team view group' },
     group: { id: id('0b000000', 203), name: 'Flow no team view group' },
     scan: { id: id('0c000000', 203), code: 'flowTeamViewClosed0000001', size: 6 },
+  },
+  // open with no answers: three browsers answer it and the flow passes its deadline twice (tests/e2e/extension.spec.ts)
+  timeline: {
+    org: { id: id('0a000000', 204), name: 'Flow extension group' },
+    group: { id: id('0b000000', 204), name: 'Flow extension group' },
+    scan: { id: id('0c000000', 204), code: 'flowTeamViewTimeline00001', size: 6 },
   },
 }
 
@@ -411,6 +419,21 @@ export const PRIVACY_FLOW = {
   people: PRIVACY_PEOPLE,
 }
 
+/** The chained flow's people (handoff 13): a leader and four members, who answer the round in the browser */
+const CHAIN_PEOPLE = livePeople(943, 'Chain')
+
+/**
+ * The chained flow's group (tests/e2e/chain.spec.ts): on the Free plan with no trial, no charter and no round, which
+ * the flow adds in order: the trial, the charter, a round answered by four and closed, a focus area, an action, a meeting
+ */
+export const CHAIN_FLOW = {
+  org: { id: id('0a000000', 904), name: 'Flow chain group' },
+  group: { id: id('0b000000', 904), name: 'Flow chain group' },
+  scan: { id: id('0c000000', 904), code: 'flowChainScanCode00000001', size: 5 },
+  leader: CHAIN_PEOPLE[0],
+  people: CHAIN_PEOPLE,
+}
+
 const q = (s) => `'${String(s).replace(/'/g, "''")}'`
 const answersOf = (values) => `(select jsonb_agg(jsonb_build_object('item', vi.item_id, 'value', (${q(JSON.stringify(values))}::jsonb ->> (vi.ordinal - 1))::int) order by vi.ordinal)
     from app.scan_session ss join app.instrument_version_item vi on vi.instrument_version_id = ss.instrument_version_id where ss.code = c)`
@@ -424,6 +447,8 @@ export function render({ e2e = false, shots = false, liveOff = false } = {}) {
   const charter = { ...GROUP_FLOW, demo: false, trial: true, people: [{ ...GROUP_FLOW.leader, role: 'leader' }, { ...GROUP_FLOW.member, role: 'member' }] }
   // members since before the oldest round the fixture opens
   const rounds = [ROUND_FLOW, ROUND_STATES, PLAN_FLOW, LIVE_FLOW, SYNC_FLOW, PULSE_FLOW, PULSE_STATES, PRIVACY_FLOW].map((g) => ({ ...g, demo: false, trial: true, since: "now() - interval '120 days'" }))
+  // on the Free plan, so the flow starts its trial; members since well before the round it opens
+  const chain = { ...CHAIN_FLOW, demo: false, since: "now() - interval '120 days'" }
   // the screenshots' two groups share one organisation, so the second carries no organisation row of its own
   const shotGroups = [
     { ...SHOTS, demo: false, trial: true, since: "now() - interval '200 days'", opened: "now() - interval '30 days'" },
@@ -432,12 +457,12 @@ export function render({ e2e = false, shots = false, liveOff = false } = {}) {
   ]
   const groups = [
     { ...LUMIO, demo: true },
-    ...(e2e ? [...E2E_GROUPS.map((g) => ({ ...g, people: [], demo: false })), ...states, billing, charter, ...rounds] : []),
+    ...(e2e ? [...E2E_GROUPS.map((g) => ({ ...g, people: [], demo: false })), ...states, billing, charter, ...rounds, chain] : []),
     ...(shots ? shotGroups : []),
   ]
   const accounts = [
     ...LUMIO.people,
-    ...(e2e ? [FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, ...LIVE_PEOPLE, ...SYNC_PEOPLE, ...PULSE_PEOPLE, ...RHYTHM_PEOPLE, ...PRIVACY_PEOPLE, NO_GROUP] : []),
+    ...(e2e ? [FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, ...LIVE_PEOPLE, ...SYNC_PEOPLE, ...PULSE_PEOPLE, ...RHYTHM_PEOPLE, ...PRIVACY_PEOPLE, ...CHAIN_PEOPLE, NO_GROUP] : []),
     ...(shots ? SHOT_PEOPLE : []),
   ]
   const orgIds = [...new Set(groups.map((g) => g.org.id))].map(q).join(', ')
@@ -448,7 +473,7 @@ export function render({ e2e = false, shots = false, liveOff = false } = {}) {
   // and the groups the flow leader made in an earlier run, which a reset would otherwise leave behind
   lines.push(`delete from app.organisation where id in (select m.org_id from app.membership m where m.person_id = ${q(FLOW_LEADER.id)});`)
   lines.push(
-    `delete from auth.users where id in (${[...LUMIO.people, FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, ...LIVE_PEOPLE, ...SYNC_PEOPLE, ...PULSE_PEOPLE, ...RHYTHM_PEOPLE, ...PRIVACY_PEOPLE, NO_GROUP, ...SHOT_PEOPLE].map((p) => q(p.id)).join(', ')});`,
+    `delete from auth.users where id in (${[...LUMIO.people, FLOW_LEADER, BILLING.leader, BILLING.member, GROUP_FLOW.leader, GROUP_FLOW.member, GROUP_FLOW.invitee, ...ROUND_PEOPLE, ...PLAN_PEOPLE, ...LIVE_PEOPLE, ...SYNC_PEOPLE, ...PULSE_PEOPLE, ...RHYTHM_PEOPLE, ...PRIVACY_PEOPLE, ...CHAIN_PEOPLE, NO_GROUP, ...SHOT_PEOPLE].map((p) => q(p.id)).join(', ')});`,
   )
   // a local database completes checkouts with the development adapter (0013): it succeeds or fails on demand
   lines.push(`update app.payment_adapter set adapter = 'development';`)

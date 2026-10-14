@@ -42,6 +42,8 @@ begin
           and has_function_privilege('authenticated', 'app.take_public_rate(text, text)', 'execute')
           and has_function_privilege('anon', 'app.pre_request()', 'execute')
           and has_function_privilege('authenticated', 'app.pre_request()', 'execute')
+          -- PostgREST runs it as every role it serves: the dispatcher's service role too (0027)
+          and has_function_privilege('service_role', 'app.pre_request()', 'execute')
           and has_function_privilege('service_role', 'app.prune_rate_windows()', 'execute')
           and not exists (select 1 from unnest(array['anon', 'authenticated', 'service_role']) r
                           where has_function_privilege(r, 'app.take_rate(text, text)', 'execute'))

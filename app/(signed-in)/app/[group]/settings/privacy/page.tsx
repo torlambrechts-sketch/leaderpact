@@ -12,6 +12,7 @@ import { RequestExport } from '@/components/settings/SettingsActions'
 import { buttonVariants } from '@/components/ui/button'
 import { PRODUCT_NAME } from '@/lib/brand'
 import { currentUser } from '@/lib/auth/session'
+import { loadBillingRules } from '@/lib/billing/load'
 import { loadShell } from '@/lib/groups/load'
 import { dateFormat } from '@/lib/i18n/dates'
 import { loadMyProfile, loadMyShares } from '@/lib/profile/load'
@@ -30,6 +31,7 @@ const HANDLED = [
   ['handledAnonymity', 'handledAnonymityBody'],
   ['handledNames', 'handledNamesBody'],
   ['handledProfile', 'handledProfileBody'],
+  ['handledRetention', 'handledRetentionBody'],
   ['handledWhere', 'handledWhereBody'],
   ['handledPurpose', 'handledPurposeBody'],
 ] as const
@@ -37,15 +39,16 @@ const HANDLED = [
 /**
  * Privacy (handoff 6.18, design `settings` privacy tab): the person's consents, which in the MVP are the
  * Leader Profile's (sharing in Me, and "Delete my results", 0011), then "Download my data" (0023), then how
- * data is handled, in rules that hold today. The design's contribution view and profile modules are Phase 2,
- * and its retention row waits for the job that deletes on schedule (D-53).
+ * data is handled, in rules that hold today. The design's contribution view and profile modules are Phase 2.
+ * The retention row reads its days from the setting the deletion job uses (0013, 0026; D-56), and is left out
+ * when that cannot be read.
  */
 export default async function PrivacyPage({ params }: { params: Promise<{ group: string }> }) {
   const { group } = await params
   const user = await currentUser()
   if (!user) redirect(SIGN_IN_PATH as Route)
   const [t, tInvite] = await Promise.all([getTranslations('settings'), getTranslations('invite')])
-  const [shell, profile, shares] = await Promise.all([loadShell(group, user.id), loadMyProfile(user.id), loadMyShares(user.id)])
+  const [shell, profile, shares, rules] = await Promise.all([loadShell(group, user.id), loadMyProfile(user.id), loadMyShares(user.id), loadBillingRules()])
   if (shell === null) return <PageProblem title={tInvite('readFailed')} />
   if (shell === 'none') return <PageProblem title={tInvite('notFoundTitle')} body={tInvite('notFoundBody')} />
 
@@ -88,10 +91,10 @@ export default async function PrivacyPage({ params }: { params: Promise<{ group:
         <Card large className="flex flex-col">
           <SectionHeader title={t('handledTitle')} meta={t('handledMeta')} className="mb-4" />
           <dl className="m-0 flex flex-col">
-            {HANDLED.map(([term, body]) => (
+            {HANDLED.filter(([term]) => term !== 'handledRetention' || rules !== null).map(([term, body]) => (
               <div key={term} className="grid gap-1 border-t border-line py-3 first:border-t-0 first:pt-0 sm:grid-cols-[200px_minmax(0,1fr)] sm:gap-4">
                 <dt className="text-[14px] font-bold max-md:text-[15px]">{t(term)}</dt>
-                <dd className="m-0 text-[14px] leading-[1.55] text-text-2 max-md:text-[15px]">{t(body)}</dd>
+                <dd className="m-0 text-[14px] leading-[1.55] text-text-2 max-md:text-[15px]">{t(body, { days: rules?.retentionDays ?? 0 })}</dd>
               </div>
             ))}
           </dl>

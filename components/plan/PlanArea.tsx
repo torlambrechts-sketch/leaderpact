@@ -213,7 +213,7 @@ export function PlanArea(props: PlanProps) {
               {candidates.scales.map((s) => (
                 <li key={s.key} className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-divider py-3">
                   <div className="flex min-w-[200px] flex-1 basis-[220px] flex-col gap-1">
-                    <Link href={s.href as Route} className="self-start text-[14.5px] font-bold text-ink underline-offset-2 hover:underline max-md:text-[15px]">
+                    <Link href={s.href as Route} className="self-start text-[14.5px] font-bold text-ink underline-offset-2 hover:underline max-md:inline-flex max-md:min-h-[44px] max-md:min-w-[44px] max-md:items-center max-md:text-[15px]">
                       {s.name}
                     </Link>
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12.5px] text-text-2 max-md:text-[14px]">
@@ -330,7 +330,7 @@ function FocusCard({
             <div className="flex flex-wrap items-center gap-2">
               <h3 id={titleId} className="m-0 text-[17px] font-bold">
                 {area.href ? (
-                  <Link href={area.href as Route} className="text-ink underline-offset-2 hover:underline">
+                  <Link href={area.href as Route} className="text-ink underline-offset-2 hover:underline max-md:inline-flex max-md:min-h-[44px] max-md:min-w-[44px] max-md:items-center">
                     {area.name}
                   </Link>
                 ) : (

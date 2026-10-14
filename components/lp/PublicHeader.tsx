@@ -138,7 +138,7 @@ export function PublicFooter({
     templates?: string
   }
 }) {
-  const link = 'text-text-2 hover:text-ink max-md:inline-flex max-md:min-h-[44px] max-md:items-center'
+  const link = 'text-text-2 hover:text-ink max-md:inline-flex max-md:min-h-[44px] max-md:min-w-[44px] max-md:items-center'
   const id = React.useId()
   const product: [string | undefined, string][] = [
     [labels.scan, LANDING_PATH],

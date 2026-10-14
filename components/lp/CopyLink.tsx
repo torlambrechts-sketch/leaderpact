@@ -43,7 +43,7 @@ export function CopyLink({
           readOnly
           value={link}
           onFocus={(e) => e.currentTarget.select()}
-          className={cn('min-w-0 flex-1 truncate bg-transparent font-semibold text-ink', compact ? 'text-[13.5px]' : 'text-[14.5px]')}
+          className={cn('min-w-0 flex-1 truncate bg-transparent font-semibold text-ink max-md:min-h-[44px]', compact ? 'text-[13.5px]' : 'text-[14.5px]')}
         />
         <button
           type="button"
