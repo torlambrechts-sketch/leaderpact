@@ -57,7 +57,7 @@
         "A group needs at least as many members as its threshold, 4 or more."
       ],
       "shot": "assess",
-      "alt": "Assess: the Full diagnostic, round 1, answering, with “5 of 8 answered. Counts only, never names.” and the note “You answered”.",
+      "alt": "Assess: round 2 of the Full diagnostic, answering, with “5 of 8 answered. Counts only, never names.” and “You answered”.",
       "caption": "Round 1, answering: 5 of 8."
     },
     {
@@ -159,7 +159,7 @@
     {
       "t": "box",
       "title": "In development",
-      "text": "Reminder emails to those who have not answered, agendas and pulses are being built. They will follow from the results, not replace them."
+      "text": "Reminder emails to those who have not answered are being set up. A reminder never says who else has or has not answered."
     }
   ],
   "faq": [

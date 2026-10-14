@@ -16,7 +16,7 @@ describe('the feature pages', () => {
   it('are registered once each, in the loop’s order', () => {
     const slugs = FEATURES.map((f) => f.slug)
     expect(new Set(slugs).size).toBe(slugs.length)
-    expect(slugs).toEqual(['leadership-team-scan', 'team-view', 'leader-profile', 'team-charter', 'full-diagnostic', 'focus-areas'])
+    expect(slugs).toEqual(['leadership-team-scan', 'team-view', 'leader-profile', 'team-charter', 'full-diagnostic', 'focus-areas', 'meetings', 'pulses'])
   })
 
   it.each(features.map((f) => [f.entry.slug, f] as const))('%s carries its search in its title, and fits the results page', (_, f) => {

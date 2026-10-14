@@ -9,6 +9,8 @@ import profile from '@/data/features/leader-profile.json'
 import charter from '@/data/features/team-charter.json'
 import diagnostic from '@/data/features/full-diagnostic.json'
 import focus from '@/data/features/focus-areas.json'
+import meetings from '@/data/features/meetings.json'
+import pulses from '@/data/features/pulses.json'
 
 /**
  * The platform's feature pages (D-47): one page per feature the product has today, under /platform, each with
@@ -64,6 +66,22 @@ export const FEATURES = [
     icon: 'plan',
     queries: ['leadership team action plan', 'team development plan', 'action plan after a team survey'],
     related: ['how-to-assess-a-leadership-team', 'leadership-team-meeting-agenda'],
+  },
+  {
+    slug: 'meetings',
+    file: meetings,
+    art: 'meeting',
+    icon: 'meetings',
+    queries: ['leadership team meeting software', 'run leadership team meetings', 'meeting agenda tool for leadership teams'],
+    related: ['leadership-team-meeting-agenda', 'leadership-team-charter'],
+  },
+  {
+    slug: 'pulses',
+    file: pulses,
+    art: 'pulse',
+    icon: 'pulses',
+    queries: ['leadership team pulse survey', 'team pulse check', 'pulse survey for leadership teams'],
+    related: ['how-to-assess-a-leadership-team', 'what-makes-a-leadership-team-effective'],
   },
 ] as const satisfies readonly {
   slug: string

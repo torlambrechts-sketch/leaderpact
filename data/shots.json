@@ -2,7 +2,7 @@
   "assess": {
     "file": "/shots/assess.webp",
     "width": 1600,
-    "height": 670,
+    "height": 414,
     "device": "desktop"
   },
   "charter": {
@@ -26,7 +26,7 @@
   "home": {
     "file": "/shots/home.webp",
     "width": 1600,
-    "height": 1147,
+    "height": 1315,
     "device": "desktop"
   },
   "invite-counter": {
@@ -52,6 +52,24 @@
     "width": 780,
     "height": 1440,
     "device": "phone"
+  },
+  "meetings-agenda": {
+    "file": "/shots/meetings-agenda.webp",
+    "width": 1600,
+    "height": 1464,
+    "device": "desktop"
+  },
+  "meetings-live": {
+    "file": "/shots/meetings-live.webp",
+    "width": 1600,
+    "height": 836,
+    "device": "desktop"
+  },
+  "meetings-summary": {
+    "file": "/shots/meetings-summary.webp",
+    "width": 1600,
+    "height": 1260,
+    "device": "desktop"
   },
   "members": {
     "file": "/shots/members.webp",
@@ -81,6 +99,18 @@
     "file": "/shots/plan-candidates.webp",
     "width": 1576,
     "height": 940,
+    "device": "desktop"
+  },
+  "pulse-result": {
+    "file": "/shots/pulse-result.webp",
+    "width": 1600,
+    "height": 895,
+    "device": "desktop"
+  },
+  "pulse-rhythm": {
+    "file": "/shots/pulse-rhythm.webp",
+    "width": 1600,
+    "height": 1031,
     "device": "desktop"
   },
   "results": {

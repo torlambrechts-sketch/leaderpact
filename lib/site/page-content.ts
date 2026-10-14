@@ -18,8 +18,10 @@ export const PageContent = z.object({
   lead: Copy,
   blocks: Blocks,
   faq: z.array(FaqItem).optional(),
-  /** the product's steps, each with whether it is available today or in development (D-38) */
-  steps: z.array(z.object({ status: z.enum(['available', 'development']), title: Copy, text: Copy })).optional(),
+  /** the product's steps, each with whether it is available today or in development (D-38), and the page that shows it (D-54) */
+  steps: z
+    .array(z.object({ status: z.enum(['available', 'development']), title: Copy, text: Copy, href: z.string().regex(/^\/[a-z0-9/-]*$/).optional() }))
+    .optional(),
 })
 export type PageContent = z.infer<typeof PageContent>
 

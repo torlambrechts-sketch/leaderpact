@@ -79,6 +79,8 @@ keyword in Sentral.
 | leadership team charter software; team decision rights | `/platform/team-charter` | Feature page, screenshots, FAQ |
 | leadership team diagnostic; team effectiveness diagnostic | `/platform/full-diagnostic` | Feature page, screenshots, FAQ |
 | leadership team action plan; team development plan; action plan after a team survey | `/platform/focus-areas` | Feature page, screenshots, FAQ |
+| leadership team meeting software; run leadership team meetings | `/platform/meetings` | Feature page, screenshots, FAQ |
+| leadership team pulse survey; team pulse check | `/platform/pulses` | Feature page, screenshots, FAQ |
 | leadership team effectiveness; high performing leadership team; how to build a high performing leadership team | `/articles/what-makes-a-leadership-team-effective` | Article (pillar) |
 | how to assess a leadership team; leadership team effectiveness survey questions; executive team effectiveness assessment | `/articles/how-to-assess-a-leadership-team` | Article |
 | five dysfunctions of a team; five dysfunctions of a team assessment; lencioni model research | `/articles/five-dysfunctions-of-a-team-and-the-research` | Article (comparison) |

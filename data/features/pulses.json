@@ -1,0 +1,129 @@
+{
+  "title": "Leadership team pulse survey: short check-ins between diagnostics",
+  "description": "A short pulse every few weeks on your focus areas and working agreements. Change shows only when it is large enough to mean something.",
+  "crumb": "Pulses",
+  "kicker": "Available now · part of the Team plan",
+  "h1": "Pulses",
+  "lead": "Between two Full diagnostics, a pulse shows whether the work is moving. It asks at most ten questions every few weeks: your focus areas, your working agreements and a few rotating scales.",
+  "nav": "Pulses",
+  "summary": "At most ten questions every few weeks, with change shown from 0.6.",
+  "blocks": [
+    {
+      "t": "h2",
+      "text": "What it brings"
+    },
+    {
+      "t": "value",
+      "items": [
+        {
+          "who": "you",
+          "title": "A few minutes now and then",
+          "points": [
+            "At most ten questions, answered anonymously.",
+            "It asks about what the group chose to work on.",
+            "You see the same result as everyone else."
+          ]
+        },
+        {
+          "who": "group",
+          "title": "A check on its own promises",
+          "points": [
+            "One question for each working agreement in the charter.",
+            "Focus areas measured with the same core items as before.",
+            "Change only when it is larger than normal variation."
+          ]
+        },
+        {
+          "who": "organisation",
+          "title": "Progress you can follow",
+          "points": [
+            "A regular reading between two Full diagnostics.",
+            "The leader sets the rhythm, from two to eight weeks.",
+            "No target on a score, so the answers stay honest."
+          ]
+        }
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "How it works"
+    },
+    {
+      "t": "feature",
+      "title": "The rhythm and the next pulse",
+      "text": "The leader starts pulses and sets the rhythm. Each pulse opens on its date and stays open for three to fourteen days. The Assess page shows what the next pulse will ask.",
+      "points": [
+        "Pulses sit beside the Full diagnostic’s rounds, one round at a time.",
+        "A pulse due while another round is answering is skipped, not queued."
+      ],
+      "shot": "pulse-rhythm",
+      "alt": "The Assess page: Full diagnostic rounds and two released pulses, the rhythm of every 4 weeks, and the next pulse’s ten questions.",
+      "caption": "Pulses every four weeks, beside the rounds."
+    },
+    {
+      "t": "feature",
+      "title": "The result, with change",
+      "text": "When a pulse closes, everyone in the group sees its result. Each focus area shows its level, agreement and standing. Each working agreement shows how well the group kept it.",
+      "points": [
+        "Change compares with the last pulse that asked the same question.",
+        "It shows from 0.6 points. A smaller move reads as normal variation."
+      ],
+      "shot": "pulse-result",
+      "alt": "Pulse 2’s result: Preparation at level 3.5, up 1.0, and five working agreements, the first at 3.6, up 0.6, the others within normal variation.",
+      "caption": "Pulse 2, with the change since pulse 1."
+    },
+    {
+      "t": "h2",
+      "text": "How a pulse is built"
+    },
+    {
+      "t": "cards",
+      "numbered": true,
+      "items": [
+        {
+          "title": "Focus areas first",
+          "text": "The core items of each active focus area’s scale, in the order the areas were chosen."
+        },
+        {
+          "title": "Then the agreements",
+          "text": "One question for each working agreement in the charter in force."
+        },
+        {
+          "title": "Then rotating items",
+          "text": "Up to two items from other scales, those asked longest ago first. At most ten questions in all."
+        }
+      ]
+    },
+    {
+      "t": "box",
+      "title": "Anonymous like every round",
+      "text": "A pulse opens results only at the group’s threshold of answers. Each answer carries a random ID, never a name."
+    },
+    {
+      "t": "p",
+      "text": "The [Full diagnostic](/platform/full-diagnostic) gives the full reading. Pulses follow the [focus areas](/platform/focus-areas) the group chose from it."
+    }
+  ],
+  "faq": [
+    {
+      "q": "How often does a pulse run?",
+      "a": "Every two to eight weeks, as the leader sets it. Each pulse stays open for three to fourteen days."
+    },
+    {
+      "q": "What does a pulse ask?",
+      "a": "At most ten questions: the focus areas’ core items, one question per working agreement, then up to two rotating items."
+    },
+    {
+      "q": "When does a pulse show change?",
+      "a": "When a level moves by 0.6 points or more since the last pulse that asked the same question."
+    },
+    {
+      "q": "Can a pulse and a diagnostic run at once?",
+      "a": "No. One round runs at a time, so a pulse due while a diagnostic is answering is skipped."
+    },
+    {
+      "q": "How does a group get pulses?",
+      "a": "Pulses are part of the Team plan. A group’s leader can start a 14-day trial in the app, with no billing details."
+    }
+  ]
+}

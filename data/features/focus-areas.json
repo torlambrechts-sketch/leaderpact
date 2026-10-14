@@ -120,9 +120,8 @@
       "text": "Reading results together comes before choosing what to work on. The article on [how to assess a leadership team](/articles/how-to-assess-a-leadership-team) covers how to do it."
     },
     {
-      "t": "box",
-      "title": "In development",
-      "text": "Agendas that carry the open actions, and the live meeting view, are being built. Until then, the group takes its actions into its own agenda."
+      "t": "p",
+      "text": "Every open action appears on the next meeting’s agenda, beside its items. [Meetings](/platform/meetings) shows how, and [pulses](/platform/pulses) follow the focus areas between two Full diagnostics."
     }
   ],
   "faq": [
