@@ -20,7 +20,8 @@ import { loadGroupTeamView } from '@/lib/groups/load'
 import { dateFormat } from '@/lib/i18n/dates'
 import { formatPrice, loadTeamPrice } from '@/lib/plans/load'
 import { loadMyProfile } from '@/lib/profile/load'
-import { SIGN_IN_PATH, joinPath, planBillingPath, profileTestPath, teamPath, upgradePath } from '@/lib/routes'
+import { loadRounds } from '@/lib/rounds/load'
+import { SIGN_IN_PATH, joinPath, planBillingPath, profileTestPath, roundPath, teamPath, upgradePath } from '@/lib/routes'
 import { HomeHero } from './HomeHero'
 import { NeedsYou } from './NeedsYou'
 
@@ -63,6 +64,9 @@ export default async function HomePage({ params }: { params: Promise<{ group: st
   const known = plan !== null && plan !== 'none' ? plan : null
   const free = known?.access === 'free'
   const leader = data.role === 'leader'
+  // the Full diagnostic asking this person, with the Team plan or its trial (milestone 10)
+  const rounds = known && !free ? await loadRounds(group) : null
+  const asking = rounds && rounds !== 'none' ? rounds.rounds.find((r) => r.phase === 'answering' && r.me === 'to_answer') : undefined
   const [price, rules] = leader && free ? await Promise.all([loadTeamPrice(), known.trialAvailable ? loadBillingRules() : null]) : [null, null]
   const date = (iso: string) => dateFormat({ locale: 'en', timeZone: 'UTC' }, { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date(iso))
   const status = !known
@@ -92,13 +96,18 @@ export default async function HomePage({ params }: { params: Promise<{ group: st
 
       <div className="grid items-start gap-5 min-[900px]:grid-cols-[minmax(0,1fr)_minmax(0,462px)]">
         <NeedsYou
+          roundHref={asking ? roundPath(group, asking.id) : null}
           code={open}
           link={link}
           profileHref={profile === 'none' ? profileTestPath('quick') : null}
           labels={{
             title: t('needsTitle'),
-            counts: [0, 1, 2, 3].map((count) => t('needsCount', { count })),
+            counts: [0, 1, 2, 3, 4].map((count) => t('needsCount', { count })),
             empty: t('needsEmpty'),
+            kindRound: t('kindRound'),
+            roundTitle: t('roundTitle'),
+            roundMeta: asking?.closes_at ? t('roundMeta', { date: date(asking.closes_at) }) : '',
+            roundAction: t('roundAction'),
             kindScan: t('kindScan'),
             answerTitle: t('answerTitle'),
             answerMeta: t('answerMeta'),

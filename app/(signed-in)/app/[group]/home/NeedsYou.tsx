@@ -2,7 +2,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 import type { Route } from 'next'
-import { ListChecks, Link2, UserRound } from 'lucide-react'
+import { ClipboardList, ListChecks, Link2, UserRound } from 'lucide-react'
 import { Card } from '@/components/lp/Card'
 import { ListRow } from '@/components/lp/ListRow'
 import { SectionHeader } from '@/components/lp/SectionHeader'
@@ -13,9 +13,13 @@ import { joinPath } from '@/lib/routes'
 
 export interface NeedsYouLabels {
   title: string
-  /** "# things need you", for 0 to 3 rows */
+  /** "# things need you", for 0 to 4 rows */
   counts: readonly string[]
   empty: string
+  kindRound: string
+  roundTitle: string
+  roundMeta: string
+  roundAction: string
   kindScan: string
   answerTitle: string
   answerMeta: string
@@ -32,13 +36,26 @@ export interface NeedsYouLabels {
 }
 
 /**
- * Home's "Needs you" on the Free plan (handoff 6.7): answer the scan and share the link, while the scan is
- * open, and take the Leader Profile while the person has none (milestone 7). Whether this person has
+ * Home's "Needs you" (handoff 6.7): answer the Full diagnostic while a round asks this person and they have
+ * yet to answer (milestone 10; their own state, from the server), answer the scan and share the link, while
+ * the scan is open, and take the Leader Profile while the person has none (milestone 7). Whether this person has
  * answered the scan is known only to their device, by the replace key the link left there (C2): nothing
  * on the server says who answered. A person who answered on another device sees the row; the link's page
  * then says the answers are in.
  */
-export function NeedsYou({ code, link, profileHref, labels }: { code: string | null; link: string | null; profileHref: string | null; labels: NeedsYouLabels }) {
+export function NeedsYou({
+  roundHref,
+  code,
+  link,
+  profileHref,
+  labels,
+}: {
+  roundHref: string | null
+  code: string | null
+  link: string | null
+  profileHref: string | null
+  labels: NeedsYouLabels
+}) {
   const answered = React.useSyncExternalStore(subscribeStorage, () => (code ? readReplaceKey(deviceStore(), code) !== null : true), () => null)
   const [said, setSaid] = React.useState<'copied' | 'failed' | null>(null)
 
@@ -53,6 +70,22 @@ export function NeedsYou({ code, link, profileHref, labels }: { code: string | n
   }
 
   const rows: React.ReactNode[] = []
+  if (roundHref) {
+    rows.push(
+      <ListRow
+        key="round"
+        icon={ClipboardList}
+        kind={labels.kindRound}
+        title={labels.roundTitle}
+        meta={labels.roundMeta}
+        action={
+          <Link href={roundHref as Route} className={buttonVariants({ size: 'xsmall' })}>
+            {labels.roundAction}
+          </Link>
+        }
+      />,
+    )
+  }
   if (code && answered === false) {
     rows.push(
       <ListRow
