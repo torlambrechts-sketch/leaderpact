@@ -2,15 +2,18 @@
   "title": "Leadership team size: how big should it be?",
   "description": "What research says about leadership team size, why larger teams lose effort, and how to keep a small core without shutting others out.",
   "h1": "How big should a leadership team be?",
-  "lead": "As small as the work allows: research on groups finds that coordination and individual effort suffer as a team grows. Richard Hackman, who studied senior teams with colleagues, advised against teams in double digits. The evidence on an exact number is mixed, so decide by the work. Keep the core to people whose work must be integrated, and inform the others another way.",
+  "lead": "As small as the work allows: research on groups finds that coordination gets harder, and members' individual performance can suffer, as a team grows. Richard Hackman, who studied senior teams with colleagues, advised against teams in double digits. The evidence on an exact number is mixed, so decide by the work. Keep the core to people whose work must be integrated, and inform the others another way.",
   "takeaways": [
-    "Research on groups finds losses in coordination, effort and mutual support as teams grow. No study gives one right number for a leadership team.",
+    "Research on groups finds coordination and mutual support harder to sustain as teams grow. People also tend to put in less effort when working collectively. No study gives one right number for a leadership team.",
     "Richard Hackman's rule of thumb was no double digits. He warned that a team of all the chief executive's direct reports may be worse than no team.",
     "A meta-analysis found that management teams did slightly better with more members, so size is never the whole story.",
     "Decide membership by the work: a small core for the decisions that need the whole team, and a wider group that is kept informed."
   ],
   "blocks": [
-    { "t": "h2", "text": "Why does the size of a leadership team matter?" },
+    {
+      "t": "h2",
+      "text": "Why does the size of a leadership team matter?"
+    },
     {
       "t": "p",
       "text": "Size is one of the conditions behind [leadership team effectiveness](/articles/what-makes-a-leadership-team-effective), alongside purpose, membership and support. Each person you add brings knowledge, perspective and reach. Each also adds costs, and research on groups has measured several of them."
@@ -29,20 +32,23 @@
     },
     {
       "t": "p",
-      "text": "Richard Hackman pointed to the links between members. As a team grows, the number of relationships to manage rises far faster than the headcount (Hackman and Coutu, 2009). The arithmetic is simple: a team of 8 has 28 pairs of members, and a team of 15 has 105."
+      "text": "Richard Hackman pointed to the links between members. As a team grows, the number of relationships to manage rises far faster than the headcount (Coutu, 2009). The arithmetic is simple: a team of 8 has 28 pairs of members, and a team of 15 has 105."
     },
     {
       "t": "p",
       "text": "Size shows in meetings too. In two survey studies of workplace meetings, larger meetings went with lower involvement from the people attending (Leach et al., 2009). Involvement, in turn, was a key link between how a meeting was designed and how effective people judged it."
     },
-    { "t": "h2", "text": "What do researchers of senior teams recommend?" },
+    {
+      "t": "h2",
+      "text": "What do researchers of senior teams recommend?"
+    },
     {
       "t": "p",
       "text": "Ruth Wageman, Debra Nunes, James Burruss and Richard Hackman studied more than 100 senior teams around the world (Wageman et al., 2008). Getting the right people on the team is one of the conditions their book sets out for a great senior leadership team."
     },
     {
       "t": "p",
-      "text": "In an interview about that work, Hackman said almost every senior team they studied thought its boundaries were clear. Yet when members were asked to describe their team, fewer than 10 per cent agreed about who was on it (Hackman and Coutu, 2009)."
+      "text": "In an interview about that work, Hackman said almost every senior team they studied thought its boundaries were clear. Yet when members were asked to describe their team, fewer than 10 per cent agreed about who was on it (Coutu, 2009)."
     },
     {
       "t": "p",
@@ -54,16 +60,19 @@
     },
     {
       "t": "p",
-      "text": "Hackman also described a firm where the finance chief was kept off the executive committee because he worked against collective solutions. The chief executive briefed him before and after every meeting, and by Hackman's account the team worked much better (Hackman and Coutu, 2009). Being off the team did not mean being out of the loop."
+      "text": "Hackman also described a firm where the finance chief was kept off the executive committee because he was unwilling to work towards collective solutions. The chief executive briefed him before and after every meeting, and by Hackman's account the team worked much better (Coutu, 2009). Being off the team did not mean being out of the loop."
     },
-    { "t": "h2", "text": "Is there an optimal team size?" },
+    {
+      "t": "h2",
+      "text": "Is there an optimal team size?"
+    },
     {
       "t": "p",
       "text": "Not one that the research agrees on. The findings point in different directions, depending on the task and on what is measured."
     },
     {
       "t": "p",
-      "text": "A meta-analysis of 93 studies looked at how features of team design relate to performance (Stewart, 2006). Project and management teams performed slightly better when they had more members. One plausible reason is that complex work needs more knowledge and more links to the rest of the organisation."
+      "text": "A meta-analysis of 93 studies looked at how features of team design relate to performance (Stewart, 2006). Project and management teams performed slightly better when they had more members."
     },
     {
       "t": "p",
@@ -78,7 +87,10 @@
       "title": "A rule of thumb",
       "text": "Count the people whose work must be integrated to deliver the team's shared tasks. That is the core. Everyone else needs good information and a way to give input, not a seat at every meeting."
     },
-    { "t": "h2", "text": "What is a core and an extended leadership team?" },
+    {
+      "t": "h2",
+      "text": "What is a core and an extended leadership team?"
+    },
     {
       "t": "p",
       "text": "One practical answer to the size problem is two circles. It is an arrangement, not a research finding, but it follows from the costs described above."
@@ -108,27 +120,54 @@
       "t": "p",
       "text": "To find the core, start from the [purpose of a leadership team](/articles/leadership-team-purpose): the tasks that only the whole team can do. Then ask who is needed for each of them."
     },
-    { "t": "h2", "text": "What are the signs your leadership team is too big?" },
+    {
+      "t": "h2",
+      "text": "What are the signs your leadership team is too big?"
+    },
     {
       "t": "p",
       "text": "None of these is conclusive on its own. Each is a prompt to look more closely at who is in the room and why."
     },
     {
       "t": "table",
-      "head": ["Sign", "What it suggests"],
+      "head": [
+        "Sign",
+        "What it suggests"
+      ],
       "rows": [
-        ["Members disagree about who is on the team", "The boundaries are unclear. Settle membership before anything else."],
-        ["Most items concern only one or two units", "The agenda carries work that belongs in a smaller forum."],
-        ["Several members rarely speak in meetings", "They may need information rather than a seat at the table."],
-        ["Decisions are reopened after the meeting", "The real decisions are being made in a smaller group outside the room."],
-        ["Meetings are mostly round-the-table updates", "The team works as an information forum, not as a decision group."],
-        ["Members describe their role as speaking for their unit", "Membership follows titles, not the team's shared tasks."]
+        [
+          "Members disagree about who is on the team",
+          "The boundaries are unclear. Settle membership before anything else."
+        ],
+        [
+          "Most items concern only one or two units",
+          "The agenda carries work that belongs in a smaller forum."
+        ],
+        [
+          "Several members rarely speak in meetings",
+          "They may need information rather than a seat at the table."
+        ],
+        [
+          "Decisions are reopened after the meeting",
+          "The real decisions are being made in a smaller group outside the room."
+        ],
+        [
+          "Meetings are mostly round-the-table updates",
+          "The team works as an information forum, not as a decision group."
+        ],
+        [
+          "Members describe their role as speaking for their unit",
+          "Membership follows titles, not the team's shared tasks."
+        ]
       ]
     },
-    { "t": "h2", "text": "How do you make a leadership team smaller without shutting people out?" },
+    {
+      "t": "h2",
+      "text": "How do you make a leadership team smaller without shutting people out?"
+    },
     {
       "t": "p",
-      "text": "Hackman's view was that forming a team calls for hard decisions about membership. Not everyone who wants a seat should have one (Hackman and Coutu, 2009). Hard decisions go better with clear criteria and a fair process."
+      "text": "Hackman's view was that forming a team calls for hard decisions about membership. Not everyone who wants a seat should have one (Coutu, 2009). Hard decisions go better with clear criteria and a fair process."
     },
     {
       "t": "ol",
@@ -149,7 +188,10 @@
       "title": "A question for your team",
       "text": "If this team were formed from scratch today, to do only its shared tasks, who would be on it?"
     },
-    { "t": "h2", "text": "What can you do this month?" },
+    {
+      "t": "h2",
+      "text": "What can you do this month?"
+    },
     {
       "t": "ul",
       "items": [
@@ -187,9 +229,9 @@
       "url": "https://doi.org/10.1016/j.obhdp.2011.08.004"
     },
     {
-      "authors": "Hackman, J. R., & Coutu, D.",
+      "authors": "Coutu, D.",
       "year": 2009,
-      "title": "Why teams don't work (interview by Diane Coutu)",
+      "title": "Why teams don't work (an interview with J. Richard Hackman)",
       "venue": "Harvard Business Review, 87(5), 98–105",
       "url": "https://hbr.org/2009/05/why-teams-dont-work"
     },
