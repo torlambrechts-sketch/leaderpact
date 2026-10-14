@@ -50,6 +50,8 @@ export const formSchema = z.object({
   state: z.enum(FORM_STATES),
   version: z.uuid(),
   items: z.array(z.object({ id: z.uuid(), text: z.string().trim().min(1) })).nullable(),
+  // the round's number among its kind (0020); a page deployed before it reads without
+  number: z.number().int().positive().optional(),
 })
 export type RoundForm = z.infer<typeof formSchema>
 

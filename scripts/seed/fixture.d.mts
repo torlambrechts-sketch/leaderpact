@@ -23,6 +23,16 @@ export declare const ROUND_STATES: Group & { rounds: Record<'released' | 'again'
 export declare const PLAN_FLOW: Group & { rounds: Record<'released', string>; tasks: string[]; leader: RoundPerson; member: RoundPerson; people: RoundPerson[] }
 export declare const LIVE_FLOW: Group & { meeting: { title: string; items: string[] }; leader: RoundPerson; people: RoundPerson[] }
 export declare const SYNC_FLOW: Group & { meeting: { title: string; items: string[] }; leader: RoundPerson; people: RoundPerson[] }
+interface PulseGroup extends Group {
+  rounds: Record<'released', string>
+  focus: string[]
+  agreements: string[]
+  leader: RoundPerson
+  member: RoundPerson
+  people: RoundPerson[]
+}
+export declare const PULSE_FLOW: PulseGroup
+export declare const PULSE_STATES: PulseGroup
 export declare const NO_GROUP: { id: string; name: string; email: string }
 export declare const SHOTS: Group & {
   round: string

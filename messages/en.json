@@ -503,7 +503,10 @@
     "statusTeam": "Team plan",
     "statusReadOnly": "Team plan · read-only until the payment arrives",
     "upgrade": "Upgrade",
-    "planTrial": "Or try the Team plan free for {days} days"
+    "planTrial": "Or try the Team plan free for {days} days",
+    "kindPulse": "Pulse",
+    "pulseTitle": "Answer pulse {number}",
+    "pulseMeta": "Open until {date} · a minute or two · stored without your name"
   },
   "standing": {
     "strength": "Strength",
@@ -771,7 +774,9 @@
     "workRoundMeta": "{group} · open until {date}",
     "workActionMeta": "{group} · due {date}",
     "workAnswer": "Answer",
-    "workOpen": "Open"
+    "workOpen": "Open",
+    "workPulse": "Answer pulse {number}",
+    "workKindPulse": "Pulse"
   },
   "people": {
     "title": "People",
@@ -1191,7 +1196,7 @@
     "roundsTitle": "Rounds",
     "roundsMeta": "Scheduled → answering → closed → released",
     "roundTitle": "Full diagnostic · round {number}",
-    "pulseTitle": "Pulse · {number}",
+    "pulseTitle": "Pulse {number}",
     "dates": "{from} – {to}",
     "opens": "Opens {date}",
     "invited": "{count, plural, one {# person asked} other {# people asked}}",
@@ -1230,7 +1235,8 @@
     "howTitle": "How a round works",
     "howAsked": "Everyone in the group when it opens is asked. Someone who joins later answers the next round.",
     "howStored": "Answers are stored with a random ID, never with a name. Everyone sees how many have answered, never who.",
-    "howOpens": "It closes on its date, or when everyone has answered. Results open to all members then, if at least {k} have answered."
+    "howOpens": "It closes on its date, or when everyone has answered. Results open to all members then, if at least {k} have answered.",
+    "missed": "Missed: fewer than {k} answered, so no result was made and the answers were deleted."
   },
   "round": {
     "heading": "Full diagnostic",
@@ -1265,7 +1271,11 @@
     "closedBody": "Answers are no longer taken. Answers after the close are not added.",
     "notInvitedTitle": "You are not asked in this round",
     "notInvitedBody": "Everyone in the group when a round opens is asked. You answer the next one.",
-    "back": "Back to Assess"
+    "back": "Back to Assess",
+    "pulseHeading": "Pulse {number}",
+    "pulseHeadingPlain": "Pulse",
+    "pulsePurpose": "A short check on your focus areas and working agreements between diagnostics.",
+    "pulseLead": "{count, plural, one {# statement, in mixed order. It takes a minute.} other {# statements, one per screen, in mixed order. It takes a minute or two.}}"
   },
   "results": {
     "title": "Results",
@@ -1331,7 +1341,9 @@
     "backToScale": "Back to {scale}",
     "itemsTitle": "The questions of {scale}",
     "itemsLead": "Each question's mean across the group's answers, to one decimal.",
-    "itemMean": "Mean {level}"
+    "itemMean": "Mean {level}",
+    "pulsesLabel": "Pulses with a result",
+    "pulseLink": "Pulse {number}"
   },
   "plan": {
     "title": "Plan",
@@ -1623,5 +1635,65 @@
     "articlesText": "What the research says about making a leadership team work.",
     "templatesText": "A charter and a meeting agenda for your own team, free.",
     "signInText": "Your group, its results and its plan."
+  },
+  "pulses": {
+    "title": "Pulses",
+    "running": "Every {weeks} weeks, open for {days} days.",
+    "runningNext": "Every {weeks} weeks, open for {days} days. The next pulse opens on {date}.",
+    "stopped": "Pulses are not running. A pulse is a short check on your focus areas and working agreements, at most 10 questions.",
+    "leaderStarts": "Your team leader starts them.",
+    "tooFew": "Pulses need at least {k} members, so no answer can point to a person. The group has {members}.",
+    "inviteMembers": "Invite members",
+    "refusedOpen": "One round at a time: pulses can start when the open round closes.",
+    "refusedAlready": "Pulses are already running.",
+    "refusedStopped": "Pulses are not running.",
+    "refusedPlan": "Pulses need the Team plan, and a group that is not read-only.",
+    "refusedLeader": "Only the team leader sets the pulse rhythm.",
+    "refusedInvalid": "Choose a rhythm and a window from the lists. A pulse closes before the next one opens.",
+    "failed": "The change could not be saved. Try again in a few minutes.",
+    "weeksLabel": "Every",
+    "weeksOption": "{count, plural, one {# week} other {# weeks}}",
+    "daysLabel": "Open for",
+    "daysOption": "{count, plural, one {# day} other {# days}}",
+    "start": "Start pulses",
+    "startAsk": "Start pulses now for all {members} members?",
+    "startAskBody": "The first pulse opens now and stays open for {days} days. The next one opens {weeks} weeks later.",
+    "startConfirm": "Start now",
+    "starting": "Starting…",
+    "notYet": "Not yet",
+    "change": "Change the rhythm",
+    "changeNote": "The change applies to the pulses to come. A pulse that is open keeps its own dates.",
+    "save": "Save",
+    "saving": "Saving…",
+    "cancel": "Cancel",
+    "stop": "Stop pulses",
+    "stopAsk": "Stop pulses?",
+    "stopAskBody": "No new pulse opens. A pulse that is open runs to its close, and every result stays.",
+    "stopConfirm": "Stop them",
+    "stopping": "Stopping…",
+    "nextTitle": "Next pulse",
+    "nextMeta": "{count} of {max} questions",
+    "builtOrder": "Built in this order: the focus areas' scales first, then one question per working agreement, then up to {rotating} rotating questions. At most {max}.",
+    "noFocus": "No focus area is chosen yet, so the pulse has no focus questions.",
+    "fromFocus": "Focus · {scale}",
+    "fromAgreement": "Working agreement",
+    "fromRotating": "Rotating · {scale}",
+    "waiting": "{count, plural, one {# working agreement does not fit and rotates into a later pulse.} other {# working agreements do not fit and rotate into later pulses.}}",
+    "builtWhenOpens": "A pulse is built when it opens, so this list can change before then.",
+    "resultEyebrow": "{group} · Pulse {number}",
+    "missedTitle": "Missed",
+    "missedBody": "Fewer than {k} answered, so no result was made and the answers were deleted.",
+    "openBody": "{answered} of {total} answered. The result opens when the pulse closes, if at least {k} have answered.",
+    "resultNotYet": "The result opens when the pulse closes.",
+    "notAskedBefore": "Not asked before",
+    "resultSummary": "Opened {opened} · {answered} of {total} answered. Counts only, never names.",
+    "focusTitle": "Focus areas",
+    "focusMeta": "{count, plural, one {# scale} other {# scales}}",
+    "agreementsTitle": "Working agreements",
+    "agreementsMeta": "{count, plural, one {# agreement} other {# agreements}}",
+    "itemsTitle": "The questions",
+    "itemsMeta": "The mean of each question",
+    "changeRule": "Change compares each focus area and agreement with the last pulse that asked it. It shows at {margin} points or more.",
+    "colAgreement": "Agreement"
   }
 }

@@ -38,6 +38,8 @@ export default async function RoundPage({ params }: { params: Promise<{ group: s
     <ClientMessages namespaces={['round', 'scan']}>
       <RoundFlow
         round={form.round}
+        kind={form.kind}
+        number={form.number ?? null}
         person={user.id}
         version={form.version}
         state={form.state}

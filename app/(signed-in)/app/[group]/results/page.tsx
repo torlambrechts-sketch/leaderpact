@@ -7,6 +7,7 @@ import { AppPage, PageProblem, PageTitle } from '@/components/app/AppPage'
 import { Card } from '@/components/lp/Card'
 import { SectionHeader } from '@/components/lp/SectionHeader'
 import { levelText } from '@/components/lp/level'
+import { PulseResult } from '@/components/results/PulseResult'
 import { ScaleRows } from '@/components/results/ScaleRows'
 import { resultLabels } from '@/components/results/labels'
 import { SampleResults } from '@/components/sample/SampleResults'
@@ -35,7 +36,8 @@ export async function generateMetadata(): Promise<Metadata> {
  * shows the scale, its evidence chip, level, change, agreement label and standing, read from the snapshot
  * written at close (0007). Change shows only between two released rounds, at the margin or more, and only
  * where the questions were the same (owner C5). A first round shows none. Nothing before close: while a round
- * is open the page shows its count, never a score (handoff 7).
+ * is open the page shows its count, never a score (handoff 7). A pulse's `?round=` shows that pulse's result
+ * (handoff 6.16, `PulseResult`); the released pulses are linked under the rounds.
  */
 export default async function ResultsPage({ params, searchParams }: { params: Promise<{ group: string }>; searchParams: Promise<{ round?: string }> }) {
   const { group } = await params
@@ -49,6 +51,10 @@ export default async function ResultsPage({ params, searchParams }: { params: Pr
   const [shell, data] = await Promise.all([loadShell(group, user.id), loadRounds(group)])
   if (shell === null || data === null) return <PageProblem title={tInvite('readFailed')} />
   if (shell === 'none' || data === 'none') return <PageProblem title={tInvite('notFoundTitle')} body={tInvite('notFoundBody')} />
+
+  const pulse = data.rounds.find((r) => r.kind === 'pulse' && r.id === query.round)
+  if (pulse) return <PulseResult group={group} groupName={shell.current.name} round={pulse} />
+  const pulses = data.rounds.filter((r) => r.kind === 'pulse' && r.phase === 'released')
 
   const day = (iso: string) => dateFormat({ locale: 'en', timeZone: 'UTC' }, { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(iso))
   const diagnostics = data.rounds.filter((r) => r.kind === 'diagnostic')
@@ -71,6 +77,19 @@ export default async function ResultsPage({ params, searchParams }: { params: Pr
                 : t('emptyNone')}
           </p>
           {open && <p className="m-0 text-[13px] text-text-2 max-md:text-[15px]">{t('countsOnly')}</p>}
+          {pulses.length > 0 && (
+            <nav aria-label={t('pulsesLabel')} className="flex flex-wrap gap-2">
+              {pulses.map((r) => (
+                <Link
+                  key={r.id}
+                  href={resultsPath(group, r.id) as Route}
+                  className="rounded-pill border border-line-strong bg-surface px-3 py-1.5 text-[13px] font-semibold text-ink max-md:min-h-[44px] max-md:content-center"
+                >
+                  {t('pulseLink', { number: r.number })}
+                </Link>
+              ))}
+            </nav>
+          )}
           <Link href={assessPath(group) as Route} className="text-link self-start text-[14px] font-semibold text-ink underline underline-offset-2 max-md:inline-flex max-md:min-h-[44px] max-md:items-center max-md:text-[15px]">
             {t('toAssess')}
           </Link>
@@ -113,6 +132,19 @@ export default async function ResultsPage({ params, searchParams }: { params: Pr
                 )}
               >
                 {t('roundLink', { number: r.number })}
+              </Link>
+            ))}
+          </nav>
+        )}
+        {pulses.length > 0 && (
+          <nav aria-label={t('pulsesLabel')} className="flex flex-wrap gap-2 pt-1">
+            {pulses.map((r) => (
+              <Link
+                key={r.id}
+                href={resultsPath(group, r.id) as Route}
+                className="rounded-pill border border-line-strong bg-surface px-3 py-1.5 text-[13px] font-semibold text-ink max-md:min-h-[44px] max-md:content-center"
+              >
+                {t('pulseLink', { number: r.number })}
               </Link>
             ))}
           </nav>

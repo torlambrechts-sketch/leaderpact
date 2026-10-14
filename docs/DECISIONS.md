@@ -1134,3 +1134,49 @@ meeting in one browser, and `tests/e2e/live-sync.spec.ts` four browsers over Rea
   starts with "sb_secret_", which the old pattern took for a key. The check now fails on the prefix followed by
   key characters, on "service_role", and on the exact value of either local secret key, printing file names
   only. Every key the old pattern caught, the new one catches.
+
+## D-52 — Pulses (M15)
+
+Handoff 6.16; milestone 15: "A pulse assembles in the right order, closes after 7 days and shows change only from
+0.6." `supabase/tests/pulse_invariants.sql` (21 checks) proves the database's half; `tests/e2e/pulse.spec.ts`
+builds, starts and answers one, and reads a result with change. Where the build chose:
+
+- **The leader starts the rhythm.** Nobody set who turns pulses on or when the first one opens. The leader starts
+  them, as the leader opens a diagnostic; the first pulse opens at once and the scheduled job (`open_due_pulses`,
+  every five minutes) opens each next one on its date. The leader changes the rhythm (2 to 8 weeks) and the
+  window (3 to 14 days), the `pulse_rhythm_weeks` and `pulse_window_days` settings, or stops it. A window must
+  close before the next pulse is due.
+- **A due pulse is skipped, never queued,** while another round is answering, while the group is off the Team
+  plan or read-only, or while it has fewer members than its threshold. A pulse queued behind a 14-day diagnostic
+  would open the day it closes, which asks nothing new.
+- **Built in the handoff's order, at most 10** (`pulse_template`, a versioned row): the core items of each active
+  focus area's scale, in the order the focus areas were chosen; one question per working agreement of the
+  charter in force; then up to 2 rotating items, each from another of the 21 scales (never an outcome). Rotating
+  items come only where room is left, as the design's builder does. Agreements that do not fit rotate: those
+  asked longest ago, or never, come first. Rotating items go to the scales asked longest ago. Ties break on the
+  group and its count of pulses, so the page's preview is the pulse that opens.
+- **The agreement question is the handoff's proposed wording**, "In the last {weeks} weeks we kept this agreement:
+  «text»", with the group's rhythm for the weeks. TODO(owner): confirm it before launch (handoff 6.16 and 14); the
+  row says it is not confirmed. A confirmed or new wording is a new template version.
+- **A pulse keeps what it asked** (`pulse_question`), written before it opens and never changed, with an
+  agreement's words as asked. It records the published Full diagnostic as its instrument version, because its
+  items are that version's rows; that is what lets change compare like with like.
+- **Agreement answers are answers.** They go to `agreement_response`, under the set's random id, and their levels
+  to `agreement_score` at close. Both have no policy and no grant to any role, and the firewall lists them with
+  the other answer tables. `submit_response` stays the one write path; `get_pulse_result` joins the reviewed
+  readers.
+- **A pulse's snapshot:** each focus scale's level, agreement label and standing (it asks the scale's core items in
+  full), each item's level and each agreement's level. A rotating item is one item, never a scale, so it has no
+  scale level.
+- **Change is pulse to pulse** (handoff 7: "two closed rounds of the same instrument"). A focus scale compares with
+  the latest earlier released pulse that asked the same core items; an agreement with the latest that asked the
+  same agreement in the same words. It shows from the margin of the cut-offs the pulse closed with (0.6). A
+  question not asked before reads "Not asked before". Items show their mean only (handoff 6.12).
+- **Where pulses show:** in the Assess list beside the rounds ("Pulse 2"), with the rhythm and the next pulse's
+  questions beside it; a result opens on the Results page by `?round=`, which links the pulses with a result;
+  an open pulse waits on Home and Me as "Answer pulse 2". The design's pulse tab, its toggles for agreements and
+  rotating items, and its "trend margin 0.3" are left out: the handoff fixes how a pulse is built and the margin
+  is 0.6 (section 11).
+- **A pulse shows the date it opened**, not the one it closed: one that closes at 100% keeps its planned date, as
+  a diagnostic does.
+- **Hosted:** `close_round` keeps its deletes from 0007, so 0020 may need the owner's SQL editor (D-22).

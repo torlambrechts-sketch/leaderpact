@@ -20,7 +20,7 @@ type Step =
   | { kind: 'refused'; reason: Exclude<FormState, 'open'> }
 
 /**
- * Answering the Full diagnostic (handoff 6.11): an intro that names the round, its purpose, the number of
+ * Answering the Full diagnostic or a pulse (handoff 6.11 and 6.16): an intro that names the round, its purpose, the number of
  * questions and how answers are kept; one question per screen in the round's mixed order; progress saved on
  * this device; a review page that lists the questions still without an answer and waits for them (owner
  * C8); then "Submit anonymously".
@@ -32,6 +32,8 @@ type Step =
  */
 export function RoundFlow({
   round,
+  kind,
+  number,
   person,
   version,
   state,
@@ -42,6 +44,9 @@ export function RoundFlow({
   backHref,
 }: {
   round: string
+  /** a pulse names itself and says it is short (handoff 6.16); the Full diagnostic as before */
+  kind: 'diagnostic' | 'pulse'
+  number: number | null
   person: string
   version: string
   state: FormState
@@ -205,10 +210,10 @@ export function RoundFlow({
     <Frame>
       <p className="m-0 text-[13px] text-muted max-md:text-[15px]">{group}</p>
       <h1 ref={heading} tabIndex={-1} className="-mt-1 mb-0 font-display text-page-title focus-visible:outline-none max-md:text-[28px]">
-        {t('heading')}
+        {kind === 'pulse' ? (number ? t('pulseHeading', { number }) : t('pulseHeadingPlain')) : t('heading')}
       </h1>
-      <p className="m-0 text-[15px] leading-[1.55] text-text-2">{t('purpose')}</p>
-      <p className="m-0 text-[15px] leading-[1.55] text-text-2">{t('lead', { count: items.length })}</p>
+      <p className="m-0 text-[15px] leading-[1.55] text-text-2">{kind === 'pulse' ? t('pulsePurpose') : t('purpose')}</p>
+      <p className="m-0 text-[15px] leading-[1.55] text-text-2">{kind === 'pulse' ? t('pulseLead', { count: items.length }) : t('lead', { count: items.length })}</p>
       {step.notice === 'invalid' && (
         <p role="alert" className="m-0 text-[14px] font-semibold text-danger max-md:text-[15px]">
           {t('invalid')}
