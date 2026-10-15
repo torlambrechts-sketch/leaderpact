@@ -1431,3 +1431,40 @@ stays, beside the password.
   `scripts/hosted/auth-config.mjs --apply` sets all of it with a working token.
 - **CI** raises Auth's local `sign_in_sign_ups` limit to 300, since every flow signs in from one address. Hosted
   keeps Auth's default.
+
+## D-58 — The hosted mail: what was wrong, and what the owner sets (owner, 15 October 2026)
+
+The owner: "help me fix so the supabase email is correct". The hosted logs show the cause. On 14 October a
+confirmation mail went out, and its link passed through Auth's own `/auth/v1/verify` with
+`redirect_to=http://localhost:3000`. Three of D-10's settings were never applied, because the Management API
+still refuses this session's token (401, D-28):
+
+- the Site URL is Supabase's default, `localhost:3000`;
+- the redirect list is empty, so Auth drops the app's own return address and falls back to the Site URL;
+- the templates are Supabase's defaults, whose link goes through Auth instead of to the app's confirmation page.
+
+The mail also goes out through Supabase's built-in sender. It delivers only to the project team's own addresses,
+a few an hour, from Supabase's address, so a customer who signs up gets nothing.
+
+What the app does now:
+
+- **A link that went through Auth still signs in.** Its `?code=` arrives on the site address or on
+  `/auth/confirm`. Both pass it to `/auth/callback`, which exchanges it with the verifier the device kept
+  (PKCE). This works in the browser that asked for the mail. The code is checked for shape first.
+- **The three templates** (sign-in link, confirmation, new password) have one plain layout with inline styles,
+  which mail clients keep. The words are unchanged.
+- **The callback's failure line** now fits a mail link as well as Google or Microsoft: "That sign-in did not
+  finish. Try again, or sign in another way."
+
+What the owner sets, in the dashboard or with `scripts/hosted/auth-config.mjs --apply` and a working token:
+
+- the Site URL, `https://www.leaderpact.com`;
+- the four redirect addresses;
+- the three templates with their subjects;
+- the link's lifetime of 15 minutes (900 seconds);
+- SMTP through Brevo (`smtp-relay.brevo.com`, port 587), sending from `post@leaderpact.com` under the product's
+  name;
+- a mail limit of 30 an hour.
+
+Brevo must have `leaderpact.com` authenticated (DKIM and DMARC records at the domain), or the mail lands in spam.
+None of this is a product decision; each value is in `auth-config.mjs`.

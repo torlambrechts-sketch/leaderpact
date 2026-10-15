@@ -1,14 +1,15 @@
 import { redirect } from 'next/navigation'
 import type { Route } from 'next'
-import { confirmSchema } from '@/lib/auth/schema'
-import { CONFIRM_PATH, LANDING_PATH } from '@/lib/routes'
+import { authCodeSchema, confirmSchema } from '@/lib/auth/schema'
+import { CONFIRM_PATH, LANDING_PATH, OAUTH_CALLBACK_PATH } from '@/lib/routes'
 
 /**
  * The root address leads to the landing page, whose path says what it is (handoff section 5). A
  * temporary redirect: the name, and with it the site's addresses, is not cleared (handoff section 0).
  *
  * One exception: an email link whose return address Auth did not accept falls back to the site address
- * (supabase/templates), so a sign-in token arriving here is passed on to the confirmation page.
+ * (supabase/templates), so a sign-in token arriving here is passed on to the confirmation page. A code from a
+ * link that passed through Auth (a mail sent with Supabase's default template) goes on to be exchanged (D-58).
  */
 export default async function Root({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const params = await searchParams
@@ -16,5 +17,7 @@ export default async function Root({ searchParams }: { searchParams: Promise<Rec
   if (link.success) {
     redirect(`${CONFIRM_PATH}?${new URLSearchParams({ token_hash: link.data.token_hash, type: link.data.type })}` as Route)
   }
+  const code = authCodeSchema.safeParse(params.code)
+  if (code.success) redirect(`${OAUTH_CALLBACK_PATH}?${new URLSearchParams({ code: code.data })}` as Route)
   redirect(LANDING_PATH as Route)
 }

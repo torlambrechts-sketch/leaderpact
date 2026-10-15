@@ -288,3 +288,20 @@ describe('which providers show', () => {
     expect(foreign.fetch).not.toHaveBeenCalled()
   })
 })
+
+describe('a mail link that passed through Auth (D-58)', () => {
+  const params = (p: Record<string, string>) => ({ searchParams: Promise.resolve(p) })
+
+  it('the site address sends a token to the confirmation page and a code to be exchanged; anything else to the landing page', async () => {
+    const { default: Root } = await import('@/app/page')
+    await expect(Root(params({ token_hash: 'a'.repeat(40), type: 'recovery' }))).rejects.toThrow(`redirect:/auth/confirm?token_hash=${'a'.repeat(40)}&type=recovery`)
+    await expect(Root(params({ code: '0b7c2d6e-9f1a-4c3b-8d2e-5f6a7b8c9d0e' }))).rejects.toThrow('redirect:/auth/callback?code=0b7c2d6e-9f1a-4c3b-8d2e-5f6a7b8c9d0e')
+    await expect(Root(params({ code: 'not a code' }))).rejects.toThrow('redirect:/leadership-team-assessment')
+    await expect(Root(params({}))).rejects.toThrow('redirect:/leadership-team-assessment')
+  })
+
+  it('the confirmation page sends a code without a token to be exchanged', async () => {
+    const { default: ConfirmPage } = await import('@/app/(public)/auth/confirm/page')
+    await expect(ConfirmPage(params({ code: '0b7c2d6e-9f1a-4c3b-8d2e-5f6a7b8c9d0e' }))).rejects.toThrow('redirect:/auth/callback?code=0b7c2d6e-9f1a-4c3b-8d2e-5f6a7b8c9d0e')
+  })
+})
