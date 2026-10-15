@@ -9,7 +9,7 @@ import { TextField } from '@/components/lp/TextField'
 import { Button } from '@/components/ui/button'
 import { resendConfirmation, signUpWithPassword } from '@/lib/auth/password'
 import { PASSWORD_MIN, signUpSchema } from '@/lib/auth/schema'
-import { DATA_PROCESSING_PATH, PRIVACY_PATH, SIGN_IN_PATH } from '@/lib/routes'
+import { DATA_PROCESSING_PATH, PRIVACY_PATH, RESET_PASSWORD_PATH, SIGN_IN_PATH } from '@/lib/routes'
 
 const footLink = 'text-link font-semibold text-ink underline underline-offset-2 max-md:inline-flex max-md:min-h-[44px] max-md:items-center'
 
@@ -23,8 +23,9 @@ type State =
  * Creating an account with a password (owner, 15 October 2026; D-57): name, work email, company and a password
  * of at least 10 characters. Auth mails a link to confirm the address; it comes back to the confirmation page,
  * whose button signs in, then on to making a group (`/app/new`). An address that already has an account reads
- * the same as a new one, so nobody learns which addresses have one. The name and company go to the account and
- * name the person and the organisation (0028).
+ * the same as a new one, so nobody learns which addresses have one: Auth sends it nothing, and the sent state says
+ * so in words true for both, with the way to sign in or set a new password. The name and company go to the
+ * account and name the person and the organisation (0028).
  */
 export function SignUpForm() {
   const t = useTranslations('signUp')
@@ -63,6 +64,20 @@ export function SignUpForm() {
           {t('sentTitle')}
         </h2>
         <p className="m-0 text-[15px] leading-[1.55] text-text-2">{t('sentBody', { email: state.email })}</p>
+        <p className="m-0 text-[15px] leading-[1.55] text-text-2">
+          {t.rich('sentExisting', {
+            signIn: (chunks) => (
+              <Link href={SIGN_IN_PATH as Route} className={footLink}>
+                {chunks}
+              </Link>
+            ),
+            reset: (chunks) => (
+              <Link href={RESET_PASSWORD_PATH as Route} className={footLink}>
+                {chunks}
+              </Link>
+            ),
+          })}
+        </p>
         <div className="mt-2 flex flex-wrap gap-2">
           <Button variant="secondary" onClick={() => void resend(state.email)}>
             {t('resend')}
