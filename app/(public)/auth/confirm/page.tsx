@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import type { Route } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { ClientMessages } from '@/components/lp/ClientMessages'
 import { PRODUCT_NAME } from '@/lib/brand'
 import { NOINDEX } from '@/lib/site/meta'
-import { confirmSchema } from '@/lib/auth/schema'
-import { SIGN_IN_PATH } from '@/lib/routes'
+import { authCodeSchema, confirmSchema } from '@/lib/auth/schema'
+import { OAUTH_CALLBACK_PATH, SIGN_IN_PATH } from '@/lib/routes'
 import { ConfirmForm } from './ConfirmForm'
 
 export const dynamic = 'force-dynamic'
@@ -19,11 +20,14 @@ export async function generateMetadata(): Promise<Metadata> {
 /**
  * Where the email link lands (supabase/templates). Opening it signs nobody in: a button does, on a POST,
  * so a mail scanner that opens the link first does not use it up (REUSE 4.15). A link without its token
- * is said to be incomplete, and nothing is sent.
+ * is said to be incomplete, and nothing is sent. A code instead of a token comes from a mail whose link passed
+ * through Auth (Supabase's default template), and goes on to be exchanged (D-58).
  */
 export default async function ConfirmPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const params = await searchParams
   const link = confirmSchema.safeParse({ token_hash: params.token_hash, type: params.type })
+  const code = authCodeSchema.safeParse(params.code)
+  if (!link.success && code.success) redirect(`${OAUTH_CALLBACK_PATH}?${new URLSearchParams({ code: code.data })}` as Route)
   const t = await getTranslations('confirm')
   return (
     <div className="mx-auto mt-6 max-w-[520px] px-4 md:mt-12">

@@ -38,6 +38,13 @@ export const confirmSchema = z.object({
 export type ConfirmState = { problem: 'expired' | 'failed' } | null
 
 /**
+ * The one-time code Auth puts on a return address under PKCE: after Google or Microsoft, and after a mail whose
+ * template is still Supabase's default (its link passes through Auth, which comes back with `?code=`). Exchanged
+ * at /auth/callback, with the verifier the device kept.
+ */
+export const authCodeSchema = z.string().regex(/^[A-Za-z0-9_-]{8,512}$/)
+
+/**
  * Signing up and in with a password (owner, 15 October 2026; D-57). A password is 10 to 72 characters: Auth
  * holds it as a bcrypt hash, which reads 72 bytes, and the project asks for at least 10 (supabase/config.toml).
  * Length is the rule, not character classes (NIST SP 800-63B).

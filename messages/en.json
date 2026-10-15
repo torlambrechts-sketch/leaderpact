@@ -296,7 +296,7 @@
     "resent": "If the address needs confirming, a new link is on its way.",
     "useLink": "Email me a sign-in link instead",
     "usePassword": "Sign in with a password instead",
-    "providerFailed": "Signing in that way did not work. Try again, or use your email."
+    "providerFailed": "That sign-in did not finish. Try again, or sign in another way."
   },
   "authProviders": {
     "google": "Continue with Google",
