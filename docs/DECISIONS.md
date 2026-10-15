@@ -61,7 +61,7 @@ never wired.
 page is `noindex` until the name is cleared (handoff section 0). The icon is the design's logo mark: a
 black circle with a white dot.
 
-## D-10 — Hosted Auth settings not yet applied (0b; still open, see D-28)
+## D-10 — Hosted Auth settings not yet applied (0b; applied by the owner on 15 October 2026, see D-58)
 
 `supabase/config.toml` declares a 15-minute sign-in link and a 30-day session. The free project is reachable
 only through the Supabase MCP, which has no Auth-configuration tool, and the environment's Management API
@@ -1468,3 +1468,19 @@ What the owner sets, in the dashboard or with `scripts/hosted/auth-config.mjs --
 
 Brevo must have `leaderpact.com` authenticated (DKIM and DMARC records at the domain), or the mail lands in spam.
 None of this is a product decision; each value is in `auth-config.mjs`.
+
+**Update, 15 October 2026.** The owner set these in the dashboard, and they were checked from the hosted project:
+
+- **Site URL and redirects.** A dud token with each return address comes back to `/auth/confirm` and
+  `/auth/callback`. An unknown address falls back to `https://www.leaderpact.com/`.
+- **Mail limit.** Auth's log shows the limit raised from 2 to 30 an hour, which Supabase allows only with
+  custom SMTP.
+- **SMTP.** The first two sends failed with Brevo's `535 5.7.8 Authentication failed`, until the owner corrected
+  the SMTP login and key. A password reset to the owner's account then went out (`/recover`, 200) and arrived.
+  The owner followed it into the app.
+
+Google and Microsoft are not turned on yet, so their buttons stay hidden. Leaked-password protection needs the
+Pro plan.
+
+A sign-up with an address that already has an account brings no mail (`user_repeated_signup`), by design. The
+sign-up page now says so in words true for both cases (#32).
