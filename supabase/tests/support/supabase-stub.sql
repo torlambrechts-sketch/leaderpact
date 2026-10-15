@@ -18,6 +18,8 @@ grant usage on schema auth to anon, authenticated, service_role;
 create table if not exists auth.users (id uuid primary key, email text);
 -- the last sign-in Auth records, which the retention job of 0026 reads
 alter table auth.users add column if not exists last_sign_in_at timestamptz;
+-- the metadata Auth keeps from sign-up (a name and a company) and from Google or Microsoft, which 0028 reads
+alter table auth.users add column if not exists raw_user_meta_data jsonb;
 create or replace function auth.uid() returns uuid language sql stable as $$
   select coalesce(nullif(current_setting('request.jwt.claim.sub', true), ''),
                   (nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'sub'))::uuid

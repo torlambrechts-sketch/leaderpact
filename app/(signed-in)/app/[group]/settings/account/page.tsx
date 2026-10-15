@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import type { Route } from 'next'
 import { getTranslations } from 'next-intl/server'
-import { Mail } from 'lucide-react'
+import { KeyRound, Mail } from 'lucide-react'
 import { PageProblem } from '@/components/app/AppPage'
 import { SettingsFrame } from '@/components/app/SettingsFrame'
 import { Avatar } from '@/components/lp/Avatar'
@@ -12,9 +13,10 @@ import { SectionHeader } from '@/components/lp/SectionHeader'
 import { DeleteAccount, SignOutEverywhere, TimeZoneForm } from '@/components/settings/SettingsActions'
 import { PRODUCT_NAME } from '@/lib/brand'
 import { loadNotifications, timeZones } from '@/lib/account/load'
+import { signInWays } from '@/lib/auth/schema'
 import { currentUser } from '@/lib/auth/session'
 import { loadShell } from '@/lib/groups/load'
-import { SIGN_IN_PATH } from '@/lib/routes'
+import { NEW_PASSWORD_PATH, SIGN_IN_PATH } from '@/lib/routes'
 
 export const dynamic = 'force-dynamic'
 
@@ -24,10 +26,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const row = 'flex flex-col gap-3 border-t border-line py-4 first:border-t-0 first:pt-0'
+const way = 'flex items-center gap-2'
 
 /**
- * Account (handoff 6.18, design `settings` account tab): who is signed in, the address and how they sign in,
- * the time zone their summary follows, sign out everywhere, and delete account. English is the only language,
+ * Account (handoff 6.18, design `settings` account tab): who is signed in, the address and the ways they sign in
+ * (email, Google, Microsoft, as the account holds them; D-57), with a new password for an email account, the time zone their summary follows, sign out everywhere, and delete account. English is the only language,
  * so there is no language picker; the design's session list is left out, since nothing records sessions by
  * place (D-53). The address is shown, not edited.
  */
@@ -39,6 +42,7 @@ export default async function AccountPage({ params }: { params: Promise<{ group:
   const [shell, mine] = await Promise.all([loadShell(group, user.id), loadNotifications()])
   if (shell === null) return <PageProblem title={tInvite('readFailed')} />
   if (shell === 'none') return <PageProblem title={tInvite('notFoundTitle')} body={tInvite('notFoundBody')} />
+  const ways = signInWays(user.app_metadata)
 
   return (
     <ClientMessages namespaces={['settings']}>
@@ -61,13 +65,39 @@ export default async function AccountPage({ params }: { params: Promise<{ group:
               <dt className="text-[12.5px] font-semibold text-text-2 max-md:text-[15px]">{t('emailLabel')}</dt>
               <dd className="m-0 break-words text-[14.5px] max-md:text-[15px]">{user.email}</dd>
             </div>
-            <div className="flex flex-col gap-1">
-              <dt className="text-[12.5px] font-semibold text-text-2 max-md:text-[15px]">{t('signInLabel')}</dt>
-              <dd className="m-0 flex items-center gap-2 text-[14.5px] max-md:text-[15px]">
-                <Mail aria-hidden size={15} />
-                {t('signInBody')}
-              </dd>
-            </div>
+            {ways.length > 0 && (
+              <div className="flex flex-col gap-1">
+                <dt className="text-[12.5px] font-semibold text-text-2 max-md:text-[15px]">{t('signInLabel')}</dt>
+                <dd className="m-0 flex flex-col items-start gap-1.5 text-[14.5px] max-md:text-[15px]">
+                  {ways.includes('email') && (
+                    <span className={way}>
+                      <Mail aria-hidden size={15} />
+                      {t('signInEmail')}
+                    </span>
+                  )}
+                  {ways.includes('google') && (
+                    <span className={way}>
+                      <KeyRound aria-hidden size={15} />
+                      {t('signInGoogle')}
+                    </span>
+                  )}
+                  {ways.includes('azure') && (
+                    <span className={way}>
+                      <KeyRound aria-hidden size={15} />
+                      {t('signInAzure')}
+                    </span>
+                  )}
+                  {ways.includes('email') && (
+                    <Link
+                      href={NEW_PASSWORD_PATH as Route}
+                      className="text-link text-[13.5px] font-semibold text-ink underline underline-offset-2 max-md:inline-flex max-md:min-h-[44px] max-md:items-center max-md:text-[15px]"
+                    >
+                      {t('setPassword')}
+                    </Link>
+                  )}
+                </dd>
+              </div>
+            )}
           </dl>
           <div className={row}>
             {mine ? (

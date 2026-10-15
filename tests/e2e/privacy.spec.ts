@@ -42,7 +42,8 @@ test('settings: time zone, summary, the export by mail, and deleting an account'
   await expect(menu.getByRole('link', { name: 'Account' })).toHaveAttribute('aria-current', 'page')
   await expect(menu.getByRole('link')).toHaveText(['Account', 'Group', 'Notifications', 'Privacy', 'Plan and billing'])
   await expect(lp.getByText(PRIVACY_FLOW.leader.email)).toBeVisible()
-  await expect(lp.getByText('A link by email. No password.')).toBeVisible()
+  await expect(lp.getByText('By email, with a link or with a password you set.')).toBeVisible()
+  await expect(lp.getByRole('link', { name: 'Set a new password' })).toHaveAttribute('href', '/app/password')
   await axe(lp)
 
   // the time zone, saved and read back

@@ -27,28 +27,64 @@ additional_redirect_urls = [
   "http://localhost:3000/auth/confirm",
   "http://127.0.0.1:3100/auth/confirm",
   "http://localhost:3100/auth/confirm",
+  # where Google and Microsoft send a person back, with a code (D-57)
+  "http://127.0.0.1:3000/auth/callback",
+  "http://localhost:3000/auth/callback",
+  "http://127.0.0.1:3100/auth/callback",
+  "http://localhost:3100/auth/callback",
 ]
+# a password is at least 10 characters, and length is the only rule (NIST SP 800-63B; D-57). Auth keeps it as a
+# bcrypt hash, which reads 72 bytes, so the forms take at most 72.
+minimum_password_length = 10
+password_requirements = ""
 
 [auth.rate_limit]
 # sign-in mail per hour, project-wide: Supabase's default with custom SMTP, as hosted will have (D-26).
 # The handoff's 5 per address per hour comes with milestone 16's rate limits.
 email_sent = 30
+# sign-ins and sign-ups with a password, per network address and 5 minutes (D-57). The flows sign some forty
+# fixture people in from one runner within minutes, so the local stack allows more; the hosted project keeps
+# Supabase's 30 (scripts/hosted/auth-config.mjs does not send this).
+sign_in_sign_ups = 300
 
 [auth.email]
 # a sign-in link is valid for 15 minutes and works once (handoff section 8)
 otp_expiry = 900
+# an address given with a password is confirmed once, by mail, before it signs in (D-57)
+enable_signup = true
+enable_confirmations = true
 
 # Both mails carry the same link: back to the confirmation page, whose button signs in, so a mail scanner
 # that opens links first does not use it up (REUSE 4.15). The link works on any device; there is no PKCE.
 # The product's name is not in the mails: it lives in lib/brand.ts, and the sender's name carries it.
-# A first sign-in (a new address, from the save card) gets the confirmation mail; later ones the magic link.
+# A first sign-in (a new address, from the save card) and a sign-up with a password get the confirmation mail,
+# which signs in once pressed; later sign-ins by link get the magic link (D-57).
 [auth.email.template.magic_link]
 subject = "Your sign-in link"
 content_path = "./supabase/templates/magic_link.html"
 
 [auth.email.template.confirmation]
-subject = "Your sign-in link"
+subject = "Confirm your email"
 content_path = "./supabase/templates/confirmation.html"
+
+# "Forgot your password?": the link back to the confirmation page, whose button signs in to set a new one (D-57)
+[auth.email.template.recovery]
+subject = "Set a new password"
+content_path = "./supabase/templates/recovery.html"
+
+# Google and Microsoft (D-57): off on a local stack and in CI, which have no client of the providers; on the hosted
+# project the owner turns them on with the clients' ids and secrets (scripts/hosted/auth-config.mjs). The sign-in
+# and sign-up pages offer only those Auth reports as on.
+[auth.external.google]
+enabled = false
+client_id = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID)"
+secret = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET)"
+
+[auth.external.azure]
+enabled = false
+client_id = "env(SUPABASE_AUTH_EXTERNAL_AZURE_CLIENT_ID)"
+secret = "env(SUPABASE_AUTH_EXTERNAL_AZURE_SECRET)"
+url = "https://login.microsoftonline.com/common/v2.0"
 
 [auth.sessions]
 # a session lasts 30 days on a device (handoff section 8). On hosted Supabase this is a paid-plan

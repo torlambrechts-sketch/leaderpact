@@ -8,6 +8,7 @@ import { SizeStepper } from '@/components/lp/SizeStepper'
 import { TextField } from '@/components/lp/TextField'
 import { Button } from '@/components/ui/button'
 import { startGroup } from '@/lib/groups/actions'
+import { companySchema } from '@/lib/auth/schema'
 import { GROUP_MAX, GROUP_MIN, groupNameSchema } from '@/lib/groups/schema'
 import { forgetSave, readSave, writeReplaceKey, type PendingSave } from '@/lib/scan/device'
 import { deviceStore, forget, readDraft } from '@/lib/scan/draft'
@@ -17,7 +18,7 @@ import { ME_PATH, PROFILE_PATH, SIGN_IN_PATH, homePath, invitePath, joinInvitePa
 import { readPending } from '@/lib/profile/device'
 import { readPendingJoin } from '@/lib/group/device'
 
-type Problem = 'name' | 'signed_out' | 'unavailable' | 'failed'
+type Problem = 'name' | 'company' | 'signed_out' | 'unavailable' | 'failed'
 type State = { kind: 'deciding' } | { kind: 'working' } | { kind: 'form'; problem?: Problem }
 
 const START_SIZE = 8
@@ -31,19 +32,21 @@ const START_SIZE = 8
  * Someone who made an account without the scan (D-44) sees the other ways in beside the form: joining a group
  * by its leader's invitation, and the Leader Profile.
  */
-export function NewGroup({ firstGroup, scan }: { firstGroup: string | null; scan: Scan | null }) {
+export function NewGroup({ firstGroup, scan, company: given = '' }: { firstGroup: string | null; scan: Scan | null; company?: string }) {
   const t = useTranslations('newGroup')
   const ts = useTranslations('save')
   const router = useRouter()
   const [state, setState] = React.useState<State>({ kind: 'deciding' })
   const [name, setName] = React.useState('')
   const [size, setSize] = React.useState(START_SIZE)
+  // the company names the organisation (0028); a sign-up with a password gave it, Google or Microsoft did not
+  const [company, setCompany] = React.useState(given)
   const started = React.useRef(false)
 
   const run = React.useCallback(
-    async (save: PendingSave) => {
+    async (save: PendingSave, firm?: string) => {
       setState({ kind: 'working' })
-      const made = await startGroup(save).catch(() => ({ ok: false as const, reason: 'failed' as const }))
+      const made = await startGroup({ ...save, ...(firm ? { company: firm } : {}) }).catch(() => ({ ok: false as const, reason: 'failed' as const }))
       if (!made.ok) {
         setName(save.name)
         setSize(save.size)
@@ -90,10 +93,12 @@ export function NewGroup({ firstGroup, scan }: { firstGroup: string | null; scan
     event.preventDefault()
     const group = groupNameSchema.safeParse(name)
     if (!group.success) return setState({ kind: 'form', problem: 'name' })
+    const firm = companySchema.safeParse(company)
+    if (!firm.success) return setState({ kind: 'form', problem: 'company' })
     const store = deviceStore()
     const now = new Date()
     const request = readSave(store, now)?.request ?? crypto.randomUUID()
-    void run({ name: group.data, size, request })
+    void run({ name: group.data, size, request }, firm.data !== given.trim() ? firm.data : undefined)
   }
 
   if (state.kind === 'deciding' || state.kind === 'working') {
@@ -124,13 +129,25 @@ export function NewGroup({ firstGroup, scan }: { firstGroup: string | null; scan
             <TextField
               id="group-name"
               name="group"
-              autoComplete="organization"
+              autoComplete="off"
               required
               maxLength={120}
               label={ts('nameLabel')}
               value={name}
               onChange={(e) => setName(e.target.value)}
               error={problem === 'name' ? ts('invalidName') : undefined}
+            />
+            <TextField
+              id="group-company"
+              name="company"
+              autoComplete="organization"
+              required
+              maxLength={200}
+              label={t('companyLabel')}
+              hint={t('companyHint')}
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+              error={problem === 'company' ? t('invalidCompany') : undefined}
             />
             <SizeStepper
               id="group-size"

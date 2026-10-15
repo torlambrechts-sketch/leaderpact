@@ -14,6 +14,12 @@ export const SIGN_IN_PATH = '/sign-in'
 export const SIGN_UP_PATH = '/sign-up'
 /** Where the email link lands: a button that signs in, so a mail scanner opening the link uses nothing */
 export const CONFIRM_PATH = '/auth/confirm'
+/** Where Google or Microsoft send the person back, with a code to exchange for a session (D-57) */
+export const OAUTH_CALLBACK_PATH = '/auth/callback'
+/** Asking for a link to set a new password (D-57) */
+export const RESET_PASSWORD_PATH = '/sign-in/reset'
+/** Setting a new password, after the reset link has signed the person in (D-57) */
+export const NEW_PASSWORD_PATH = '/app/password'
 /** After sign-in: the group the device's saved scan asked for, or the person's group, or a new one */
 export const NEW_GROUP_PATH = '/app/new'
 /** The signed-in start: the person's group, or a new one */
