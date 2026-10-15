@@ -27,7 +27,8 @@ test('a sign-up with a password: confirmed by mail, the group named, signed out 
   await page.getByLabel('Password', { exact: true }).fill(PASSWORD)
   await page.getByRole('button', { name: 'Create account' }).click()
   await expect(page.getByRole('heading', { name: 'Check your email' })).toBeVisible()
-  await expect(page.getByText(`We sent a link to ${email} to confirm the address. It works once, for 15 minutes.`)).toBeVisible()
+  await expect(page.getByText(`If ${email} is new here, a link to confirm it is on its way. It works once, for 15 minutes.`)).toBeVisible()
+  await expect(page.getByRole('link', { name: 'set a new password' })).toHaveAttribute('href', '/sign-in/reset')
   await axe(page)
 
   // before the address is confirmed, the password does not sign in
