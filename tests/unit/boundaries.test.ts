@@ -24,7 +24,9 @@ describe('sign-in', () => {
 
   it('passes on a link token of the right shape and type only', () => {
     expect(confirmSchema.safeParse({ token_hash: 'a'.repeat(56), type: 'email' }).success).toBe(true)
-    expect(confirmSchema.safeParse({ token_hash: 'a'.repeat(56), type: 'recovery' }).success).toBe(false)
+    // a reset and a sign-up's confirmation come back to the same page (D-57); any other type does not
+    expect(confirmSchema.safeParse({ token_hash: 'a'.repeat(56), type: 'recovery' }).success).toBe(true)
+    expect(confirmSchema.safeParse({ token_hash: 'a'.repeat(56), type: 'invite' }).success).toBe(false)
     expect(confirmSchema.safeParse({ token_hash: 'short', type: 'email' }).success).toBe(false)
     expect(confirmSchema.safeParse({ token_hash: '<script>alert(1)</script>xxxxxx', type: 'email' }).success).toBe(false)
   })

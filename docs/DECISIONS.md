@@ -1384,3 +1384,50 @@ and 8 for it, the Group tab and the retention jobs; both are built (0026). Where
   pre-request (0021) was granted to anon and authenticated only: every request the service role made through the
   Data API failed with 42501 before it reached its function. 0027 grants it to the service role, for which it
   returns at once, and the limits suite now requires it.
+
+## D-57 — Sign-up with a password, Google and Microsoft (owner, 15 October 2026)
+
+The owner: "optimize the sign up process; look for a more normalized process with standard sign up with email,
+company, google sign in and other ... Start with the sign up process - not the email for one sign up as we have
+today". Asked to choose, the owner picked "Password + link backup" for email and left the providers to the build,
+which took Google and Microsoft (handoff A.1: "Google and Microsoft sign-in only if the owner wants them").
+This supersedes the handoff's "sign-in by email link" (sections 6.3, 6.18 and 8) as the only way in. The link
+stays, beside the password.
+
+- **Sign-up** (`/sign-up`): Google and Microsoft first, then name, work email, company and password. Auth sends
+  one mail to confirm the address. Its button is on the same confirmation page as the sign-in link, so a mail
+  scanner uses nothing up. The password cannot sign in before then, and the sign-in page offers the mail again.
+  The name and company go into the account's metadata.
+- **Sign-in** (`/sign-in`): email and password, with "Forgot your password?". "Email me a sign-in link instead"
+  keeps the old way. A forgotten password is set anew through a mail whose link works once, for 15 minutes, and
+  lands on `/app/password`.
+- **Passwords** are 10 to 72 characters. Length is the rule, not character classes (NIST SP 800-63B), and 72 is
+  bcrypt's limit. Auth's own weak-password and same-password answers are shown in words.
+- **Nobody learns who has an account.** Signing up with an address that has one answers "check your email". A
+  reset for an address with none answers the same. A wrong password and an unknown address read the same.
+- **Mail is counted** against the address, 5 an hour, the same counter as the sign-in link (handoff 8, 0021).
+  Auth limits password attempts per network.
+- **Google and Microsoft show only when Auth has them on.** The page reads Auth's public settings, kept for five
+  minutes, so no button appears before the owner has made the providers' clients. The code is exchanged at
+  `/auth/callback` (PKCE). A refusal goes back to sign-in, which says so. Microsoft is the multi-tenant endpoint,
+  with the `email` scope.
+- **The name and company are used once** (0028). `ensure_person` makes the person row from the name given, or the
+  provider's, when the first page after signing in loads. It falls back to the email's first part (0009's rule)
+  and never renames a row that exists. `start_group` names the new organisation after the company. Without one,
+  the organisation takes the group's name, as before. The new-group form asks for the company, filled in from
+  sign-up, so an account from Google or Microsoft gives it there.
+- **The Account tab** lists the ways the account holds: email, Google, Microsoft. An email account gets "Set a new
+  password".
+- **The scan's save card** keeps its email link, the shortest way to keep a team view. It now also points to
+  "Create an account".
+- **Not built:** account linking by hand, other providers, passkeys, and a second factor. Nothing in the handoff
+  asks for them.
+- **Hosted Auth settings** are the owner's to set while the Management API refuses this session's token (401):
+  - email confirmations on and a password minimum of 10;
+  - the `/auth/callback` addresses on the redirect list;
+  - the confirmation and recovery templates with their subjects;
+  - the two providers' clients.
+
+  `scripts/hosted/auth-config.mjs --apply` sets all of it with a working token.
+- **CI** raises Auth's local `sign_in_sign_ups` limit to 300, since every flow signs in from one address. Hosted
+  keeps Auth's default.

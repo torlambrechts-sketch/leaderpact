@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { sendSignInLink } from '@/lib/auth/link'
 import { confirmSchema, linkRequestSchema, type ConfirmState, type LinkResult } from '@/lib/auth/schema'
-import { LANDING_PATH, NEW_GROUP_PATH } from '@/lib/routes'
+import { LANDING_PATH, NEW_GROUP_PATH, NEW_PASSWORD_PATH } from '@/lib/routes'
 
 /**
  * Sign-in by email link (handoff section 8, Authentication; REUSE 4.15). The link is valid for 15
@@ -40,7 +40,8 @@ export async function confirmSignIn(_previous: ConfirmState, form: FormData): Pr
     console.error(`[auth] confirmSignIn: ${code} (${error.status ?? 'no status'})`)
     return { problem: 'failed' }
   }
-  redirect(NEW_GROUP_PATH)
+  // a reset link signs the person in to set a new password (D-57); every other link goes on to their group
+  redirect(parsed.data.type === 'recovery' ? NEW_PASSWORD_PATH : NEW_GROUP_PATH)
 }
 
 /** Signs out on this device (handoff 6.18's "sign out everywhere" is Settings, milestone 16) */

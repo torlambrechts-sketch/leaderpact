@@ -28,6 +28,11 @@ export async function startGroup(input: unknown): Promise<StartGroupResult> {
     console.error('[groups] startGroup: no Supabase configuration')
     return { ok: false, reason: 'failed' }
   }
+  // the company names the organisation (0028): kept with the account, where a sign-up with a password put it
+  if (parsed.data.company) {
+    const { error: kept } = await supabase.auth.updateUser({ data: { company: parsed.data.company } })
+    if (kept) console.error(`[groups] startGroup company: ${kept.code ?? 'unknown'}`)
+  }
   const { data, error } = await supabase
     .schema('app')
     .rpc('start_group', { p_name: parsed.data.name, p_member_count: parsed.data.size, p_request: parsed.data.request })

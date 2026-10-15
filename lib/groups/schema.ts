@@ -11,7 +11,8 @@ export const GROUP_MAX = 15
 export const groupNameSchema = z.string().trim().min(1).max(120)
 export const groupSizeSchema = z.number().int().min(GROUP_MIN).max(GROUP_MAX)
 
-export const startGroupSchema = z.object({ name: groupNameSchema, size: groupSizeSchema, request: z.uuid() })
+// the company, when the new-group form asks for it (a sign-up through Google or Microsoft gives none; D-57)
+export const startGroupSchema = z.object({ name: groupNameSchema, size: groupSizeSchema, request: z.uuid(), company: z.string().trim().min(1).max(200).optional() })
 export type StartGroupInput = z.infer<typeof startGroupSchema>
 
 /** start_group's own answer, parsed (0009) */

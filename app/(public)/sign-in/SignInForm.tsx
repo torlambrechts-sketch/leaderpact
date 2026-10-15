@@ -4,69 +4,91 @@ import Link from 'next/link'
 import type { Route } from 'next'
 import { useTranslations } from 'next-intl'
 import { MailCheck } from 'lucide-react'
+import { PasswordField } from '@/components/auth/PasswordField'
 import { TextField } from '@/components/lp/TextField'
 import { Button } from '@/components/ui/button'
 import { requestSignInLink } from '@/lib/auth/actions'
+import { resendConfirmation, signInWithPassword } from '@/lib/auth/password'
 import { emailSchema } from '@/lib/auth/schema'
-import { SCAN_PATH, SIGN_IN_PATH, SIGN_UP_PATH } from '@/lib/routes'
+import { RESET_PASSWORD_PATH, SCAN_PATH, SIGN_UP_PATH } from '@/lib/routes'
 
 const footLink = 'text-link font-semibold text-ink underline underline-offset-2 max-md:inline-flex max-md:min-h-[44px] max-md:items-center'
+const quiet = 'text-link self-start text-[13.5px] font-semibold text-ink underline underline-offset-2 max-md:inline-flex max-md:min-h-[44px] max-md:items-center max-md:text-[15px]'
 
-type State = { kind: 'form'; error?: 'invalid' | 'rate_limited' | 'failed' } | { kind: 'sending' } | { kind: 'sent'; email: string }
+type Mode = 'password' | 'link'
+type State =
+  | { kind: 'form'; error?: 'invalid' | 'wrong' | 'unconfirmed' | 'rate_limited' | 'failed'; resent?: boolean }
+  | { kind: 'sending' }
+  | { kind: 'sent'; email: string }
 
 /**
- * The sign-in form: one email field. It never says whether an address has an account: an unknown address
- * reads "if it has an account, a link is on its way", as a known one does (lib/auth/actions.ts).
- *
- * The same form makes an account without the scan (`mode="sign_up"`, D-44): its link may create the
- * account, for someone trying the product, a mentor or HR, who then makes a group, joins one by invitation
- * or takes the Leader Profile (app/(signed-in)/app/new).
+ * Signing in (owner, 15 October 2026; D-57): email and password first, with "Forgot your password?" and the email
+ * link of before as the other way in. Nothing it says tells whether an address has an account: a wrong password
+ * and an unknown address read the same, and the link's answer is "if it has an account, a link is on its way"
+ * (lib/auth/actions.ts). An address not yet confirmed is told so, with the confirmation mail again.
  */
-export function SignInForm({ mode = 'sign_in' }: { mode?: 'sign_in' | 'sign_up' }) {
-  const t = useTranslations(mode === 'sign_up' ? 'signUp' : 'signIn')
+export function SignInForm() {
+  const t = useTranslations('signIn')
+  const [mode, setMode] = React.useState<Mode>('password')
   const [state, setState] = React.useState<State>({ kind: 'form' })
   const [email, setEmail] = React.useState('')
-  const heading = React.useRef<HTMLHeadingElement>(null)
+  const [password, setPassword] = React.useState('')
+  const sent = React.useRef<HTMLHeadingElement>(null)
 
   React.useEffect(() => {
-    if (state.kind === 'sent') heading.current?.focus()
+    if (state.kind === 'sent') sent.current?.focus()
   }, [state.kind])
+
+  function switchTo(next: Mode) {
+    setMode(next)
+    setState({ kind: 'form' })
+  }
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const parsed = emailSchema.safeParse(email)
-    if (!parsed.success) return setState({ kind: 'form', error: 'invalid' })
+    const address = emailSchema.safeParse(email)
+    if (!address.success) return setState({ kind: 'form', error: 'invalid' })
     setState({ kind: 'sending' })
-    const result = await requestSignInLink({ email: parsed.data, intent: mode }).catch(() => ({ ok: false as const, reason: 'failed' as const }))
-    setState(result.ok ? { kind: 'sent', email: parsed.data } : { kind: 'form', error: result.reason })
+    if (mode === 'link') {
+      const result = await requestSignInLink({ email: address.data, intent: 'sign_in' }).catch(() => ({ ok: false as const, reason: 'failed' as const }))
+      return setState(result.ok ? { kind: 'sent', email: address.data } : { kind: 'form', error: result.reason })
+    }
+    // a success navigates on; only a refusal comes back
+    const result = await signInWithPassword({ email: address.data, password }).catch(() => ({ ok: false as const, reason: 'failed' as const }))
+    setState({ kind: 'form', error: result.reason })
+  }
+
+  async function resend() {
+    const address = emailSchema.safeParse(email)
+    if (!address.success) return
+    await resendConfirmation({ email: address.data }).catch(() => null)
+    setState({ kind: 'form', error: 'unconfirmed', resent: true })
   }
 
   if (state.kind === 'sent') {
     return (
-      <section className="flex flex-col gap-3 rounded-card-lg border border-white bg-surface p-6 md:p-9">
+      <div className="flex flex-col gap-3">
         <MailCheck aria-hidden size={28} className="text-ink" />
-        <h1 ref={heading} tabIndex={-1} className="m-0 font-display text-sub-headline focus-visible:outline-none">
+        <h2 ref={sent} tabIndex={-1} className="m-0 font-display text-sub-headline focus-visible:outline-none">
           {t('sentTitle')}
-        </h1>
+        </h2>
         <p className="m-0 text-[15px] leading-[1.55] text-text-2">{t('sentBody', { email: state.email })}</p>
         <Button variant="secondary" className="mt-2 self-start" onClick={() => setState({ kind: 'form' })}>
           {t('another')}
         </Button>
-      </section>
+      </div>
     )
   }
 
   const error = state.kind === 'form' ? state.error : undefined
   return (
-    <section className="flex flex-col gap-4 rounded-card-lg border border-white bg-surface p-6 md:p-9">
-      <h1 className="m-0 font-display text-page-title max-md:text-[28px]">{t('heading')}</h1>
-      <p className="m-0 text-[15px] leading-[1.55] text-text-2">{t('lead')}</p>
+    <div className="flex flex-col gap-4">
       <form noValidate onSubmit={submit} className="flex flex-col gap-4">
         <TextField
           id="sign-in-email"
           name="email"
           type="email"
-          autoComplete="email"
+          autoComplete={mode === 'password' ? 'username' : 'email'}
           inputMode="email"
           required
           label={t('emailLabel')}
@@ -74,38 +96,63 @@ export function SignInForm({ mode = 'sign_in' }: { mode?: 'sign_in' | 'sign_up' 
           onChange={(e) => setEmail(e.target.value)}
           error={error === 'invalid' ? t('invalid') : undefined}
         />
-        {error && error !== 'invalid' && (
+        {mode === 'password' ? (
+          <div className="flex flex-col gap-1">
+            <PasswordField
+              id="sign-in-password"
+              name="password"
+              autoComplete="current-password"
+              required
+              maxLength={72}
+              label={t('passwordLabel')}
+              showLabel={t('showPassword')}
+              hideLabel={t('hidePassword')}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Link href={RESET_PASSWORD_PATH as Route} className={quiet}>
+              {t('forgot')}
+            </Link>
+          </div>
+        ) : (
+          <p className="m-0 text-[14px] leading-[1.55] text-text-2 max-md:text-[15px]">{t('linkLead')}</p>
+        )}
+        {error === 'unconfirmed' && (
+          <div role="alert" className="flex flex-col items-start gap-2">
+            <p className="m-0 text-[13.5px] font-semibold text-danger max-md:text-[15px]">{state.kind === 'form' && state.resent ? t('resent') : t('unconfirmed')}</p>
+            {state.kind === 'form' && !state.resent && (
+              <Button variant="secondary" type="button" onClick={() => void resend()}>
+                {t('resend')}
+              </Button>
+            )}
+          </div>
+        )}
+        {error && error !== 'invalid' && error !== 'unconfirmed' && (
           <p role="alert" className="m-0 text-[13.5px] font-semibold text-danger max-md:text-[15px]">
-            {t(error === 'rate_limited' ? 'rateLimited' : 'failed')}
+            {t(error === 'wrong' ? 'wrong' : error === 'rate_limited' ? 'rateLimited' : 'failed')}
           </p>
         )}
         <Button type="submit" size="large" disabled={state.kind === 'sending'} className="self-start">
-          {state.kind === 'sending' ? t('sending') : t('submit')}
+          {state.kind === 'sending' ? t(mode === 'link' ? 'sending' : 'signingIn') : t(mode === 'link' ? 'submit' : 'submitPassword')}
         </Button>
       </form>
-      {mode === 'sign_up' ? (
-        <p className="m-0 border-t border-rule-softer pt-4 text-[13.5px] text-text-2 max-md:text-[15px]">
-          {t('haveAccount')}{' '}
-          <Link href={SIGN_IN_PATH as Route} className={footLink}>
-            {t('signIn')}
+      <button type="button" onClick={() => switchTo(mode === 'password' ? 'link' : 'password')} className={quiet}>
+        {mode === 'password' ? t('useLink') : t('usePassword')}
+      </button>
+      <div className="flex flex-col gap-1 border-t border-rule-softer pt-4 text-[13.5px] text-text-2 max-md:text-[15px]">
+        <p className="m-0">
+          {t('noAccount')}{' '}
+          <Link href={SIGN_UP_PATH as Route} className={footLink}>
+            {t('createAccount')}
           </Link>
         </p>
-      ) : (
-        <div className="flex flex-col gap-1 border-t border-rule-softer pt-4 text-[13.5px] text-text-2 max-md:text-[15px]">
-          <p className="m-0">
-            {t('noAccount')}{' '}
-            <Link href={SIGN_UP_PATH as Route} className={footLink}>
-              {t('createAccount')}
-            </Link>
-          </p>
-          <p className="m-0">
-            {t('orScan')}{' '}
-            <Link href={SCAN_PATH as Route} className={footLink}>
-              {t('startScan')}
-            </Link>
-          </p>
-        </div>
-      )}
-    </section>
+        <p className="m-0">
+          {t('orScan')}{' '}
+          <Link href={SCAN_PATH as Route} className={footLink}>
+            {t('startScan')}
+          </Link>
+        </p>
+      </div>
+    </div>
   )
 }

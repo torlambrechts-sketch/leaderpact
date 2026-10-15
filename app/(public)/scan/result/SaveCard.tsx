@@ -1,5 +1,7 @@
 'use client'
 import * as React from 'react'
+import { useRouter } from 'next/navigation'
+import type { Route } from 'next'
 import { useTranslations } from 'next-intl'
 import { MailCheck } from 'lucide-react'
 import { SizeStepper } from '@/components/lp/SizeStepper'
@@ -10,6 +12,7 @@ import { emailSchema } from '@/lib/auth/schema'
 import { GROUP_MAX, GROUP_MIN, groupNameSchema } from '@/lib/groups/schema'
 import { deviceStore } from '@/lib/scan/draft'
 import { readSave, writeSave } from '@/lib/scan/device'
+import { SIGN_UP_PATH } from '@/lib/routes'
 
 type Problem = 'email' | 'name' | 'rate_limited' | 'failed'
 type State = { kind: 'form'; problems?: Problem[] } | { kind: 'sending' } | { kind: 'sent'; email: string }
@@ -24,11 +27,15 @@ const START_SIZE = 8
  * size on this device for when the link is opened (lib/scan/device.ts). No answer and no address leaves
  * the device here: the answers go to the group's scan once it exists (D-15).
  *
+ * Under it, the other way in (D-57): an account with a password, Google or Microsoft, which keeps the group's name
+ * and size on this device the same way, so the group is made once the account is in.
+ *
  * The card is the design's ink gradient; focus inside it is a white outline (`on-ink`), since the ink
  * one would not show.
  */
 export function SaveCard() {
   const t = useTranslations('save')
+  const router = useRouter()
   const [state, setState] = React.useState<State>({ kind: 'form' })
   const [email, setEmail] = React.useState('')
   const [name, setName] = React.useState('')
@@ -65,6 +72,17 @@ export function SaveCard() {
     const result = await requestSignInLink({ email: address.data, intent: 'save' }).catch(() => ({ ok: false as const, reason: 'failed' as const }))
     if (result.ok) return setState({ kind: 'sent', email: address.data })
     setState({ kind: 'form', problems: [result.reason === 'invalid' ? 'email' : result.reason] })
+  }
+
+  // a password, Google or Microsoft instead of the link (D-57): the group's name and size stay on this device, as
+  // the link would keep them, and the group is made once the account is in (/app/new)
+  function toAccount() {
+    const group = groupNameSchema.safeParse(name)
+    if (!group.success) return setState({ kind: 'form', problems: ['name'] })
+    const store = deviceStore()
+    const now = new Date()
+    writeSave(store, { name: group.data, size, request: readSave(store, now)?.request ?? crypto.randomUUID() }, now)
+    router.push(SIGN_UP_PATH as Route)
   }
 
   const card = 'on-ink flex flex-col gap-4 rounded-card-lg bg-[linear-gradient(160deg,var(--ink-raised),var(--ink))] p-6 text-white md:p-8'
@@ -141,6 +159,12 @@ export function SaveCard() {
           {state.kind === 'sending' ? t('sending') : t('submit')}
         </Button>
       </form>
+      <p className="m-0 border-t border-white/20 pt-3 text-[13.5px] leading-[1.5] text-white/90 max-md:text-[15px]">
+        {t('orAccount')}{' '}
+        <button type="button" onClick={toAccount} className="font-semibold text-white underline underline-offset-2 max-md:inline-flex max-md:min-h-[44px] max-md:items-center">
+          {t('orAccountAction')}
+        </button>
+      </p>
     </section>
   )
 }
