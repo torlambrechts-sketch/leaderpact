@@ -169,13 +169,25 @@ export async function loadGroupSettings(groupId: string): Promise<GroupSettings 
   return settings.data
 }
 
-/** The signed-in person's row, from the name given at sign-up (0028 ensure_person); a failure is logged, not shown */
-export async function ensurePerson(): Promise<void> {
+const ensurePersonSchema = z.object({ ok: z.boolean(), created: z.boolean().optional() })
+
+/**
+ * The signed-in person's row, from the name given at sign-up (0028 ensure_person); a failure is logged, not shown.
+ * True only on the call that made the row: the account's first page after signing in (0029).
+ */
+export async function ensurePerson(): Promise<boolean> {
   try {
     const supabase = await createClient()
-    const { error } = await supabase.schema('app').rpc('ensure_person')
-    if (error) callFailed('ensurePerson', error)
+    const { data, error } = await supabase.schema('app').rpc('ensure_person')
+    if (error) {
+      callFailed('ensurePerson', error)
+      return false
+    }
+    const parsed = ensurePersonSchema.safeParse(data)
+    if (parseFailed('ensurePerson', parsed)) return false
+    return parsed.data.created === true
   } catch {
     console.error('[groups] ensurePerson: no Supabase configuration')
+    return false
   }
 }

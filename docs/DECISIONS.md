@@ -1484,3 +1484,30 @@ Pro plan.
 
 A sign-up with an address that already has an account brings no mail (`user_repeated_signup`), by design. The
 sign-up page now says so in words true for both cases (#32).
+
+## D-59 — A copy for the owner of each sign-up and download (owner, 16 October 2026)
+
+The owner: "Send a mail to [the owner's address] for all sign up and downloads - a copy in addition to Sentral".
+
+- **What counts as a sign-up.** A new account, the first time it reaches `/app/new`. Every way in passes there
+  first: a password, an email link, Google or Microsoft, a kept scan or Leader Profile, an invitation. 0029 makes
+  `ensure_person` say whether it made the person row, which is true once per account. An address that signs up
+  but never confirms is not a sign-up.
+- **What counts as a download.** A free template asked for (D-37). The data export of D-53 is a person's own data,
+  not a lead, and sends no copy. A future download behind an address uses the same function.
+- **What the mail carries.** For a sign-up: name, email, company and the way in. For a download: the fields of
+  Sentral's `template.requested`. The builder refuses any other field, as the event builder does. Nothing about a
+  scan, an answer, a group or a round is a field of either.
+- **How it goes.** Through Brevo's transactional API, from the app's server, after the response (`after()`). A slow
+  or failing mail never holds up a sign-up or a download. A failure is logged by kind and HTTP status, never with a
+  name or an address, and is not retried: the record stays in Auth and in Sentral.
+- **Its settings are environment variables:**
+  - `BREVO_API_KEY`
+  - `OWNER_NOTICE_TO`
+  - `LEADERPACT_MAIL_FROM`
+
+  Without all three nothing is sent. No address is written in the code, since the repository is public.
+- **Sentral is unchanged.** It still receives `template.requested`, and `org.created` and `member.joined` when an
+  account makes or joins a group. An account alone sends Sentral nothing yet.
+- **TODO(owner): the privacy page** should say that the owner receives these copies by email, with Brevo as the
+  processor. The legal text is the owner's.
