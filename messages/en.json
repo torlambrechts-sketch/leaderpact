@@ -1933,5 +1933,27 @@
     "summaryFooter": "Change how often this arrives under Settings, Notifications.",
     "footer": "You get this from {product} because this address belongs to a member of a group.",
     "footerInvite": "You get this because a team leader entered this address on {product}."
+  },
+  "ownerNotice": {
+    "signUpSubject": "New account on {product}: {who}",
+    "signUpLead": "Someone made an account on {product}.",
+    "signUpFoot": "A copy for the owner, sent once for each new account.",
+    "templateSubject": "Template download: {template}, by {who}",
+    "templateLead": "Someone asked for a free template.",
+    "templateFoot": "A copy for the owner. The same request went to Sentral as a lead.",
+    "field_name": "Name",
+    "field_email": "Email",
+    "field_company": "Company",
+    "field_method": "Signed up with",
+    "field_template": "Template",
+    "field_organisation": "Organisation",
+    "field_role": "Role",
+    "field_consent": "Wants email about new templates and articles",
+    "method_email": "Email",
+    "method_google": "Google",
+    "method_azure": "Microsoft",
+    "yes": "Yes",
+    "no": "No",
+    "notGiven": "Not given"
   }
 }

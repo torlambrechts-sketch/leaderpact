@@ -3,7 +3,8 @@
 --      1  ensure_person is the signed-in caller's; the name and company readers are no client's
 --      2  the name given at sign-up is the display name; a provider's name when there is none; the email's
 --         first part when neither; control characters stripped, 120 characters kept
---      3  ensure_person makes the row once, and never renames a row that exists; signed out, nothing
+--      3  ensure_person makes the row once and says so the first time only (0029); it never renames a row that
+--         exists; signed out, nothing
 --      4  a group's organisation takes the company; without one, the group's name; 200 characters kept
 --      5  the leader's person row from start_group carries the sign-up's name
 --      6  nothing written by this suite survives
@@ -62,7 +63,8 @@ begin
     reset role;
     set local role authenticated;
     perform set_config('request.jwt.claims', format(claims, v_a), true);
-    v_txt := concat_ws(',', v_txt, app.ensure_person() ->> 'ok', app.ensure_person() ->> 'ok');
+    -- the first call makes the row and says so; the second finds it (0029)
+    v_txt := concat_ws(',', v_txt, app.ensure_person() ->> 'created', app.ensure_person() ->> 'created');
     perform set_config('request.jwt.claims', format(claims, v_b), true);
     v_txt := concat_ws(',', v_txt, app.ensure_person() ->> 'ok');
     reset role;
@@ -74,9 +76,9 @@ begin
     reset role;
     select v_txt || ',' || count(*) || ',' || string_agg(display_name, '/' order by display_name) into v_txt
     from app.person where id in (v_a, v_b);
-    v_rows := v_rows || jsonb_build_object('seq', 3, 'name', 'ensure_person makes the row once, and never renames a row that exists; signed out, nothing',
-      'expected', 'signed_out,true,true,true,2,Astrid  Berg/Bjørn Dahl', 'actual', coalesce(v_txt, 'null'),
-      'pass', v_txt = 'signed_out,true,true,true,2,Astrid  Berg/Bjørn Dahl');
+    v_rows := v_rows || jsonb_build_object('seq', 3, 'name', 'ensure_person makes the row once and says so the first time only; never renames a row that exists; signed out, nothing',
+      'expected', 'signed_out,true,false,true,2,Astrid  Berg/Bjørn Dahl', 'actual', coalesce(v_txt, 'null'),
+      'pass', v_txt = 'signed_out,true,false,true,2,Astrid  Berg/Bjørn Dahl');
 
     -- 4 ------------------------------------------------------------ the organisation's name
     update auth.users set raw_user_meta_data = '{"full_name": "Astrid Berg", "company": "Lumio Test AS"}' where id = v_a;

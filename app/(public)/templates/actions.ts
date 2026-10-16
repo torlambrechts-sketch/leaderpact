@@ -1,8 +1,10 @@
 'use server'
 
 import { cookies } from 'next/headers'
+import { after } from 'next/server'
 import { z } from 'zod'
 import { emailSchema } from '@/lib/auth/schema'
+import { notifyOwner } from '@/lib/platform/owner-notice'
 import { buildEvent, sendEvents } from '@/lib/platform/sentral'
 import { granted, TEMPLATE_COOKIE, TEMPLATES_PATH, templateBySlug } from '@/lib/site/templates'
 
@@ -10,7 +12,8 @@ import { granted, TEMPLATE_COOKIE, TEMPLATES_PATH, templateBySlug } from '@/lib/
  * A free template for an address (D-37, after Orgpuls D-241): the request goes to Sentral as a
  * `template.requested` event, with the box the person ticked for e-mail about new templates and articles.
  * Sentral makes a Sales ticket and a lead of it. LeaderPact keeps nothing but the browser's cookie, which
- * names the template so the page shows its files. Nothing the person wrote is logged.
+ * names the template so the page shows its files. Nothing the person wrote is logged. The owner gets a copy by
+ * mail after the response (D-59).
  *
  * A field no person sees catches form bots: filled, the action answers as if it worked and sends nothing.
  */
@@ -46,6 +49,8 @@ export async function requestTemplate(input: z.input<typeof Input>): Promise<Tem
     ])
     if (sent === 'refused') return { ok: false, problem: 'rate_limited' }
     if (sent === 'failed') return { ok: false, problem: 'failed' }
+    const copy = { template: d.slug, name: d.name, email: d.mail, organisation: d.org, role: d.role, consent: d.consent }
+    after(() => notifyOwner('template', copy).then(() => undefined))
   }
 
   const jar = await cookies()
