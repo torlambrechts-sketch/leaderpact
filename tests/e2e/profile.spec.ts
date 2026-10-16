@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises'
 import { expect, test, type Browser, type Page } from '@playwright/test'
 import { LUMIO } from '../../scripts/seed/fixture.mjs'
 import { canSignIn, signInPerson } from './support/leader'
@@ -9,7 +10,8 @@ import { axe, watch } from './support/page'
  * sees a private result; a member keeps one, shares it with their group at a level, and a fellow member
  * reads it on People at that level only; a retake resets sharing; delete removes it. Two Lumio members
  * of their own sign in (Sofie Lie shares, Erik Dahl reads), since Auth sends one address one link per
- * interval and the other flows use the rest.
+ * interval and the other flows use the rest. Sofie also sends hers outside the group, as a PDF and a private link
+ * that a visitor opens (D-66).
  */
 const person = (name: string) => {
   const p = LUMIO.people.find((x) => x.name === name)
@@ -154,6 +156,40 @@ test('a member keeps, shares, retakes and deletes; a fellow member sees it only 
   await expect(sofie(viewer.page).locator('dd')).toHaveCount(5)
   await expect(sofie(viewer.page).getByText('Facets')).toHaveCount(0)
 
+  // outside the groups (D-66): a PDF to send, and a private link that anyone holding it opens, at its level
+  const [download] = await Promise.all([owner.page.waitForEvent('download'), owner.page.getByRole('link', { name: 'Download PDF' }).click()])
+  expect(download.suggestedFilename()).toBe('leader-profile.pdf')
+  expect((await readFile((await download.path())!)).subarray(0, 5).toString()).toBe('%PDF-')
+  await owner.page.getByRole('button', { name: 'Make a private link' }).click()
+  const field = owner.page.getByLabel('Your private link')
+  await expect(field).toHaveValue(/\/p\/[A-Za-z0-9_-]{22}$/)
+  await expect(owner.page.getByText('Copy your link now. Only a fingerprint of it is kept, so it cannot be shown again.')).toBeVisible()
+  const link = await field.inputValue()
+  await axe(owner.page)
+  const visitor = await browser.newContext({ baseURL })
+  const opened = await visitor.newPage()
+  const seen = watch(opened)
+  await opened.goto(link)
+  await expect(opened.getByRole('heading', { level: 1, name: 'Sofie Lie' })).toBeVisible()
+  await expect(opened.getByText('Leader Profile · shared by its owner')).toBeVisible()
+  await expect(opened.getByRole('list', { name: 'Lower, middle and higher thirds of the answer scale' }).getByRole('listitem')).toHaveCount(5)
+  await expect(opened.getByText('Research-based, not yet validated', { exact: true })).toBeVisible()
+  await expect(opened.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow')
+  await axe(opened)
+  // turned off, it opens nothing, the same as a link that never was
+  await owner.page.reload()
+  await expect(owner.page.getByText(/^A private link is on\. It shows the five domains, and was made on /)).toBeVisible()
+  await owner.page.getByRole('button', { name: 'Turn the link off' }).click()
+  await expect(owner.page.getByText('The link is off. It opens nothing now.')).toBeVisible()
+  await opened.reload()
+  await expect(opened.getByRole('heading', { level: 1, name: 'This link opens nothing' })).toBeVisible()
+  await opened.goto('/p/AAAAAAAAAAAAAAAAAAAAAA')
+  await expect(opened.getByRole('heading', { level: 1, name: 'This link opens nothing' })).toBeVisible()
+  // a new link, then a retake below ends it, as it resets every share
+  await owner.page.getByRole('button', { name: 'Make a private link' }).click()
+  const second = await owner.page.getByLabel('Your private link').inputValue()
+  expect(second).not.toBe(link)
+
   // a retake replaces the profile and resets sharing to nothing
   await owner.page.goto('/leader-profile/quick')
   await answerAll(owner.page, 20, 'Very accurate')
@@ -163,6 +199,10 @@ test('a member keeps, shares, retakes and deletes; a fellow member sees it only 
   await expect(owner.page.getByRole('radiogroup', { name: `What ${LUMIO.group.name} sees` }).getByRole('radio', { name: /^Nothing/ })).toBeChecked()
   await viewer.page.reload()
   await expect(sofie(viewer.page).getByText('Not shared', { exact: true })).toBeVisible()
+  await opened.goto(second)
+  await expect(opened.getByRole('heading', { level: 1, name: 'This link opens nothing' })).toBeVisible()
+  expect(seen).toEqual([])
+  await visitor.close()
 
   // delete: gone at once, and the group still reads nothing
   await owner.page.getByRole('radiogroup', { name: `What ${LUMIO.group.name} sees` }).getByRole('radio', { name: /^Domains and facets/ }).click()

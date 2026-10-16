@@ -16,10 +16,11 @@ import { currentUser } from '@/lib/auth/session'
 import { loadMyGroups } from '@/lib/groups/load'
 import { dateFormat } from '@/lib/i18n/dates'
 import { loadMeetingActions, loadPlan } from '@/lib/plan/load'
+import { loadMyLink } from '@/lib/profile/link'
 import { loadMyProfile, loadMyShares, loadPersonName } from '@/lib/profile/load'
 import { loadRounds } from '@/lib/rounds/load'
 import { SIGN_IN_PATH, planPath, profileTestPath, roundPath } from '@/lib/routes'
-import { DeleteProfile, PendingProfile, ShareChoice } from './MeActions'
+import { DeleteProfile, PendingProfile, ProfileOutside, ShareChoice } from './MeActions'
 
 export const dynamic = 'force-dynamic'
 
@@ -30,7 +31,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 /**
  * Me (handoff 6.17, design `me`): the person's Leader Profile, private to them; what each of their groups
- * sees of it, which applies at once; a retake; and delete. With section 11 and the MVP in mind it leaves
+ * sees of it, which applies at once; sharing outside the groups, as a PDF or a private link (D-66); a retake;
+ * and delete. With section 11 and the MVP in mind it leaves
  * out the design's team map, conversation prompt, modules and contribution feedback, and the per-domain
  * descriptions, which no source supplies. Above it, what waits for the person in each of their groups: the
  * Full diagnostic while it asks them, and their own open actions (handoff 6.17; D-46), read through each
@@ -39,12 +41,13 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function MePage() {
   const user = await currentUser()
   if (!user) redirect(SIGN_IN_PATH as Route)
-  const [t, tp, profile, shares, name] = await Promise.all([
+  const [t, tp, profile, shares, name, link] = await Promise.all([
     getTranslations('me'),
     getTranslations('profile'),
     loadMyProfile(user.id),
     loadMyShares(user.id),
     loadPersonName(user.id),
+    loadMyLink(),
   ])
   if (profile === null) return <PageProblem title={t('readFailed')} />
   const day = (iso: string) => dateFormat({ locale: 'en', timeZone: 'UTC' }, { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(iso))
@@ -166,6 +169,11 @@ export default async function MePage() {
                   shares.map((s) => <ShareChoice key={s.group.id} group={s.group} level={s.level} />)
                 )}
                 <p className="m-0 text-[12.5px] text-text-2 max-md:text-[15px]">{t('shareNote')}</p>
+              </Card>
+              <Card large className="flex flex-col gap-3">
+                <h2 className="m-0 text-[16px] font-bold">{t('outsideTitle')}</h2>
+                <p className="m-0 text-[13.5px] leading-[1.5] text-text-2 max-md:text-[15px]">{t('outsideBody')}</p>
+                <ProfileOutside facets={profile.facets.length > 0} link={link} madeOn={link?.on && link.madeAt ? day(link.madeAt) : null} />
               </Card>
               <Card large className="flex flex-col gap-3">
                 <h2 className="m-0 text-[16px] font-bold">{t('retakeTitle')}</h2>

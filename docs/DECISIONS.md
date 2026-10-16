@@ -1683,3 +1683,41 @@ published rows, so the page cannot drift from the tests.
   (`lib/profile/sources.ts`). A test version with no file shows no citation.
 - **A part whose rows cannot be read is left out**, rather than showing a number the rows do not hold.
 - The page links to the Leader Profile's feature page for how it looks in the app.
+
+## D-66 — A Leader Profile as a PDF, and a private link to it (owner, 16 October 2026)
+
+The owner: "Leader Profile as PDF and a private link", after asking that a profile can be sent and shared "even
+with the limited version". Both work on every plan, Free included, since the profile is the person's and not the
+group's. This is the owner's written decision that extends invariant 11: until now a profile was seen only by its
+owner and, through a share, by a group. Now its owner may also show it to anyone they choose.
+
+- **What either one shows.** The owner's name, the test and the day it was taken, and each trait's band at the
+  level the owner picks: the domains, or the domains and facets. Never a sum, a count or a position, so the
+  outside sees no more than a group does. Every label a result carries goes with it: the scale note, never good
+  or bad, "Research-based, not yet validated", and development only.
+- **The private link** (migration 0031, `app.profile_link`):
+  - One link per person. Its token is 16 random bytes (`app.new_link_code()`), shown to the owner once, at
+    `/p/<token>`. The table keeps only its SHA-256, with RLS on and no policy or grant.
+  - Making a new link replaces the old one. The owner can turn it off. A retake ends it, by a trigger on
+    `personality_profile`, so a link never shows a result its owner did not choose. Deleting the profile deletes
+    the row.
+  - Me knows only whether a link is on, its level and its day (`get_profile_link`). The token never comes back.
+  - The page reads through `get_linked_profile`, which anon may execute (on the reviewed allowlist). It checks
+    the token's form and fingerprint and returns bands only. An unknown, ended or replaced link reads alike, so
+    the page says nothing of whether a profile exists.
+  - The page is never indexed (`noindex`, robots), never counted (the beacon's `NEVER`), and sent with no
+    referrer, as `/j` is.
+  - Each change is in the audit trail under the existing kind `sharing_changed`, with `{to: 'link', level}`.
+    Adding a kind would mean dropping the check constraint, which the hosted connector refuses.
+  - The export lists the link's level and day under the Leader Profile, and `export_coverage` has its row.
+  - The migration has no `DROP` and no `DELETE`, so it applies through the connector as written.
+- **The PDF** (`/app/me/pdf`): the signed-in person's own profile, read through row-level security, with no
+  person taken from the address. It is drawn with pdf-lib in Figtree and Poppins, from TrueType files in
+  `private/fonts` (with their OFL licences), A4, with the product and a page count in the footer. It is sent as an
+  attachment and never cached.
+- **The privacy notice** says what the link keeps and when it ends, and that a PDF once sent cannot be recalled.
+  Its test holds those words to the migration.
+- **Tests.** `supabase/tests/profile_link_invariants.sql` (14 checks: grants, no table privileges, hash only,
+  bands only, replacement, odd tokens, another person, turn-off, retake, export, delete), the unit suite
+  `tests/unit/profile-link.test.ts`, and the profile walk in `tests/e2e/profile.spec.ts`: a download, a link a
+  visitor opens with axe clean, turned off, and ended by a retake.

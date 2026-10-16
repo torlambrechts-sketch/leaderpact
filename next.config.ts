@@ -63,7 +63,8 @@ const nextConfig: NextConfig = {
   distDir: process.env.NEXT_DIST_DIR || '.next',
   typedRoutes: true,
   // the free templates' files, read from private/ by their route only (D-37), travel with that route's function
-  outputFileTracingIncludes: { '/templates/file/[file]': ['./private/templates/**'] },
+  // and the Leader Profile's PDF its fonts (D-66)
+  outputFileTracingIncludes: { '/templates/file/[file]': ['./private/templates/**'], '/app/me/pdf': ['./private/fonts/**'] },
   async headers() {
     return [
       { source: '/:path*', headers: securityHeaders },

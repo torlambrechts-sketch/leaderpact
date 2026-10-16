@@ -41,7 +41,8 @@
     "settingsPrivacyTitle": "Privacy · Settings · {product}",
     "exportTitle": "Download your data · {product}",
     "resetTitle": "Reset your password · {product}",
-    "newPasswordTitle": "Set a new password · {product}"
+    "newPasswordTitle": "Set a new password · {product}",
+    "sharedProfileTitle": "A shared Leader Profile · {product}"
   },
   "nav": {
     "home": "Home",
@@ -869,7 +870,28 @@
     "workAnswer": "Answer",
     "workOpen": "Open",
     "workPulse": "Answer pulse {number}",
-    "workKindPulse": "Pulse"
+    "workKindPulse": "Pulse",
+    "outsideTitle": "Share outside your groups",
+    "outsideBody": "Send your profile to anyone, as a PDF or a private link. They see the bands only, never your answers.",
+    "outsideLevel": "What it shows",
+    "downloadPdf": "Download PDF",
+    "makeLink": "Make a private link",
+    "makeNewLink": "Make a new link",
+    "making": "Making the link…",
+    "linkMade": "Copy your link now. Only a fingerprint of it is kept, so it cannot be shown again.",
+    "linkOn": "A private link is on. It shows {level}, and was made on {date}.",
+    "linkLevel_domains": "the five domains",
+    "linkLevel_facets": "the domains and facets",
+    "endLink": "Turn the link off",
+    "ending": "Turning it off…",
+    "linkEnded": "The link is off. It opens nothing now.",
+    "linkFailed": "That did not work. Try again in a moment.",
+    "linkNote": "Anyone who has the link sees your profile at that level. A new link, a retake or a delete turns the old one off.",
+    "linkField": "Your private link",
+    "linkCopy": "Copy link",
+    "linkCopied": "Copied",
+    "linkCopyFailed": "Copying did not work. Select the link and copy it.",
+    "pdfPage": "{n} of {total}"
   },
   "people": {
     "title": "People",
@@ -1994,5 +2016,15 @@
     "yes": "Yes",
     "no": "No",
     "notGiven": "Not given"
+  },
+  "profileShared": {
+    "eyebrow": "Leader Profile · shared by its owner",
+    "meta": "{test} · taken {date}",
+    "scaleNote": "Each trait is placed in one of three equal bands of the answer scale. No norm group is used.",
+    "notGrade": "A trait describes a person. It is never good or bad.",
+    "notFoundTitle": "This link opens nothing",
+    "notFoundBody": "Its owner may have turned it off, made a new one, retaken the test or deleted the profile.",
+    "readFailed": "The profile could not be read. Try again in a few minutes.",
+    "takeYours": "Take the Leader Profile yourself"
   }
 }
