@@ -292,13 +292,14 @@
     "linkLead": "We email you a link to sign in. It works once, for 15 minutes.",
     "submitPassword": "Sign in",
     "signingIn": "Signing in…",
-    "wrong": "The email or the password is not right.",
+    "wrong": "The email or the password is not right. If you joined with an email link, you have no password yet: set one with Forgot your password.",
     "unconfirmed": "Confirm your email address first, with the link we sent you.",
     "resend": "Send the link again",
     "resent": "If the address needs confirming, a new link is on its way.",
     "useLink": "Email me a sign-in link instead",
     "usePassword": "Sign in with a password instead",
-    "providerFailed": "That sign-in did not finish. Try again, or sign in another way."
+    "providerFailed": "That sign-in did not finish. Try again, or sign in another way.",
+    "linkFailed": "That link did not sign you in here. A link works once, for 15 minutes, in the browser where you asked for it. Ask for a new one below."
   },
   "authProviders": {
     "google": "Continue with Google",
