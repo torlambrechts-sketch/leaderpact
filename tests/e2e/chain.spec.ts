@@ -76,7 +76,7 @@ test('one group, in order: upgrade, charter, diagnostic round, results, focus ar
   await lp.getByRole('navigation', { name: 'Settings' }).getByRole('link', { name: 'Plan and billing' }).click()
   await expect(lp).toHaveURL(new RegExp(`${at('settings/plan')}$`))
   await expect(lp.getByRole('heading', { name: 'Free plan' })).toBeVisible()
-  await lp.getByRole('button', { name: 'Start a 14-day trial' }).click()
+  await lp.getByRole('button', { name: 'Start a 30-day trial' }).click()
   await expect(lp.getByRole('heading', { name: 'Team trial' })).toBeVisible()
   await expect(lp.getByText(/^The trial ends on \d{1,2} [A-Z][a-z]+ \d{4}\. Then the group is on Free again, unless you subscribe\.$/)).toBeVisible()
   await expect(lp.getByRole('link', { name: 'Team trial' })).toBeVisible()

@@ -18,7 +18,7 @@
 --     15  a cancel can be withdrawn before it takes effect, and not after; then the group is Free
 --     16  a group whose cancel has ended can subscribe again, from a clean row
 --     17  audit rows carry ids, a plan, a period and a state only; the development events need that adapter
---     18  a trial: only the leader starts it, for 14 days, with Team features and writable; never a second,
+--     18  a trial: only the leader starts it, for 30 days (0030), with Team features and writable; never a second,
 --         and never on a group that has had a plan
 --     19  a trial ended unpaid: Free, Team data kept 90 days after the end, no new trial; a checkout still pays
 --     20  a failed renewal ends the paid period: a cancel while a payment is owed is Free at once, data kept 90 days
@@ -292,10 +292,10 @@ begin
     select * into r from app.get_group_plan(v_team2);
     reset role;
     v_txt := concat_ws(',', v_txt, r.plan, r.access, app.plan_allows(v_team2, 'charter')::text, app.group_writable(v_team2)::text, r.trial_available::text,
-                       case when r.trial_ends_at = (select started_at from app.trial where team_id = v_team2) + interval '14 days' then '14 days' else 'not 14 days' end);
-    v_rows := v_rows || jsonb_build_object('seq', 18, 'name', 'a member and a group with a plan are refused; the leader''s trial: Team, writable, 14 days, once',
-      'expected', 'not_leader,already,ok,already,team,trial,true,true,false,14 days', 'actual', coalesce(v_txt, 'null'),
-      'pass', v_txt = 'not_leader,already,ok,already,team,trial,true,true,false,14 days');
+                       case when r.trial_ends_at = (select started_at from app.trial where team_id = v_team2) + interval '30 days' then '30 days' else 'not 30 days' end);
+    v_rows := v_rows || jsonb_build_object('seq', 18, 'name', 'a member and a group with a plan are refused; the leader''s trial: Team, writable, 30 days, once',
+      'expected', 'not_leader,already,ok,already,team,trial,true,true,false,30 days', 'actual', coalesce(v_txt, 'null'),
+      'pass', v_txt = 'not_leader,already,ok,already,team,trial,true,true,false,30 days');
 
     -- 19 ----------------------------------------------------------- the trial ends unpaid
     perform set_config('request.jwt.claims', format(claims, v_lead), true);

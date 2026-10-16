@@ -1630,3 +1630,22 @@ as the sent page says (D-57).
   - `scripts/hosted/auth-config.mjs` sets them, but the session's Management API credential is refused ("JWT
     could not be decoded").
   - Either renew that credential, or paste the three files into the dashboard's email templates.
+
+## D-64 — The Team plan's trial lasts 30 days (owner, 16 October 2026)
+
+The owner: "introduce a 30 day trial to the full system". This supersedes D2a's 14 days (D-33). Everything else
+about the trial stands:
+- once per group;
+- started by the team leader;
+- no billing details;
+- Free again at the end unless the group subscribes, with the cancel window's retention.
+
+- **One row changes.** Migration 0030 sets the fixed setting `trial_days` to 30. Every reader already takes the
+  length from that row:
+  - `start_trial` and the trial's end;
+  - the Plan and billing page ("Start a 30-day trial") and Home;
+  - the fixture.
+- **The new-group page** said "tried free for 14 days" in its copy. It now reads the row too, and names no
+  number when the row cannot be read.
+- **A trial already running keeps its end.** The hosted project had no trial when this was applied.
+- The SQL suites and the billing flows now expect 30 days.

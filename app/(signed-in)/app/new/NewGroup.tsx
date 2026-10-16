@@ -32,7 +32,18 @@ const START_SIZE = 8
  * Someone who made an account without the scan (D-44) sees the other ways in beside the form: joining a group
  * by its leader's invitation, and the Leader Profile.
  */
-export function NewGroup({ firstGroup, scan, company: given = '' }: { firstGroup: string | null; scan: Scan | null; company?: string }) {
+export function NewGroup({
+  firstGroup,
+  scan,
+  company: given = '',
+  trialDays = null,
+}: {
+  firstGroup: string | null
+  scan: Scan | null
+  company?: string
+  /** the trial's length from its setting row (D-64); null when it cannot be read, and the sentence names no number */
+  trialDays?: number | null
+}) {
   const t = useTranslations('newGroup')
   const ts = useTranslations('save')
   const router = useRouter()
@@ -191,7 +202,7 @@ export function NewGroup({ firstGroup, scan, company: given = '' }: { firstGroup
         </div>
         <div className="flex flex-col gap-1 border-t border-divider pt-3">
           <h3 className="m-0 text-[14.5px] font-bold">{t('tryTitle')}</h3>
-          <p className="m-0 text-[14px] leading-[1.5] text-text-2 max-md:text-[15px]">{t('tryBody')}</p>
+          <p className="m-0 text-[14px] leading-[1.5] text-text-2 max-md:text-[15px]">{trialDays ? t('tryBody', { days: trialDays }) : t('tryBodyPlain')}</p>
         </div>
       </section>
     </div>

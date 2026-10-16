@@ -6,6 +6,7 @@ import { getTranslations } from 'next-intl/server'
 import { ClientMessages } from '@/components/lp/ClientMessages'
 import { PRODUCT_NAME } from '@/lib/brand'
 import { currentUser } from '@/lib/auth/session'
+import { loadBillingRules } from '@/lib/billing/load'
 import { ensurePerson, loadMyGroups } from '@/lib/groups/load'
 import { notifyOwner } from '@/lib/platform/owner-notice'
 import { loadScan } from '@/lib/scan/load'
@@ -32,7 +33,7 @@ export default async function NewGroupPage() {
   if (!user) redirect(SIGN_IN_PATH as Route)
   // the person row from the name given at sign-up, before anything reads it (0028)
   const isNew = await ensurePerson()
-  const [groups, scan] = await Promise.all([loadMyGroups(user.id), loadScan()])
+  const [groups, scan, rules] = await Promise.all([loadMyGroups(user.id), loadScan(), loadBillingRules()])
   const meta = user.user_metadata ?? {}
   const company = typeof meta.company === 'string' ? meta.company.slice(0, 200) : ''
   if (isNew) {
@@ -43,7 +44,7 @@ export default async function NewGroupPage() {
   return (
     <div className="mx-auto mt-6 max-w-questionnaire px-4 md:mt-10">
       <ClientMessages namespaces={['newGroup', 'save']}>
-        <NewGroup firstGroup={groups?.[0]?.id ?? null} scan={scan} company={company} />
+        <NewGroup firstGroup={groups?.[0]?.id ?? null} scan={scan} company={company} trialDays={rules?.trialDays ?? null} />
       </ClientMessages>
     </div>
   )

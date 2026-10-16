@@ -63,8 +63,8 @@ test('the leader: a trial, the checkout, grace, read-only and a cancel; the memb
   await expect(mp.getByRole('button', { name: /trial/ })).toHaveCount(0)
   await axe(mp)
 
-  // the one trial (owner D2a): the Team plan for 14 days, with no billing details
-  await lp.getByRole('button', { name: 'Start a 14-day trial' }).click()
+  // the one trial (owner D2a): the Team plan for 30 days (D-64), with no billing details
+  await lp.getByRole('button', { name: 'Start a 30-day trial' }).click()
   await expect(lp.getByRole('heading', { name: 'Team trial' })).toBeVisible()
   await expect(lp.getByText(new RegExp(`^The trial ends on ${DATE.source}\\. Then the group is on Free again, unless you subscribe\\.$`))).toBeVisible()
   await expect(lp.getByRole('link', { name: 'Team trial' })).toBeVisible()
