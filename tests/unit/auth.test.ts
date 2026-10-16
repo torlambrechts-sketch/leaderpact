@@ -252,6 +252,29 @@ describe('Google and Microsoft', () => {
       auth.exchangeCodeForSession.mockResolvedValue({ data: {}, error: err('bad_code_verifier') })
       expect((await at('?code=abc123DEF-_xyz')).headers.get('location')).toBe('/sign-in?problem=provider')
     })
+
+    // D-63: a session as Auth issues it, with the methods it was signed in by in its amr claim
+    const token = (amr: unknown) =>
+      ['{"alg":"HS256"}', JSON.stringify({ sub: 'someone', amr })].map((part) => Buffer.from(part).toString('base64url')).join('.') + '.signature'
+
+    it('a password-reset link goes on to the form for a new password, whatever template its mail used', async () => {
+      auth.exchangeCodeForSession.mockResolvedValue({ data: { session: { access_token: token([{ method: 'recovery', timestamp: 1 }]) } }, error: null })
+      expect((await at('?code=abc123DEF-_xyz&via=mail')).headers.get('location')).toBe('/app/password')
+    })
+
+    it('every other sign-in goes on to the group, and an unreadable token reads as no method', async () => {
+      for (const access_token of [token([{ method: 'otp', timestamp: 1 }]), token([{ method: 'oauth', timestamp: 1 }]), token('recovery'), 'not-a-token', undefined]) {
+        auth.exchangeCodeForSession.mockResolvedValue({ data: { session: { access_token } }, error: null })
+        expect((await at('?code=abc123DEF-_xyz&via=mail')).headers.get('location')).toBe('/app/new')
+      }
+    })
+
+    it('a mail link that does not sign in says so, in its own words', async () => {
+      auth.exchangeCodeForSession.mockResolvedValue({ data: {}, error: err('bad_code_verifier') })
+      expect((await at('?code=abc123DEF-_xyz&via=mail')).headers.get('location')).toBe('/sign-in?problem=link')
+      expect((await at('?code=short&via=mail')).headers.get('location')).toBe('/sign-in?problem=link')
+      expect((await at('?code=abc123DEF-_xyz&via=other')).headers.get('location')).toBe('/sign-in?problem=provider')
+    })
   })
 })
 

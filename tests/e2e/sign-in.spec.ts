@@ -106,6 +106,22 @@ test('the confirmation page: an incomplete link is said to be incomplete, and a 
   await expect(page.getByRole('heading', { name: 'This link has expired or was used' })).toBeVisible()
 })
 
+test('a mail link that passed through Auth (D-63): a lapsed one says so, and one that cannot sign in here says why', async ({ page }) => {
+  // Supabase's default mail sends the person through its own address, which comes back with an error instead of a code
+  await page.goto('/auth/confirm?error=access_denied&error_code=otp_expired&error_description=Email+link+is+invalid+or+has+expired')
+  await expect(page.getByRole('heading', { level: 1, name: 'This link has expired or was used' })).toBeVisible()
+  await axe(page)
+
+  // a code this browser holds no verifier for: opened in another browser than the one that asked
+  await page.goto('/auth/confirm?code=0123456789abcdef-0123456789')
+  await expect(page).toHaveURL(/\/sign-in\?problem=link$/)
+  // the main column's alert; Next's route announcer is an alert too
+  await expect(page.getByRole('main').getByRole('alert')).toHaveText(
+    'That link did not sign you in here. A link works once, for 15 minutes, in the browser where you asked for it. Ask for a new one below.',
+  )
+  await axe(page)
+})
+
 test('the pages behind sign-in send an anonymous visitor to sign in', async ({ request }) => {
   for (const path of ['/app', '/app/new', '/app/00000000-0000-4000-8000-000000000000/invite']) {
     const response = await request.get(path, { maxRedirects: 0 })

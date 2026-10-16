@@ -1591,3 +1591,42 @@ data-processing page is still a placeholder.
   - `outbox`, `round_reminder` and `mail_day` have no pruning job.
   - The handoff's retention table gives analytics events 24 months. The app stores none, and Sentral deletes
     visit statistics after 13 months, which is the figure the notice states.
+## D-63 — A password-reset link leads to a new password, on every template (owner report, 16 October 2026)
+
+The owner reported that the reset link "took me directly to Group setup", and that a sign-up sent no sign-in.
+The hosted Auth log shows what happened on 15 and 16 October:
+- a password sign-in failed;
+- a reset was asked for;
+- the link passed through Auth's own `/verify`, so the hosted mails use Supabase's default templates, not ours;
+- a session was made, and the next change to the account came from the group form, with no new password.
+
+The sign-up of 15 October was `user_repeated_signup`: the address already had an account, so Auth sent nothing,
+as the sent page says (D-57).
+
+- **The cause.** A default template's link comes back to `/auth/confirm` with a code (PKCE). The callback sent
+  every code to the group form, so the reset's purpose was lost.
+- **The fix: Auth's own mark, not the address.** Auth records how a session was signed in, in its token's `amr`
+  claim. The hosted project's own records show `recovery` for the reset. The callback now sends a session signed
+  in by `recovery` to the new-password form (`lib/auth/amr.ts`). It works with the default templates and ours.
+  Adding a mark to the return address would break our templates, which append the token to it.
+- **A mail link that cannot sign in says why.** The confirmation page marks a code from a mail (`via=mail`). If
+  that code does not exchange, the sign-in page says that a link works once, for 15 minutes, in the browser that
+  asked for it. Usually it was opened on another device. A lapsed link that Auth returns with its error now
+  reads "expired" rather than "not complete".
+- **A wrong password** now says that someone who joined with an email link has no password yet, and how to set one.
+- **Every way in, checked:**
+  - a password sign-up confirmed by mail;
+  - a repeated sign-up, which sends nothing;
+  - a password sign-in, and a wrong password;
+  - an email link from the sign-in page, the save card and an invitation;
+  - a password reset;
+  - a link opened in another browser, and a lapsed link;
+  - Google and Microsoft, which come back to the same callback.
+
+  Unit tests cover the routing. The browser tests cover the lapsed link and the link opened in another browser.
+- **TODO(owner): the hosted mail templates.** With Supabase's default templates, a link only works in the
+  browser that asked for it (PKCE). Ours (`supabase/templates`) carry a token the confirmation page checks on
+  any device, after a button press, so a mail scanner does not use them up.
+  - `scripts/hosted/auth-config.mjs` sets them, but the session's Management API credential is refused ("JWT
+    could not be decoded").
+  - Either renew that credential, or paste the three files into the dashboard's email templates.

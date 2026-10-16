@@ -17,7 +17,8 @@ export async function generateMetadata(): Promise<Metadata> {
 /**
  * Signing in (handoff section 5, `/sign-in`; owner, 15 October 2026, D-57): Google and Microsoft where the Auth
  * project has turned them on, then email and password, with the email link and a password reset as the other
- * ways in. A provider that refused or failed comes back here with `?problem=provider`, which the page says.
+ * ways in. A provider that refused or failed comes back here with `?problem=provider`, and a mail link that did not
+ * sign in with `?problem=link` (D-63); the page says which.
  */
 export default async function SignInPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const [t, providers, params] = await Promise.all([getTranslations('signIn'), enabledProviders(), searchParams])
@@ -26,9 +27,9 @@ export default async function SignInPage({ searchParams }: { searchParams: Promi
       <section className="flex flex-col gap-4 rounded-card-lg border border-white bg-surface p-6 md:p-9">
         <h1 className="m-0 font-display text-page-title max-md:text-[28px]">{t('heading')}</h1>
         <p className="m-0 text-[15px] leading-[1.55] text-text-2">{t('lead', { product: PRODUCT_NAME })}</p>
-        {params.problem === 'provider' && (
+        {(params.problem === 'provider' || params.problem === 'link') && (
           <p role="alert" className="m-0 text-[13.5px] font-semibold text-danger max-md:text-[15px]">
-            {t('providerFailed')}
+            {params.problem === 'link' ? t('linkFailed') : t('providerFailed')}
           </p>
         )}
         <ProviderButtons providers={providers} />

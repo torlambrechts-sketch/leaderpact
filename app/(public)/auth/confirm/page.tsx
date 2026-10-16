@@ -21,13 +21,16 @@ export async function generateMetadata(): Promise<Metadata> {
  * Where the email link lands (supabase/templates). Opening it signs nobody in: a button does, on a POST,
  * so a mail scanner that opens the link first does not use it up (REUSE 4.15). A link without its token
  * is said to be incomplete, and nothing is sent. A code instead of a token comes from a mail whose link passed
- * through Auth (Supabase's default template), and goes on to be exchanged (D-58).
+ * through Auth (Supabase's default template), and goes on to be exchanged (D-58), marked as a mail link so that a
+ * failure says what usually went wrong (D-63).
  */
 export default async function ConfirmPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const params = await searchParams
   const link = confirmSchema.safeParse({ token_hash: params.token_hash, type: params.type })
   const code = authCodeSchema.safeParse(params.code)
-  if (!link.success && code.success) redirect(`${OAUTH_CALLBACK_PATH}?${new URLSearchParams({ code: code.data })}` as Route)
+  if (!link.success && code.success) redirect(`${OAUTH_CALLBACK_PATH}?${new URLSearchParams({ code: code.data, via: 'mail' })}` as Route)
+  // a link that passed through Auth and had lapsed or been used comes back with Auth's error instead of a code (D-63)
+  const lapsed = !link.success && !code.success && typeof params.error_code === 'string'
   const t = await getTranslations('confirm')
   return (
     <div className="mx-auto mt-6 max-w-[520px] px-4 md:mt-12">
@@ -37,8 +40,8 @@ export default async function ConfirmPage({ searchParams }: { searchParams: Prom
         </ClientMessages>
       ) : (
         <section className="flex flex-col gap-3 rounded-card-lg border border-white bg-surface p-6 md:p-9">
-          <h1 className="m-0 font-display text-sub-headline">{t('incompleteTitle')}</h1>
-          <p className="m-0 text-[15px] leading-[1.55] text-text-2">{t('incompleteBody')}</p>
+          <h1 className="m-0 font-display text-sub-headline">{lapsed ? t('expiredTitle') : t('incompleteTitle')}</h1>
+          <p className="m-0 text-[15px] leading-[1.55] text-text-2">{lapsed ? t('expiredBody') : t('incompleteBody')}</p>
           <Link href={SIGN_IN_PATH as Route} className="text-link self-start text-[15px] font-semibold text-ink underline underline-offset-2 max-md:inline-flex max-md:min-h-[44px] max-md:items-center">
             {t('newLink')}
           </Link>
