@@ -36,6 +36,16 @@ test('a visitor: the public page, the quick test with no account, resuming, and 
   await expect(page.getByText('120 questions · about 20 minutes · five domains and 30 facets')).toBeVisible()
   await expect(page.getByText('Research-based, not yet validated', { exact: true })).toBeVisible()
   await expect(page.getByText(/International Personality Item Pool .* public domain: the Mini-IPIP and the IPIP-NEO-120\./)).toBeVisible()
+  // what it measures and what the questions look like (D-62), read from the published rows
+  await expect(page.getByRole('heading', { level: 2, name: 'What it measures' })).toBeVisible()
+  await expect(page.getByRole('region', { name: 'What it measures' }).getByRole('heading', { level: 3 })).toHaveCount(5)
+  await expect(page.getByRole('list', { name: 'The facets of Openness to experience' }).getByRole('listitem')).toHaveCount(6)
+  await expect(page.getByRole('heading', { level: 2, name: 'What the questions look like' })).toBeVisible()
+  await expect(page.getByText('Am the life of the party.', { exact: true })).toBeVisible()
+  await expect(page.getByRole('list', { name: 'The five answers' }).getByRole('listitem')).toHaveText(OPTIONS)
+  await expect(page.getByText('In the full test, 55 of the 120 do.', { exact: false })).toBeVisible()
+  await expect(page.getByText('An average answer below 2.33 is lower, above 3.67 is higher', { exact: false })).toBeVisible()
+  await expect(page.getByRole('link', { name: /Johnson, J\. A\. \(2014\)/ })).toHaveAttribute('href', 'https://ipip.ori.org/30FacetNEO-PI-RItems.htm')
   await axe(page)
 
   await page.getByRole('link', { name: 'Start the quick test' }).click()

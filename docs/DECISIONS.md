@@ -1662,3 +1662,24 @@ so the walk a Team group takes, from a round on Assess to what it shows, stopped
   exactly one round carries it, and that it is the released Full diagnostic whose counts the results show. The
   sample has no results for Pulse 6 or Round 1, so they lead nowhere rather than to a page of invented figures.
 - **Everything stays marked Sample**, under the sample banner, as before.
+## D-62 — The Leader Profile page says what it measures and what the questions look like (owner, 16 October 2026)
+
+The owner: the Leader Profile's page "should tell more about what the Leader Profile is and the questions".
+`/leader-profile` keeps its two tests and adds three parts. Every name and number in them is read from the
+published rows, so the page cannot drift from the tests.
+
+- **What it measures:**
+  - the five domains of the full test, each with its facets;
+  - how many facets a domain has, counted from the rows;
+  - the quick test's own names for the domains.
+- **What the questions look like:**
+  - the first statement of the quick test, word for word, with the five answers the test offers;
+  - how many statements each domain and each facet has, and how many of the full test's count the other way,
+    all counted from the rows;
+  - that the wording is the source's.
+- **How the result reads:** the band limits of the band set in force (D-31), with no norm group, the person's
+  own position, and the band a group sees. A trait is never good or bad.
+- **Sources:** the citation of each published test, with its IPIP page, from the data files that seed the rows
+  (`lib/profile/sources.ts`). A test version with no file shows no citation.
+- **A part whose rows cannot be read is left out**, rather than showing a number the rows do not hold.
+- The page links to the Leader Profile's feature page for how it looks in the app.
