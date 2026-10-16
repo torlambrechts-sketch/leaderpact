@@ -1543,3 +1543,51 @@ The owner asked whether to make an ebook on team performance to drive email sign
   added or moved without a rebuild.
 - **TODO(owner): the privacy page** must still describe what is kept when someone asks for a template or the
   guide (D-37). That matters more once the guide is promoted.
+
+## D-61 — The privacy notice (owner, 16 October 2026)
+
+The owner asked for the privacy page. It is written from what the code and the database do, read file by file,
+and replaces the placeholder at `/privacy`. It answers the privacy-page TODOs of D-37, D-39, D-59 and D-60. The
+data-processing page is still a placeholder.
+
+- **The words are data.** They live in `data/pages/privacy.json`, in the blocks and copy rules of the site's other
+  pages. The frame is `app/(public)/privacy`: the date it last changed, then who is responsible and how to write
+  to us. The structure follows Orgpuls's statement (its D-104), filled with LeaderPact's own flows:
+  - visits (D-39);
+  - template and guide requests (D-37, D-59, D-60);
+  - the scan before sign-up (D-15);
+  - accounts (D-57), and the owner's copy (D-59);
+  - groups, and what Sentral receives (0025);
+  - the Leader Profile (D-32);
+  - mail (D-26, 0022), logs and rate limits (0021);
+  - cookies and device storage, processors, retention, and rights (D-53).
+- **Every figure is held to its source.** `tests/unit/privacy-notice.test.ts` checks each one against the code:
+  the session, the template cookie, the drafts, the cancel window, the Free group's 12 months, the audit trail,
+  the export link, the sign-in link and the threshold. A change to the code that the notice does not follow fails
+  the suite.
+- **Two things were fixed so that the notice is true.**
+  - The live meeting's browser client wrote its session cookies for the library's 400 days. It now applies the
+    same 30-day cap as the server client and the middleware.
+  - The save card said the address is "used only to sign you in". It is also used for the group's mail, and the
+    hint now says so.
+- **What it leaves out, because it is not true today:**
+  - billing: there is no payment adapter, so nothing is collected;
+  - any claim that the notice has had legal review.
+- **Still on the owner (TODO(owner)):**
+  - **The company responsible.** `PUBLISHER.legalName` and its registration number. Until then the page says
+    the name is not on it yet, and stays out of search.
+  - **Legal review** (handoff section 14). The legal bases and the transfer sentence follow Orgpuls's statement.
+    Confirm that Supabase's data processing agreement is signed for the organisation that holds the project.
+    Confirm that Brevo's open and click tracking is on for the shared account, as Orgpuls's statement says.
+  - **Who controls a paying organisation's group data.** If the organisation is to be the controller, with
+    LeaderPact as its processor, the data-processing page is that agreement. None exists today, so the company
+    is responsible for all of it, as the notice says.
+  - **D-32's open question:** whether the Liberalism facet (O6) reveals a political opinion. If it does, the
+    Leader Profile needs explicit consent (GDPR Article 9(2)(a)), and the notice must say so.
+- **Found while reading, not changed here:**
+  - `meeting_presence` keeps a member's last heartbeat until the meeting or the person is deleted, while
+    `export_coverage` calls it "not kept".
+  - The export leaves out invitations a person received and their meeting presence.
+  - `outbox`, `round_reminder` and `mail_day` have no pruning job.
+  - The handoff's retention table gives analytics events 24 months. The app stores none, and Sentral deletes
+    visit statistics after 13 months, which is the figure the notice states.

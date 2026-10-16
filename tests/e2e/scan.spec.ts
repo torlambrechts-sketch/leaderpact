@@ -142,13 +142,16 @@ test('the personal view without a finished scan on this device says so', async (
   await expect(page).toHaveURL(/\/scan$/)
 })
 
-test('the legal pages exist and say their text is not written yet', async ({ page }) => {
-  for (const [path, heading] of [
-    ['/privacy', 'Privacy'],
-    ['/data-processing', 'Data processing'],
-  ] as const) {
-    await page.goto(path)
-    await expect(page.getByRole('heading', { level: 1, name: heading })).toBeVisible()
-    await expect(page.getByText('not written yet')).toBeVisible()
-  }
+test('the privacy notice is written (D-61); the data-processing terms say they are not written yet', async ({ page }) => {
+  await page.goto('/privacy')
+  await expect(page.getByRole('heading', { level: 1, name: 'Privacy' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Who is responsible' })).toBeVisible()
+  // the company is not named until the owner gives it (PUBLISHER), and the page says so rather than borrow one
+  await expect(page.getByText('Its legal name and registration number are not on this page yet.')).toBeVisible()
+  await expect(page.getByRole('link', { name: 'post@leaderpact.com' })).toHaveAttribute('href', 'mailto:post@leaderpact.com')
+  await expect(page.getByText('not written yet')).toHaveCount(0)
+
+  await page.goto('/data-processing')
+  await expect(page.getByRole('heading', { level: 1, name: 'Data processing' })).toBeVisible()
+  await expect(page.getByText('not written yet')).toBeVisible()
 })

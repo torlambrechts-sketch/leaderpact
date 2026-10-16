@@ -46,7 +46,7 @@ export const PRODUCT_PAGES = {
 export type ProductPageKey = keyof typeof PRODUCT_PAGES
 
 /** `{product}` in every string of a page's data, replaced by the product's name */
-const named = (value: unknown): unknown =>
+export const named = (value: unknown): unknown =>
   typeof value === 'string'
     ? value.replaceAll('{product}', PRODUCT_NAME)
     : Array.isArray(value)

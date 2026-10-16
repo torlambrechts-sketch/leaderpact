@@ -1,0 +1,283 @@
+{
+  "title": "Privacy · {product}",
+  "description": "What {product} keeps about you, why, for how long and who helps us, and your rights. Answers are never stored with a person.",
+  "h1": "Privacy",
+  "lead": "What {product} keeps about you, why, for how long, and who helps us. Your answers to a scan, a diagnostic or a pulse are never stored with your name.",
+  "updated": "2026-10-16",
+  "blocks": [
+    {
+      "t": "box",
+      "title": "Answers are anonymous by construction",
+      "text": "An answer to the Leadership Team Scan, a Full diagnostic or a pulse is stored without a person and without a time. Nobody can read raw answers, our staff included. A group sees a result only after the round closes, and only with at least four answers. How this is built is on [Anonymity](/anonymity)."
+    },
+    {
+      "t": "h2",
+      "text": "When you visit the site"
+    },
+    {
+      "t": "p",
+      "text": "We count visits to the site without cookies and without storing anything on your device. For each page, your browser sends the page's address, the site you came from (its domain only) and any campaign tags in the address. A press on a link to the scan, or a request for a template, is counted too, without anything you wrote."
+    },
+    {
+      "t": "p",
+      "text": "The counts go to our own customer platform. It drops bots, and turns your network address and browser into a visitor code with a key that changes every day. Neither is stored. It also notes whether you use a phone, a tablet or a computer."
+    },
+    {
+      "t": "p",
+      "text": "Nothing is sent from a browser that asks not to be tracked (Global Privacy Control or Do Not Track). Nothing is counted on the scan, an invitation link, the app, sign-in or the Leader Profile's tests. The statistics are deleted after 13 months. The basis is our legitimate interest in knowing how the site is used, GDPR Article 6(1)(f)."
+    },
+    {
+      "t": "h2",
+      "text": "When you ask for a template or the guide"
+    },
+    {
+      "t": "p",
+      "text": "To get a free template or the guide, you give your name and work email, and your organisation and role if you wish. You can also tick a box to hear about new templates and articles."
+    },
+    {
+      "t": "p",
+      "text": "Your request goes to our customer platform, where it becomes a sales lead with what you asked for. We also get a copy by email, sent through Brevo. {product} itself keeps only a cookie that remembers which files you asked for."
+    },
+    {
+      "t": "p",
+      "text": "The basis is our legitimate interest in knowing who uses the templates, Article 6(1)(f). We keep the request until you ask us to delete it. We email you about new templates and articles only if you ticked the box. Then the basis is your consent, Article 6(1)(a), and you can withdraw it at any time."
+    },
+    {
+      "t": "h2",
+      "text": "When you take the scan"
+    },
+    {
+      "t": "p",
+      "text": "You can take the Leadership Team Scan without an account. Your answers stay in your browser until you save your group. Then they are stored as the group's first anonymous answers, and nothing is kept for a visitor who never saves."
+    },
+    {
+      "t": "h2",
+      "text": "When you create an account"
+    },
+    {
+      "t": "p",
+      "text": "We keep your name, your email address and your company if you give it. A password is kept only as a one-way hash, and signing in by email link needs none."
+    },
+    {
+      "t": "p",
+      "text": "If you sign in with Google or Microsoft, we receive your name and email address from them. We never receive your password there."
+    },
+    {
+      "t": "p",
+      "text": "The basis is the agreement to give you the service you signed up for, Article 6(1)(b). We get a copy of each new account by email, sent through Brevo: your name, email, company and how you signed up. That tells us who uses {product}, a legitimate interest, Article 6(1)(f)."
+    },
+    {
+      "t": "h2",
+      "text": "When you lead or join a group"
+    },
+    {
+      "t": "p",
+      "text": "A group holds its name, its organisation's name and its members: each member's name, email address, role and the dates they joined or left."
+    },
+    {
+      "t": "p",
+      "text": "When a team leader invites you by email, they give us your name and address. We use them to send the invitation, and keep it with the group. Members of a group see each other's names, and only the team leader sees the addresses of those invited."
+    },
+    {
+      "t": "p",
+      "text": "What a group writes stays with the group: its charter, agenda items, decisions, actions and focus areas. Each records who wrote or owns it. Signals about how a meeting is going, such as off track, are stored without a name and deleted when the meeting is ended."
+    },
+    {
+      "t": "p",
+      "text": "For each round we record whether you answered, never when. That gives the group its count of answers, and sends reminders only to those who have not answered."
+    },
+    {
+      "t": "p",
+      "text": "Our customer platform receives what it needs to look after customers and billing. That is each member's name, email and role, the organisation's name and size, and its plan. It also gets daily counts, such as members, rounds and meetings, and the latest sign-in date. It never gets an answer, a score, a Leader Profile or a comment."
+    },
+    {
+      "t": "p",
+      "text": "The basis is the agreement to give the group the service, Article 6(1)(b), and our legitimate interest in running it well, Article 6(1)(f)."
+    },
+    {
+      "t": "h2",
+      "text": "The Leader Profile"
+    },
+    {
+      "t": "p",
+      "text": "The Leader Profile is yours alone. We keep your result: for each trait, the sum of your answers and their number. We also keep the test and when you took it. Your answers themselves are not stored."
+    },
+    {
+      "t": "p",
+      "text": "A group sees it only if you share it, at the level you choose, and then only as bands. You can change what each group sees, or delete the profile, at any time. A delete takes effect at once."
+    },
+    {
+      "t": "p",
+      "text": "The basis is your consent, Article 6(1)(a), which you give when you keep your result. Withdrawing it is deleting the profile."
+    },
+    {
+      "t": "h2",
+      "text": "The email we send"
+    },
+    {
+      "t": "p",
+      "text": "We send email through Brevo: sign-in links, invitations, round reminders and the link to your data export. A weekly or monthly summary comes only if you want one. You choose the summary in Settings, under Notifications."
+    },
+    {
+      "t": "p",
+      "text": "If an address bounces, reports spam or unsubscribes, we keep a one-way hash of it, so we do not mail it again."
+    },
+    {
+      "t": "h2",
+      "text": "Logs and abuse"
+    },
+    {
+      "t": "p",
+      "text": "Supabase and Vercel log each request with its network address for a short time, for security and to find faults. Our own logs carry codes, never what you wrote."
+    },
+    {
+      "t": "p",
+      "text": "To stop abuse, we count requests per network, per email address or per account, over an hour or a day. Each count is kept under a one-way hash, never the address itself, and deleted soon after."
+    },
+    {
+      "t": "h2",
+      "text": "Cookies and storage on your device"
+    },
+    {
+      "t": "p",
+      "text": "We use only what the service needs to work. Nothing is used for statistics or advertising."
+    },
+    {
+      "t": "table",
+      "head": [
+        "What",
+        "Why",
+        "How long"
+      ],
+      "rows": [
+        [
+          "Sign-in cookies",
+          "Keep you signed in on this device",
+          "30 days from your last visit"
+        ],
+        [
+          "Template cookie",
+          "Remembers which templates and guide you asked for, so you need not fill in the form again",
+          "1 year"
+        ],
+        [
+          "Drafts in your browser",
+          "Keep what you started until you finish, such as your answers to the scan, a diagnostic, a pulse or the Leader Profile",
+          "1 to 37 days, and removed when you finish"
+        ],
+        [
+          "A key for an invitation link",
+          "Lets you change your scan answers while the scan is open",
+          "Until you clear your browser's storage"
+        ]
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Drafts stay in your browser and are sent nowhere until you submit them."
+    },
+    {
+      "t": "h2",
+      "text": "Who helps us"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "**Supabase** (Supabase Inc., USA): the database, sign-in and scheduled jobs. Your data is stored and processed in Frankfurt, Germany.",
+        "**Vercel** (Vercel Inc., USA): hosts the site and the app. The app runs in Frankfurt, Germany.",
+        "**Brevo** (Brevo SAS, France): sends our email, and records whether a message was delivered, opened or clicked.",
+        "**Google** and **Microsoft** (Ireland): sign-in, only if you choose it.",
+        "**Our customer platform**: our own system for customers, billing and sales, which also runs on Supabase in Frankfurt."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Supabase and Vercel are US companies. Any transfer outside the EEA, for example for their support, rests on the EU Commission's standard contractual clauses. We do not sell personal data, and we share it with nobody for their marketing."
+    },
+    {
+      "t": "h2",
+      "text": "How long we keep it"
+    },
+    {
+      "t": "table",
+      "head": [
+        "What",
+        "How long"
+      ],
+      "rows": [
+        [
+          "Your account",
+          "Until you delete it"
+        ],
+        [
+          "Your Leader Profile",
+          "Until you delete it, which takes effect at once"
+        ],
+        [
+          "A group, its members and what it wrote",
+          "While the group exists. A Free group with no sign-in for 12 months is deleted."
+        ],
+        [
+          "Team plan data after a cancel or an unpaid trial",
+          "90 days, then deleted"
+        ],
+        [
+          "Anonymous answers and results",
+          "With the group, never linked to you. If a round closes below the threshold, its answers are deleted."
+        ],
+        [
+          "Signals about how a meeting is going",
+          "Until the meeting is ended"
+        ],
+        [
+          "Your data export",
+          "The link works once, for 24 hours. The file is deleted on download, or 7 days after you asked at the latest."
+        ],
+        [
+          "Our audit record of actions, such as a consent given",
+          "24 months, without your name once your account is deleted"
+        ],
+        [
+          "Template and guide requests",
+          "Until you ask us to delete them"
+        ],
+        [
+          "Visit statistics",
+          "13 months"
+        ],
+        [
+          "Sign-in links",
+          "15 minutes"
+        ]
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "Your rights"
+    },
+    {
+      "t": "p",
+      "text": "You can ask to see, correct or delete the data about you. You can ask us to limit its use, and object to use based on legitimate interest. You can also ask for the data you gave us in a machine-readable form."
+    },
+    {
+      "t": "p",
+      "text": "Much of this you can do yourself, in Settings under Privacy:"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "**Download my data**: a file of your data, by a link that works once, for 24 hours.",
+        "**Delete my results**: removes your Leader Profile, and what each group could see of it, at once.",
+        "**Delete account**: removes you and everything that names you in {product}. What you wrote for a group stays with it, without your name."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Deleting your account does not reach the copies our customer platform and our mailbox hold. Write to us, and we delete those too."
+    },
+    {
+      "t": "p",
+      "text": "Anonymous answers cannot be shown, corrected or deleted for one person, because nothing links them to anyone. If you think we handle your data unlawfully, you can complain to the data protection authority where you live or work."
+    }
+  ]
+}
