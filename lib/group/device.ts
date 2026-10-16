@@ -8,6 +8,8 @@ import { tokenSchema } from '@/lib/group/schema'
  * is apart from the scan's (`leaderpact.scan`, `leaderpact.join.`) and the profile's. Parsed, never trusted.
  */
 const DAY_MS = 86_400_000
+/** how long an invitation waits on the device for its sign-in (the privacy notice states it, D-61) */
+export const JOIN_DAYS = 1
 export const JOIN_KEY = 'leaderpact.invitation.pending'
 
 type Store = Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>
@@ -20,7 +22,7 @@ export function readPendingJoin(store: Store | null, now: Date): string | null {
     if (raw === null) return null
     const parsed = pendingSchema.safeParse(JSON.parse(raw))
     const age = parsed.success ? now.getTime() - Date.parse(parsed.data.savedAt) : Infinity
-    if (parsed.success && age >= 0 && age <= DAY_MS) return parsed.data.token
+    if (parsed.success && age >= 0 && age <= JOIN_DAYS * DAY_MS) return parsed.data.token
   } catch {
     // unreadable: removed below
   }

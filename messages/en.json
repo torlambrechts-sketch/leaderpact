@@ -8,7 +8,6 @@
     "landingTitle": "Leadership team assessment · {product}",
     "scanTitle": "Leadership Team Scan · {product}",
     "resultTitle": "Your reading of the team · {product}",
-    "privacyTitle": "Privacy · {product}",
     "dataProcessingTitle": "Data processing · {product}",
     "signInTitle": "Sign in · {product}",
     "signUpTitle": "Create an account · {product}",
@@ -262,10 +261,13 @@
     "resume": "Continue the scan"
   },
   "legal": {
-    "privacyHeading": "Privacy",
-    "privacyPending": "The privacy notice is not written yet.",
     "dataProcessingHeading": "Data processing",
-    "dataProcessingPending": "The data-processing terms are not written yet."
+    "dataProcessingPending": "The data-processing terms are not written yet.",
+    "updated": "Last updated {date}",
+    "responsibleTitle": "Who is responsible",
+    "responsibleNamed": "{company} publishes {product} and is responsible for the personal data this page describes.",
+    "responsiblePending": "The company that publishes {product} is responsible for the personal data this page describes. Its legal name and registration number are not on this page yet.",
+    "contact": "Write to <mail>{address}</mail> with a question about your data, or to use any of the rights below. We answer within one month."
   },
   "signIn": {
     "heading": "Sign in",
@@ -376,7 +378,7 @@
     "title": "Save it and invite your group",
     "lead": "Sign in by email to make your group and get its one link.",
     "emailLabel": "Email",
-    "emailHint": "Used only to sign you in. No password.",
+    "emailHint": "Used to sign you in and for your group's email. No password.",
     "nameLabel": "Group name",
     "sizeLabel": "Members, including you",
     "fewer": "One member fewer",
