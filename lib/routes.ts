@@ -39,6 +39,10 @@ export const PROFILE_PATH = '/leader-profile'
 export const profileTestPath = (test: 'quick' | 'full') => `/leader-profile/${test}`
 /** The person's own page: the Leader Profile and its sharing (handoff 6.17); not per group */
 export const ME_PATH = '/app/me'
+/** the owner's Leader Profile as a PDF, at a level (D-66) */
+export const PROFILE_PDF_PATH = '/app/me/pdf'
+/** a private link to a Leader Profile: a capability in the path (D-66) */
+export const profileLinkPath = (token: string) => `/p/${token}`
 
 /** The group's settings (handoff 6.18): the person's Account, the group's name and threshold, the person's Notifications and Privacy, then the group's plan and checkout */
 export const settingsPath = (group: string) => `/app/${group}/settings`

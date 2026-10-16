@@ -56,6 +56,15 @@ describe('the privacy notice', () => {
     expect(text).toContain('works once, for 24 hours. The file is deleted on download, or 7 days after you asked')
   })
 
+  it("states what a Leader Profile's private link keeps and when it ends (D-66)", () => {
+    // a fingerprint only, ended by a retake, and gone with the profile
+    expect(migrations).toContain('token_hash bytea unique')
+    expect(migrations).toContain('create trigger profile_link_retake')
+    expect(migrations).toContain('person_id uuid primary key references app.personality_profile (person_id) on delete cascade')
+    expect(text).toContain('We keep only a fingerprint of the link, never the link itself.')
+    expect(text).toContain('It stops working when you turn it off, make a new one, take the test again or delete the profile.')
+  })
+
   it('states the sign-in link and the threshold as they are set', () => {
     expect(read('supabase/config.toml')).toMatch(/^otp_expiry = 900$/m)
     expect(text).toContain('"15 minutes"')

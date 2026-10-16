@@ -41,6 +41,8 @@ export const PUBLIC_PATHS = [
   '/export',
   // an invitation to join a group: a capability in the path, opened before the invitee has signed in (6.8)
   '/join',
+  // a private link to a Leader Profile: a capability in the path, opened by whoever its owner sent it to (D-66)
+  '/p',
   '/leader-profile',
   '/sign-in',
   // an account without the scan (D-44)

@@ -78,7 +78,8 @@ a value is missing, leave a named `TODO(owner)` and say so.
 10. **No answer, comment or free text in logs, errors or analytics.** Log codes and column paths, never
     values. An analytics event carries no name, no email and no answer.
 11. **The Leader Profile is the owner's alone.** Its own tables and functions, readable only by its owner;
-    a group sees it only through a share, at the level shared. It shares no key, cookie or id with the scan.
+    a group sees it only through a share, at the level shared. Its owner may also send it as a PDF or a private
+    link, bands only (D-66). It shares no key, cookie or id with the scan.
 12. **Nothing about an answer leaves for Sentral.** The event builder refuses any field its kind does not
     list. Never in an event: an answer, a score, a standing, a profile, a comment, a participation, or a
     count or date tied to a named round.

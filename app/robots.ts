@@ -8,7 +8,7 @@ import { absolute, SITE_HOST } from '@/lib/site/config'
  */
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [{ userAgent: '*', allow: '/', disallow: ['/app', '/j/', '/auth', '/sign-in', '/scan', '/templates/file/', '/specimens'] }],
+    rules: [{ userAgent: '*', allow: '/', disallow: ['/app', '/j/', '/p/', '/auth', '/sign-in', '/scan', '/templates/file/', '/specimens'] }],
     sitemap: absolute('/sitemap.xml'),
     host: SITE_HOST,
   }

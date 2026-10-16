@@ -20,7 +20,7 @@ export type BeaconBody =
   | { k: 'cta'; p: string; l: string; u?: Record<string, string> }
 
 /** The paths never counted: questionnaires, results, capabilities, sign-in, the app and files */
-export const NEVER = /^\/(scan|j|app|auth|sign-in|specimens|api)(\/|$)|^\/leader-profile\/.|^\/templates\/file\//
+export const NEVER = /^\/(scan|j|p|app|auth|sign-in|specimens|api)(\/|$)|^\/leader-profile\/.|^\/templates\/file\//
 
 /** The hosts a visit is counted on */
 export const PUBLIC_HOSTS = ['www.leaderpact.com', 'leaderpact.com']
