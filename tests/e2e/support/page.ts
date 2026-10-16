@@ -4,15 +4,18 @@ import { expect, type Page } from '@playwright/test'
 /** The five options, by value (handoff section 7, Answer format) */
 export const OPTION = ['', 'Strongly disagree', 'Disagree', 'Neither agree nor disagree', 'Agree', 'Strongly agree']
 
-/** Collects console errors, page errors and failed responses; the test expects none */
+/**
+ * Collects console errors, page errors and failed responses; the test expects none. Each error carries the address
+ * it happened on, so a minified message (a hydration error says nothing of where) names its page.
+ */
 export function watch(page: Page, allow: RegExp[] = []) {
   const problems: string[] = []
   const add = (text: string) => {
     if (!allow.some((a) => a.test(text))) problems.push(text)
   }
-  page.on('pageerror', (e) => add(String(e)))
+  page.on('pageerror', (e) => add(`${page.url()} :: ${String(e)}`))
   page.on('console', (m) => {
-    if (m.type() === 'error') add(m.text())
+    if (m.type() === 'error') add(`${page.url()} :: ${m.text()}`)
   })
   page.on('response', (r) => {
     if (r.status() >= 400) add(`${r.status()} ${new URL(r.url()).pathname}`)
