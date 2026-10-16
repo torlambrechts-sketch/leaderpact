@@ -1649,3 +1649,16 @@ about the trial stands:
   number when the row cannot be read.
 - **A trial already running keeps its end.** The hosted project had no trial when this was applied.
 - The SQL suites and the billing flows now expect 30 days.
+
+## D-65 — On the Free plan, the sample's round leads to its results (owner, 16 October 2026)
+
+The owner: "with the limited view be able to see the result so we can get a feel of the entire application".
+The Free plan already shows the sample's Results page in the navigation (D-30). Nothing led there from a round,
+so the walk a Team group takes, from a round on Assess to what it shows, stopped short.
+
+- **The released round with results links to them.** In the sample on Assess, Round 2 now has "See the results of
+  Round 2", which opens the sample Results.
+- **The round is marked in the data.** It carries `results` in `data/sample/lumio.v1.json`. The schema holds that
+  exactly one round carries it, and that it is the released Full diagnostic whose counts the results show. The
+  sample has no results for Pulse 6 or Round 1, so they lead nowhere rather than to a page of invented figures.
+- **Everything stays marked Sample**, under the sample banner, as before.

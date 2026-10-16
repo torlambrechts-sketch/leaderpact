@@ -49,6 +49,8 @@ export const sampleSchema = z
         closes: day.nullable(),
         invited: z.number().int().min(4).max(15),
         answered: z.number().int().min(0).nullable(),
+        /** the round whose results the sample shows on Results (D-65): Assess leads there from it */
+        results: z.boolean().optional(),
       }),
     ),
     results: z.object({
@@ -92,6 +94,11 @@ export const sampleSchema = z
     for (const o of owners) if (!people.has(o)) ctx.addIssue({ code: 'custom', message: `no person ${o}` })
     for (const i of s.meeting.items) if (i.task && !tasks.has(i.task)) ctx.addIssue({ code: 'custom', message: `no team task ${i.task}` })
     if (s.people.filter((p) => p.role === 'leader').length !== 1) ctx.addIssue({ code: 'custom', message: 'exactly one leader' })
+    const shown = s.rounds.filter((r) => r.results)
+    const [round] = shown
+    if (shown.length !== 1 || !round) ctx.addIssue({ code: 'custom', message: 'exactly one round leads to the results' })
+    else if (round.kind !== 'diagnostic' || round.phase !== 'released' || round.invited !== s.results.invited || round.answered !== s.results.answered)
+      ctx.addIssue({ code: 'custom', message: 'the round that leads to the results is the released diagnostic they are of' })
   })
 
 export type Sample = z.infer<typeof sampleSchema>

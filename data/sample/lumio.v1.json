@@ -35,7 +35,7 @@
     { "name": "Round 3", "kind": "diagnostic", "phase": "scheduled", "opens": "2027-03-01", "closes": "2027-03-15", "invited": 8, "answered": null },
     { "name": "Pulse 7", "kind": "pulse", "phase": "scheduled", "opens": "2026-11-02", "closes": null, "invited": 8, "answered": null },
     { "name": "Pulse 6", "kind": "pulse", "phase": "released", "opens": null, "closes": null, "invited": 8, "answered": 6 },
-    { "name": "Round 2", "kind": "diagnostic", "phase": "released", "opens": "2026-09-14", "closes": "2026-09-28", "invited": 8, "answered": 8 },
+    { "name": "Round 2", "kind": "diagnostic", "phase": "released", "opens": "2026-09-14", "closes": "2026-09-28", "invited": 8, "answered": 8, "results": true },
     { "name": "Round 1", "kind": "diagnostic", "phase": "released", "opens": "2026-03-02", "closes": "2026-03-16", "invited": 8, "answered": 8 }
   ],
   "results": {

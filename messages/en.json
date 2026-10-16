@@ -651,7 +651,8 @@
       "answered": "{answered} of {total} answered",
       "invited": "{total} members",
       "note": "Every current member is invited. While a round is open it shows a count, never a score. Counts only, never names.",
-      "titleDiagnostic": "{name} · Full diagnostic"
+      "titleDiagnostic": "{name} · Full diagnostic",
+      "seeResults": "See the results of {name}"
     },
     "results": {
       "title": "Results",

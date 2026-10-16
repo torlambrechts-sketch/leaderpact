@@ -1,6 +1,8 @@
 import 'server-only'
+import Link from 'next/link'
+import type { Route } from 'next'
 import { getTranslations } from 'next-intl/server'
-import { Activity, ClipboardList } from 'lucide-react'
+import { Activity, ArrowRight, ClipboardList } from 'lucide-react'
 import { PageTitle } from '@/components/app/AppPage'
 import { Card } from '@/components/lp/Card'
 import { IconTile } from '@/components/lp/IconTile'
@@ -9,6 +11,7 @@ import { SectionHeader } from '@/components/lp/SectionHeader'
 import { SamplePage } from '@/components/sample/SamplePage'
 import { sampleDay } from '@/components/sample/format'
 import { cn } from '@/lib/cn'
+import { resultsPath } from '@/lib/routes'
 import { SAMPLE } from '@/lib/sample/load'
 
 const PHASES = ['scheduled', 'answering', 'closed', 'released'] as const
@@ -20,6 +23,9 @@ const PHASES = ['scheduled', 'answering', 'closed', 'released'] as const
  * coverage tabs; no team-leader feedback round; no picker for who takes part, and no "release results"
  * choice. With the Team plan or its trial, the group's own rounds show instead
  * (app/(signed-in)/app/[group]/assess/page.tsx); pulses come in milestone 15.
+ *
+ * The released round the sample has results for leads to them on Results (D-65), so a Free group can walk from
+ * a round to what it shows, as a group on the Team plan does.
  */
 export async function SampleAssess({ group }: { group: string }) {
   const t = await getTranslations('sample')
@@ -56,6 +62,15 @@ export async function SampleAssess({ group }: { group: string }) {
                     </li>
                   ))}
                 </ol>
+                {round.results ? (
+                  <Link
+                    href={resultsPath(group) as Route}
+                    className="inline-flex min-h-[44px] items-center gap-1.5 self-start text-[13.5px] font-semibold text-ink max-md:text-[15px]"
+                  >
+                    {t('assess.seeResults', { name: round.name })}
+                    <ArrowRight aria-hidden size={15} />
+                  </Link>
+                ) : null}
               </li>
             )
           })}
