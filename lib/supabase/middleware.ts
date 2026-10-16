@@ -62,6 +62,8 @@ export const PUBLIC_PATHS = [
   '/llms.txt',
   // the component specimens (milestone 1), for the side-by-side check; app/specimens refuses production
   '/specimens',
+  // the guide's print view (D-60), which scripts/templates/guide.mjs prints to PDF; app/print refuses production
+  '/print',
 ] as const
 
 export const SIGN_IN_PATH = '/sign-in'

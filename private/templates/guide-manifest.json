@@ -1,0 +1,47 @@
+{
+  "file": "how-leadership-teams-really-work.pdf",
+  "edition": "2026-10-16",
+  "articles": [
+    {
+      "slug": "what-makes-a-leadership-team-effective",
+      "sha256": "193c123c5f5fa4c03da7c3efd4633ba037c5aed673779b06283abbb477eefc36"
+    },
+    {
+      "slug": "how-to-assess-a-leadership-team",
+      "sha256": "e1c9c8e078d55801c585318b86763b15907c9acbec9687e1627db7647bbcab1c"
+    },
+    {
+      "slug": "five-dysfunctions-of-a-team-and-the-research",
+      "sha256": "b75e450e69e83e72bb069042899e9424a0852a68efae28ce04439dec8b0aa4a8"
+    },
+    {
+      "slug": "leadership-team-purpose",
+      "sha256": "0bf78afbf37c2ecd8fc9ab75853a4752b60368aeab8d64fafe5286e025d31bdb"
+    },
+    {
+      "slug": "leadership-team-charter",
+      "sha256": "60404e8109b0ab1d412c9c301afb1441e14fd84ec575b8cd16ccdb0e61509aaa"
+    },
+    {
+      "slug": "how-big-should-a-leadership-team-be",
+      "sha256": "e14c284de7329c3de35effa33c3b3adc1d3d47957de4cb4cd093cf9b7083a707"
+    },
+    {
+      "slug": "leadership-team-meeting-agenda",
+      "sha256": "14a242f0339a2f1ddbbce48a60567b11d8eb588218a17a3866e5e615c0baf082"
+    },
+    {
+      "slug": "psychological-safety-in-leadership-teams",
+      "sha256": "a4f872c23abf36a08655b263e9ecf4528d874328351cc4b41b1ae423b8997208"
+    },
+    {
+      "slug": "how-to-build-trust-in-a-leadership-team",
+      "sha256": "4d27fab61ee9fbfba00334153ca4699c8f4cba86ddc33b532973383628f115d3"
+    },
+    {
+      "slug": "task-conflict-and-relationship-conflict",
+      "sha256": "0d87a38fda3d265d522b1111fdd2665e35bf7e2ba477ed04a15755163be1809e"
+    }
+  ],
+  "copy": "cfbcced9945d4ef1d49d33890cff93229229fe054b41b706c0374b526468d711"
+}

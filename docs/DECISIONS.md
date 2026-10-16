@@ -1511,3 +1511,35 @@ The owner: "Send a mail to [the owner's address] for all sign up and downloads -
   account makes or joins a group. An account alone sends Sentral nothing yet.
 - **TODO(owner): the privacy page** should say that the owner receives these copies by email, with Brevo as the
   processor. The legal text is the owner's.
+
+## D-60 — A free guide from the published articles (owner, 16 October 2026)
+
+The owner asked whether to make an ebook on team performance to drive email sign-ups, and said yes to the plan:
+"How leadership teams really work", built from what the site already publishes.
+
+- **The content is the articles.** Every published article, in the articles index's four parts, as it reads
+  today. There is no new claim, figure or source. The only new words are the frame:
+  - a cover and an "About this guide" page;
+  - a contents page;
+  - a part title page for each part, which uses the index's own section texts;
+  - a closing page pointing to the articles, the templates and the scan, in words the site already uses.
+
+  The title is the build's proposal. The owner may change it in `site.guide.title` and `data/templates`.
+- **The site's own rendering, printed.** `app/print/guide` lays the articles out for A4 with the article
+  renderers, figures included. `scripts/templates/guide.mjs` prints it with Chromium:
+  - at 80 % scale;
+  - with a footer and page numbers;
+  - with the site's links made absolute;
+  - with each chapter's source marks pointing to its own list.
+
+  The print view is not served in production. In print, a chapter's long columns flow as blocks, because
+  Chromium paints a flex column that crosses a page break over what follows.
+- **Given like the templates (D-37).** It is a third entry in the registry, with `kind: 'guide'` and one PDF. It
+  gets the same form, the same `template.requested` lead in Sentral and the owner's copy (D-59). The form says
+  "Get the guide" and "Your guide is ready". The templates index's title and lead now name the guide. Its share
+  card is drawn by the card script.
+- **Never stale without failing.** The PDF is committed, like the Word files. `guide-manifest.json` records each
+  article's hash and the guide's own words, and `tests/unit/guide.test.ts` fails when an article is changed,
+  added or moved without a rebuild.
+- **TODO(owner): the privacy page** must still describe what is kept when someone asks for a template or the
+  guide (D-37). That matters more once the guide is promoted.

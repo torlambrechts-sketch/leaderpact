@@ -65,7 +65,7 @@ export default async function TemplatePage(props: Props) {
         </div>
         <div className="lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:pt-10">
           <ClientMessages namespaces={['site']}>
-            <TemplateDownload slug={template.slug} files={files} ready={ready} />
+            <TemplateDownload slug={template.slug} kind={template.kind} files={files} ready={ready} />
           </ClientMessages>
         </div>
         <div className="min-w-0 lg:col-start-1 lg:row-start-2">
