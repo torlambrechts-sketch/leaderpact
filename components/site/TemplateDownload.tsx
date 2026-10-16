@@ -14,9 +14,20 @@ type Problem = 'invalid' | 'rate_limited' | 'failed'
 /**
  * The form beside a template's page (D-37, after Orgpuls D-241): a name and an address, the organisation and
  * role if the person wants, and a box, unticked, for e-mail about new templates and articles. When the
- * request is filed the files are there to download; a browser that has asked before sees them at once.
+ * request is filed the files are there to download; a browser that has asked before sees them at once. A guide
+ * says so in its heading and its answer (D-60); the form is the same.
  */
-export function TemplateDownload({ slug, files, ready: readyAtFirst }: { slug: string; files: { name: string; label: string; format: string }[]; ready: boolean }) {
+export function TemplateDownload({
+  slug,
+  kind = 'template',
+  files,
+  ready: readyAtFirst,
+}: {
+  slug: string
+  kind?: 'template' | 'guide'
+  files: { name: string; label: string; format: string }[]
+  ready: boolean
+}) {
   const t = useTranslations('site.templateForm')
   const [ready, setReady] = React.useState(readyAtFirst)
   const [name, setName] = React.useState('')
@@ -39,10 +50,10 @@ export function TemplateDownload({ slug, files, ready: readyAtFirst }: { slug: s
     return (
       <section id="get-the-template" aria-labelledby="template-ready" className={card}>
         <h2 id="template-ready" ref={readyHeading} tabIndex={-1} className="m-0 font-display text-sub-headline focus-visible:outline-none">
-          {t('readyTitle')}
+          {kind === 'guide' ? t('guideReadyTitle') : t('readyTitle')}
         </h2>
         <p role="status" className="m-0 text-[14.5px] leading-[1.55] text-text-2 max-md:text-[15px]">
-          {t('readyText')}
+          {kind === 'guide' ? t('guideReadyText') : t('readyText')}
         </p>
         <ul className="m-0 flex list-none flex-col gap-2.5 p-0">
           {files.map((f) => (
@@ -87,7 +98,7 @@ export function TemplateDownload({ slug, files, ready: readyAtFirst }: { slug: s
       className={card}
     >
       <h2 id="template-form" className="m-0 font-display text-sub-headline">
-        {t('title')}
+        {kind === 'guide' ? t('guideTitle') : t('title')}
       </h2>
       <p className="m-0 text-[14.5px] leading-[1.55] text-text-2 max-md:text-[15px]">{t('text')}</p>
       <TextField id="template-name" label={t('name')} value={name} autoComplete="name" required onChange={(e) => (setName(e.target.value), setProblem(null))} />

@@ -1173,11 +1173,11 @@
       }
     },
     "templates": {
-      "title": "Free templates for leadership teams",
-      "description": "Free, editable templates for leadership teams: a team charter and a meeting agenda with item types and desired outcomes.",
+      "title": "Free templates and a guide for leadership teams",
+      "description": "Free resources for leadership teams: a team charter, a meeting agenda with item types and outcomes, and a guide to how leadership teams work.",
       "crumb": "Templates",
-      "h1": "Free templates for leadership teams",
-      "lead": "Word files to use, change and share: a charter the team writes together, and an agenda that says what every item is for. Each is free for an e-mail address.",
+      "h1": "Free templates and a guide for leadership teams",
+      "lead": "A charter the team writes together, an agenda that says what every item is for, and a guide that brings the articles together. Each is free for an e-mail address.",
       "readWith": "Read with it"
     },
     "templateForm": {
@@ -1194,9 +1194,29 @@
       "invalid": "Write your name and a valid e-mail address.",
       "limited": "Too many requests from this address just now. Try again in an hour.",
       "failed": "Something went wrong on our side. Try again in a minute.",
-      "privacy": "We keep your name and address with the template you asked for. We e-mail you only if you ticked the box. Read the [privacy page](/privacy).",
+      "privacy": "We keep your name and address with what you asked for. We e-mail you only if you ticked the box. Read the [privacy page](/privacy).",
       "readyTitle": "Your template is ready",
-      "readyText": "Download the file below. This browser keeps access, so you can come back for it."
+      "readyText": "Download the file below. This browser keeps access, so you can come back for it.",
+      "guideTitle": "Get the guide",
+      "guideReadyTitle": "Your guide is ready",
+      "guideReadyText": "Download the PDF below. This browser keeps access, so you can come back for it."
+    },
+    "guide": {
+      "kicker": "A free guide from {product}",
+      "title": "How leadership teams really work",
+      "subtitle": "{count, plural, one {# chapter} other {# chapters}} on purpose, membership, meetings, trust and conflict, each with the research it rests on.",
+      "edition": "Edition of {date}",
+      "aboutTitle": "About this guide",
+      "about1": "This guide brings together the articles published at {site}. Each chapter answers one question a leadership team asks.",
+      "about2": "Every chapter opens with its answer and the points to take away. Its figures draw the argument, and its sources are listed at the end.",
+      "about3": "The sources were checked on {date}. The articles online are kept up to date, so read them there for the latest version.",
+      "contents": "Contents",
+      "part": "Part {n}",
+      "chapter": "Chapter {n}",
+      "nextTitle": "Where to go next",
+      "nextArticles": "New articles appear at {site}/articles.",
+      "nextTemplates": "Free templates for a team charter and a meeting agenda are at {site}/templates.",
+      "nextScan": "To see how your own team works, the Leadership Team Scan at {site} takes about three minutes and needs no account."
     },
     "platform": {
       "stepsTitle": "What it does",

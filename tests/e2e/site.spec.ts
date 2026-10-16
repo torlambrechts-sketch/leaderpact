@@ -77,12 +77,32 @@ test('a free template: the form, then the file, for this browser only', async ({
   expect(problems).toEqual([])
 })
 
+test('the free guide (D-60): the form says guide, then the PDF, for this browser only', async ({ page, request }) => {
+  const problems = watch(page)
+  const direct = await request.get('/templates/file/how-leadership-teams-really-work.pdf', { maxRedirects: 0 })
+  expect(direct.status()).toBe(303)
+
+  await page.goto('/templates/leadership-team-guide')
+  await expect(page.getByRole('heading', { level: 1, name: 'How leadership teams really work' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Get the guide' })).toBeVisible()
+  await axe(page)
+  await page.getByLabel('Name').fill('Test Reader')
+  await page.getByLabel('Work e-mail').fill('reader@example.com')
+  await page.getByRole('button', { name: 'Get the files' }).click()
+  await expect(page.getByRole('heading', { level: 2, name: 'Your guide is ready' })).toBeVisible()
+
+  const download = page.waitForEvent('download')
+  await page.getByRole('link', { name: /How leadership teams really work \(PDF\)/ }).click()
+  expect((await download).suggestedFilename()).toBe('how-leadership-teams-really-work.pdf')
+  expect(problems).toEqual([])
+})
+
 for (const [path, heading] of [
   ['/platform', 'From a three-minute scan to better meetings'],
   ['/research', 'The research behind the model'],
   ['/anonymity', 'Anonymous by construction'],
   ['/leadership-team-assessment-tools', 'How to choose a leadership team assessment tool'],
-  ['/templates', 'Free templates for leadership teams'],
+  ['/templates', 'Free templates and a guide for leadership teams'],
 ] as const) {
   test(`the product page ${path}`, async ({ page }) => {
     const problems = watch(page)

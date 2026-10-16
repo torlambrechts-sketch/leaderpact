@@ -1,0 +1,52 @@
+{
+  "title": "Leadership team guide: how teams really work (free PDF)",
+  "description": "A free PDF guide for leadership teams: purpose, size, charter, meetings, trust and conflict, each chapter with the research it rests on.",
+  "crumb": "Leadership team guide",
+  "kicker": "Free guide",
+  "h1": "How leadership teams really work",
+  "lead": "A free guide to what makes a leadership team effective, in one PDF to read and share. It brings together the articles on this site, each with the research behind it.",
+  "teaser": "Every article on this site in one PDF, in four parts: where to start, purpose and membership, meetings, and how the team works together.",
+  "files": {
+    "how-leadership-teams-really-work.pdf": "How leadership teams really work (PDF)"
+  },
+  "blocks": [
+    {
+      "t": "h2",
+      "text": "What is in the guide?"
+    },
+    {
+      "t": "ol",
+      "items": [
+        "**Where to start.** What makes a leadership team effective, and how to see where yours stands.",
+        "**Purpose, tasks and membership.** Why the team exists, which work needs all of it, and who belongs in it.",
+        "**Meetings and decisions.** Where a leadership team does most of its work together, and how to make that time count.",
+        "**How the team works together.** Psychological safety, trust and conflict: the states that make it possible to speak up and decide well."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Each chapter opens with its answer and the points to take away. Its figures draw the argument, and its sources are listed at the end of the chapter."
+    },
+    {
+      "t": "h2",
+      "text": "How do you use it?"
+    },
+    {
+      "t": "p",
+      "text": "Read the first part to see the whole picture. Then pick the chapter on the question your team faces now, and share it before you discuss it."
+    },
+    {
+      "t": "box",
+      "title": "The same words as the articles",
+      "text": "The chapters are the [articles](/articles) on this site, as they read on the day the guide was made. The articles online are kept up to date."
+    },
+    {
+      "t": "h2",
+      "text": "Why is it built this way?"
+    },
+    {
+      "t": "p",
+      "text": "The guide puts the research on leadership teams in plain words, with every source listed so anyone can check it. How the parts fit together is set out in [what makes a leadership team effective](/articles/what-makes-a-leadership-team-effective)."
+    }
+  ]
+}
