@@ -159,7 +159,7 @@ begin
     || 'platform extension_days=7 days - fixed; platform invitation_days=14 days - fixed; platform members_per_group=15 count - fixed; '
     || 'group pulse_rhythm_weeks=4 weeks 2..8; group pulse_window_days=7 days 3..14; '
     || 'group reminder_days=[3, 7, 12] days 1..30; organisation retention_after_cancel_days=90 days 30..365; '
-    || 'group scan_window_days=7 days 2..14; platform trial_days=14 days - fixed';
+    || 'group scan_window_days=7 days 2..14; platform trial_days=30 days - fixed';
   v_rows := v_rows || jsonb_build_object('seq', 14, 'name', 'the settings of handoff 8, the trial and the invitation, with defaults, units and ranges',
     'expected', v_exp, 'actual', coalesce(v_txt, ''), 'pass', v_txt = v_exp);
 

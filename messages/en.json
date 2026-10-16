@@ -429,7 +429,8 @@
     "profileBody": "A personality profile for leaders, private to you until you choose to share it.",
     "profileAction": "Go to the Leader Profile",
     "tryTitle": "Trying it out?",
-    "tryBody": "Make a group of your own above. The Team plan can be tried free for 14 days.",
+    "tryBody": "Make a group of your own above. The Team plan can be tried free for {days} days.",
+    "tryBodyPlain": "Make a group of your own above. The Team plan can be tried free.",
     "companyLabel": "Company",
     "companyHint": "It names your organisation. Your group gets its own name above.",
     "invalidCompany": "Enter the name of your company."
