@@ -41,8 +41,9 @@ test('the public pages: keyboard, focus, targets and colour', async ({ page }, i
     await page.goto(path)
     await axe(page)
     await checkA11y(page, path)
+    // checked page by page, so a console error names the page it came from
+    expect(problems, path).toEqual([])
   }
-  expect(problems).toEqual([])
 })
 
 test('a group with content, signed in: keyboard, focus, targets and colour on every page', async ({ page, baseURL }, info) => {
