@@ -97,6 +97,12 @@ test('the leader: Home on the Free plan, and every paid area a sample page with 
   await page.goto(`/app/${LUMIO.group.id}/assess`)
   for (const phase of ['Scheduled', 'Answering', 'Closed', 'Released']) await expect(page.getByText(phase, { exact: true }).first()).toBeVisible()
   await expect(page.getByText(/standard|extensive|follow-up|session/i)).toHaveCount(0)
+  // the released round the sample has results for leads to them (D-65); the others lead nowhere
+  await expect(page.getByRole('link', { name: /^See the results of/ })).toHaveCount(1)
+  await page.getByRole('link', { name: 'See the results of Round 2' }).click()
+  await expect(page).toHaveURL(new RegExp(`/app/${LUMIO.group.id}/results$`))
+  await expect(page.getByText('Research-based, not yet validated · scale 1–5')).toBeVisible()
+  await page.goto(`/app/${LUMIO.group.id}/assess`)
   await page.goto(`/app/${LUMIO.group.id}/meetings`)
   await expect(page.getByRole('heading', { name: 'Time check' })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Task match' })).toBeVisible()
