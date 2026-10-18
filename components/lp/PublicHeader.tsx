@@ -7,7 +7,7 @@ import { ArrowRight } from 'lucide-react'
 import { Logo } from '@/components/lp/Logo'
 import { cn } from '@/lib/cn'
 import { DATA_PROCESSING_PATH, LANDING_PATH, PRIVACY_PATH, PROFILE_PATH, SCAN_PATH, SIGN_IN_PATH } from '@/lib/routes'
-import { ARTICLES_PATH } from '@/lib/site/articles'
+import { ARTICLES_PATH, PILLAR_SLUG, articlePath } from '@/lib/site/articles'
 import { TEMPLATES_PATH } from '@/lib/site/templates'
 import { MobileMenu, PlatformMenu, type PlatformNav } from './PlatformMenu'
 
@@ -135,6 +135,8 @@ export function PublicFooter({
     anonymity?: string
     tools?: string
     articles?: string
+    /** the pillar article (D-67): one link to it from every public page */
+    effectiveness?: string
     templates?: string
   }
 }) {
@@ -148,6 +150,7 @@ export function PublicFooter({
     [labels.tools, TOOLS_PATH],
   ]
   const learn: [string | undefined, string][] = [
+    [labels.effectiveness, articlePath(PILLAR_SLUG)],
     [labels.articles, ARTICLES_PATH],
     [labels.templates, TEMPLATES_PATH],
   ]

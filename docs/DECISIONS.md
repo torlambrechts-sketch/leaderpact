@@ -1721,3 +1721,42 @@ owner and, through a share, by a group. Now its owner may also show it to anyone
   bands only, replacement, odd tokens, another person, turn-off, retake, export, delete), the unit suite
   `tests/unit/profile-link.test.ts`, and the profile walk in `tests/e2e/profile.spec.ts`: a download, a link a
   visitor opens with axe clean, turned off, and ended by a retake.
+
+## D-67 — The head term "leadership team effectiveness": keep the pillar and make it the answer (owner, 18 October 2026)
+
+The owner, on Sentral's Growth page for "leadership team effectiveness" (position 58.5, 2 impressions, four days
+after indexing): "how can we improve on this specific keyword?" A team of four (an SEO strategist, a GEO
+specialist, a senior marketer and a content writer) studied the results pages, AI answers and our page. The owner
+said yes to the first phase of the plan they made.
+
+- **The pillar stays the target.** Sentral's advice, "create a dedicated landing page", is a rule for every
+  keyword below position 20 and reads no intent. The results for the term are guides, mostly from consultancies,
+  so the article matches the intent; position 58 is the domain's age and lack of links. A second page would
+  compete with it. Its address stays.
+- **The pillar answers the term outright.** Its title is "Leadership team effectiveness: models, signs and
+  measurement", and its H1 carries the term before the question. The lead defines the term in one sentence, by
+  Hackman's three tests. New sections compare five models in a table (with Lencioni's fable marked as such), list
+  the signs of an ineffective team, say how to measure it, and answer two questions. Two sources were added, each
+  checked: Lencioni (2002) and Wageman, Hackman and Lehman (2005).
+- **Accuracy.** "More than 100 senior teams" is now "more than 120", as Hackman put it (Coutu, 2009), here and in
+  two other articles. A claim with no source ("a few hours a week") became Katzenbach's, a dated figure is dated
+  ("By 2006"), and a takeaway that rested on one study now says so.
+- **Links to it.** Five articles that did not link to the pillar now do, in their text. Every public page's footer
+  lists it under Learn (`PILLAR_SLUG`). The articles index no longer uses the term in its title.
+- **The Article data names its subject.** `about` (team effectiveness) and `mentions` (psychological safety,
+  Edmondson, Katzenbach, Lencioni), each with its Wikipedia page, come from the registry (`about`, `mentions`).
+  No FAQPage on articles: Google shows FAQ results only for government and health sites.
+- **A content upgrade.** The leadership team effectiveness checklist (`/templates/leadership-team-effectiveness-checklist`,
+  Word, two pages): twenty statements in the article's four layers, each with its research, for each member to
+  answer alone and then compare. No score, no cut-offs, no benchmark. It replaces the charter template at the
+  pillar's foot. The guide is printed again.
+- **The keyword map.** The pillar adds "leadership team effectiveness models" and "signs of an ineffective
+  leadership team". "Executive team effectiveness assessment" is the free tool's alone; the how-to-assess article
+  takes "how to measure leadership team effectiveness" instead.
+- **One title per aside.** A box is an aside named by its title. The pillar had two called "A question for your
+  team" and the how-to-assess article three called "A rule of thumb", two landmarks a screen reader could not tell
+  apart. Each now has its own title, and a unit test holds every page to it.
+- **Left as it is, on purpose.** The root address stays a temporary redirect: `app/page.tsx` keeps it temporary
+  until the name is cleared (handoff section 0). It becomes permanent with the name.
+- **The owner's part** (docs/marketing/seo-geo-strategy.md, section 10): clear the name, name an author or
+  reviewer, decide on a Norwegian article, connect Bing Webmaster Tools, and give the weekly outreach its hours.

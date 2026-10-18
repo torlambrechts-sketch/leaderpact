@@ -186,6 +186,7 @@
     "tools": "Choosing a tool",
     "product": "Product",
     "learn": "Learn",
+    "effectiveness": "Leadership team effectiveness",
     "platform": "Platform",
     "platformFeatures": "Features",
     "platformAbout": "How it is built",
@@ -1188,7 +1189,7 @@
       "questions": "Questions and answers"
     },
     "articles": {
-      "title": "Articles on leadership team effectiveness",
+      "title": "Articles on leadership teams",
       "description": "Research-based articles for people who lead a leadership team: purpose, size, meetings, trust, conflict and how to assess a team. Every claim sourced.",
       "crumb": "Articles",
       "h1": "Articles on leadership teams",

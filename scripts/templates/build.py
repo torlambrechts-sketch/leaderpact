@@ -107,6 +107,18 @@ def table(doc: Document, head: list[str], rows: list[list[str]], widths: list[fl
     return t
 
 
+def keep_together(t) -> None:
+    """Keep a short table on one page: no row splits, and every row held to the next"""
+    for i, row in enumerate(t.rows):
+        props = row._tr.get_or_add_trPr()
+        cant = OxmlElement("w:cantSplit")
+        props.append(cant)
+        if i < len(t.rows) - 1:
+            for cell in row.cells:
+                for p in cell.paragraphs:
+                    p.paragraph_format.keep_with_next = True
+
+
 def lines(doc: Document, prompt: str, count: int = 3) -> None:
     doc.add_paragraph(prompt, style="Heading 2")
     for _ in range(count):
@@ -260,9 +272,85 @@ def agenda() -> None:
     doc.save(OUT / "leadership-team-meeting-agenda-template.docx")
 
 
+def checklist() -> None:
+    """The pillar's four layers as statements (D-67): no score, no cut-offs, no benchmark"""
+    doc = new_document(
+        "Leadership team effectiveness checklist",
+        "How to use it: each member answers every statement alone: yes, partly or no. Then compare the answers in a "
+        "meeting, starting where they differ most. There is no score. It is a checklist for a conversation, not a "
+        "tested measure.",
+    )
+    layers = [
+        (
+            "1. Conditions: how the team is set up",
+            [
+                ("Every member would give the same list of who is on this team.", "Coutu (2009)"),
+                ("We can say in one sentence what this team is for, beyond our separate jobs.", "Wageman et al. (2008)"),
+                ("We know which issues need the whole team, and we handle the rest elsewhere.", "Katzenbach (1997)"),
+                ("The team is small enough for every member to take part in its shared work.", "Coutu (2009)"),
+                ("Members bring the skills our shared work needs, not only a senior title.", "Wageman et al. (2008)"),
+                ("We have the information, time and support our shared work needs.", "Hackman (2002)"),
+            ],
+        ),
+        (
+            "2. Processes: how the team works, mostly in meetings",
+            [
+                ("Every agenda item has a stated goal: information, discussion or decision.", "Bang et al. (2010)"),
+                ("Our discussion stays on the goal of the item at hand.", "Bang et al. (2010)"),
+                ("Someone says so when an item's goal is unclear.", "Bang et al. (2010)"),
+                ("Our meetings spend their time on solving problems and planning actions.", "Kauffeld and Lehmann-Willenbrock (2012)"),
+                ("We disagree about the work, not about each other.", "de Wit et al. (2012)"),
+                ("When we decide, we put the whole organisation ahead of our own units.", "Wageman et al. (2008); Simsek et al. (2005)"),
+                ("We stop now and then to review how we work together.", "Edmondson (1999)"),
+            ],
+        ),
+        (
+            "3. States: what has built up between members",
+            [
+                ("Members can raise a problem or a mistake without fear of looking negative.", "Edmondson (1999); Bang (2012)"),
+                ("We trust each other to do what we have agreed.", "De Jong et al. (2016)"),
+                ("We see ourselves as one team, not as a group of unit heads.", "Haas and Mortensen (2016)"),
+            ],
+        ),
+        (
+            "4. Outcomes: what the team delivers",
+            [
+                ("The people who report to us hear the same priorities from each of us.", "Drath et al. (2008)"),
+                ("Members make the success of the whole a priority, not only their own.", "Drath et al. (2008)"),
+                ("The way we work keeps us able to work well together.", "Haas and Mortensen (2016)"),
+                ("Being on this team helps each of us get better at leading.", "Haas and Mortensen (2016)"),
+            ],
+        ),
+    ]
+    n = 0
+    for heading, statements in layers:
+        doc.add_heading(heading, level=1).paragraph_format.keep_with_next = True
+        rows = []
+        for text, source in statements:
+            n += 1
+            rows.append([str(n), text, "", source])
+        keep_together(table(doc, ["#", "Statement", "Yes / partly / no", "Research"], rows, [0.8, 9.0, 3.2, 4.0]))
+
+    doc.add_heading("5. Next steps", level=1)
+    lines(doc, "Where our answers differ most", 2)
+    lines(doc, "The layer we work on first, and why", 2)
+    table(doc, ["Action", "Owner", "Due"], [], [11.0, 3.5, 2.5], blank_rows=3)
+    table(doc, ["Checked on", "Next check on"], [["", ""]], [8.5, 8.5])
+    note = doc.add_paragraph(
+        f"Every source in full: {SITE}/articles/what-makes-a-leadership-team-effective. "
+        "Research suggests a quick check every few months, and a deeper look when problems arise."
+    )
+    for run in note.runs:
+        run.font.size = Pt(9)
+        run.font.color.rgb = TEXT2
+
+    doc.save(OUT / "leadership-team-effectiveness-checklist.docx")
+
+
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
     charter()
     agenda()
+    checklist()
     for f in sorted(OUT.iterdir()):
         print(f"{f.relative_to(ROOT)}: {f.stat().st_size} bytes")

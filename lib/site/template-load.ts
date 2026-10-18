@@ -3,11 +3,13 @@ import { templateBySlug, TEMPLATES, type Template } from './templates'
 import charter from '@/data/templates/leadership-team-charter-template.json'
 import agenda from '@/data/templates/leadership-team-meeting-agenda-template.json'
 import guide from '@/data/templates/leadership-team-guide.json'
+import checklist from '@/data/templates/leadership-team-effectiveness-checklist.json'
 
 /** The templates' page words, imported so the build carries them; tests/unit/site.test.ts holds the list equal to the registry */
 export const TEMPLATE_FILES: Record<string, unknown> = {
   'leadership-team-charter-template': charter,
   'leadership-team-meeting-agenda-template': agenda,
+  'leadership-team-effectiveness-checklist': checklist,
   'leadership-team-guide': guide,
 }
 

@@ -1,0 +1,44 @@
+{
+  "title": "Leadership team effectiveness checklist (free, Word)",
+  "description": "A free leadership team effectiveness checklist: 20 statements on set-up, meetings, team states and outcomes, for each member to answer alone, then compare.",
+  "crumb": "Effectiveness checklist",
+  "kicker": "Free template",
+  "h1": "Leadership team effectiveness checklist",
+  "lead": "Twenty statements a leadership team answers about itself, one layer at a time. They cover how it is set up, how it works, what has built up between members and what it delivers. Each member answers alone, then the team compares. It is a Word file you can change as you like.",
+  "teaser": "Twenty statements across the four layers in this article, each with the research it comes from. Each member answers alone, and the team talks about where answers differ.",
+  "files": {
+    "leadership-team-effectiveness-checklist.docx": "Leadership team effectiveness checklist (Word)"
+  },
+  "blocks": [
+    { "t": "h2", "text": "What is in the checklist?" },
+    {
+      "t": "ol",
+      "items": [
+        "**Conditions.** Six statements on membership, purpose, shared tasks, size, skills and support.",
+        "**Processes.** Seven statements on meetings: a goal for each item, focus, speaking up, problem solving, disagreement, the whole organisation first and review.",
+        "**States.** Three statements on safety, trust and acting as one team.",
+        "**Outcomes.** Four statements on direction, commitment, the team's ability to keep working together and members' growth.",
+        "**Next steps.** Room to record where answers differ, the layer you will work on first and the date of the next check."
+      ]
+    },
+    { "t": "h2", "text": "How do you use it?" },
+    {
+      "t": "p",
+      "text": "Give the checklist to every member before a meeting. Each answers Yes, Partly or No to every statement, alone. Answers given alone show where views differ; a discussion that starts with one view tends to hide it."
+    },
+    {
+      "t": "p",
+      "text": "In the meeting, start with the statements where answers differ most. Pick one layer to work on, starting with the conditions if they are weak. Check again in a few months."
+    },
+    {
+      "t": "box",
+      "title": "A checklist, not a score",
+      "text": "It has no score, no cut-offs and no benchmark. It is a way to start a conversation, not a tested measure. If people hold back when answers are compared openly, collect them anonymously first."
+    },
+    { "t": "h2", "text": "Why is it built this way?" },
+    {
+      "t": "p",
+      "text": "The statements follow the four layers in [leadership team effectiveness](/articles/what-makes-a-leadership-team-effective): conditions, processes, states and outcomes. Each statement names the research it comes from, and the article lists every source in full. Methods and survey questions are in [how to assess a leadership team](/articles/how-to-assess-a-leadership-team)."
+    }
+  ]
+}

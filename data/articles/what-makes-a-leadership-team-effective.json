@@ -1,11 +1,11 @@
 {
-  "title": "Leadership team effectiveness: what the research says",
-  "description": "What makes a leadership team effective: the conditions, ways of working and team states research points to, and how to judge the result.",
-  "h1": "What makes a leadership team effective?",
-  "lead": "Effective leadership teams get the conditions right first, then how they work; trust and psychological safety grow out of both. The conditions are a real team with a clear purpose, tasks that need the whole team, the right size and members, and support. How they work means prepared meetings with clear goals, focused dialogue, conflict about tasks rather than people, acting as one team, and learning. Judge the result by direction, alignment and commitment, by whether the team can keep working well together, and by whether its members grow.",
+  "title": "Leadership team effectiveness: models, signs and measurement",
+  "description": "Leadership team effectiveness explained: what research links to it, five models compared, the warning signs and how to measure it in your team.",
+  "h1": "Leadership team effectiveness: what makes a leadership team effective?",
+  "lead": "Leadership team effectiveness is how well a leadership team serves the organisation, stays able to work together and helps its members grow. Research puts the conditions first: a real team, a clear purpose, work that needs everyone and the right members. Then come focused meetings and disagreement about the work. Trust and psychological safety grow from both.",
   "takeaways": [
-    "Get the conditions right first: a real team, a clear purpose, work that needs everyone, the right members, and support.",
-    "Then work on the meetings. Clear goals for each item and focused discussion go with better results in top teams.",
+    "Leadership team effectiveness rests first on conditions: a real team, a clear purpose, work that needs everyone, the right members and support.",
+    "In a study of eight top management groups, a clear goal for each agenda item and focused discussion went with effectiveness.",
     "Psychological safety, trust and cohesion matter, and they build up from how the team is set up and how it works.",
     "Judge effectiveness by direction, alignment and commitment, by the team's ability to keep working together, and by members' growth.",
     "Many senior groups are not real teams. Decide which issues truly need the whole team, and handle the rest elsewhere."
@@ -14,11 +14,11 @@
     { "t": "h2", "text": "What is leadership team effectiveness?" },
     {
       "t": "p",
-      "text": "Leadership team effectiveness is how well a leadership team does the work only it can do, while staying able to do it again. Research on teams spans more than fifty years and thousands of studies (Kozlowski and Ilgen, 2006). Reviews of it now describe a chain: inputs, then the processes and states that carry their effect, then outcomes (Mathieu et al., 2008)."
+      "text": "Leadership team effectiveness is how well a leadership team serves the organisation, stays able to work together and helps its members grow. These are Hackman's three tests of any team, applied to the team at the top (Haas and Mortensen, 2016). By 2006, team research already spanned more than fifty years and thousands of studies (Kozlowski and Ilgen, 2006). Reviews describe a chain: inputs, then the processes and states that carry their effect, then outcomes (Mathieu et al., 2008)."
     },
     {
       "t": "p",
-      "text": "It helps to read a leadership team in four layers. Conditions are how the team is set up. Processes are how it works, mostly in meetings. States are what builds up between members over time. Outcomes are what the team produces and what it leaves behind."
+      "text": "It helps to read a leadership team in four layers: conditions, processes, states and outcomes."
     },
     {
       "t": "flow",
@@ -46,13 +46,13 @@
       "t": "table",
       "head": ["Layer", "What it covers", "Research to start with"],
       "rows": [
-        ["Conditions", "A real team, a clear purpose, tasks that need the whole team, the right size and members, information and support", "Hackman (2002); Wageman and colleagues (2008)"],
-        ["Processes", "Meeting preparation, a clear goal for each item, focused discussion, dialogue, task conflict, acting as one team, learning", "Bang and colleagues (2010); Kauffeld and Lehmann-Willenbrock (2012)"],
+        ["Conditions", "A real team, a clear purpose, shared tasks, the right members, support", "Hackman (2002); Wageman and colleagues (2008)"],
+        ["Processes", "Meeting preparation, item goals, focus, dialogue, task conflict, learning", "Bang and colleagues (2010); Kauffeld and Lehmann-Willenbrock (2012)"],
         ["States", "Psychological safety, trust, cohesion and shared norms", "Edmondson (1999); De Jong, Dirks and Gillespie (2016)"],
-        ["Outcomes", "Direction, alignment and commitment; the team's ability to keep working together; members' growth", "Drath and colleagues (2008); Haas and Mortensen (2016)"]
+        ["Outcomes", "Direction, alignment and commitment; working well together; members' growth", "Drath and colleagues (2008); Haas and Mortensen (2016)"]
       ]
     },
-    { "t": "h2", "text": "How do you judge whether a leadership team is effective?" },
+    { "t": "h2", "text": "What does an effective leadership team deliver?" },
     {
       "t": "p",
       "text": "Hackman proposed three tests for any team (Haas and Mortensen, 2016). First, does its output satisfy the people who receive it? Second, does the way it works keep it able to work well together? Third, do its members learn and develop through being part of it?"
@@ -103,11 +103,11 @@
     },
     {
       "t": "p",
-      "text": "Later research points the same way. Wageman, Nunes, Burruss and Hackman studied more than 100 senior teams around the world (Wageman et al., 2008). They describe executives who put their own functions ahead of the team's shared work. In an interview about that research, Hackman said that almost every team believed its membership was clear. Yet when the researchers asked members to describe the team, fewer than 10 per cent agreed on its membership (Coutu, 2009)."
+      "text": "Later research points the same way. Wageman, Nunes, Burruss and Hackman studied more than 120 senior teams around the world (Wageman et al., 2008; Coutu, 2009). They describe executives who put their own functions ahead of the team's shared work. In an interview about that research, Hackman said that almost every team believed its membership was clear. Yet when the researchers asked members to describe the team, fewer than 10 per cent agreed on its membership (Coutu, 2009)."
     },
     {
       "t": "p",
-      "text": "Both accounts point to a double role. Each member leads a unit and is judged on it. The leadership team asks them to put the whole organisation first, usually for a few hours a week."
+      "text": "Both accounts point to a double role. Each member leads a unit and is judged on it. The leadership team asks them to put the whole organisation first, with only part of their time (Katzenbach, 1997)."
     },
     { "t": "h2", "text": "What conditions does an effective leadership team need?" },
     {
@@ -136,7 +136,7 @@
     },
     {
       "t": "p",
-      "text": "The same study found that speaking up when an item's goal was unclear helped. It went with more focused communication, better task performance and better relationships. Calling out a discussion that had drifted off track did not help performance, and it went with poorer relationships."
+      "text": "The same study found that flagging an unclear goal helped. Calling out a drifting discussion did not help performance, and it went with poorer relationships."
     },
     {
       "t": "p",
@@ -192,10 +192,55 @@
       "t": "p",
       "text": "Cohesion matters as well, with a twist. Across studies, it related more strongly to performance measured as behaviour than as outcomes (Beal et al., 2003). The link was also stronger where work flowed intensively between members. For a leadership team whose members mostly work apart, that is worth noting."
     },
+    { "t": "h2", "text": "How do leadership team effectiveness models compare?" },
+    {
+      "t": "p",
+      "text": "Several models describe what makes a team at the top effective. They differ in where they start: the team's set-up, its behaviour or its results."
+    },
+    {
+      "t": "table",
+      "head": ["Model", "What it says matters", "Use it to", "The evidence"],
+      "rows": [
+        ["Hackman and Wageman: team conditions", "A real team, a compelling direction and the right people; then structure, support and team coaching", "Design the team before you work on behaviour", "More than 120 senior teams (Coutu, 2009); a survey of the conditions tested on 321 teams (Wageman, Hackman and Lehman, 2005)"],
+        ["Katzenbach: real team or single-leader group", "Real teams need a collective work product and mutual accountability; otherwise a single leader is often faster", "Decide which work needs the whole team", "A practitioner's argument, with company cases (Katzenbach, 1997)"],
+        ["Lencioni: five dysfunctions", "Trust at the base, then open conflict, commitment, accountability and attention to collective results", "Give the team a shared language for behaviour", "Written as a fable, not as research (Lencioni, 2002); see [five dysfunctions of a team](/articles/five-dysfunctions-of-a-team-and-the-research)"],
+        ["Drath and colleagues: direction, alignment, commitment", "Leadership shows in three outcomes: shared direction, coordinated work and commitment to the whole", "Judge what the organisation gets from the team", "A theoretical framework from leadership research (Drath et al., 2008)"],
+        ["Input-process-outcome", "Inputs shape processes and team states, which shape outcomes over time", "Locate a problem: set-up, ways of working or states", "The organising frame of reviews of team research (Mathieu et al., 2008)"]
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Haas and Mortensen add a fourth condition, a shared mindset, to counter “us and them” thinking (Haas and Mortensen, 2016)."
+    },
+    { "t": "h2", "text": "What are the signs of an ineffective leadership team?" },
+    {
+      "t": "p",
+      "text": "Most signs show in meetings and in what the organisation hears. Treat each as a question to explore, not a verdict."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "**Members name different people when asked who is on the team.** Hackman found unclear membership common at the top (Coutu, 2009).",
+        "**Members defend their own units first,** ahead of the team's shared work (Wageman et al., 2008).",
+        "**Agenda items arrive without a stated goal,** and discussion drifts (Bang et al., 2010).",
+        "**People stay silent when a meeting loses its way,** fearing it will look negative (Bang, 2012).",
+        "**Disagreement turns personal,** which goes with poorer group outcomes (de Wit et al., 2012).",
+        "**Units hear different priorities from different members,** a sign that direction and alignment are missing (Drath et al., 2008)."
+      ]
+    },
+    { "t": "h2", "text": "How do you measure leadership team effectiveness?" },
+    {
+      "t": "p",
+      "text": "Ask every member the same short questions about the team, anonymously, across all four layers. Read both the average and how far members agree. Ask those who receive the team's work too: Hackman's first test is theirs to judge (Haas and Mortensen, 2016)."
+    },
+    {
+      "t": "p",
+      "text": "Haas and Mortensen suggest a light check every few months, with deeper reviews when problems arise (Haas and Mortensen, 2016). Methods, example questions and ways to keep answers anonymous are in [how to assess a leadership team](/articles/how-to-assess-a-leadership-team)."
+    },
     { "t": "h2", "text": "How do you build a high-performing leadership team?" },
     {
       "t": "p",
-      "text": "Work through the layers in order. The steps below turn the research into practice; adapt them to your team."
+      "text": "Build a high-performing leadership team layer by layer, in order. The steps below turn the research into practice; adapt them to your team."
     },
     {
       "t": "steps",
@@ -226,9 +271,20 @@
         },
         {
           "title": "Measure, then talk",
-          "text": "A short anonymous survey of every member gives a starting point; see [how to assess a leadership team](/articles/how-to-assess-a-leadership-team)."
+          "text": "A short anonymous survey of every member gives a starting point for the talk that follows."
         }
       ]
+    },
+    { "t": "h2", "text": "Frequently asked questions about leadership team effectiveness" },
+    { "t": "h3", "text": "Is leadership team effectiveness different from team effectiveness?" },
+    {
+      "t": "p",
+      "text": "The tests are the same: output, the ability to keep working together and members' growth (Haas and Mortensen, 2016). The setting differs. A leadership team's output lands on the whole organisation, and each member also answers for a unit (Katzenbach, 1997)."
+    },
+    { "t": "h3", "text": "Does leadership team effectiveness affect results?" },
+    {
+      "t": "p",
+      "text": "The evidence is indirect. Across 112 studies, trust among members went with team performance (De Jong et al., 2016). In 92 team meetings, constructive interaction was related to organisational success 2.5 years later (Kauffeld and Lehmann-Willenbrock, 2012). Neither looked only at leadership teams, and both show links rather than causes."
     },
     { "t": "h2", "text": "What can you do this month?" },
     {
@@ -246,7 +302,7 @@
     },
     {
       "t": "box",
-      "title": "A question for your team",
+      "title": "A question to close with",
       "text": "What do we do together that none of us could do alone, and how much of our meeting time goes on it?"
     }
   ],
@@ -369,6 +425,20 @@
       "title": "Cohesion and performance in groups: A meta-analytic clarification of construct relations",
       "venue": "Journal of Applied Psychology, 88(6), 989–1004",
       "url": "https://doi.org/10.1037/0021-9010.88.6.989"
+    },
+    {
+      "authors": "Lencioni, P.",
+      "year": 2002,
+      "title": "The five dysfunctions of a team: A leadership fable",
+      "venue": "Jossey-Bass",
+      "url": "https://www.wiley.com/en-us/The+Five+Dysfunctions+of+a+Team%3A+A+Leadership+Fable-p-9780787960759"
+    },
+    {
+      "authors": "Wageman, R., Hackman, J. R., & Lehman, E.",
+      "year": 2005,
+      "title": "Team Diagnostic Survey: Development of an instrument",
+      "venue": "The Journal of Applied Behavioral Science, 41(4), 373–398",
+      "url": "https://doi.org/10.1177/0021886305281984"
     }
   ]
 }
