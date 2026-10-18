@@ -41,6 +41,9 @@ export const ART_KINDS = [
   'files',
   'meeting',
   'pulse',
+  // the second ten (D-68)
+  'models',
+  'arrows',
 ] as const
 export type ArtKind = (typeof ART_KINDS)[number]
 
@@ -78,7 +81,6 @@ export const ARTICLES: ArticleEntry[] = [
       'leadership team effectiveness',
       'high performing leadership team',
       'how to build a high performing leadership team',
-      'leadership team effectiveness models',
       'signs of an ineffective leadership team',
     ],
     status: 'published',
@@ -114,7 +116,13 @@ export const ARTICLES: ArticleEntry[] = [
     modified: '2026-10-18',
     related: ['how-to-build-trust-in-a-leadership-team', 'task-conflict-and-relationship-conflict'],
   },
-  { slug: 'direction-alignment-and-commitment', group: 'start', queries: ['direction alignment commitment', 'leadership outcomes DAC'], status: 'planned' },
+  { slug: 'direction-alignment-and-commitment', group: 'start', queries: ['direction, alignment and commitment', 'direction alignment commitment', 'leadership outcomes DAC'], status: 'planned' },
+  {
+    slug: 'team-effectiveness-models',
+    group: 'start',
+    queries: ['team effectiveness models', 'team effectiveness model', 'leadership team effectiveness models', 'hackman model of team effectiveness'],
+    status: 'planned',
+  },
   { slug: 'anonymous-surveys-in-small-teams', group: 'start', queries: ['anonymous survey small team', 'survey anonymity threshold'], status: 'planned' },
   { slug: 'how-often-to-measure-a-leadership-team', group: 'start', queries: ['team pulse survey frequency', 'how often to survey a team'], status: 'planned' },
 

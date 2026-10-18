@@ -621,6 +621,75 @@ function Loop() {
   )
 }
 
+/** three model cards fanned out, each drawing its own model, the one in front ticked */
+function Models() {
+  const cards = [
+    { i: 0, x: 66, rot: -10, fill: LAV },
+    { i: 2, x: 258, rot: 10, fill: YELLOW },
+    { i: 1, x: 162, rot: 0, fill: TEAL },
+  ]
+  return (
+    <>
+      {cards.map((c) => (
+        <g key={c.i} transform={`rotate(${c.rot} ${c.x + 58} 300)`}>
+          <rect x={c.x} y="84" width="116" height="184" rx="16" fill={PAPER} {...line} />
+          <rect x={c.x + 14} y="100" width="88" height="74" rx="10" fill={c.fill} {...line} />
+          {c.i === 0 ? (
+            // layers, each resting on the last
+            [0, 1, 2].map((k) => <rect key={k} x={c.x + 26 + k * 10} y={154 - k * 16} width="44" height="12" rx="6" fill={PAPER} {...line} />)
+          ) : c.i === 1 ? (
+            // input, process, outcome
+            <>
+              <path d={`M${c.x + 32} 137 H${c.x + 84}`} {...line} />
+              {[0, 1, 2].map((k) => (
+                <circle key={k} cx={c.x + 32 + k * 26} cy="137" r="9" fill={k === 2 ? ORANGE : PAPER} {...line} />
+              ))}
+            </>
+          ) : (
+            // levels of a pyramid
+            [0, 1, 2].map((k) => {
+              const half = 34 - k * 11
+              const y = 164 - k * 18
+              return <path key={k} d={`M${c.x + 58 - half} ${y} L${c.x + 58 + half} ${y} L${c.x + 58 + half - 8} ${y - 14} L${c.x + 58 - half + 8} ${y - 14} Z`} fill={PAPER} {...line} />
+            })
+          )}
+          <Text x={c.x + 16} y={192} w={70} fill={INK} />
+          <Text x={c.x + 16} y={210} w={84} />
+          <Text x={c.x + 16} y={228} w={56} />
+          <Text x={c.x + 16} y={246} w={74} />
+        </g>
+      ))}
+      <circle cx="270" cy="86" r="20" fill={YELLOW} {...line} />
+      <path d="M261 86 l6 6 l12 -13" fill="none" {...line} />
+    </>
+  )
+}
+
+/** three arrows flying in line, bound together, into the centre of a target */
+function Arrows() {
+  const rows = [
+    { y: 130, fill: LAV },
+    { y: 182, fill: TEAL },
+    { y: 234, fill: YELLOW },
+  ]
+  return (
+    <>
+      <circle cx="330" cy="182" r="76" fill={PAPER} {...line} />
+      <circle cx="330" cy="182" r="50" fill={LAV} {...line} />
+      <circle cx="330" cy="182" r="24" fill={ORANGE} {...line} />
+      {rows.map((r) => (
+        <g key={r.y}>
+          <path d={`M74 ${r.y} H${r.y === 182 ? 326 : 284}`} {...line} />
+          <path d={`M${r.y === 182 ? 312 : 270} ${r.y - 10} L${r.y === 182 ? 326 : 284} ${r.y} L${r.y === 182 ? 312 : 270} ${r.y + 10}`} fill="none" {...line} />
+          <path d={`M74 ${r.y} l-16 -14 h26 l16 14 l-16 14 h-26 z`} fill={r.fill} {...line} />
+        </g>
+      ))}
+      <rect x="150" y="112" width="26" height="140" rx="12" fill={YELLOW} {...line} />
+      <path d="M150 150 H176 M150 214 H176" stroke={INK} strokeWidth="2.4" strokeLinecap="round" />
+    </>
+  )
+}
+
 const DRAWINGS: Record<ArtKind, () => React.ReactNode> = {
   layers: Layers,
   assess: Assess,
@@ -644,6 +713,8 @@ const DRAWINGS: Record<ArtKind, () => React.ReactNode> = {
   files: Files,
   meeting: Meeting,
   pulse: Pulse,
+  models: Models,
+  arrows: Arrows,
 }
 
 export function ArticleArt({ kind, className }: { kind: ArtKind; className?: string }) {
