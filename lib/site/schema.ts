@@ -2,6 +2,7 @@
 import { PRODUCT_NAME } from '@/lib/brand'
 import { absolute, CONTACT_MAIL, PUBLISHER, SITE_URL } from './config'
 import { plain, sourceLabel, type Source } from './blocks'
+import type { Entity } from './articles'
 
 /**
  * JSON-LD for the public pages. Every value is copy the page itself shows, or a fact the product enforces,
@@ -77,7 +78,11 @@ export function article(a: {
   image: string
   sources: Source[]
   about: string[]
+  /** the topic and the people it names, each with the page that says which is meant (D-67) */
+  topics?: Entity[]
+  mentions?: Entity[]
 }): Node {
+  const entity = (e: Entity) => ({ '@type': e.type, name: e.name, sameAs: e.sameAs })
   return {
     '@type': 'Article',
     '@id': `${absolute(a.path)}#article`,
@@ -90,6 +95,8 @@ export function article(a: {
     mainEntityOfPage: absolute(a.path),
     image: absolute(a.image),
     keywords: a.about.join(', '),
+    ...(a.topics?.length ? { about: a.topics.map(entity) } : {}),
+    ...(a.mentions?.length ? { mentions: a.mentions.map(entity) } : {}),
     author: { '@id': ORG_ID },
     publisher: { '@id': ORG_ID },
     isPartOf: { '@id': SITE_ID },

@@ -103,7 +103,7 @@
     },
     {
       "t": "box",
-      "title": "A rule of thumb",
+      "title": "A rule of thumb for wording",
       "text": "If a statement contains “and”, check whether it asks two questions. If it names a person or a role, rewrite it about the team."
     },
     { "t": "h2", "text": "Why does agreement matter as much as the average?" },
@@ -213,7 +213,7 @@
     },
     {
       "t": "box",
-      "title": "A rule of thumb",
+      "title": "A rule of thumb for anonymity",
       "text": "Decide the minimum number of answers before the survey opens, and never lower it to get a result. Show averages and a plain note on agreement, and nothing that points to a single answer."
     },
     { "t": "h2", "text": "How often should a leadership team be assessed?" },

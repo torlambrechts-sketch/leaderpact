@@ -81,8 +81,8 @@ keyword in Sentral.
 | leadership team action plan; team development plan; action plan after a team survey | `/platform/focus-areas` | Feature page, screenshots, FAQ |
 | leadership team meeting software; run leadership team meetings | `/platform/meetings` | Feature page, screenshots, FAQ |
 | leadership team pulse survey; team pulse check | `/platform/pulses` | Feature page, screenshots, FAQ |
-| leadership team effectiveness; high performing leadership team; how to build a high performing leadership team | `/articles/what-makes-a-leadership-team-effective` | Article (pillar) |
-| how to assess a leadership team; leadership team effectiveness survey questions; executive team effectiveness assessment | `/articles/how-to-assess-a-leadership-team` | Article |
+| leadership team effectiveness; high performing leadership team; how to build a high performing leadership team; leadership team effectiveness models; signs of an ineffective leadership team | `/articles/what-makes-a-leadership-team-effective` | Article (pillar) |
+| how to assess a leadership team; leadership team effectiveness survey questions; how to measure leadership team effectiveness | `/articles/how-to-assess-a-leadership-team` | Article |
 | five dysfunctions of a team; five dysfunctions of a team assessment; lencioni model research | `/articles/five-dysfunctions-of-a-team-and-the-research` | Article (comparison) |
 | purpose of a leadership team; role of a leadership team; what is a leadership team for | `/articles/leadership-team-purpose` | Article |
 | leadership team charter; team charter template; how to write a team charter | `/articles/leadership-team-charter` | Article |
@@ -93,6 +93,7 @@ keyword in Sentral.
 | task conflict and relationship conflict; task conflict; conflict in leadership teams | `/articles/task-conflict-and-relationship-conflict` | Article |
 | leadership team charter template; team charter template | `/templates/leadership-team-charter-template` | Free template |
 | leadership team meeting agenda template; executive meeting agenda template | `/templates/leadership-team-meeting-agenda-template` | Free template |
+| leadership team effectiveness checklist; team effectiveness checklist | `/templates/leadership-team-effectiveness-checklist` | Free template |
 
 Two searches deliberately appear on two pages, never as the first of both: "team charter template" (article
 and template) and "leadership team meeting agenda template" (article and template). The template page is the
@@ -108,7 +109,7 @@ sources are listed on the page, and the Article data carries them as `citation`.
 
 | # | Article | First search | Section | Status | Template at its foot |
 |---|---|---|---|---|---|
-| 1 | What makes a leadership team effective? | leadership team effectiveness | Where to start | Published 13 Oct 2026 | Charter |
+| 1 | What makes a leadership team effective? | leadership team effectiveness | Where to start | Published 13 Oct 2026, rewritten 18 Oct (D-67) | Checklist |
 | 2 | How to assess a leadership team | how to assess a leadership team | Where to start | Published 13 Oct 2026 | |
 | 3 | The five dysfunctions of a team: what does the research say? | five dysfunctions of a team | Where to start | Published 13 Oct 2026 | |
 | 4 | What is the purpose of a leadership team? | purpose of a leadership team | Purpose, tasks and membership | Published 13 Oct 2026 | Charter |
@@ -159,6 +160,7 @@ articles next to it.
 |---|---|---|---|
 | Leadership team charter | `/templates/leadership-team-charter-template` | Word, two pages, seven sections | Articles 1, 4, 5, 6 |
 | Leadership team meeting agenda | `/templates/leadership-team-meeting-agenda-template` | Word, landscape, item types and a close | Articles 7, 10 |
+| Leadership team effectiveness checklist | `/templates/leadership-team-effectiveness-checklist` | Word, two pages, 20 statements in four layers, no score | Article 1 |
 
 The gate is soft, as Orgpuls's is (D-241): a name and an address, organisation and role if the person wants,
 and an unticked box for e-mail about new templates and articles. The request goes to Sentral as a
@@ -219,3 +221,50 @@ for real data, must keep the threshold across groups, and is the owner's decisio
 3. **The site's own visit counting** in Sentral is on since 14 October 2026 (D-39), on the owner's word. It never
    runs on the scan, the invite link, the Leader Profile's tests or the app. The privacy page should say so.
 4. **The entity** (section 7, item 1).
+
+## 10. The head term: "leadership team effectiveness" (18 October 2026, D-67)
+
+**Where it stands.** Position 58.5 with 2 impressions, four days after indexing, on the pillar. The results are
+guides, mostly by consultancies (Bain, McKinsey, CCL, Russell Reynolds, HBS Working Knowledge, HBR); about seven
+in ten are guides and the rest service pages. They cite little. Nobody compares the models with their evidence.
+"Leadership and team effectiveness" is a different intent (coursework) and is not a target.
+
+**Phase 1, on the site: done (D-67).** The pillar rewritten to answer the term, five links to it from the other
+articles and one from every footer, the Article data's `about` and `mentions`, the effectiveness checklist, and
+the keyword map above.
+
+**Phase 2, weeks 2 to 8: the cluster.**
+- A new article, "Team effectiveness models: which fit a leadership team?", for "team effectiveness models",
+  "hackman model of team effectiveness" and similar searches, whose results are weak lists. It links to the
+  pillar; `/research` then drops "team effectiveness model".
+- The planned articles that feed the pillar most: 11 (direction, alignment and commitment), 18 (alignment),
+  14 (the team leader's role), 16 (why meetings fail) and 17 (decision making), one or two a week.
+
+**Phase 3, from now: authority.** Most of it is the owner's.
+- An annotated bibliography of about fifty studies, each with a plain paragraph and its DOI, built from the
+  articles' checked sources. Library guides, coach trainings and AI answers cite such lists.
+- Outreach, about six hours a week: the scan and the templates to team coaches and their resource pages,
+  expert-quote requests (Qwoted, Featured), podcasts on team coaching and organisational development.
+- The owner's LinkedIn: a finding, a practice and a question for the team each week; a newsletter every two
+  weeks; a webinar each month with a team coach.
+- Never: bought links or placements, link swaps, footer links between our products, invented figures.
+
+**Targets, not forecasts** (the marketer's): 15 to 20 editorial referring domains and the term between 20 and
+35 by month 3; 30 to 40 domains and 11 to 20 by month 6; 45 to 60 domains and 6 to 12 by month 9. Fewer than 10
+referring domains at month 3 means moving effort to coaches and podcasts. Run the AI prompt panel (section 8)
+now, as month 0, and add Claude to its engines.
+
+**Decisions for the owner.**
+1. The name. "The Leadership Pact" is a leadership workshop with a close name, and the trademark check is open.
+   LinkedIn, Crunchbase, G2 and the Organization's `sameAs` wait for it, and so does a permanent root redirect.
+2. A named author or reviewer for the articles. Every guide on page one names one; ours names the company.
+3. A Norwegian article for "effektivitet i lederteam", which already shows impressions against thin results.
+   The site is English only, so this is a decision about scope.
+4. Bing Webmaster Tools (import the Search Console property; ChatGPT search and Copilot read Bing's index),
+   Ahrefs Webmaster Tools (free, for links), and Search Console's Links report for links to the old site's
+   addresses (D-50).
+5. Who gives outreach its hours each week.
+
+**Sentral's advice.** Sentral's rule for a keyword below position 20, "create a dedicated landing page", reads
+no intent and no age. It should wait for eight to twelve weeks below 20 with steady impressions, or for Google
+ranking a different page than the map names, before it says so.

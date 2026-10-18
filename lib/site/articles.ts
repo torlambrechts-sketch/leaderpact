@@ -44,6 +44,9 @@ export const ART_KINDS = [
 ] as const
 export type ArtKind = (typeof ART_KINDS)[number]
 
+/** A thing or person an article is about or names, with the public page that says which one is meant */
+export type Entity = { type: 'Thing' | 'Person'; name: string; sameAs: string }
+
 export type ArticleEntry = {
   slug: string
   group: ArticleGroup
@@ -59,6 +62,9 @@ export type ArticleEntry = {
   related?: [string, string]
   /** the free template that goes with it (lib/site/templates.ts), shown at its foot */
   template?: string
+  /** what the article is about, and whom it names, for the Article data: so an engine knows which is meant (D-67) */
+  about?: Entity[]
+  mentions?: Entity[]
 }
 
 /** Newest first within a section: the order the index lists them in */
@@ -68,18 +74,31 @@ export const ARTICLES: ArticleEntry[] = [
     slug: 'what-makes-a-leadership-team-effective',
     art: 'layers',
     group: 'start',
-    queries: ['leadership team effectiveness', 'high performing leadership team', 'how to build a high performing leadership team'],
+    queries: [
+      'leadership team effectiveness',
+      'high performing leadership team',
+      'how to build a high performing leadership team',
+      'leadership team effectiveness models',
+      'signs of an ineffective leadership team',
+    ],
     status: 'published',
     published: '2026-10-13',
-    modified: '2026-10-14',
+    modified: '2026-10-18',
     related: ['leadership-team-purpose', 'how-to-assess-a-leadership-team'],
-    template: 'leadership-team-charter-template',
+    template: 'leadership-team-effectiveness-checklist',
+    about: [{ type: 'Thing', name: 'Team effectiveness', sameAs: 'https://en.wikipedia.org/wiki/Team_effectiveness' }],
+    mentions: [
+      { type: 'Thing', name: 'Psychological safety', sameAs: 'https://en.wikipedia.org/wiki/Psychological_safety' },
+      { type: 'Person', name: 'Amy Edmondson', sameAs: 'https://en.wikipedia.org/wiki/Amy_Edmondson' },
+      { type: 'Person', name: 'Jon Katzenbach', sameAs: 'https://en.wikipedia.org/wiki/Jon_Katzenbach' },
+      { type: 'Person', name: 'Patrick Lencioni', sameAs: 'https://en.wikipedia.org/wiki/Patrick_Lencioni' },
+    ],
   },
   {
     slug: 'how-to-assess-a-leadership-team',
     art: 'assess',
     group: 'start',
-    queries: ['how to assess a leadership team', 'leadership team effectiveness survey questions', 'executive team effectiveness assessment'],
+    queries: ['how to assess a leadership team', 'leadership team effectiveness survey questions', 'how to measure leadership team effectiveness'],
     status: 'published',
     published: '2026-10-13',
     modified: '2026-10-14',
@@ -92,7 +111,7 @@ export const ARTICLES: ArticleEntry[] = [
     queries: ['five dysfunctions of a team', 'five dysfunctions of a team assessment', 'lencioni model research'],
     status: 'published',
     published: '2026-10-13',
-    modified: '2026-10-14',
+    modified: '2026-10-18',
     related: ['how-to-build-trust-in-a-leadership-team', 'task-conflict-and-relationship-conflict'],
   },
   { slug: 'direction-alignment-and-commitment', group: 'start', queries: ['direction alignment commitment', 'leadership outcomes DAC'], status: 'planned' },
@@ -129,7 +148,7 @@ export const ARTICLES: ArticleEntry[] = [
     queries: ['leadership team size', 'how big should a leadership team be', 'optimal team size'],
     status: 'published',
     published: '2026-10-13',
-    modified: '2026-10-14',
+    modified: '2026-10-18',
     related: ['leadership-team-purpose', 'what-makes-a-leadership-team-effective'],
     template: 'leadership-team-charter-template',
   },
@@ -194,4 +213,6 @@ export const PUBLISHED = ARTICLES.filter((a) => a.status === 'published')
 export const articleBySlug = (slug: string) => PUBLISHED.find((a) => a.slug === slug) ?? null
 
 export const ARTICLES_PATH = '/articles'
+/** The pillar: the article the head term "leadership team effectiveness" leads to, linked from every public page (D-67) */
+export const PILLAR_SLUG = 'what-makes-a-leadership-team-effective'
 export const articlePath = (slug: string) => `${ARTICLES_PATH}/${slug}`

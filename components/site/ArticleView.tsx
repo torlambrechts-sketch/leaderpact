@@ -53,6 +53,8 @@ export async function ArticleView({ entry, content: c }: { entry: ArticleEntry; 
             image: articleCard(entry.slug),
             sources: c.sources,
             about: entry.queries,
+            topics: entry.about,
+            mentions: entry.mentions,
           }),
           breadcrumbs([
             { name: t('common.home'), path: '/' },

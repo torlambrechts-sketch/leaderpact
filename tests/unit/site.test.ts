@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { articleProblems, ArticleContent } from '@/lib/site/article-content'
-import { ARTICLE_GROUPS, ARTICLES, articlePath, PUBLISHED } from '@/lib/site/articles'
+import { ARTICLE_GROUPS, ARTICLES, articlePath, PILLAR_SLUG, PUBLISHED } from '@/lib/site/articles'
 import { ARTICLE_FILES, loadArticle } from '@/lib/site/article-load'
 import { linksIn, blockText, plain } from '@/lib/site/blocks'
 import { FEATURES, featurePath } from '@/lib/site/features'
@@ -9,6 +9,7 @@ import { contentInventory } from '@/lib/site/inventory'
 import { loadPage, PRODUCT_PAGES, type ProductPageKey } from '@/lib/site/pages'
 import { TEMPLATE_FILES, loadTemplate } from '@/lib/site/template-load'
 import { TEMPLATES, granted, grantFor } from '@/lib/site/templates'
+import { article as articleLd } from '@/lib/site/schema'
 import sitemap from '@/app/sitemap'
 
 /**
@@ -64,6 +65,67 @@ describe('the articles', () => {
     expect(articleProblems('leadership-team-purpose', away).join()).toMatch(/this site only/)
     const planned = { ...base, lead: `${base.lead} See [the team learning article](/articles/team-learning-and-reflection).` }
     expect(articleProblems('leadership-team-purpose', planned).join()).toMatch(/only to published articles/)
+  })
+})
+
+describe('the asides', () => {
+  // a box is an aside named by its title, so two with one title are two landmarks a reader cannot tell apart
+  it('carry a title of their own on every page', () => {
+    const pages = [
+      ...PUBLISHED.map((a) => ({ id: a.slug, blocks: loadArticle(a.slug)!.content.blocks })),
+      ...TEMPLATES.map((t) => ({ id: t.slug, blocks: loadTemplate(t.slug)!.content.blocks })),
+      ...(Object.keys(PRODUCT_PAGES) as ProductPageKey[]).map((k) => ({ id: k, blocks: loadPage(k)!.blocks })),
+    ]
+    for (const { id, blocks } of pages) {
+      const titles = blocks.flatMap((b) => (b.t === 'box' ? [b.title] : []))
+      expect(new Set(titles).size, id).toBe(titles.length)
+    }
+  })
+})
+
+describe('the pillar (D-67)', () => {
+  const pillar = ARTICLES.find((a) => a.slug === PILLAR_SLUG)!
+
+  it('is published, answers the head term in its title and heading, and keeps its checklist at its foot', () => {
+    expect(pillar.status).toBe('published')
+    expect(pillar.queries[0]).toBe('leadership team effectiveness')
+    const c = loadArticle(PILLAR_SLUG)!.content
+    expect(c.title.toLowerCase().startsWith('leadership team effectiveness')).toBe(true)
+    expect(c.h1.toLowerCase().startsWith('leadership team effectiveness')).toBe(true)
+    expect(pillar.template).toBe('leadership-team-effectiveness-checklist')
+  })
+
+  it('is linked from the text of most other articles', () => {
+    const linking = PUBLISHED.filter((a) => a.slug !== PILLAR_SLUG).filter((a) =>
+      linksIn(blockText(loadArticle(a.slug)!.content.blocks)).includes(articlePath(PILLAR_SLUG)),
+    )
+    expect(linking.length).toBeGreaterThanOrEqual(PUBLISHED.length - 2)
+  })
+
+  it('names its subject for engines: each entity once, with its Wikipedia page', () => {
+    for (const a of ARTICLES) {
+      const entities = [...(a.about ?? []), ...(a.mentions ?? [])]
+      expect(new Set(entities.map((e) => e.name)).size).toBe(entities.length)
+      for (const e of entities) expect(e.sameAs).toMatch(/^https:\/\/en\.wikipedia\.org\/wiki\/[A-Za-z0-9_().%-]+$/)
+    }
+    const node = articleLd({
+      path: articlePath(PILLAR_SLUG),
+      headline: 'h',
+      description: 'd',
+      published: '2026-10-13',
+      modified: '2026-10-18',
+      words: 1,
+      image: '/og.png',
+      sources: [],
+      about: pillar.queries,
+      topics: pillar.about,
+      mentions: pillar.mentions,
+    }) as Record<string, unknown>
+    expect(node.about).toEqual([{ '@type': 'Thing', name: 'Team effectiveness', sameAs: 'https://en.wikipedia.org/wiki/Team_effectiveness' }])
+    expect((node.mentions as { '@type': string }[]).map((m) => m['@type'])).toContain('Person')
+    const bare = articleLd({ path: '/x', headline: 'h', description: 'd', published: '2026-10-13', modified: '2026-10-13', words: 1, image: '/og.png', sources: [], about: [] }) as Record<string, unknown>
+    expect(bare.about).toBeUndefined()
+    expect(bare.mentions).toBeUndefined()
   })
 })
 

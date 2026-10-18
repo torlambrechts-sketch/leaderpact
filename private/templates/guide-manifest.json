@@ -1,18 +1,18 @@
 {
   "file": "how-leadership-teams-really-work.pdf",
-  "edition": "2026-10-16",
+  "edition": "2026-10-18",
   "articles": [
     {
       "slug": "what-makes-a-leadership-team-effective",
-      "sha256": "193c123c5f5fa4c03da7c3efd4633ba037c5aed673779b06283abbb477eefc36"
+      "sha256": "a2426cd1b8b24971abd3a9c6177a4bcd39fc41096de59e593ca8baba9ce981c1"
     },
     {
       "slug": "how-to-assess-a-leadership-team",
-      "sha256": "e1c9c8e078d55801c585318b86763b15907c9acbec9687e1627db7647bbcab1c"
+      "sha256": "2c0359cbba4c15f9af2500e06523db9fffa3b765cad2d31e54371447ea51a956"
     },
     {
       "slug": "five-dysfunctions-of-a-team-and-the-research",
-      "sha256": "b75e450e69e83e72bb069042899e9424a0852a68efae28ce04439dec8b0aa4a8"
+      "sha256": "72def99782cd279444069ac734b7362ed19e54a9b27b0aadfc74a8c08ca17d13"
     },
     {
       "slug": "leadership-team-purpose",
@@ -20,27 +20,27 @@
     },
     {
       "slug": "leadership-team-charter",
-      "sha256": "60404e8109b0ab1d412c9c301afb1441e14fd84ec575b8cd16ccdb0e61509aaa"
+      "sha256": "c700cbc932bab3b3d2274cda2276fa2fd214997bc39eacb6773b2d6c4dcdff9c"
     },
     {
       "slug": "how-big-should-a-leadership-team-be",
-      "sha256": "e14c284de7329c3de35effa33c3b3adc1d3d47957de4cb4cd093cf9b7083a707"
+      "sha256": "50ed97021dd4453a225b04500710bca8d571f9bdb3f0995b8e2c7cf3c292bdbd"
     },
     {
       "slug": "leadership-team-meeting-agenda",
-      "sha256": "14a242f0339a2f1ddbbce48a60567b11d8eb588218a17a3866e5e615c0baf082"
+      "sha256": "55c012a8c1e6bb98a0cddea9a0da6bf6a91dbfcaf9420d2d7c022e4a224c085a"
     },
     {
       "slug": "psychological-safety-in-leadership-teams",
-      "sha256": "a4f872c23abf36a08655b263e9ecf4528d874328351cc4b41b1ae423b8997208"
+      "sha256": "af3851c9c76cf23736b2ba7b2af5844fbc51d974cf1879c4d57eba8b92016c65"
     },
     {
       "slug": "how-to-build-trust-in-a-leadership-team",
-      "sha256": "4d27fab61ee9fbfba00334153ca4699c8f4cba86ddc33b532973383628f115d3"
+      "sha256": "cd9a8b13e0862c74eeaddec896b1bec048063d09ee5fa43ac8fb014e2da1719c"
     },
     {
       "slug": "task-conflict-and-relationship-conflict",
-      "sha256": "0d87a38fda3d265d522b1111fdd2665e35bf7e2ba477ed04a15755163be1809e"
+      "sha256": "2ee48132aa7ef68d21d1248f81e8ae45a6f58495d86a817d8d8d0e2c230c47f1"
     }
   ],
   "copy": "cfbcced9945d4ef1d49d33890cff93229229fe054b41b706c0374b526468d711"

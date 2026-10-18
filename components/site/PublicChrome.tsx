@@ -59,6 +59,7 @@ export async function PublicChrome({ children, beacon = true }: { children: Reac
           research: t('research'),
           anonymity: t('anonymity'),
           tools: t('tools'),
+          effectiveness: t('effectiveness'),
           articles: t('articles'),
           templates: t('templates'),
         }}

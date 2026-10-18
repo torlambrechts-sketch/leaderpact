@@ -77,6 +77,28 @@ test('a free template: the form, then the file, for this browser only', async ({
   expect(problems).toEqual([])
 })
 
+test('the pillar (D-67): it answers the head term, names its subject, and leads to its checklist', async ({ page }) => {
+  const problems = watch(page)
+  await page.goto('/platform')
+  const footer = page.getByRole('contentinfo')
+  await footer.getByRole('link', { name: 'Leadership team effectiveness', exact: true }).click()
+  await expect(page).toHaveURL(/\/articles\/what-makes-a-leadership-team-effective$/)
+  await expect(page.getByRole('heading', { level: 1, name: /^Leadership team effectiveness: what makes a leadership team effective\?$/ })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'How do leadership team effectiveness models compare?' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'What are the signs of an ineffective leadership team?' })).toBeVisible()
+  const ld = await page.locator('script[type="application/ld+json"]').first().textContent()
+  expect(ld).toContain('"about":[{"@type":"Thing","name":"Team effectiveness","sameAs":"https://en.wikipedia.org/wiki/Team_effectiveness"}]')
+  expect(ld).toContain('"mentions"')
+  await axe(page)
+
+  await page.getByRole('link', { name: 'Get the template' }).first().click()
+  await expect(page).toHaveURL(/\/templates\/leadership-team-effectiveness-checklist$/)
+  await expect(page.getByRole('heading', { level: 1, name: 'Leadership team effectiveness checklist' })).toBeVisible()
+  await expect(page.getByRole('complementary', { name: 'A checklist, not a score' })).toBeVisible()
+  await axe(page)
+  expect(problems).toEqual([])
+})
+
 test('the free guide (D-60): the form says guide, then the PDF, for this browser only', async ({ page, request }) => {
   const problems = watch(page)
   const direct = await request.get('/templates/file/how-leadership-teams-really-work.pdf', { maxRedirects: 0 })
@@ -233,6 +255,7 @@ test('what search engines read: the sitemap, robots.txt and llms.txt', async ({ 
   const sitemap = await (await request.get('/sitemap.xml')).text()
   expect(sitemap).toContain('https://www.leaderpact.com/articles/leadership-team-purpose')
   expect(sitemap).toContain('https://www.leaderpact.com/templates/leadership-team-charter-template')
+  expect(sitemap).toContain('https://www.leaderpact.com/templates/leadership-team-effectiveness-checklist')
   expect(sitemap).not.toContain('/scan/result')
   expect(sitemap).toContain('https://www.leaderpact.com/platform/team-charter')
   const robots = await (await request.get('/robots.txt')).text()

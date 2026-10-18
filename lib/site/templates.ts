@@ -48,6 +48,16 @@ export const TEMPLATES: Template[] = [
     modified: '2026-10-13',
   },
   {
+    // the pillar's own (D-67): its four layers as statements to answer alone, then compare
+    slug: 'leadership-team-effectiveness-checklist',
+    kind: 'template',
+    files: [{ name: 'leadership-team-effectiveness-checklist.docx', format: 'docx' }],
+    queries: ['leadership team effectiveness checklist', 'team effectiveness checklist'],
+    related: ['what-makes-a-leadership-team-effective', 'how-to-assess-a-leadership-team'],
+    published: '2026-10-18',
+    modified: '2026-10-18',
+  },
+  {
     slug: GUIDE_SLUG,
     kind: 'guide',
     files: [{ name: GUIDE_FILE, format: 'pdf' }],
