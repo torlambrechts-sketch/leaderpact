@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test'
 import { axe, watch } from './support/page'
+import { PUBLISHED, articlePath } from '../../lib/site/articles'
 
 /**
  * The public site (D-34 to D-38): the articles, a free template behind an address, the product pages and
@@ -24,6 +25,18 @@ test('the articles: the index by section, and an article with its answer, source
   expect(ld).toContain('"@type":"Article"')
   expect(ld).toContain('"citation"')
   await axe(page)
+  expect(problems).toEqual([])
+})
+
+test('every published article (D-68): its heading, its sources, and axe clean', async ({ page }) => {
+  test.setTimeout(120_000)
+  const problems = watch(page)
+  for (const a of PUBLISHED) {
+    await page.goto(articlePath(a.slug))
+    await expect(page.getByRole('heading', { level: 1 }), a.slug).toBeVisible()
+    await expect(page.getByRole('heading', { level: 2, name: 'Sources' }), a.slug).toBeVisible()
+    await axe(page)
+  }
   expect(problems).toEqual([])
 })
 

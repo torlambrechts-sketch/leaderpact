@@ -10,6 +10,8 @@ import agenda from '@/data/articles/leadership-team-meeting-agenda.json'
 import safety from '@/data/articles/psychological-safety-in-leadership-teams.json'
 import trust from '@/data/articles/how-to-build-trust-in-a-leadership-team.json'
 import conflict from '@/data/articles/task-conflict-and-relationship-conflict.json'
+import models from '@/data/articles/team-effectiveness-models.json'
+import dac from '@/data/articles/direction-alignment-and-commitment.json'
 
 /**
  * The published articles' words, imported so the build carries them and parsed once, so a file that breaks
@@ -27,6 +29,8 @@ export const ARTICLE_FILES: Record<string, unknown> = {
   'psychological-safety-in-leadership-teams': safety,
   'how-to-build-trust-in-a-leadership-team': trust,
   'task-conflict-and-relationship-conflict': conflict,
+  'team-effectiveness-models': models,
+  'direction-alignment-and-commitment': dac,
 }
 
 const parsed = new Map<string, ArticleContent>()

@@ -71,7 +71,7 @@ keyword in Sentral.
 | leadership assessment test free; big five personality test for leaders | `/leader-profile` | Free tool |
 | leadership team assessment tools; best leadership team assessment; team effectiveness assessment tool | `/leadership-team-assessment-tools` | Product page, FAQ |
 | leadership team platform; leadership team software | `/platform` | Product page, FAQ |
-| team effectiveness model; leadership team effectiveness research | `/research` | Product page, FAQ |
+| leadership team model; leadership team effectiveness research | `/research` | Product page, FAQ |
 | anonymous leadership team survey; anonymous team survey | `/anonymity` | Product page, FAQ |
 | leadership team scan; free leadership team assessment | `/platform/leadership-team-scan` | Feature page, screenshots, FAQ |
 | leadership team survey results; team survey agreement | `/platform/team-view` | Feature page, screenshots, FAQ |
@@ -81,7 +81,9 @@ keyword in Sentral.
 | leadership team action plan; team development plan; action plan after a team survey | `/platform/focus-areas` | Feature page, screenshots, FAQ |
 | leadership team meeting software; run leadership team meetings | `/platform/meetings` | Feature page, screenshots, FAQ |
 | leadership team pulse survey; team pulse check | `/platform/pulses` | Feature page, screenshots, FAQ |
-| leadership team effectiveness; high performing leadership team; how to build a high performing leadership team; leadership team effectiveness models; signs of an ineffective leadership team | `/articles/what-makes-a-leadership-team-effective` | Article (pillar) |
+| leadership team effectiveness; high performing leadership team; how to build a high performing leadership team; signs of an ineffective leadership team | `/articles/what-makes-a-leadership-team-effective` | Article (pillar) |
+| team effectiveness models; team effectiveness model; leadership team effectiveness models; hackman model of team effectiveness | `/articles/team-effectiveness-models` | Article (comparison) |
+| direction, alignment and commitment; direction alignment commitment; leadership outcomes DAC | `/articles/direction-alignment-and-commitment` | Article |
 | how to assess a leadership team; leadership team effectiveness survey questions; how to measure leadership team effectiveness | `/articles/how-to-assess-a-leadership-team` | Article |
 | five dysfunctions of a team; five dysfunctions of a team assessment; lencioni model research | `/articles/five-dysfunctions-of-a-team-and-the-research` | Article (comparison) |
 | purpose of a leadership team; role of a leadership team; what is a leadership team for | `/articles/leadership-team-purpose` | Article |
@@ -119,7 +121,7 @@ sources are listed on the page, and the Article data carries them as `citation`.
 | 8 | Psychological safety in leadership teams | psychological safety in leadership teams | How the team works together | Published 13 Oct 2026 | |
 | 9 | How do you build trust in a leadership team? | how to build trust in a leadership team | How the team works together | Published 13 Oct 2026 | |
 | 10 | Task conflict and relationship conflict | task conflict and relationship conflict | How the team works together | Published 13 Oct 2026 | Agenda |
-| 11 | Direction, alignment and commitment | direction alignment commitment | Where to start | Planned | |
+| 11 | Direction, alignment and commitment | direction, alignment and commitment | Where to start | Published 18 Oct 2026 (D-68) | Charter |
 | 12 | Anonymous surveys in small teams | anonymous survey small team | Where to start | Planned | |
 | 13 | How often should you measure a leadership team? | team pulse survey frequency | Where to start | Planned | |
 | 14 | The team leader's role: design before coaching | role of the leader of a leadership team | Purpose, tasks and membership | Planned | |
@@ -129,6 +131,7 @@ sources are listed on the page, and the Article data carries them as `citation`.
 | 18 | Behavioural integration: working as one team | leadership team alignment | How the team works together | Planned | |
 | 19 | Political behaviour in leadership teams | politics in the leadership team | How the team works together | Planned | |
 | 20 | Team learning and reflection | team reflexivity | How the team works together | Planned | |
+| 21 | Team effectiveness models: which fit a leadership team? | team effectiveness models | Where to start | Published 18 Oct 2026 (D-68) | Checklist |
 
 Notes for the planned ten, so the next writer starts from the right sources (each to be checked before use):
 
@@ -233,7 +236,8 @@ in ten are guides and the rest service pages. They cite little. Nobody compares 
 articles and one from every footer, the Article data's `about` and `mentions`, the effectiveness checklist, and
 the keyword map above.
 
-**Phase 2, weeks 2 to 8: the cluster.**
+**Phase 2, weeks 2 to 8: the cluster.** Started 18 October 2026 (D-68): the models article and article 11 are
+published; 18, 14, 16 and 17 follow.
 - A new article, "Team effectiveness models: which fit a leadership team?", for "team effectiveness models",
   "hackman model of team effectiveness" and similar searches, whose results are weak lists. It links to the
   pillar; `/research` then drops "team effectiveness model".

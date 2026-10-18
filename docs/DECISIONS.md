@@ -1760,3 +1760,38 @@ said yes to the first phase of the plan they made.
   until the name is cleared (handoff section 0). It becomes permanent with the name.
 - **The owner's part** (docs/marketing/seo-geo-strategy.md, section 10): clear the name, name an author or
   reviewer, decide on a Norwegian article, connect Bing Webmaster Tools, and give the weekly outreach its hours.
+
+## D-68 — Phase 2 begins: team effectiveness models, and direction, alignment and commitment (owner, 18 October 2026)
+
+The owner: "yes, start phase 2" (docs/marketing/seo-geo-strategy.md, section 10). The cluster around the pillar
+grows by the two articles that feed it most, written and checked as the first ten were: a writer for each, then an
+independent fact-checker who opened every source and every claim.
+
+- **"Team effectiveness models: which fit a leadership team?"** (`/articles/team-effectiveness-models`, 20 sources).
+  It answers "team effectiveness models", whose results are vendor lists. Covered:
+  - the input-process-output frame and IMOI;
+  - Hackman's conditions, and Wageman and colleagues' six for senior teams, with the Team Diagnostic Survey;
+  - Katzenbach's real team or single-leader group;
+  - Tuckman with Gersick, Lencioni, GRPI, the Big Five in teamwork and Google's five dynamics, each described in
+    its authors' terms before its evidence;
+  - Hackman's three tests, a comparison table and how to choose.
+  The fact-check tightened twelve passages. For example, the survey "passed measurement checks", not the model.
+  GRPI is cited to its authors' 1974 working paper, and Gersick's model to the groups it applies to.
+- **"Direction, alignment and commitment in a leadership team"** (`/articles/direction-alignment-and-commitment`, 10
+  sources; the plan's article 11). Covered:
+  - Drath and colleagues' outcomes, and the shift from the tripod;
+  - why the outcomes suit a team whose members also lead units;
+  - what the research shows, which is mostly conceptual, with exploratory direct tests;
+  - the signs present and absent, and a self-check marked as no tested measure.
+  The fact-check replaced one table cell the white paper does not hold, and attributed the tripod as Drath and
+  colleagues do. It also gave HBR's introduction, not Hackman, the lines that are the introduction's. A definition
+  it could not trace to its primary source was cut.
+- **The keyword map.** The models article takes "team effectiveness model(s)" and "leadership team effectiveness
+  models"; the pillar keeps the head term. `/research` now answers "leadership team model", with the title
+  "Leadership team model: 21 scales and 3 outcomes, and the evidence".
+- **Links.** The pillar links to both new articles. The models article and the how-to-assess article link to
+  direction, alignment and commitment.
+- **Order.** The index and the guide list the pillar first, then the rest newest first within a section, so a
+  reader of "Where to start" and of the guide begins with the pillar.
+- **Drawings:** `models` (three model cards, one ticked) and `arrows` (three bound arrows into a target).
+- **One end-to-end check over every published article**: its heading, its sources and axe, at three widths.
