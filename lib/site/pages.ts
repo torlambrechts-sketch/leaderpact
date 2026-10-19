@@ -25,7 +25,8 @@ export const PRODUCT_PAGES = {
     path: '/research',
     file: research,
     related: ['what-makes-a-leadership-team-effective', 'psychological-safety-in-leadership-teams'],
-    queries: ['team effectiveness model', 'leadership team effectiveness research'],
+    // "team effectiveness model" is the models article's (D-68); this page is the model this product reads with
+    queries: ['leadership team model', 'leadership team effectiveness research'],
   },
   anonymity: {
     art: 'ballot',

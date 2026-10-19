@@ -4,11 +4,19 @@
   "articles": [
     {
       "slug": "what-makes-a-leadership-team-effective",
-      "sha256": "a2426cd1b8b24971abd3a9c6177a4bcd39fc41096de59e593ca8baba9ce981c1"
+      "sha256": "960afab872ecca9e512efa06d8f0242e380fe0dff701a3f31ec80ead07d0ce03"
+    },
+    {
+      "slug": "team-effectiveness-models",
+      "sha256": "667b2abec0ea427f9159cf2a4fe7aa94b5e3d98a050d40c8de3713e991bb9ad7"
+    },
+    {
+      "slug": "direction-alignment-and-commitment",
+      "sha256": "77e1cbb7a975190bc31f6ead7fdd3198bc70669d2aed803dfc152f5ca675aec0"
     },
     {
       "slug": "how-to-assess-a-leadership-team",
-      "sha256": "2c0359cbba4c15f9af2500e06523db9fffa3b765cad2d31e54371447ea51a956"
+      "sha256": "c9f955cfd1de45ded655b1a7e92ae8bd7b64aa59ef7f1271b973e496455c5dfe"
     },
     {
       "slug": "five-dysfunctions-of-a-team-and-the-research",

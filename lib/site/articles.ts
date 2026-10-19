@@ -41,6 +41,9 @@ export const ART_KINDS = [
   'files',
   'meeting',
   'pulse',
+  // the second ten (D-68)
+  'models',
+  'arrows',
 ] as const
 export type ArtKind = (typeof ART_KINDS)[number]
 
@@ -67,7 +70,7 @@ export type ArticleEntry = {
   mentions?: Entity[]
 }
 
-/** Newest first within a section: the order the index lists them in */
+/** The order the index and the guide list them in: the pillar first, then newest first within a section (D-68) */
 export const ARTICLES: ArticleEntry[] = [
   // where to start
   {
@@ -78,7 +81,6 @@ export const ARTICLES: ArticleEntry[] = [
       'leadership team effectiveness',
       'high performing leadership team',
       'how to build a high performing leadership team',
-      'leadership team effectiveness models',
       'signs of an ineffective leadership team',
     ],
     status: 'published',
@@ -93,6 +95,36 @@ export const ARTICLES: ArticleEntry[] = [
       { type: 'Person', name: 'Jon Katzenbach', sameAs: 'https://en.wikipedia.org/wiki/Jon_Katzenbach' },
       { type: 'Person', name: 'Patrick Lencioni', sameAs: 'https://en.wikipedia.org/wiki/Patrick_Lencioni' },
     ],
+  },
+  {
+    slug: 'team-effectiveness-models',
+    art: 'models',
+    group: 'start',
+    queries: ['team effectiveness models', 'team effectiveness model', 'leadership team effectiveness models', 'hackman model of team effectiveness'],
+    status: 'published',
+    published: '2026-10-18',
+    modified: '2026-10-18',
+    related: ['what-makes-a-leadership-team-effective', 'five-dysfunctions-of-a-team-and-the-research'],
+    template: 'leadership-team-effectiveness-checklist',
+    about: [{ type: 'Thing', name: 'Team effectiveness', sameAs: 'https://en.wikipedia.org/wiki/Team_effectiveness' }],
+    mentions: [
+      { type: 'Thing', name: "Tuckman's stages of group development", sameAs: 'https://en.wikipedia.org/wiki/Tuckman%27s_stages_of_group_development' },
+      { type: 'Person', name: 'Bruce Tuckman', sameAs: 'https://en.wikipedia.org/wiki/Bruce_Tuckman' },
+      { type: 'Person', name: 'Patrick Lencioni', sameAs: 'https://en.wikipedia.org/wiki/Patrick_Lencioni' },
+      { type: 'Person', name: 'Jon Katzenbach', sameAs: 'https://en.wikipedia.org/wiki/Jon_Katzenbach' },
+    ],
+  },
+  {
+    slug: 'direction-alignment-and-commitment',
+    art: 'arrows',
+    group: 'start',
+    queries: ['direction, alignment and commitment', 'direction alignment commitment', 'leadership outcomes DAC'],
+    status: 'published',
+    published: '2026-10-18',
+    modified: '2026-10-18',
+    related: ['what-makes-a-leadership-team-effective', 'leadership-team-purpose'],
+    template: 'leadership-team-charter-template',
+    about: [{ type: 'Thing', name: 'Leadership', sameAs: 'https://en.wikipedia.org/wiki/Leadership' }],
   },
   {
     slug: 'how-to-assess-a-leadership-team',
@@ -114,7 +146,6 @@ export const ARTICLES: ArticleEntry[] = [
     modified: '2026-10-18',
     related: ['how-to-build-trust-in-a-leadership-team', 'task-conflict-and-relationship-conflict'],
   },
-  { slug: 'direction-alignment-and-commitment', group: 'start', queries: ['direction alignment commitment', 'leadership outcomes DAC'], status: 'planned' },
   { slug: 'anonymous-surveys-in-small-teams', group: 'start', queries: ['anonymous survey small team', 'survey anonymity threshold'], status: 'planned' },
   { slug: 'how-often-to-measure-a-leadership-team', group: 'start', queries: ['team pulse survey frequency', 'how often to survey a team'], status: 'planned' },
 

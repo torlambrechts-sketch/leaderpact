@@ -1,0 +1,420 @@
+{
+  "title": "Team effectiveness models: which fit a leadership team?",
+  "description": "Team effectiveness models compared for leadership teams: what Hackman, Wageman, Tuckman, Lencioni, GRPI, the Big Five and Google say, and the evidence.",
+  "h1": "Which team effectiveness models fit a leadership team?",
+  "lead": "The team effectiveness models that fit a leadership team best are Hackman's five conditions and Wageman's six conditions for senior leadership teams. They come from studies of real teams, including teams at the top, and a survey built on them passed measurement checks in 321 teams. Popular models such as Tuckman's stages, Lencioni's five dysfunctions and Google's five dynamics give a team useful words. Their evidence is thinner, or comes from other kinds of team.",
+  "takeaways": [
+    "Start with a model built on teams at the top: Hackman's five conditions or Wageman's six conditions for senior leadership teams.",
+    "Major reviews read effectiveness as a loop: inputs shape what members do, feel and think together, which shapes outcomes, which feed the next cycle.",
+    "Tuckman's stages, Lencioni's pyramid, GRPI, the Big Five and Google's five dynamics are useful language, each with limits to its evidence.",
+    "Before any model, decide which work needs a real team and which a single leader can handle.",
+    "Judge any model by Hackman's three tests: what the team delivers, whether it can go on working together, and whether members grow."
+  ],
+  "blocks": [
+    { "t": "h2", "text": "What is a team effectiveness model?" },
+    {
+      "t": "p",
+      "text": "A team effectiveness model names what makes a team effective and how those things connect. Team research is more than 50 years old and runs to thousands of studies (Kozlowski and Ilgen, 2006). Much of that research rests on one frame (Ilgen et al., 2005)."
+    },
+    {
+      "t": "p",
+      "text": "That frame is input-process-output. Inputs, such as who is on the team and what it must do, shape how it works, which shapes outcomes (Mathieu et al., 2008). Later reviews widened the middle of that chain and added time (Ilgen et al., 2005; Mathieu et al., 2008)."
+    },
+    {
+      "t": "p",
+      "text": "Ilgen and colleagues proposed an alternative they called IMOI: input, mediator, output, input (Ilgen et al., 2005). The middle holds mediators: what members do, feel and think together, not only the processes they follow (Ilgen et al., 2005). The final input marks a loop, because what a team achieves shapes its next cycle of work (Ilgen et al., 2005)."
+    },
+    {
+      "t": "flow",
+      "items": [
+        {
+          "title": "Inputs",
+          "text": "The members, the task, the team's structure and its setting."
+        },
+        {
+          "title": "Mediators",
+          "text": "What members do, feel and think together, such as how they decide."
+        },
+        {
+          "title": "Outputs",
+          "text": "What the team produces, and the state it leaves the team and its members in."
+        },
+        {
+          "title": "Inputs again",
+          "text": "Outcomes change the starting point for the next cycle of work."
+        }
+      ],
+      "source": 2
+    },
+    {
+      "t": "p",
+      "text": "This frame helps you read every other model. Each one picks a part of the loop to work on. Some start from inputs, some from processes and some from outcomes."
+    },
+    { "t": "h2", "text": "Which research-based models fit teams at the top?" },
+    { "t": "h3", "text": "Hackman's five conditions" },
+    {
+      "t": "p",
+      "text": "Hackman's model of team effectiveness starts from one claim: no leader can make a team perform well. What a leader can do is create conditions that raise the odds (Hackman, 2002; Coutu, 2009). He named five: a real team, a compelling direction, an enabling structure, a supportive organisational context and expert coaching (Hackman, 2002)."
+    },
+    {
+      "t": "p",
+      "text": "In a real team, membership is clear: everyone can say who is in and who is out. A compelling direction means members understand and accept the work they share. Coaching helps most when it is aimed at the whole team, at its start, its midpoint and its end (Coutu, 2009)."
+    },
+    { "t": "h3", "text": "Wageman's six conditions for senior leadership teams" },
+    {
+      "t": "p",
+      "text": "Wageman, Nunes, Burruss and Hackman applied this thinking to senior leadership teams. They drew on a study of more than 120 top teams (Wageman et al., 2008; Coutu, 2009). They describe six conditions. Three are essential, and three enable the team to make the most of them."
+    },
+    {
+      "t": "compare",
+      "items": [
+        {
+          "title": "The essentials",
+          "points": ["A real team, with clear boundaries", "A compelling purpose of its own", "The right people on it"]
+        },
+        {
+          "title": "The enablers",
+          "points": ["A solid team structure", "A supportive context", "Coaching for the team as a whole"]
+        }
+      ],
+      "source": 6
+    },
+    {
+      "t": "p",
+      "text": "The same research found that membership at the top is often unclear. Almost every senior team thought its boundaries were clear. But when members described their team, under 10 per cent agreed about who belonged to it (Coutu, 2009)."
+    },
+    { "t": "h3", "text": "What is the evidence for the conditions?" },
+    {
+      "t": "p",
+      "text": "The Team Diagnostic Survey asks members about their team's design, the support it gets and its leadership (Wageman, Hackman and Lehman, 2005). The authors judged its psychometric properties satisfactory, using answers from 2,474 members of 321 teams in varied organisations."
+    },
+    {
+      "t": "p",
+      "text": "A field study of self-managing teams compared two things leaders do (Wageman, 2001). Both shaped how well teams managed themselves and how satisfied members were. But only how leaders designed the team affected its task performance. Good coaching also helped well-designed teams more than poorly designed ones. These were not leadership teams, so carry the finding over with care."
+    },
+    {
+      "t": "p",
+      "text": "Hackman and Wageman (2005) also set out a theory of team coaching. It focuses on what coaching does for a team, when it is most likely to work, and when it is unlikely to help. They offered it as a model to be tested, not as a finding (Hackman and Wageman, 2005)."
+    },
+    { "t": "h2", "text": "Is your leadership team a real team?" },
+    {
+      "t": "p",
+      "text": "Katzenbach called the top management team a myth. In his view, few groups at the top function as real teams, even in well-run companies (Katzenbach, 1997). With Smith, he had defined a team as a small group of people whose skills complement each other. They share a purpose, goals and an approach, and hold themselves mutually accountable (Katzenbach and Smith, 1993)."
+    },
+    {
+      "t": "p",
+      "text": "A working group is different. Its performance is what its members achieve as individuals, while a team also produces collective work products (Katzenbach and Smith, 1993)."
+    },
+    {
+      "t": "p",
+      "text": "Katzenbach did not treat the single-leader group as a failure. Such a group moves quickly and efficiently, provided its leader truly has the best grasp of the task (Katzenbach, 1997). His advice was to choose the discipline that fits the work in front of you."
+    },
+    {
+      "t": "fork",
+      "from": {
+        "title": "A piece of work at the top",
+        "text": "Katzenbach asks which discipline it needs."
+      },
+      "items": [
+        {
+          "when": "It needs a collective work product that draws on several members' skills",
+          "title": "Work as a real team",
+          "text": "Members share the lead and hold each other to account for the result."
+        },
+        {
+          "when": "One leader knows best, or speed matters most",
+          "title": "Work as a single-leader group",
+          "text": "Members carry out their own parts, and the leader holds each to account."
+        }
+      ],
+      "source": 10
+    },
+    {
+      "t": "p",
+      "text": "He also explained why teaming at the top is hard. Purpose and goals are broad, members are chosen for position rather than skills, and time is short. Executives are also used to individual accountability, and most distrust mutual accountability (Katzenbach, 1997)."
+    },
+    { "t": "h2", "text": "What do the popular models get right, and what do they miss?" },
+    {
+      "t": "p",
+      "text": "The models below appear on most lists. Each is described first in its author's terms, then set against the evidence."
+    },
+    { "t": "h3", "text": "Tuckman's stages: forming, storming, norming, performing" },
+    {
+      "t": "p",
+      "text": "Tuckman reviewed 50 articles on group development and proposed four stages: forming, storming, norming and performing (Tuckman, 1965). Each stage has an interpersonal side and a task side. A later review added a fifth stage, adjourning (Tuckman and Jensen, 1977)."
+    },
+    {
+      "t": "p",
+      "text": "Tuckman was frank about his base. Therapy groups were over-represented in the studies, and natural groups were under-represented (Tuckman, 1965). He called the model a conceptual statement, open to further test. Of 22 later studies, only one set out to test it directly (Tuckman and Jensen, 1977)."
+    },
+    {
+      "t": "p",
+      "text": "Gersick followed eight project teams from first meeting to deadline and found a different pattern (Gersick, 1988). Each team settled on an approach in its first meeting and kept it for half its time. At the midpoint of their calendars, the teams changed course in a concentrated burst."
+    },
+    {
+      "t": "p",
+      "text": "She called this punctuated equilibrium. It came from an exploratory study, and she said it should apply only to groups working to a deadline (Gersick, 1988). Two of her lessons may still help a leadership team: first meetings set lasting patterns, and a midpoint is a natural time to review."
+    },
+    { "t": "h3", "text": "Lencioni's five dysfunctions" },
+    {
+      "t": "p",
+      "text": "Lencioni stacks five dysfunctions in a pyramid (Lencioni, 2002). Absence of trust sits at the base, then fear of conflict, lack of commitment, avoidance of accountability and inattention to results. He presents the model in a fable about an executive team. What research says about each part is in [five dysfunctions of a team](/articles/five-dysfunctions-of-a-team-and-the-research)."
+    },
+    { "t": "h3", "text": "GRPI: goals, roles, processes and interpersonal relationships" },
+    {
+      "t": "p",
+      "text": "GRPI stands for goals, roles, processes and interpersonal relationships, in that order of priority. Plovnick, Fry and Rubin set out this order in 1974, building on Beckhard's four areas of team concern (Plovnick et al., 1974). Goals come first, then roles, then procedures, and relationships last."
+    },
+    {
+      "t": "p",
+      "text": "Their argument was that many interpersonal problems are really symptoms of unclear goals, roles or procedures. They tested a programme built on this order in 18 teams, and called the results preliminary. The teams reported clearer goals, roles and procedures (Plovnick et al., 1974)."
+    },
+    { "t": "h3", "text": "The Big Five in teamwork" },
+    {
+      "t": "p",
+      "text": "Salas, Sims and Burke distilled teamwork research into five core components (Salas et al., 2005). They are team leadership, mutual performance monitoring, backup behaviour, adaptability and team orientation. They rest on coordinating mechanisms such as shared mental models, closed-loop communication and mutual trust."
+    },
+    {
+      "t": "p",
+      "text": "The authors offered the model with propositions for future research to test. They expect the components to matter differently over a team's life and across tasks (Salas et al., 2005). The model is strong on how members coordinate, and says little about purpose or membership."
+    },
+    { "t": "h3", "text": "Google's five dynamics" },
+    {
+      "t": "p",
+      "text": "Google's Project Aristotle studied 180 of its own teams, in engineering and in sales (re:Work, 2015). It listed five dynamics in order of importance: psychological safety, dependability, structure and clarity, meaning and impact. The way members worked together counted for more than who the members were. Effectiveness was judged by ratings from executives, leaders and members, and by sales results."
+    },
+    {
+      "t": "p",
+      "text": "Google states its own limits. Some factors, such as team size, showed no significant effect at Google, which it says does not make them unimportant elsewhere (re:Work, 2015). It also says your organisation's findings may differ. For the top team, see [psychological safety in leadership teams](/articles/psychological-safety-in-leadership-teams)."
+    },
+    { "t": "h2", "text": "How do you judge whether a team is effective?" },
+    {
+      "t": "p",
+      "text": "A model is only useful against a test of success. Hackman proposed three: the team's output, its ability to work together in future, and members' individual development (Haas and Mortensen, 2016)."
+    },
+    {
+      "t": "p",
+      "text": "In their own studies, Haas and Mortensen found three of Hackman's conditions still especially critical: compelling direction, strong structure and supportive context. Their fourth condition is a shared mindset. It guards against “us versus them” thinking and incomplete information (Haas and Mortensen, 2016)."
+    },
+    {
+      "t": "p",
+      "text": "A leadership team serves the whole organisation, so that is where its output is judged. Drath and colleagues offer one test of that: does leadership produce [direction, alignment and commitment](/articles/direction-alignment-and-commitment) (Drath et al., 2008)? To measure your own team, start with [how to assess a leadership team](/articles/how-to-assess-a-leadership-team)."
+    },
+    { "t": "h2", "text": "How do the team effectiveness models compare?" },
+    {
+      "t": "table",
+      "head": ["Model", "What it says matters", "The evidence", "Fit for a leadership team"],
+      "rows": [
+        ["Hackman: five conditions", "A real team, compelling direction, enabling structure, supportive context, expert coaching", "Field research on many kinds of team; its diagnostic survey checked on 321 teams", "Strong: designs the team before working on behaviour"],
+        ["Wageman and colleagues: six conditions", "Three essentials (real team, compelling purpose, right people) and three enablers", "A study of more than 120 senior teams", "Strong: written for senior leadership teams"],
+        ["Input-process-output and IMOI", "Inputs shape what members do, feel and think, which shapes outcomes, in a loop", "The organising frame of major reviews of team research", "A map for locating a problem, not a checklist"],
+        ["Katzenbach: team or single-leader group", "Collective work products and mutual accountability, used where they pay off", "A practitioner's argument with company cases", "Strong for deciding which work needs the whole team"],
+        ["Tuckman: forming to performing", "Groups pass through set stages over time", "A review of mostly therapy-group studies; Gersick found a midpoint shift instead", "Weak for a standing team; the midpoint review is more usable"],
+        ["Lencioni: five dysfunctions", "Five dysfunctions, stacked from absence of trust up to inattention to results", "Presented as a fable, not as research", "A shared language; check the conditions first"],
+        ["GRPI", "Goals first, then roles, procedures and relationships", "An early field test, with members' own reports", "A useful order for finding where to start"],
+        ["Salas and colleagues: Big Five", "Leadership, monitoring, backup, adaptability and team orientation", "A review of teamwork research, with propositions to test", "Partial: strong on coordination, quiet on purpose"],
+        ["Google: five dynamics", "Psychological safety first, then dependability, clarity, meaning and impact", "180 Google teams in engineering and sales", "Partial: one company, and no leadership teams"]
+      ]
+    },
+    { "t": "h2", "text": "How do you choose a model for a leadership team?" },
+    {
+      "t": "p",
+      "text": "Start from the setting. Most members lead a unit and answer for it, and give the team only part of their time (Katzenbach, 1997). Senior executives often focus on their own roles more than on what the team must do together (Wageman et al., 2008). Membership is often less clear than the team believes (Coutu, 2009)."
+    },
+    {
+      "t": "p",
+      "text": "That setting favours models that start with conditions. Behaviour models assume a real team with shared work, and at the top that is the first thing to check. For how conditions, processes and outcomes fit together, see [leadership team effectiveness](/articles/what-makes-a-leadership-team-effective)."
+    },
+    {
+      "t": "steps",
+      "items": [
+        {
+          "title": "Sort team work from single-leader work",
+          "text": "List the work that needs every member, and hand the rest to one leader."
+        },
+        {
+          "title": "Check the essentials",
+          "text": "Do members agree on who is on the team and what it is for? Are the right people in it?"
+        },
+        {
+          "title": "Check the enablers",
+          "text": "Look at the team's structure, the support it gets and coaching for the team as a whole."
+        },
+        {
+          "title": "Look at how you work",
+          "text": "Use GRPI or the Big Five as a lens on your meetings."
+        },
+        {
+          "title": "Keep a shared language",
+          "text": "Lencioni's or Google's terms help members name what they see."
+        },
+        {
+          "title": "Judge by outcomes",
+          "text": "Every few months, rate what the team delivers, how well it works together and how members grow."
+        }
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Haas and Mortensen recommend a quick rating every few months, and a deeper look when trouble shows (Haas and Mortensen, 2016). To write down purpose and membership, use a [leadership team charter](/articles/leadership-team-charter)."
+    },
+    { "t": "h2", "text": "What can you do this month?" },
+    {
+      "t": "ul",
+      "items": [
+        "Have every member write down, alone, who belongs to the leadership team. Put the lists side by side at your next meeting.",
+        "Sort this quarter's agenda into two piles: work that needs a collective work product, and work one leader can own.",
+        "Ask each member to rate the team on Wageman's six conditions, then discuss the lowest-rated condition together.",
+        "Mark the midpoint of your current planning cycle, and book a short review of how the team is approaching its work.",
+        "Close one meeting by asking which of Hackman's three tests the team passes, and which it does not."
+      ]
+    },
+    {
+      "t": "box",
+      "title": "A question for your team",
+      "text": "If we stopped meeting as a team tomorrow, what would the organisation lose that none of us could deliver alone?"
+    }
+  ],
+  "sources": [
+    {
+      "authors": "Kozlowski, S. W. J., & Ilgen, D. R.",
+      "year": 2006,
+      "title": "Enhancing the effectiveness of work groups and teams",
+      "venue": "Psychological Science in the Public Interest, 7(3), 77–124",
+      "url": "https://doi.org/10.1111/j.1529-1006.2006.00030.x"
+    },
+    {
+      "authors": "Ilgen, D. R., Hollenbeck, J. R., Johnson, M., & Jundt, D.",
+      "year": 2005,
+      "title": "Teams in organizations: From input-process-output models to IMOI models",
+      "venue": "Annual Review of Psychology, 56, 517–543",
+      "url": "https://doi.org/10.1146/annurev.psych.56.091103.070250"
+    },
+    {
+      "authors": "Mathieu, J. E., Maynard, M. T., Rapp, T., & Gilson, L.",
+      "year": 2008,
+      "title": "Team effectiveness 1997–2007: A review of recent advancements and a glimpse into the future",
+      "venue": "Journal of Management, 34(3), 410–476",
+      "url": "https://doi.org/10.1177/0149206308316061"
+    },
+    {
+      "authors": "Hackman, J. R.",
+      "year": 2002,
+      "title": "Leading teams: Setting the stage for great performances",
+      "venue": "Harvard Business School Press",
+      "url": "https://store.hbr.org/product/leading-teams-setting-the-stage-for-great-performances/3332"
+    },
+    {
+      "authors": "Coutu, D.",
+      "year": 2009,
+      "title": "Why teams don't work (an interview with J. Richard Hackman)",
+      "venue": "Harvard Business Review, 87(5), 98–105",
+      "url": "https://hbr.org/2009/05/why-teams-dont-work"
+    },
+    {
+      "authors": "Wageman, R., Nunes, D. A., Burruss, J. A., & Hackman, J. R.",
+      "year": 2008,
+      "title": "Senior leadership teams: What it takes to make them great",
+      "venue": "Harvard Business School Press",
+      "url": "https://store.hbr.org/product/senior-leadership-teams-what-it-takes-to-make-them-great/3366"
+    },
+    {
+      "authors": "Wageman, R., Hackman, J. R., & Lehman, E.",
+      "year": 2005,
+      "title": "Team Diagnostic Survey: Development of an instrument",
+      "venue": "The Journal of Applied Behavioral Science, 41(4), 373–398",
+      "url": "https://doi.org/10.1177/0021886305281984"
+    },
+    {
+      "authors": "Wageman, R.",
+      "year": 2001,
+      "title": "How leaders foster self-managing team effectiveness: Design choices versus hands-on coaching",
+      "venue": "Organization Science, 12(5), 559–577",
+      "url": "https://doi.org/10.1287/orsc.12.5.559.10094"
+    },
+    {
+      "authors": "Hackman, J. R., & Wageman, R.",
+      "year": 2005,
+      "title": "A theory of team coaching",
+      "venue": "Academy of Management Review, 30(2), 269–287",
+      "url": "https://doi.org/10.5465/amr.2005.16387885"
+    },
+    {
+      "authors": "Katzenbach, J. R.",
+      "year": 1997,
+      "title": "The myth of the top management team",
+      "venue": "Harvard Business Review, 75(6), 82–91",
+      "url": "https://hbr.org/1997/11/the-myth-of-the-top-management-team"
+    },
+    {
+      "authors": "Katzenbach, J. R., & Smith, D. K.",
+      "year": 1993,
+      "title": "The discipline of teams",
+      "venue": "Harvard Business Review, 71(2), 111–120",
+      "url": "https://hbr.org/1993/03/the-discipline-of-teams-2"
+    },
+    {
+      "authors": "Tuckman, B. W.",
+      "year": 1965,
+      "title": "Developmental sequence in small groups",
+      "venue": "Psychological Bulletin, 63(6), 384–399",
+      "url": "https://doi.org/10.1037/h0022100"
+    },
+    {
+      "authors": "Tuckman, B. W., & Jensen, M. A. C.",
+      "year": 1977,
+      "title": "Stages of small-group development revisited",
+      "venue": "Group & Organization Studies, 2(4), 419–427",
+      "url": "https://doi.org/10.1177/105960117700200404"
+    },
+    {
+      "authors": "Gersick, C. J. G.",
+      "year": 1988,
+      "title": "Time and transition in work teams: Toward a new model of group development",
+      "venue": "Academy of Management Journal, 31(1), 9–41",
+      "url": "https://doi.org/10.2307/256496"
+    },
+    {
+      "authors": "Lencioni, P.",
+      "year": 2002,
+      "title": "The five dysfunctions of a team: A leadership fable",
+      "venue": "Jossey-Bass",
+      "url": "https://www.wiley.com/en-us/The+Five+Dysfunctions+of+a+Team%3A+A+Leadership+Fable-p-9780787960759"
+    },
+    {
+      "authors": "Plovnick, M. S., Fry, R. E., & Rubin, I. M.",
+      "year": 1974,
+      "title": "New developments in O.D. technology: Programmed team development",
+      "venue": "Working paper 721-74, Alfred P. Sloan School of Management, Massachusetts Institute of Technology",
+      "url": "https://hdl.handle.net/1721.1/48563"
+    },
+    {
+      "authors": "Salas, E., Sims, D. E., & Burke, C. S.",
+      "year": 2005,
+      "title": "Is there a “Big Five” in teamwork?",
+      "venue": "Small Group Research, 36(5), 555–599",
+      "url": "https://doi.org/10.1177/1046496405277134"
+    },
+    {
+      "authors": "re:Work Editorial Team",
+      "year": 2015,
+      "title": "Understand team effectiveness",
+      "venue": "Google re:Work",
+      "url": "https://rework.withgoogle.com/intl/en/guides/understand-team-effectiveness"
+    },
+    {
+      "authors": "Haas, M., & Mortensen, M.",
+      "year": 2016,
+      "title": "The secrets of great teamwork",
+      "venue": "Harvard Business Review, 94(6), 70–76",
+      "url": "https://hbr.org/2016/06/the-secrets-of-great-teamwork"
+    },
+    {
+      "authors": "Drath, W. H., McCauley, C. D., Palus, C. J., Van Velsor, E., O'Connor, P. M. G., & McGuire, J. B.",
+      "year": 2008,
+      "title": "Direction, alignment, commitment: Toward a more integrative ontology of leadership",
+      "venue": "The Leadership Quarterly, 19(6), 635–653",
+      "url": "https://doi.org/10.1016/j.leaqua.2008.09.003"
+    }
+  ]
+}
