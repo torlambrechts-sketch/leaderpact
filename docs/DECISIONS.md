@@ -1795,3 +1795,29 @@ independent fact-checker who opened every source and every claim.
   reader of "Where to start" and of the guide begins with the pillar.
 - **Drawings:** `models` (three model cards, one ticked) and `arrows` (three bound arrows into a target).
 - **One end-to-end check over every published article**: its heading, its sources and axe, at three widths.
+
+## D-69 — Vercel Web Analytics on the public site, under the site's own counting rules (owner, 25 October 2026)
+
+The owner: "install vercel analytics on the site". Web Analytics was already switched on for the Vercel project
+`leaderpact`; the site now loads it.
+
+- **`@vercel/analytics` 2.0.1**, the version Orgpuls uses. A fresh resolve trips on an optional SvelteKit peer that
+  this project never installs. It was added with `--force`, which wrote only its own entry to the lockfile; a
+  plain `npm ci` installs from it, as CI does.
+- **The public site only, the production deployment only.** `SiteAnalytics` sits beside the site's own beacon in
+  `PublicChrome`, rendered when `VERCEL_ENV` is `production` (`analyticsOn`). A preview, a test stack or a laptop
+  loads nothing, so no test meets a missing script. The app, the invite link and the export are outside the
+  public layout, and the not-found page leaves it out, as it leaves out the beacon.
+- **The beacon's rules, applied to every event** (`analyticsUrl` in `beforeSend`):
+  - the same pages are never counted (`NEVER`): the scan and its result, `/j`, `/p`, the app, sign-in, auth, the
+    Leader Profile's tests and a template's file;
+  - nothing from a browser that asks not to be tracked (Global Privacy Control, Do Not Track);
+  - only the production hosts;
+  - the address loses its query string and fragment, bar the five campaign tags. No custom events.
+- **What Vercel records** (its own documentation): no cookies; a visitor is a hash of the request, discarded after
+  24 hours. A page view carries the address, the referrer, the country, the browser, the system and the type of
+  device.
+- **The privacy notice** says so under "When you visit the site", and names Web Analytics beside Vercel. The rules
+  that apply to both counts are stated once. A unit test holds those words to the code.
+- **The plan.** The Vercel team is on Hobby: 50,000 events a month, a one-month reporting window, and no campaign
+  report. Collection pauses when the month's events run out.

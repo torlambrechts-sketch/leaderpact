@@ -3,7 +3,7 @@
   "description": "What {product} keeps about you, why, for how long and who helps us, and your rights. Answers are never stored with a person.",
   "h1": "Privacy",
   "lead": "What {product} keeps about you, why, for how long, and who helps us. Your answers to a scan, a diagnostic or a pulse are never stored with your name.",
-  "updated": "2026-10-16",
+  "updated": "2026-10-25",
   "blocks": [
     {
       "t": "box",
@@ -24,7 +24,11 @@
     },
     {
       "t": "p",
-      "text": "Nothing is sent from a browser that asks not to be tracked (Global Privacy Control or Do Not Track). Nothing is counted on the scan, an invitation link, the app, sign-in or the Leader Profile's tests. The statistics are deleted after 13 months. The basis is our legitimate interest in knowing how the site is used, GDPR Article 6(1)(f)."
+      "text": "We also use Vercel Web Analytics, from the company that hosts the site. It sets no cookies and stores nothing on your device. For each page it records the address, the site you came from, your country, and your browser, system and type of device. It tells visits apart by a code made from your request, which Vercel discards after 24 hours. An address keeps no query string except campaign tags."
+    },
+    {
+      "t": "p",
+      "text": "Both follow the same rules. Nothing is sent from a browser that asks not to be tracked (Global Privacy Control or Do Not Track). Nothing is counted on the scan, an invitation link, the app, sign-in or the Leader Profile's tests. Our own statistics are deleted after 13 months. The basis is our legitimate interest in knowing how the site is used, GDPR Article 6(1)(f)."
     },
     {
       "t": "h2",
@@ -188,7 +192,7 @@
       "t": "ul",
       "items": [
         "**Supabase** (Supabase Inc., USA): the database, sign-in and scheduled jobs. Your data is stored and processed in Frankfurt, Germany.",
-        "**Vercel** (Vercel Inc., USA): hosts the site and the app. The app runs in Frankfurt, Germany.",
+        "**Vercel** (Vercel Inc., USA): hosts the site and the app, and counts visits to the site (Web Analytics). The app runs in Frankfurt, Germany.",
         "**Brevo** (Brevo SAS, France): sends our email, and records whether a message was delivered, opened or clicked.",
         "**Google** and **Microsoft** (Ireland): sign-in, only if you choose it.",
         "**Our customer platform**: our own system for customers, billing and sales, which also runs on Supabase in Frankfurt."

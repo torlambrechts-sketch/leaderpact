@@ -1,7 +1,9 @@
 import { getTranslations } from 'next-intl/server'
 import { PRODUCT_NAME } from '@/lib/brand'
 import { PublicFooter, PublicHeader } from '@/components/lp/PublicHeader'
+import { SiteAnalytics } from './SiteAnalytics'
 import { SiteBeacon } from './SiteBeacon'
+import { analyticsOn } from '@/lib/site/analytics'
 import type { PlatformNav } from '@/components/lp/PlatformMenu'
 import { allFeatures, featurePath, PLATFORM_PATH } from '@/lib/site/features'
 
@@ -10,7 +12,8 @@ import { allFeatures, featurePath, PLATFORM_PATH } from '@/lib/site/features'
  * every public page in it, and the not-found page uses it too (D-50), so an address that leads nowhere still has
  * the site around it. The footer's privacy and data-processing links are on every public page, not only the
  * landing page: the scan is where a visitor most wants to know how answers are kept. The beacon counts page
- * views (D-39); the not-found page leaves it out, so an old address is not counted as a visit to a page.
+ * views (D-39), and on the production deployment Vercel Web Analytics does too, under the same rules (D-69); the
+ * not-found page leaves both out, so an old address is not counted as a visit to a page.
  */
 export async function PublicChrome({ children, beacon = true }: { children: React.ReactNode; beacon?: boolean }) {
   const t = await getTranslations('publicNav')
@@ -44,6 +47,7 @@ export async function PublicChrome({ children, beacon = true }: { children: Reac
         platform={platform}
       />
       {beacon ? <SiteBeacon /> : null}
+      {beacon && analyticsOn(process.env.VERCEL_ENV) ? <SiteAnalytics /> : null}
       <main id="main">{children}</main>
       <PublicFooter
         labels={{

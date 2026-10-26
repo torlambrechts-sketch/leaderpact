@@ -30,6 +30,15 @@ describe('the privacy notice', () => {
     expect(text).not.toContain('{product}')
   })
 
+  it('describes Vercel Web Analytics, which the public site loads on production (D-69)', () => {
+    expect(read('components/site/PublicChrome.tsx')).toContain('<SiteAnalytics />')
+    expect(read('lib/site/analytics.ts')).toContain('utmFrom(')
+    expect(text).toContain('Vercel Web Analytics')
+    expect(text).toContain('It sets no cookies')
+    expect(text).toContain('Vercel discards after 24 hours')
+    expect(text).toContain('no query string except campaign tags')
+  })
+
   it('states the session and cookie lifetimes the code sets', () => {
     expect(SESSION_DAYS).toBe(30)
     expect(text).toContain('30 days from your last visit')
