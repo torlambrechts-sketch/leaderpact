@@ -62,7 +62,8 @@ export function beaconBody(kind: { k: 'view' } | { k: 'cta'; l: Press }, path: s
   return { k: 'view', p, ...(referrer ? { r: referrer } : {}), ...u }
 }
 
-function optedOut(): boolean {
+/** The browser asks not to be tracked: Global Privacy Control or Do Not Track */
+export function optedOut(): boolean {
   const nav = navigator as Navigator & { globalPrivacyControl?: boolean }
   return nav.globalPrivacyControl === true || nav.doNotTrack === '1'
 }
